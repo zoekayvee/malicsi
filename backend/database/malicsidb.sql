@@ -5,7 +5,7 @@ Go to directory where malicsidb.sql is located or enter full path to file then r
 	mysql -u root -p < malicsidb.sql
 
 */
-
+drop database if exists malicsiDB;
 create database malicsiDB;
 use malicsiDB;
 
@@ -114,3 +114,62 @@ create table sponsor_events(
 	constraint 		sponsor_id_fk foreign key(sponsor_id) references sponsor(sponsor_id),
 	constraint 		event_id_fk foreign key(event_id) references event(event_id)	
 );
+
+/*ADD EVENT*/
+delimiter //
+	create procedure addEvent(
+							  in userId int,
+							  in eventName varchar(100),
+							  in dateStart date,
+							  in dateEnd date
+							  )
+	BEGIN
+		insert into event(user_id,event_name,date_start,date_end,duration)  
+		values(
+			userId,
+			eventName,
+			dateStart,
+			dateEnd,
+			datediff(dateStart,dateEnd)
+			);
+	END;
+	//
+delimiter ;
+
+
+/*VIEW EVENT*/
+delimiter //
+	create procedure viewEvent(
+							 in eventId INT(5)
+							  )
+	BEGIN
+		select * from event where event_id = eventId;
+	END;
+	//
+delimiter ;
+
+
+/*VIEW ALL EVENT*/
+delimiter //
+	create procedure viewAllEvent()
+	BEGIN
+		select * from event;
+	END;
+	//
+delimiter ;
+
+
+/*UPDATE EVENT*/
+delimiter //
+	create procedure updateEvent(
+							 in eventId int,
+							 in eventName VARCHAR(100),
+							 in allowReg boolean,
+							 in dateStart date,
+							 in dateEnd date
+							 )
+	BEGIN
+		update event set event_name = eventName, allow_reg = allowReg, date_start = dateStart, date_end = dateEnd, duration = datediff(dateStart,dateEnd) where event_id = eventId; 
+	END;
+	//
+delimiter ;
