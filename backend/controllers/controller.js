@@ -85,7 +85,10 @@ exports.updateEvent = (req, res, next) => {
 	var query = 'call updateEvent(?,?,?,?,?)';
 	const data = [
 		req.body.event_id,
-		req.body.event_name
+		req.body.event_name,
+		req.body.allow_reg,
+		req.body.date_start,
+		req.body.date_end
 	];
 	console.log(data);
 	var id = connection.query(
@@ -130,5 +133,6 @@ exports.deleteEvent = (req, res, next) => {
 			}
 	});
 }
+
 
 

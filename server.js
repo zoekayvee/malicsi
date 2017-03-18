@@ -1,7 +1,7 @@
 'use strict'
 
 const express = require('express');
-const router = require('./routes/router');
+const router = require('/backend/routes/router');
 const session = require('express-session');
 const bodyParser = require('body-parser');
 

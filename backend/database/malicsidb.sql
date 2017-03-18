@@ -173,3 +173,104 @@ delimiter //
 	END;
 	//
 delimiter ;
+
+
+/*DELETE EVENT*/
+delimiter //
+	create procedure deleteEvent(
+							 in eventId int
+							 )
+	BEGIN
+		delete from event where event_id = eventId;
+	END;
+	//
+delimiter ;
+
+
+/*ADD TEAM*/
+delimiter //
+	create procedure addTeam(
+							  in teamName varchar(100)
+							  )
+	BEGIN
+		insert into team(team_name)  
+		values(
+			teamName
+			);
+	END;
+	//
+delimiter ;
+
+/*VIEW TEAM*/
+delimiter //
+	create procedure viewTeam(
+							  in teamiD int
+							  )
+	BEGIN
+		select * from team where team_id = teamiD;
+	END;
+	//
+delimiter ;
+
+/*VIEW ALL TEAMS*/
+delimiter //
+	create procedure viewAllTeam()
+							  
+	BEGIN
+		select * from team;
+	END;
+	//
+delimiter ;
+
+
+
+/*UPDATE TEAM*/
+delimiter //
+	create procedure updateTeam(
+							 in teamId int,
+							 in teamName varchar(100)							 )
+	BEGIN
+		update team set team_name = teamName where team_id = teamId; 
+	END;
+	//
+delimiter ;
+
+
+/*DELETE TEAM*/
+delimiter //
+	create procedure deleteTeam(
+							 in teamId int
+							 )								 )
+	BEGIN
+		delete from team where team_id = teamid; 
+	END;
+	//
+delimiter ;
+
+
+/*TEAM JOIN EVENT*/
+delimiter //
+	create procedure teamJoinEvent(
+							 in teamId int,
+							 in eventId int
+							 )
+	BEGIN
+		insert into team_joins_event(event_id,team_id) values(eventId,teamId);
+	END;
+	//
+delimiter ;
+
+
+/*TEAM PLAY GAME*/
+delimiter //
+	create procedure teamPlayGame(
+							 in teamId int,
+							 in gameId int
+							 )
+	BEGIN
+		insert into team_plays_game(game_id,team_id,score,bet_count) values(gameId,teamId,0,0);
+	END;
+	//
+delimiter ;
+
+
