@@ -273,4 +273,27 @@ delimiter //
 	//
 delimiter ;
 
+/*ADD SPONSOR*/
+delimiter //
+	create procedure addSponsor(
+							  in sponsor_id int,
+							  in sponsor_name varchar(100)
+							  )
+	BEGIN
+		insert into sponsor(sponsor_id,sponsor_name)  
+		values(
+			sponsor_id,
+			sponsor_name
+			);
+	END;
+	//
+delimiter ;
 
+/*VIEW ALL SPONSORS*/
+delimiter //
+	create procedure viewAllSponsors()
+	BEGIN
+		select * from sponsor;
+	END;
+	//
+delimiter ;
