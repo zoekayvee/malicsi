@@ -1,5 +1,5 @@
 'use strict';
-var path = require('path')
+var path = require('path');
 const controller = require(__dirname + '/../backend/controller/controller');
 
 module.exports = (router) => {
@@ -29,6 +29,5 @@ module.exports = (router) => {
             message: 'Not Found!'
         });
     });
-
     return router;
 };
