@@ -4,7 +4,7 @@ var path = require('path');
 
 
 exports.addSport = (req,res,next) =>{
-
+	
 }
 
 exports.viewSports = (req,res,next) =>{
