@@ -85,6 +85,56 @@ exports.registerUser=(req,res)=>{
    });
 }
 
+exports.removeUser=(req,res)=>{
+		const user = {
+			username : req.body.username
+		};
+
+		const query_string = 'DELETE FROM user WHERE username = ?';
+		const req_data = [user.username];
+		connection.query(query_string, req_data,(err,result) => {
+			if (!err) {
+    		res.status(200).send(result);
+			} else {
+				console.log(err);
+				res.status(500).send(err);
+			}
+		});
+}
+
+exports.updateUser=(req,res)=>{
+		const user = {
+			oldUsername:req.body.oldUsername,
+			username: req.body.username,
+			password: req.body.password,
+			firstname: req.body.firstname,
+			lastname: req.body.lastname	
+		};
+
+		const query_string = 'UPDATE user SET username = ?,password = ?,firstname = ?,lastname = ? where username = ?';
+		const req_data = [user.username,user.password,user.firstname,user.lastname,user.oldUsername];
+		connection.query(query_string, req_data,(err,result) => {
+			if (!err) {
+    		res.status(200).send(result);
+			} else {
+				console.log(err);
+				res.status(500).send(err);
+			}
+		});
+}
+
+exports.viewUsers=(req,res)=>{
+	const query_string = "SELECT user_id,username FROM user";
+
+	connection.query(query_string,null,(err,result) =>{
+		if (!err) {
+    		res.status(200).send(result);
+			} else {
+				console.log(err);
+				res.status(500).send(err);
+			}
+	});
+}
 //getUsers- for profile and other fxns
 //getUsers
 //getUserInterests
