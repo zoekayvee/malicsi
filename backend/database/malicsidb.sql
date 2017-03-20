@@ -297,5 +297,17 @@ delimiter //
 	//
 delimiter ;
 
+/*UPDATE SPONSOR*/
+delimiter //
+	create procedure updateSponsor(
+							 in sponsorId int,
+							 in sponsorName varchar(100)
+							 )
+	BEGIN
+		update sponsor set sponsor_name=sponsorName where sponsor_id=sponsorId;
+	END;
+	//
+delimiter ;
+
 
 insert into user(username,password,firstname,lastname) values ('dummy','dummy','dummy','dummy');
