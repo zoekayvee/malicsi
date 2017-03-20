@@ -9,6 +9,8 @@ module.exports = (router) => {
     router.post('/remove_user',     controller.removeUser);
     router.post('/update_user',     controller.updateUser);
     router.post('/view_users', 	    controller.viewUsers);
+    router.get('/get_user',         controller.getUser);
+    router.post('/user_joins_team', controller.userJoinsTeam);
 
     //insert here the name of route for the given controller req,res function (so ideally controller muna gagalawin)
 

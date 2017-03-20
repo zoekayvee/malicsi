@@ -135,6 +135,58 @@ exports.viewUsers=(req,res)=>{
 			}
 	});
 }
+
+//getUser - retrieves only ONE user
+exports.getUser=(req, res)=>{
+
+	const _user = {
+		user_id: req.body.user_id,
+		username: req.body.username,
+		firstname: req.body.firstname,
+		lastname: req.body.lastname,
+		college: req.body.college,
+		contactno: req.body.contactno,
+		email: req.body.email,
+		weight: req.body.weight,
+		height: req.body.height
+	};
+
+	const query_string = 'SELECT user_id, username, firstname, lastname, college, contactno, email, weight, height FROM user WHERE user_id = ?';
+	const req_data = [_user.user_id];
+
+	connection.query(query_string, req_data, (err,result)=>{
+		if(!err){
+			res.status(200).send(result);
+		}
+		else{
+			console.log(err);
+			res.status(500).send(err);
+		}
+	});
+}
+
+//userJoinsTeam -use team_players table to add the user
+exports.userJoinsTeam=(req, res)=>{
+
+	const _user = {
+		team_id: req.body.team_id,
+		user_id: req.body.user_id
+	};
+
+	const query_string = 'INSERT INTO team_players (team_id, user_id) VALUES (?,?)';
+	const req_data = [_user.team_id, _user.user_id];
+
+	connection.query(query_string, req_data, (err,result)=>{
+		if(!err){
+			res.status(200).send(result);
+		}
+		else{
+			console.log(err);
+			res.status(500).send(err);
+		}
+	});	
+}
+
 //getUsers- for profile and other fxns
 //getUsers
 //getUserInterests
