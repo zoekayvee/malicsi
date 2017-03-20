@@ -1,6 +1,7 @@
 exports.addSponsor = (req, res, next) => {
 	var query = 'call addSponsor(?)';
 	const data = [
+		req.body.sponsor_id,
 		req.body.sponsor_name
 	];
 	console.log(data);
@@ -42,3 +43,27 @@ exports.viewAllSponsors = (req, res, next) => {
 	});
 }
 
+exports.updateSponsor = (req, res, next) => {
+	var query = 'call updateSponsor(?,?)';
+	const data = [
+		req.body.sponsor_id,
+		req.body.sponsor_name
+	];
+	console.log(data);
+	var id = connection.query(
+		query,
+		data,
+		(err, row, fields) => {
+			if(!err){
+				console.log(row);
+
+				console.log("Update Sponsor Success");
+				res.status(200).send("Update Sponsor Success");
+				return row
+			}
+			else{
+				console.log(err);
+				res.status(500).send('Server error');
+			}
+	});
+}
