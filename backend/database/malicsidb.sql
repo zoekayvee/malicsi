@@ -5,7 +5,7 @@ Go to directory where malicsidb.sql is located or enter full path to file then r
 	mysql -u root -p < malicsidb.sql
 
 */
-drop database if exists malicsiDB;
+/*drop database if exists malicsiDB;*/
 create database malicsiDB;
 use malicsiDB;
 
@@ -228,7 +228,8 @@ delimiter ;
 delimiter //
 	create procedure updateTeam(
 							 in teamId int,
-							 in teamName varchar(100)							 )
+							 in teamName varchar(100)							 
+							 )
 	BEGIN
 		update team set team_name = teamName where team_id = teamId; 
 	END;
@@ -297,6 +298,19 @@ delimiter //
 	//
 delimiter ;
 
+/*VIEW SPONSOR*/
+delimiter //
+	create procedure viewSponsor(
+								in sponsorId
+		)
+	BEGIN
+		select * from sponsor where sponsor_id = sponsorId;
+	END;
+	//
+delimiter ;
+
+
+
 /*UPDATE SPONSOR*/
 delimiter //
 	create procedure updateSponsor(
@@ -305,6 +319,17 @@ delimiter //
 							 )
 	BEGIN
 		update sponsor set sponsor_name=sponsorName where sponsor_id=sponsorId;
+	END;
+	//
+delimiter ;
+
+/*DELETE SPONSOR*/
+delimiter //
+	create procedure deleteSponsor(
+							 in sponsorId int
+							 )
+	BEGIN
+		delete from sponsor where sponsor_id = sponsorId;
 	END;
 	//
 delimiter ;
