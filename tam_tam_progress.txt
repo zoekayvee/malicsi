@@ -1,6 +1,6 @@
 TASKS
 
-GAMES PROGRESS (6/12)
+GAMES PROGRESS (12/12)
 	API
 		/addGame
 		/viewGame
@@ -9,12 +9,12 @@ GAMES PROGRESS (6/12)
 		/deleteGame
 		/deleteAllGames
 	LOGS
-		xaddGame
-		xviewGame
-		xviewAllGames
-		xupdateGame
-		xdeleteGame
-		xdeleteAllGames
+		/addGame
+		/viewGame
+		/viewAllGames
+		/updateGame
+		/deleteGame
+		/deleteAllGames
 
 SPORTS PROGRESS (6/12)
 	API
