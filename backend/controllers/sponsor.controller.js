@@ -1,7 +1,6 @@
 exports.addSponsor = (req, res, next) => {
 	var query = 'call addSponsor(?)';
 	const data = [
-		req.body.sponsor_id,
 		req.body.sponsor_name
 	];
 	console.log(data);
