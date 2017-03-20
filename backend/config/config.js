@@ -3,8 +3,8 @@
 module.exports = {
     info: {
         host: 'localhost',
-        user: 'projectOneTwoEight',
-        password: 'password', //configure
+        user: 'root',
+        password: 'bossing', //configure
         database: 'malicsiDB'
     }
 }
