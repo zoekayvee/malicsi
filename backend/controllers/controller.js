@@ -85,6 +85,7 @@ exports.registerUser=(req,res)=>{
    });
 }
 
+// removes user by username
 exports.removeUser=(req,res)=>{
 		const user = {
 			username : req.body.username
@@ -136,19 +137,11 @@ exports.viewUsers=(req,res)=>{
 	});
 }
 
-//getUser - retrieves only ONE user
+//getUser - retrieves only ONE user (gets user by ID)
 exports.getUser=(req, res)=>{
 
 	const _user = {
-		user_id: req.body.user_id,
-		username: req.body.username,
-		firstname: req.body.firstname,
-		lastname: req.body.lastname,
-		college: req.body.college,
-		contactno: req.body.contactno,
-		email: req.body.email,
-		weight: req.body.weight,
-		height: req.body.height
+		user_id: req.body.user_id
 	};
 
 	const query_string = 'SELECT user_id, username, firstname, lastname, college, contactno, email, weight, height FROM user WHERE user_id = ?';
@@ -165,7 +158,7 @@ exports.getUser=(req, res)=>{
 	});
 }
 
-//userJoinsTeam -use team_players table to add the user
+//userJoinsTeam - use team_players table to add the user
 exports.userJoinsTeam=(req, res)=>{
 
 	const _user = {
@@ -185,6 +178,21 @@ exports.userJoinsTeam=(req, res)=>{
 			res.status(500).send(err);
 		}
 	});	
+}
+
+// get all competitors
+exports.getCompetitors=(req, res)=>{
+	const query_string = 'SELECT t1.team_name FROM team t1, team_plays_game t2 WHERE t1.team_id = t2.team_id';
+
+	connection.query(query_string, null, (err,result)=>{
+		if(!err){
+			res.status(200).send(result);
+		}
+		else{
+			console.log(err);
+			res.status(500).send(err);
+		}
+	});
 }
 
 //getUsers- for profile and other fxns

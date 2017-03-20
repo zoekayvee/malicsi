@@ -5,7 +5,7 @@ module.exports = {
     127: {
         host: 'localhost',
         user: 'root',
-        password: ' ', //change according to machine/ DB pw
+        password: 'admin', //change according to machine/ DB pw
         database: 'malicsiDB',
         dateString : 'date'
     }
