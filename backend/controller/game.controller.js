@@ -1,6 +1,5 @@
 'use strict'
 const connection = require(__dirname + '/../mysql/mysql');
-
 var path = require('path');
 
 exports.addGame = (req,res) =>{

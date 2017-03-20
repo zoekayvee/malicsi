@@ -1,0 +1,55 @@
+TASKS
+
+GAMES PROGRESS (6/12)
+	API
+		/addGame
+		/viewGame
+		/viewAllGames
+		/updateGame
+		/deleteGame
+		/deleteAllGames
+	LOGS
+		xaddGame
+		xviewGame
+		xviewAllGames
+		xupdateGame
+		xdeleteGame
+		xdeleteAllGames
+
+SPORTS PROGRESS (6/12)
+	API
+		/addSport
+		/viewSports
+		/viewAllSports
+		/updateSport
+		/deleteSport
+		/deleteAllSports
+	LOGS
+		xaddSport
+		xviewSports
+		xviewAllSports
+		xupdateSport
+		xdeleteSport
+		xdeleteAllSports
+
+WINNERS PROGRESS (6/12)
+	API
+		/addWinner
+		/viewWinner
+		/viewAllWinners
+		/updateWinner
+		/deleteWinner
+		/deleteAllWinners
+	LOGS
+		xaddWinner
+		xviewWinner
+		xviewAllWinners
+		xupdateWinner
+		xdeleteWinner
+		xdeleteAllWinners
+
+
+**Currently experienced problem
+	-In using postman: Fxns with parameters not working
+
+	
