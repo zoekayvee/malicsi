@@ -5,7 +5,7 @@ Go to directory where malicsidb.sql is located or enter full path to file then r
 	mysql -u root -p < malicsidb.sql
 
 */
-/*drop database if exists malicsiDB;*/
+drop database if exists malicsiDB;
 create database malicsiDB;
 use malicsiDB;
 
@@ -289,6 +289,23 @@ delimiter //
 	//
 delimiter ;
 
+
+/*ADD SPONSOR EVENT*/
+delimiter //
+	create procedure sponsorEvent(
+							  in sponsorId int,
+							  in eventId int
+							  )
+	BEGIN
+		insert into sponsor_events(sponsor_id, event_id)  
+		values(
+			sponsorId,
+			eventId
+			);
+	END;
+	//
+delimiter ;
+
 /*VIEW ALL SPONSORS*/
 delimiter //
 	create procedure viewAllSponsors()
@@ -301,13 +318,27 @@ delimiter ;
 /*VIEW SPONSOR*/
 delimiter //
 	create procedure viewSponsor(
-								in sponsorId
+								in sponsorId int
 		)
 	BEGIN
 		select * from sponsor where sponsor_id = sponsorId;
 	END;
 	//
 delimiter ;
+
+
+
+/*VIEW SPONSOR BY EVENT*/
+delimiter //
+	create procedure viewSponsorByEvent(
+								in eventId int
+		)
+	BEGIN
+		select * from sponsor_events where event_id = eventId;
+	END;
+	//
+delimiter ;
+
 
 
 
