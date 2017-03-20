@@ -240,9 +240,9 @@ delimiter ;
 delimiter //
 	create procedure deleteTeam(
 							 in teamId int
-							 )								 )
+							 )								 
 	BEGIN
-		delete from team where team_id = teamid; 
+		delete from team where team_id = teamId; 
 	END;
 	//
 delimiter ;
@@ -276,13 +276,12 @@ delimiter ;
 /*ADD SPONSOR*/
 delimiter //
 	create procedure addSponsor(
-							  in sponsor_id int,
 							  in sponsor_name varchar(100)
 							  )
 	BEGIN
-		insert into sponsor(sponsor_id,sponsor_name)  
+		insert into sponsor(sponsor_name)  
 		values(
-			sponsor_id,
+			
 			sponsor_name
 			);
 	END;
@@ -297,3 +296,6 @@ delimiter //
 	END;
 	//
 delimiter ;
+
+
+insert into user(username,password,firstname,lastname) values ('dummy','dummy','dummy','dummy');
