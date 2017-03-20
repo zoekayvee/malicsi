@@ -67,3 +67,51 @@ exports.updateSponsor = (req, res, next) => {
 			}
 	});
 }
+
+exports.viewSponsor = (req, res, next) => {
+	var query = 'call viewSponsor(?)';
+	const data = [
+		req.params.sponsor_id
+	];
+	console.log(data);
+	var id = connection.query(
+		query,
+		data,
+		(err, row, fields) => {
+			if(!err){
+				console.log(row);
+				console.log("Success");
+				res.status(200).send(row);
+				//return row
+			}
+			else{
+				console.log(err);
+				res.status(500).send('Server error');
+			}
+	});
+}
+
+exports.deleteSponsor = (req, res, next) => {
+	console.log(1);
+	var query = 'call deleteSponsor(?)';
+	const data = [
+		req.params.sponsor_id
+	];
+	console.log(data);
+	var id = connection.query(
+		query,
+		data,
+		(err, row, fields) => {
+			if(!err){
+				console.log(row);
+
+				console.log("Delete Team Success");
+				res.status(200).send("Delete Team Success");
+				return row
+			}
+			else{
+				console.log(err);
+				res.status(500).send('Server error');
+			}
+	});
+}

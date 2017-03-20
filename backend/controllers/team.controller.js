@@ -68,8 +68,8 @@ exports.viewAllTeam = (req, res, next) => {
 exports.updateTeam = (req, res, next) => {
 	var query = 'call updateTeam(?,?)';
 	const data = [
-		req.body.team_name,
-		req.body.team_id
+		req.body.team_id,
+		req.body.team_name
 	];
 	console.log(data);
 	var id = connection.query(
