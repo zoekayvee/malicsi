@@ -1,0 +1,4 @@
+front-end work here 
+
+if creating a single page website,
+	place template here and the html contents in app
