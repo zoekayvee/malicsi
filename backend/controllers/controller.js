@@ -72,7 +72,7 @@ exports.registerUser=(req,res)=>{
 		lastname: req.body.lastname
 	};
 
-	const query_string = 'INSERT INTO user (username, password, user_type, firstname, lastname) VALUES (?,?,?,?,?)';
+	const query_string = 'INSERT INTO users (username, password, user_type, firstname, lastname) VALUES (?,?,?,?,?)';
 	const req_data= [newUser.username, newUser.password, 'normal', newUser.firstname, newUser.lastname];
 	
 	connection.query(query_string, req_data,(err, result)=> {
@@ -185,6 +185,20 @@ exports.getCompetitors=(req, res)=>{
 	const query_string = 'SELECT t1.team_name FROM team t1, team_plays_game t2 WHERE t1.team_id = t2.team_id';
 
 	connection.query(query_string, null, (err,result)=>{
+		if(!err){
+			res.status(200).send(result);
+		}
+		else{
+			console.log(err);
+			res.status(500).send(err);
+		}
+	});
+}
+
+exports.viewLog = (req,res) => {
+	const query_string = 'SELECT user_id,message FROM logs';
+
+	connection.query(query_string, null, (err,result) =>{
 		if(!err){
 			res.status(200).send(result);
 		}
