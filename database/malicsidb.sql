@@ -89,7 +89,7 @@ create table game(
 );
 
 create table team_plays_game(
-	game_id 		int unsigned auto_increment,
+	game_id 		int unsigned,
 	team_id 		int unsigned,
 	score 			int,
 	bet_count 		int,
@@ -126,20 +126,53 @@ create table sponsor_events(
 	constraint 		event_id_fk foreign key(event_id) references event(event_id) ON DELETE CASCADE ON UPDATE CASCADE	
 );
 
+
+
 DELIMITER %%
 	CREATE TRIGGER userInsert AFTER INSERT ON users
 		FOR EACH ROW
 			BEGIN
 				INSERT INTO logs(user_id, message) VALUES(NEW.user_id, concat("Created new user with user name: ", NEW.username));
 			END; 
-
 %%
-
 	CREATE TRIGGER userDelete AFTER DELETE ON users
 		FOR EACH ROW
 			BEGIN
 				INSERT INTO logs(user_id, message) VALUES(OLD.user_id, concat("Deleted user: ", OLD.username));
 			END;
 
+%%
+	CREATE TRIGGER sportInsert AFTER INSERT ON sport
+		FOR EACH ROW
+			BEGIN
+				INSERT INTO logs(user_id, message) VALUES(NEW.sport_id, concat("Deleted user: ", NEW.sport_id));
+			END;
+%%
+
+	CREATE TRIGGER sportDelete AFTER DELETE ON sport
+		FOR EACH ROW
+			BEGIN
+				INSERT INTO logs(user_id, message) VALUES(OLD.sport_id, concat("Deleted user: ", OLD.sport_id));
+			END;
+%%
+	CREATE TRIGGER gameInsert AFTER INSERT ON game
+		FOR EACH ROW
+			BEGIN
+				INSERT INTO logs(user_id, message) VALUES(NEW.game_id, concat("Added new game: ", NEW.game_id))
+			END;
+
+%%
+	CREATE PROCEDURE userViewAllSports(in userid int)
+		BEGIN
+			SELECT * from sport;
+			INSERT INTO logs(user_id, message) VALUES(userid, concat(select username from users where user_id = userid," viewed all sports"));
+
+		END;
+%%
+	CREATE PROCEDURE userViewAllGames(in userid int)
+		BEGIN
+			SELECT * FROM game;
+			INSERT INTO logs(user_id, message) VALUES(userid, concat(select username from users where user_id = userid, " viewed all games"));
+		END;	
 %%
 DELIMITER ;
