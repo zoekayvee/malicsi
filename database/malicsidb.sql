@@ -83,6 +83,7 @@ create table team_joins_event(
 
 create table game(
 	game_id 		int unsigned auto_increment,
+	sport_id 		int unsigned,
 	winner_team_id	int unsigned, 
 	referee 		varchar(100),
 	constraint 		game_id_pk primary key(game_id)
