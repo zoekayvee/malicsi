@@ -66,11 +66,13 @@ exports.viewAllGames = (req,res) =>{
 }
 
 exports.updateGame = (req,res) =>{
-	var query = 'UPDATE game SET sport_id = ?,referee = ?';
+	var query = 'UPDATE game SET sport_id = ?,referee = ? WHERE game_id = ?';
 	const data = [
 		req.body.sport_id,
-		req.body.referee
+		req.body.referee,
+		req.params.game_id
 	];
+	console.log(data);
 	var id = connection.query(
 		query,
 		data,
@@ -90,7 +92,7 @@ exports.updateGame = (req,res) =>{
 exports.deleteGame = (req,res) =>{
 	var query = 'DELETE FROM game WHERE game_id = ?';
 	const data = [
-		req.body.game_id
+		req.params.game_id
 	];
 	var id = connection.query(
 		query,
