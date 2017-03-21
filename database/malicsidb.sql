@@ -159,21 +159,45 @@ DELIMITER %%
 	CREATE TRIGGER gameInsert AFTER INSERT ON game
 		FOR EACH ROW
 			BEGIN
-				INSERT INTO logs(user_id, message) VALUES(NEW.game_id, concat("Added new game: ", NEW.game_id))
+				INSERT INTO logs(user_id, message) VALUES(NEW.game_id, concat("Added new game: ", NEW.game_id));
 			END;
-
 %%
 	CREATE PROCEDURE userViewAllSports(in userid int)
 		BEGIN
 			SELECT * from sport;
-			INSERT INTO logs(user_id, message) VALUES(userid, concat(select username from users where user_id = userid," viewed all sports"));
+			INSERT INTO logs(user_id, message) VALUES(userid, concat((select username from users where user_id = userid)," viewed all sports"));
 
 		END;
 %%
-	CREATE PROCEDURE userViewAllGames(in userid int)
+	CREATE PROCEDURE useViewSport(in userid int, in sportid int)
+		BEGIN
+			SELECT * FROM sport where spor_id = sportid;
+			INSERT INTO Logs(user_id, message) VALUES(userid, concat((select username from users where user_id = userid)," viewed sport with id: ", sportid));
+		END;
+
+%%
+	CREATE PROCEDURE userViewAllGames(in userid int unsigned)
 		BEGIN
 			SELECT * FROM game;
-			INSERT INTO logs(user_id, message) VALUES(userid, concat(select username from users where user_id = userid, " viewed all games"));
+			INSERT INTO logs(user_id, message) VALUES(userid, concat((select username from users where user_id = userid), " viewed all games"));
 		END;	
+%%
+	CREATE PROCEDURE userViewGame(in userid int unsigned, in gameid int unsigned)
+		BEGIN
+			SELECT * FROM game where game_id = gameid;
+			INSERT INTO logs(user_id, message) VALUES(userid, concat((select username from users where user_id = userid)," viewed game with id: ", gameid));
+		END;
+%%
+	CREATE PROCEDURE userViewAllWinners(in userid int unsigned)
+		BEGIN
+			SELECT winner_team_id from game;
+			INSERT INTO logs(user_id, message) VALUES(userid, concat((select username from user where user_id = userid), " viewed all winners"));
+		END;
+%%
+	CREATE PROCEDURE userViewWinnerInGame(in user_id int unsigned, in gameid int unsigned)
+		BEGIN
+			SELECT winner_team_id from game where game_id = gameid;
+			INSERT INTO logs(user_id, message) VALUES(userid, concat((select username from users where user_id = userid)," viewed winner of game(id): ", gameid));
+		END;
 %%
 DELIMITER ;
