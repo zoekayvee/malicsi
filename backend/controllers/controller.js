@@ -46,6 +46,7 @@ exports.login=(req,res)=>{
 			}
 		}
 		else
+			//throw err;
 			res.status(500).send(err);
 
 	});
@@ -77,7 +78,7 @@ exports.registerUser=(req,res)=>{
 	
 	connection.query(query_string, req_data,(err, result)=> {
 		if (!err) {
-    		res.status(200).send(result);
+    		res.status(200).send({success: 'Successfully added: ' + newUser.username});
 		} else {
 			console.log(err);
 			res.status(500).send(err);
@@ -85,14 +86,14 @@ exports.registerUser=(req,res)=>{
    });
 }
 
-// removes user by username
+// removes user by user_id not yet improved
 exports.removeUser=(req,res)=>{
 		const user = {
-			username : req.body.username
+			user_id : req.body.user_id
 		};
 
-		const query_string = 'DELETE FROM user WHERE username = ?';
-		const req_data = [user.username];
+		const query_string = 'DELETE FROM user WHERE user_id = ?';
+		const req_data = [user.user_id];
 		connection.query(query_string, req_data,(err,result) => {
 			if (!err) {
     		res.status(200).send(result);
@@ -140,22 +141,18 @@ exports.viewUsers=(req,res)=>{
 //getUser - retrieves only ONE user (gets user by ID)
 exports.getUser=(req, res)=>{
 
-	const _user = {
+	/*const _user = {
 		user_id: req.body.user_id
-	};
+	};*/
 
-	const query_string = 'SELECT user_id, username, firstname, lastname, college, contactno, email, weight, height FROM user WHERE user_id = ?';
-	const req_data = [_user.user_id];
+	//const query_string = 'SELECT * FROM user WHERE user_id = ?';
+	//const req_data = [_user.user_id];
 
-	connection.query(query_string, req_data, (err,result)=>{
-		if(!err){
-			res.status(200).send(result);
-		}
-		else{
-			console.log(err);
-			res.status(500).send(err);
-		}
-	});
+	connection.query('SELECT * FROM user WHERE user_id = ?', [req.params.user_id], function(err, rows){
+    if (!err){
+      res.send(rows[0]);
+    }
+  });
 }
 
 //userJoinsTeam - use team_players table to add the user
@@ -180,7 +177,7 @@ exports.userJoinsTeam=(req, res)=>{
 	});	
 }
 
-// get all competitors
+// get all competitors; depends on table team_plays_game
 exports.getCompetitors=(req, res)=>{
 	const query_string = 'SELECT t1.team_name FROM team t1, team_plays_game t2 WHERE t1.team_id = t2.team_id';
 

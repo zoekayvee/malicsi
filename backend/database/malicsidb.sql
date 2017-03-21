@@ -115,5 +115,21 @@ create table sponsor_events(
 	constraint 		event_id_fk foreign key(event_id) references event(event_id)	
 );
 
+DROP PROCEDURE IF EXISTS `sp_students_DELETE_byPK` 
+GO
+
+CREATE PROCEDURE sp_students_DELETE_byPK
+     (
+        IN  p_student_id  INT(11) 
+     )
+BEGIN 
+
+    DELETE FROM students
+    WHERE  student_id = p_student_id ; 
+
+END 
+
+GO
+
 INSERT INTO user (user_type, username, password, firstname, lastname) VALUES ('admin', 'klmtan', 'katkat', 'Katherine Loren', 'Tan');
 INSERT INTO user (user_type, username, password, firstname, lastname) VALUES ('normal', 'messi', 'messi', 'DoYouLike','Messi');

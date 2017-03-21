@@ -1,3 +1,0 @@
-Service guide
-	- place all database CRUD here
-	- naming convention name.service.js
