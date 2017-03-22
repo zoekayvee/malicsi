@@ -16,10 +16,10 @@ app.use(session({
 	saveUninitialized: false
 }));
 
-app.use(router);
-// app.use(express.static(__dirname+'/public'));
-app.use(express.static('public'));
+app.use(express.static(__dirname+'/public'));
+// app.use(express.static('public'));
 app.use(express.static(__dirname+'/app'));
+app.use(router);
 
 app.listen(3000);
 console.log('Server running...')
