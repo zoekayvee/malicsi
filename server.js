@@ -19,11 +19,5 @@ app.use(express.static(__dirname+'/public'));
 app.use(express.static(__dirname+'/app'));
 app.use(router(express.Router()));
 
-//di ko alam kung magiging userful 'to sa future lol
-//app.use(router);
-//app.use(require('method-override')());
-//app.use(require('compression')());
-//app.use('/', express.static(__dirname + '/../frontend'));
-
 app.listen(3000);
 console.log('Server running on PORT 3000...')

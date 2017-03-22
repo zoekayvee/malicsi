@@ -66,67 +66,29 @@ exports.logout=(req,res)=>{
 exports.registerUser=(req,res)=>{
 	//automatic normal user
 
-	const newUser = {
-		username: req.body.username,
-		password: req.body.password,
-		firstname: req.body.firstname,
-		lastname: req.body.lastname
-	};
-
-	const query_string = 'INSERT INTO users (username, password, user_type, firstname, lastname) VALUES (?,?,?,?,?)';
-	const req_data= [newUser.username, newUser.password, 'normal', newUser.firstname, newUser.lastname];
+	const query_string = 'call createUser(?,?,?,?,?)';
+	const req_data = [
+		req.body.username,
+		req.body.password,
+		'normal',
+		req.body.firstname,
+		req.body.lastname
+	];
 	
-	connection.query(query_string, req_data,(err, result)=> {
-		if (!err) {
-    		res.status(200).send({success: 'Successfully added: ' + newUser.username});
-		} else {
+	connection.query(query_string, req_data, (err,result)=>{
+		if(!err){
+			res.status(200).send(result);
+		}
+		else{
 			console.log(err);
 			res.status(500).send(err);
 		}
-   });
+	});
 }
 
-// removes user by user_id not yet improved
-exports.removeUser=(req,res)=>{
-		const user = {
-			user_id : req.body.user_id
-		};
-
-		const query_string = 'DELETE FROM user WHERE user_id = ?';
-		const req_data = [user.user_id];
-		connection.query(query_string, req_data,(err,result) => {
-			if (!err) {
-    		res.status(200).send(result);
-			} else {
-				console.log(err);
-				res.status(500).send(err);
-			}
-		});
-}
-
-exports.updateUser=(req,res)=>{
-		const user = {
-			oldUsername:req.body.oldUsername,
-			username: req.body.username,
-			password: req.body.password,
-			firstname: req.body.firstname,
-			lastname: req.body.lastname	
-		};
-
-		const query_string = 'UPDATE user SET username = ?,password = ?,firstname = ?,lastname = ? where username = ?';
-		const req_data = [user.username,user.password,user.firstname,user.lastname,user.oldUsername];
-		connection.query(query_string, req_data,(err,result) => {
-			if (!err) {
-    		res.status(200).send(result);
-			} else {
-				console.log(err);
-				res.status(500).send(err);
-			}
-		});
-}
-
-exports.viewUsers=(req,res)=>{
-	const query_string = "SELECT user_id,username FROM user";
+// viewAllUsers - views all users
+exports.viewAllUsers=(req,res)=>{
+	const query_string = 'call viewUsers()';
 
 	connection.query(query_string,null,(err,result) =>{
 		if (!err) {
@@ -138,33 +100,70 @@ exports.viewUsers=(req,res)=>{
 	});
 }
 
-//getUser - retrieves only ONE user (gets user by ID)
-exports.getUser=(req, res)=>{
+// viewUser - views a user by ID (user_id)
+exports.viewUser=(req, res)=>{
 
-	/*const _user = {
-		user_id: req.body.user_id
-	};*/
+	const query_string = 'call viewUser(?)';
+	const req_data = [req.params.user_id]
 
-	//const query_string = 'SELECT * FROM user WHERE user_id = ?';
-	//const req_data = [_user.user_id];
+	connection.query(query_string, req_data, (err,result)=>{
+		if(!err){
+			res.status(200).send(result[0]);
+		}
+		else{
+			console.log(err);
+			res.status(500).send(err);
+		}
+	});
+}
 
-	connection.query('SELECT * FROM user WHERE user_id = ?', [req.params.user_id], function(err, rows){
-    if (!err){
-      res.send(rows[0]);
-    }
-  });
+// removeUser - removes all instances of user in database (uses user_id)
+exports.removeUser=(req,res)=>{
+	
+		const query_string = 'call deleteUser(?)';
+		const req_data = [req.params.user_id];
+		connection.query(query_string, req_data,(err,result) => {
+			if (!err) {
+    		res.status(200).send(result);
+			} else {
+				console.log(err);
+				res.status(500).send(err);
+			}
+		});
+}
+
+// updateUser - updates user information (uses user_id)
+exports.updateUser=(req,res)=>{
+
+		const query_string = 'call updateUser(?,?,?,?,?,?,?,?)';
+		const req_data = [
+			req.params.user_id,
+			req.body.firstname,
+			req.body.lastname,
+			req.body.college,
+			req.body.contactno,
+			req.body.email,
+			req.body.weight,
+			req.body.height
+		];
+		connection.query(query_string, req_data,(err,result) => {
+			if (!err) {
+    		res.status(200).send(result);
+			} else {
+				console.log(err);
+				res.status(500).send(err);
+			}
+		});
 }
 
 //userJoinsTeam - use team_players table to add the user
 exports.userJoinsTeam=(req, res)=>{
 
-	const _user = {
-		team_id: req.body.team_id,
-		user_id: req.body.user_id
-	};
-
-	const query_string = 'INSERT INTO team_players (team_id, user_id) VALUES (?,?)';
-	const req_data = [_user.team_id, _user.user_id];
+	const query_string = 'call joinUserToTeam(?,?)';
+	const req_data = [
+		req.body.team_id,
+		req.body.user_id
+	];
 
 	connection.query(query_string, req_data, (err,result)=>{
 		if(!err){
@@ -177,11 +176,17 @@ exports.userJoinsTeam=(req, res)=>{
 	});	
 }
 
-// get all competitors; depends on table team_plays_game
-exports.getCompetitors=(req, res)=>{
-	const query_string = 'SELECT t1.team_name FROM team t1, team_plays_game t2 WHERE t1.team_id = t2.team_id';
+// addCompetitor - adds teams into game (makes use of tables: team, team_plays_game, game)
+exports.addCompetitor = (req,res)=>{
+	const competitor = {
+		game_id: req.body.game_id,
+		team_id: req.body.team_id
+	};
 
-	connection.query(query_string, null, (err,result)=>{
+	const query_string = 'call createCompetitor(?,?)';
+	const req_data = [competitor.game_id, competitor.team_id];
+
+	connection.query(query_string, req_data, (err, result)=>{
 		if(!err){
 			res.status(200).send(result);
 		}
@@ -192,7 +197,80 @@ exports.getCompetitors=(req, res)=>{
 	});
 }
 
-exports.viewLogs = (req,res) => {
+// viewAllCompetitors - views all competitors (teams) in a specific game;
+exports.viewAllCompetitors=(req, res)=>{
+	const query_string = 'call viewCompetitors(?)';
+	const req_data = [req.params.game_id];
+
+	connection.query(query_string, req_data, (err,result)=>{
+		if(!err){
+			res.status(200).send(result);
+		}
+		else{
+			console.log(err);
+			res.status(500).send(err);
+		}
+	});
+}
+
+// viewCompetitor - views a specific competitor (by team_id)
+exports.viewCompetitor=(req, res)=>{
+
+	const query_string = 'call viewCompetitor(?)';
+	const req_data = [req.params.team_id];
+
+	connection.query(query_string, req_data, (err,result)=>{
+		if(!err){
+			res.status(200).send(result[0]);
+		}
+		else{
+			console.log(err);
+			res.status(500).send(err);
+		}
+	});
+}
+
+// updateCompetitor - updates a team's score and bet count (specify which game)
+exports.updateCompetitor=(req,res)=>{
+
+	const query_string = 'call updateCompetitor(?,?,?,?)';
+	const req_data = [
+		req.body.score,
+		req.body.bet_count,
+		req.params.team_id,
+		req.body.game_id
+	];
+
+	connection.query(query_string, req_data, (err,result)=>{
+		if(!err){
+			res.status(200).send(result);
+		}
+		else{
+			console.log(err);
+			res.status(500).send(err);
+		}
+	});
+}
+
+// deleteCompetitor - deletes a competitor from team_plays_game table
+exports.deleteCompetitor=(req,res)=>{
+	const query_string = 'call deleteCompetitor(?)';
+	const req_data = [req.params.team_id];
+
+	connection.query(query_string, req_data, (err,result)=>{
+		if(!err){
+			res.status(200).send(result);
+		}
+		else{
+			console.log(err);
+			res.status(500).send(err);
+		}
+	});
+}
+
+
+
+exports.viewLogs=(req,res)=>{
 	const query_string = 'SELECT user_id,message FROM logs';
 
 	connection.query(query_string, null, (err,result) =>{
@@ -205,13 +283,3 @@ exports.viewLogs = (req,res) => {
 		}
 	});
 }
-
-//getUsers- for profile and other fxns
-//getUsers
-//getUserInterests
-//userJoinsTeam -use team_players table to add the user
-//joinedTeams - use team_players, team, user tables
-//getUserLogs - use logs and user tables (natural join niyo na lang dahil sa user_id)
-//getparticipatingEvent - use  event and user tables (natural join niyo na lang)
-
-//dagdagan niyo pa ayaw ko na mag-isip T_T

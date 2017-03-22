@@ -1,13 +1,13 @@
 'use strict';
- 
+
 const mysql  = require('mysql');
 const config = require(__dirname + '/../config/config');
 
-const ENV = '127';
+const PROJECT = 'malicsi';
 
 module.exports = mysql.createConnection({
-    host     : config[ENV].host,
-    user     : config[ENV].user,
-    password : config[ENV].password,
-    database : config[ENV].database
+    host     : config[PROJECT].host,
+    user     : config[PROJECT].user,
+    password : config[PROJECT].password,
+    database : config[PROJECT].database
 });

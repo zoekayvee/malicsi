@@ -115,21 +115,111 @@ create table sponsor_events(
 	constraint 		event_id_fk foreign key(event_id) references event(event_id)	
 );
 
-DROP PROCEDURE IF EXISTS `sp_students_DELETE_byPK` 
-GO
+/* PROCEDURES */
 
-CREATE PROCEDURE sp_students_DELETE_byPK
-     (
-        IN  p_student_id  INT(11) 
-     )
-BEGIN 
+/*CREATE USER/REGISTER*/
+delimiter //
+CREATE PROCEDURE createUser(in uname varchar(50), in pass varchar(50), in utype enum('admin', 'normal'), in fname varchar(50), in lname varchar(50))
+BEGIN
+	INSERT INTO user (username, password, user_type, firstname, lastname) VALUES (uname, ENCODE(pass, uname), utype, fname, lname);
+END //
+delimiter ;
 
-    DELETE FROM students
-    WHERE  student_id = p_student_id ; 
+/*VIEW ALL USERS*/
+delimiter //
+CREATE PROCEDURE viewUsers()
+BEGIN
+	SELECT * FROM user;
+END //
+delimiter ;
 
-END 
+/*VIEW USER BY ID*/
+delimiter //
+CREATE PROCEDURE viewUser(in uid int(10))
+BEGIN
+	SELECT * FROM user WHERE user_id = uid;
+END //
+delimiter ;
 
-GO
+/*UPDATE USER*/
+delimiter //
+CREATE PROCEDURE updateUser(in uid int(10), in fname varchar(50), in lname varchar(50), in ucollege varchar(50), in contact varchar(50), in mail varchar(100), in wt int(11), in ht int (11))
+BEGIN
+	UPDATE user SET firstname = fname, lastname = lname, college = ucollege, contactno = contact, email = mail, weight = wt, height = ht
+	WHERE user_id = uid;
+END //
+delimiter;
 
-INSERT INTO user (user_type, username, password, firstname, lastname) VALUES ('admin', 'klmtan', 'katkat', 'Katherine Loren', 'Tan');
-INSERT INTO user (user_type, username, password, firstname, lastname) VALUES ('normal', 'messi', 'messi', 'DoYouLike','Messi');
+/*CHANGE USER PASSWORD*/
+delimiter //
+CREATE PROCEDURE changePassword(in uname varchar(50), in pass varchar(50))
+BEGIN
+	UPDATE user SET password = ENCODE(pass, uname)
+	WHERE username = uname;
+END //
+delimiter ;
+
+/*DELETE USER*/
+delimiter //
+CREATE PROCEDURE deleteUser(in uid int(10))
+BEGIN
+	DELETE FROM event WHERE user_id = uid;
+	DELETE FROM logs WHERE user_id = uid;
+	DELETE FROM team_players WHERE user_id = uid;
+	DELETE FROM user_interests WHERE user_id = uid;
+	DELETE FROM user WHERE user_id LIKE uid;
+END //
+delimiter ;
+
+
+/*CREATE COMPETITOR*/
+delimiter //
+CREATE PROCEDURE createCompetitor(in gid int(10), in tid int(10))
+BEGIN
+	INSERT INTO team_plays_game (game_id, team_id) VALUES (gid, tid);
+END //
+delimiter ;
+
+/*VIEW ALL COMPETITORS*/
+delimiter //
+CREATE PROCEDURE viewCompetitors(in gid int(10))
+BEGIN
+	SELECT * FROM team t1, team_plays_game t2 WHERE t1.team_id = t2.team_id AND t2.game_id = gid;
+END //
+delimiter ;
+
+/*VIEW COMPETITOR BY ID*/
+delimiter //
+CREATE PROCEDURE viewCompetitor(in tid int(10))
+BEGIN
+	SELECT * FROM team t1, team_plays_game t2 WHERE t1.team_id = tid AND t1.team_id = t2.team_id;
+END //
+delimiter ;
+
+/*UPDATE COMPETITOR INFORMATION*/
+delimiter //
+CREATE PROCEDURE updateCompetitor(in sc int(11), in bet int(11), in tid int(10), in gid int(10))
+BEGIN
+	UPDATE team_plays_game SET score = sc, bet_count = bet WHERE team_id = tid AND game_id = gid;
+END //
+delimiter ;
+
+/*DELETE COMPETITOR*/
+delimiter //
+CREATE PROCEDURE deleteCompetitor(in tid int(10))
+BEGIN
+	DELETE FROM team_plays_game WHERE team_id = tid;
+END //
+delimiter ;
+
+/*INSERT USER TO TEAM*/
+delimiter //
+CREATE PROCEDURE joinUserToTeam(in tid int(10), in uid int(10))
+BEGIN
+	INSERT INTO team_players (team_id, user_id) VALUES (tid, uid);
+END //
+delimiter ;
+
+
+INSERT INTO user (user_type, username, password, firstname, lastname) VALUES ('admin', 'klmtan', ENCODE('katkat', 'klmtan'), 'Katherine Loren', 'Tan');
+INSERT INTO user (user_type, username, password, firstname, lastname) VALUES ('normal', 'messi', ENCODE('messi', 'messi'), 'DoYouLike','Messi');
