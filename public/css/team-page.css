@@ -1,0 +1,29 @@
+#box {
+	border-style: solid;
+}
+#forbut {
+	margin-left: 2%;
+}
+#forbut1 {
+	margin-left: 55%;
+}
+#seg {
+	width: 24%;
+	margin-left: 2%;
+}
+#seg1, #seg2, #seg3{
+	width: 24%;
+	margin-left: 0%;
+}
+#im {
+	width: 80%;
+	height: 80%;
+	margin-left: 6%;
+}
+#card1 {
+	margin-top: 0px;
+}
+#card2 {
+	width: 40%;
+	margin-top: 0px;
+}
