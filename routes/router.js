@@ -3,13 +3,13 @@
 // var path = require('path');
 // const controller = require(__dirname + '/../backend/controller/controller');
 
+
 // var path = require('path')
 const gameController =require('../backend/controller/game.controller');
 const winnerController =require('../backend/controller/winner.controller');
 const sportController =require('../backend/controller/sport.controller');    
 const express = require('express');
 const router = express.Router();
-
 
 // module.exports = (router) => {
 router.post('/addGame', gameController.addGame);//
@@ -32,6 +32,10 @@ router.get('/viewAllWinners', winnerController.viewAllWinners);
 router.put('/updateWinner/:game_id', winnerController.updateWinner);
 router.delete('/deleteWinner/:game_id', winnerController.deleteWinner);
 router.delete('/deleteAllWinners', winnerController.deleteAllWinners);
+
+router.get('/', (req,res)=>{
+	res.sendFile('views/landing.html',{root:__dirname+'/..'});
+})
 
 router.all('*', (req, res, next) => {
     res.status(404).send({
