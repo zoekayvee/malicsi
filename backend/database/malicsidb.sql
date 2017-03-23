@@ -229,5 +229,27 @@ BEGIN
 END //
 delimiter ;
 
-INSERT INTO user (user_type, username, password, firstname, lastname) VALUES ('admin', 'klmtan', ENCODE('katkat', 'klmtan'), 'Katherine Loren', 'Tan');
+/*INSERT INTO user (user_type, username, password, firstname, lastname) VALUES ('admin', 'klmtan', ENCODE('katkat', 'klmtan'), 'Katherine Loren', 'Tan');
 INSERT INTO user (user_type, username, password, firstname, lastname) VALUES ('normal', 'messi', ENCODE('messi', 'messi'), 'DoYouLike','Messi');
+*/
+call createUser('jccabanlong', 'password1', 'normal', 'John Cristopher', 'Cabanlong');
+call createUser('ayaseco', 'password2', 'normal', 'Aizaya', 'Seco');
+call createUser('norielsotto', 'password3', 'normal', 'Noriel', 'Sotto');
+call createUser('zoevillanueva', 'password4', 'normal', 'Zoe Kirsten', 'Villanueva');
+call createUser('marcomanongsong', 'password5', 'normal', 'Marco', 'Manongsong');
+call createUser('nj isip', 'password6', 'normal', 'NJ', 'Isip');
+call createUser('krisantaagdan', 'password7', 'normal', 'Krisanta', 'Agdan');
+call createUser('josephgonzales', 'password8', 'normal', 'Joseph Gabriel', 'Gonzales');
+call createUser('jilliancada', 'password9', 'normal', 'Jillian', 'Cada');
+call createUser('ianvalle', 'password10', 'normal', 'Ian Dominic', 'Valle');
+call createUser('ivanalberto', 'password11', 'normal', 'Ivan', 'Alberto');
+call createUser('yvesstaana', 'password12', 'normal', 'Yves', 'Sta. Ana');
+call createUser('loisgo', 'password13', 'normal', 'Lois', 'Go');
+call createUser('vanessaromero', 'password14', 'normal', 'Vanessa', 'Romero');
+call createUser('annejerusalem', 'password15', 'normal', 'Anne', 'Jerusalem');
+call createUser('isaaccarvajal', 'password16', 'normal', 'Nathaniel Isaac', 'Carvajal');
+call createUser('gelloguiam', 'password17', 'normal', 'Gello', 'Guiam');
+call createUser('jessicavaldez', 'password18', 'normal', 'Jessica', 'Valdez');
+call createUser('vinceliwag', 'password19', 'normal', 'Jay Vince', 'Liwag');
+call createUser('jianredfaustino', 'password20', 'normal', 'Jianred', 'Faustino');
+call createUser('elektrafeir', 'password21', 'normal', 'Elektra', 'Feir');
