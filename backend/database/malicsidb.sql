@@ -117,6 +117,15 @@ create table sponsor_events(
 
 /* PROCEDURES */
 
+/* LOGIN */
+delimiter //
+CREATE PROCEDURE login(in uname varchar(50), in pass varchar(50))
+BEGIN
+    SELECT * FROM user WHERE username = BINARY uname and password = BINARY ENCODE(pass, uname);
+END
+//
+delimiter ;
+
 /*CREATE USER/REGISTER*/
 delimiter //
 CREATE PROCEDURE createUser(in uname varchar(50), in pass varchar(50), in utype enum('admin', 'normal'), in fname varchar(50), in lname varchar(50))
@@ -145,10 +154,10 @@ delimiter ;
 delimiter //
 CREATE PROCEDURE updateUser(in uid int(10), in fname varchar(50), in lname varchar(50), in ucollege varchar(50), in contact varchar(50), in mail varchar(100), in wt int(11), in ht int (11))
 BEGIN
-	UPDATE user SET firstname = fname, lastname = lname, college = ucollege, contactno = contact, email = mail, weight = wt, height = ht
+	UPDATE user SET firstname = fname, lastname = lname, college = ucollege, contactno = contact, email = mail, weight = wt, height = ht 
 	WHERE user_id = uid;
 END //
-delimiter;
+delimiter ;
 
 /*CHANGE USER PASSWORD*/
 delimiter //
@@ -219,7 +228,6 @@ BEGIN
 	INSERT INTO team_players (team_id, user_id) VALUES (tid, uid);
 END //
 delimiter ;
-
 
 INSERT INTO user (user_type, username, password, firstname, lastname) VALUES ('admin', 'klmtan', ENCODE('katkat', 'klmtan'), 'Katherine Loren', 'Tan');
 INSERT INTO user (user_type, username, password, firstname, lastname) VALUES ('normal', 'messi', ENCODE('messi', 'messi'), 'DoYouLike','Messi');

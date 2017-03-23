@@ -5,7 +5,7 @@ module.exports = {
     malicsi: {
         host: 'localhost',
         user: 'root',
-        password: 'admin', //change according to machine/ DB pw
-        database: 'malicsidb'
+        password: ' ', //change according to machine/ DB pw
+        database: 'malicsiDB'
     }
 }
