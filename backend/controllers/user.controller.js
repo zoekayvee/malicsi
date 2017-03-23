@@ -15,12 +15,13 @@ exports.login=(req,res)=>{
 	connection.query(query_string,req_data, (err,rows)=>{
 		//this is where the connection to the database is being done, the rows will acquire the result of the query
 		if(!err) {
-			if(rows[0].length > 0){
-				req.session.username = req.body.username
-				res.status(200).send(rows[0]);
-				/*res.json({
-					redirect: '/' //produces error , but needed
-				});*/
+			if(rows[0]){
+				req.session.accountid = rows[0][0].user_id
+				var json =  JSON.parse((JSON.stringify(req.session)));
+				console.log(json);
+				res.json({
+					redirect: '/'
+				});
 			}
 			else{
 				res.json({
@@ -39,9 +40,9 @@ exports.login=(req,res)=>{
 exports.logout=(req,res)=>{
 	if(req.session){
 		req.session.destroy(function(err){
-			/*res.json({
-				redirect: '/' //produces error
-			});*/
+			res.json({
+				redirect: '/'
+			});
 		});
 	}
 }

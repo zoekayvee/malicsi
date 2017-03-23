@@ -1,0 +1,5 @@
+Model- View-Controller
+
+Model- App behav
+View- Info Rep.
+Controller- accepts input; converts to commands 

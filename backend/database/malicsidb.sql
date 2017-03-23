@@ -121,7 +121,7 @@ create table sponsor_events(
 delimiter //
 CREATE PROCEDURE login(in uname varchar(50), in pass varchar(50))
 BEGIN
-    SELECT * FROM user WHERE username = BINARY uname and password = BINARY ENCODE(pass, uname);
+    SELECT user_id,username FROM user WHERE username = BINARY uname and password = BINARY ENCODE(pass, uname);
 END
 //
 delimiter ;
