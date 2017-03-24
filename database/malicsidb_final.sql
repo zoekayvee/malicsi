@@ -1,15 +1,15 @@
-/*
+/*	
 CMSC 128 MalICSi Database
 
 Go to directory where malicsidb.sql is located or enter full path to file then run:
 	mysql -u root -p < malicsidb.sql
 
 */
-DROP USER "projectOneTwoEight"@"localhost";
+DROP USER "local"@"localhost";
 
-CREATE USER "projectOneTwoEight"@"localhost" IDENTIFIED BY "password";
+CREATE USER "local"@"localhost" IDENTIFIED BY "password";
 
-GRANT ALL PRIVILEGES ON malicsiDB.* TO "projectOneTwoEight"@"localhost" WITH GRANT OPTION;
+GRANT ALL PRIVILEGES ON malicsiDB.* TO "local"@"localhost" WITH GRANT OPTION;
 
 DROP DATABASE IF EXISTS `malicsiDB`;
 
@@ -55,7 +55,7 @@ create table event(
 	allow_reg 		boolean not null default FALSE,
 	date_start 		date,
 	date_end 		date,
-	duration 		date,
+	duration 		int,
 	constraint 		event_id_pk primary key(event_id),
 	constraint 		event_user_id_fk foreign key(user_id) references users(user_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
@@ -201,3 +201,257 @@ DELIMITER %%
 		END;
 %%
 DELIMITER ;
+
+
+/*ADD EVENT*/
+delimiter //
+	create procedure addEvent(
+							  in userId int,
+							  in eventName varchar(100),
+							  in dateStart date,
+							  in dateEnd date
+							  )
+	BEGIN
+		insert into event(user_id,event_name,date_start,date_end,duration)  
+		values(
+			userId,
+			eventName,
+			dateStart,
+			dateEnd,
+			datediff(dateEnd,dateStart)
+			);
+	END;
+	//
+delimiter ;
+
+
+/*VIEW EVENT*/
+delimiter //
+	create procedure viewEvent(
+							 in eventId INT(5)
+							  )
+	BEGIN
+		select * from event where event_id = eventId;
+	END;
+	//
+delimiter ;
+
+
+/*VIEW ALL EVENT*/
+delimiter //
+	create procedure viewAllEvent()
+	BEGIN
+		select * from event;
+	END;
+	//
+delimiter ;
+
+
+/*UPDATE EVENT*/
+delimiter //
+	create procedure updateEvent(
+							 in eventId int,
+							 in eventName VARCHAR(100),
+							 in allowReg boolean,
+							 in dateStart date,
+							 in dateEnd date
+							 )
+	BEGIN
+		update event set event_name = eventName, allow_reg = allowReg, date_start = dateStart, date_end = dateEnd, duration = datediff(dateEnd,dateStartN) where event_id = eventId; 
+	END;
+	//
+delimiter ;
+
+
+/*DELETE EVENT*/
+delimiter //
+	create procedure deleteEvent(
+							 in eventId int
+							 )
+	BEGIN
+		delete from event where event_id = eventId;
+	END;
+	//
+delimiter ;
+
+
+/*ADD TEAM*/
+delimiter //
+	create procedure addTeam(
+							  in teamName varchar(100)
+							  )
+	BEGIN
+		insert into team(team_name)  
+		values(
+			teamName
+			);
+	END;
+	//
+delimiter ;
+
+/*VIEW TEAM*/
+delimiter //
+	create procedure viewTeam(
+							  in teamiD int
+							  )
+	BEGIN
+		select * from team where team_id = teamiD;
+	END;
+	//
+delimiter ;
+
+/*VIEW ALL TEAMS*/
+delimiter //
+	create procedure viewAllTeam()
+							  
+	BEGIN
+		select * from team;
+	END;
+	//
+delimiter ;
+
+
+
+/*UPDATE TEAM*/
+delimiter //
+	create procedure updateTeam(
+							 in teamId int,
+							 in teamName varchar(100)							 
+							 )
+	BEGIN
+		update team set team_name = teamName where team_id = teamId; 
+	END;
+	//
+delimiter ;
+
+
+/*DELETE TEAM*/
+delimiter //
+	create procedure deleteTeam(
+							 in teamId int
+							 )								 
+	BEGIN
+		delete from team where team_id = teamId; 
+	END;
+	//
+delimiter ;
+
+
+/*TEAM JOIN EVENT*/
+delimiter //
+	create procedure teamJoinEvent(
+							 in teamId int,
+							 in eventId int
+							 )
+	BEGIN
+		insert into team_joins_event(event_id,team_id) values(eventId,teamId);
+	END;
+	//
+delimiter ;
+
+
+/*TEAM PLAY GAME*/
+delimiter //
+	create procedure teamPlayGame(
+							 in teamId int,
+							 in gameId int
+							 )
+	BEGIN
+		insert into team_plays_game(game_id,team_id,score,bet_count) values(gameId,teamId,0,0);
+	END;
+	//
+delimiter ;
+
+/*ADD SPONSOR*/
+delimiter //
+	create procedure addSponsor(
+							  in sponsor_name varchar(100)
+							  )
+	BEGIN
+		insert into sponsor(sponsor_name)  
+		values(
+			
+			sponsor_name
+			);
+	END;
+	//
+delimiter ;
+
+
+/*ADD SPONSOR EVENT*/
+delimiter //
+	create procedure sponsorEvent(
+							  in sponsorId int,
+							  in eventId int
+							  )
+	BEGIN
+		insert into sponsor_events(sponsor_id, event_id)  
+		values(
+			sponsorId,
+			eventId
+			);
+	END;
+	//
+delimiter ;
+
+/*VIEW ALL SPONSORS*/
+delimiter //
+	create procedure viewAllSponsors()
+	BEGIN
+		select * from sponsor;
+	END;
+	//
+delimiter ;
+
+/*VIEW SPONSOR*/
+delimiter //
+	create procedure viewSponsor(
+								in sponsorId int
+		)
+	BEGIN
+		select * from sponsor where sponsor_id = sponsorId;
+	END;
+	//
+delimiter ;
+
+
+
+/*VIEW SPONSOR BY EVENT*/
+delimiter //
+	create procedure viewSponsorByEvent(
+								in eventId int
+		)
+	BEGIN
+		select * from sponsor_events where event_id = eventId;
+	END;
+	//
+delimiter ;
+
+
+
+
+/*UPDATE SPONSOR*/
+delimiter //
+	create procedure updateSponsor(
+							 in sponsorId int,
+							 in sponsorName varchar(100)
+							 )
+	BEGIN
+		update sponsor set sponsor_name=sponsorName where sponsor_id=sponsorId;
+	END;
+	//
+delimiter ;
+
+/*DELETE SPONSOR*/
+delimiter //
+	create procedure deleteSponsor(
+							 in sponsorId int
+							 )
+	BEGIN
+		delete from sponsor where sponsor_id = sponsorId;
+	END;
+	//
+delimiter ;
+
+
+insert into users(username,password,firstname,lastname) values ('dummy','dummy','dummy','dummy');
