@@ -4,7 +4,7 @@ module.exports = {
     info: {
         host: 'localhost',
         user: 'root',
-        password: 'bossing', //configure
+        password: 'a5390040597', //configure
         database: 'malicsiDB'
     }
 }

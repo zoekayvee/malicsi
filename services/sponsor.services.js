@@ -1,3 +1,7 @@
+'use strict'
+const connection = require(__dirname + '/../db-connection.js');
+var path = require('path');
+
 exports.addSponsor = (req, res, next) => {
 	var query = 'call addSponsor(?)';
 	const data = [

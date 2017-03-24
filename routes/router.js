@@ -1,17 +1,14 @@
 'use strict';
 
-var path = require('path');
+//var path = require('path');
 
-const eventController =require('../backend/services/event.services');
-const teamController =require('../backend/services/team.services');
-const sponsorController =require('../backend/services/sponsor.services');
-
-
-
+const eventController =require('../services/event.services');
+const teamController =require('../services/team.services');
+const sponsorController =require('../services/sponsor.services');
 const express = require('express');
 const router = express.Router();
 
-module.exports = (router) => {
+//module.exports = (router) => {
 router.post     ('/addEvent',      eventController.addEvent); 
 router.get      ('/viewEvent/:event_id', eventController.viewEvent);
 router.get      ('/viewAllEvent',   eventController.viewAllEvent);
@@ -24,13 +21,13 @@ router.put      ('/updateTeam',     teamController.updateTeam);
 router.delete   ('/deleteTeam/:team_id', teamController.deleteTeam);
 router.post     ('/teamJoinEvent',  teamController.teamJoinEvent);
 router.post     ('/teamPlayGame',   teamController.teamPlayGame);
-router.post     ('/addSponsor',       s_controller.addSponsor);
-router.get      ('/viewAllSponsor',   s_controller.viewAllSponsor);
-router.get      ('/viewSponsor/:sponsor_id',    s_controller.viewSponsor);
-router.put      ('/updateSponsor',     s_controller.updateSponsor);
-router.delete   ('/deleteSponsor/:sponsor_id',      s_controller.deleteSponsor);
-router.get      ('/viewSponsorByEvent/:event_id',   s_controller.viewSponsorByEvent)
-router.post     ('/sponsorEvent',   s_controller.sponsorEvent); 
+router.post     ('/addSponsor',       sponsorController.addSponsor);
+router.get      ('/viewAllSponsor',   sponsorController.viewAllSponsors);
+router.get      ('/viewSponsor/:sponsor_id',    sponsorController.viewSponsor);
+router.put      ('/updateSponsor',     sponsorController.updateSponsor);
+router.delete   ('/deleteSponsor/:sponsor_id',      sponsorController.deleteSponsor);
+router.get      ('/viewSponsorByEvent/:event_id',   sponsorController.viewSponsorByEvent)
+router.post     ('/sponsorEvent',   sponsorController.sponsorEvent); 
 router.get('/', (req,res)=>{
 	res.sendFile('views/landing.html',{root:__dirname+'/..'});
 })
@@ -39,11 +36,11 @@ router.all('*', (req, res, next) => {
     res.status(404).send({
         message: 'Not Found!'
     });
-     return router;
- };
+ //    return router;
+// };
 });
 
 module.exports = router;
 
-    return router;
- };
+ //   return router;
+// };

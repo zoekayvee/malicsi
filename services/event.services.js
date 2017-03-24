@@ -1,5 +1,5 @@
 'use strict'
-const connection = require(__dirname + '/../lib/mysql');
+const connection = require(__dirname + '/../db-connection.js');
 var path = require('path');
 
 ///CRUD EVENT///
