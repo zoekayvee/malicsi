@@ -1,8 +1,10 @@
 'use strict';
 
-<<<<<<< HEAD
-const adminController =require('../backend/controllers/admin.controller');
-const userController =require('../backend/controllers/user.controller');
+const adminController =require('../services/admin.service');
+const userController =require('../services/user.service');
+const gameController =require('../services/game.service');
+const winnerController =require('../services/winner.service');
+const sportController =require('../services/sport.service');    
 const express = require('express');
 const router = express.Router();
 
@@ -32,24 +34,6 @@ router.get('/viewCompetitor/:team_id',      userController.viewCompetitor);
 router.put('/updateCompetitor/:team_id',    adminController.updateCompetitor); //event creator
 router.delete('/deleteCompetitor/:team_id', adminController.deleteCompetitor);
 
-router.get('/', (req,res)=>{
-	//res.sendFile('views/index.html',{root:__dirname+'/..'});
-	res.send({message: "Home page"});
-})
-//insert here the name of route for the given controller req,res function (so ideally controller muna gagalawin)
-=======
-// var path = require('path');
-// const controller = require(__dirname + '/../backend/controller/controller');
-
-// var path = require('path')
-const gameController =require('../service/game.service');
-const winnerController =require('../service/winner.service');
-const sportController =require('../service/sport.service');    
-const express = require('express');
-const router = express.Router();
-
-
-// module.exports = (router) => {
 router.post('/addGame', gameController.addGame);//
 router.get('/viewGame/:game_id', gameController.viewGame);
 router.get('/viewAllGames', gameController.viewAllGames);;//
@@ -70,23 +54,15 @@ router.get('/viewAllWinners', winnerController.viewAllWinners);
 router.put('/updateWinner/:game_id', winnerController.updateWinner);
 router.delete('/deleteWinner/:game_id', winnerController.deleteWinner);
 router.delete('/deleteAllWinners', winnerController.deleteAllWinners);
->>>>>>> 5a6394d17c265f7ef6d52968c0ac5749adbb4d4a
+
+router.get('/', (req,res)=>{
+	res.send({message: "Home page"});
+})
 
 router.all('*', (req, res, next) => {
     res.status(404).send({
         message: 'Not Found!'
-    });
-<<<<<<< HEAD
-=======
-//     return router;
-// };
->>>>>>> 5a6394d17c265f7ef6d52968c0ac5749adbb4d4a
+    })
 });
 
 module.exports = router;
-
-<<<<<<< HEAD
-=======
-    // return router;
-// };
->>>>>>> 5a6394d17c265f7ef6d52968c0ac5749adbb4d4a

@@ -1,5 +1,5 @@
 'use strict'
-const connection = require(__dirname + '/../backend/mysql/mysql');
+const connection = require(__dirname + '/../db-connection');
 var path = require('path');
 var logQuery = 'INSERT INTO logs(user_id,log_timestamp,message) VALUES(?,curdate(),?);';
 
