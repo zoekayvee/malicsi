@@ -65,9 +65,10 @@ exports.viewAllSports = (req,res) =>{
 }
 
 exports.updateSport = (req,res) =>{
-	var query = 'UPDATE sport SET sport_id = ?';
+	var query = 'UPDATE sport SET sport_name = ? WHERE sport_id = ?';
 	const data = [
-		req.params.sport_id
+		req.body.sport_name,
+		req.body.sport_id
 	];
 
 	var con = connection.query(

@@ -16,7 +16,7 @@ exports.addWinner = (req,res) =>{
 		(err, rows) => {
 			if(!err){
 				console.log("Adding Winner Success");
-		    		res.status(200).send('Winner Successfully added');
+		    		res.send('Winner Successfully added');
 		    		connection.query(logQuery, [null,'Added Winner '], (err,rows) => {})
 			}
 			else{
@@ -29,7 +29,7 @@ exports.addWinner = (req,res) =>{
 exports.viewWinner = (req,res) =>{
 	var query = 'SELECT winner_team_id, game_id from game where game_id = ?';
 	const data = [
-		req.body.game_id
+		req.params.game_id
 	];
 
 	var con = connection.query(
@@ -69,7 +69,7 @@ exports.updateWinner = (req,res) =>{
 	var query = 'UPDATE game SET winner_team_id = ? where game_id = ?';
 	const data = [
 		req.body.winner_team_id,
-		req.body.game_id
+		req.params.game_id
 	];
 
 	var con = connection.query(
