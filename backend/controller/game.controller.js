@@ -10,6 +10,7 @@ exports.addGame = (req,res) =>{
 		req.body.referee,
 		req.body.winner_team_id
 	];
+	console.log(data);
 	var id = connection.query(
 		query,
 		data,
@@ -72,7 +73,6 @@ exports.updateGame = (req,res) =>{
 		req.body.referee,
 		req.params.game_id
 	];
-	console.log(data);
 	var id = connection.query(
 		query,
 		data,

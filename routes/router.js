@@ -22,7 +22,7 @@ router.delete('/deleteAllGames', gameController.deleteAllGames);//
 router.post('/addSport', sportController.addSport);
 router.get('/viewSports/:sport_id', sportController.viewSports);
 router.get('/viewAllSports', sportController.viewAllSports);
-router.put('/updateSport/sport_id', sportController.updateSport);
+router.put('/updateSport', sportController.updateSport);
 router.delete('/deleteSport/:sport_id', sportController.deleteSport);
 router.delete('/deleteAllSports', sportController.deleteAllSports);
 
