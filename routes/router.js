@@ -8,17 +8,17 @@ const sportController =require('../services/sport.service');
 const express = require('express');
 const router = express.Router();
 
-router.post('/login',                       userController.login);
-router.get('/logout',                       userController.logout);
-router.post('/createUser',                  userController.registerUser);
+// router.post('/login',                       userController.login);
+// router.get('/logout',                       userController.logout);
+// router.post('/createUser',                  userController.registerUser);
 
-//authentication
-router.use(function(req, res, next){
-    if (req.session && req.session.accountid)
-        next();
-    else
-        res.redirect('/login');
-})
+// //authentication
+// router.use(function(req, res, next){
+//     if (req.session && req.session.accountid)
+//         next();
+//     else
+//         res.redirect('/login');
+// })
 
 router.get('/viewAllUsers',                 adminController.viewAllUsers);
 router.get('/viewUser/:user_id',            userController.viewUser);
