@@ -1,10 +1,10 @@
 'use strict';
 
 module.exports = {
-    info: {
-        host: 'localhost',
+    info: {//configure
+        host: '',
         user: 'root',
-        password: 'bossing', //configure
+        password: '', 
         database: 'malicsiDB'
     }
 }
