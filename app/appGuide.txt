@@ -1,4 +1,0 @@
-app (a.k.a. client)
-
-> Place business logic here
-> Controller for views
