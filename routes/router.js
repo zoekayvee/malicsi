@@ -57,11 +57,7 @@ router.delete('/deleteWinner/:game_id', winnerController.deleteWinner);
 router.delete('/deleteAllWinners', winnerController.deleteAllWinners);
 
 router.get('/', (req,res)=>{
-<<<<<<< HEAD
 	res.sendFile('views/index.html',{root:__dirname+'/..'});
-=======
-	res.send({message: "Home page"});
->>>>>>> 1c974a2b8e86a20c3cff9faab43a8f2586f78c9b
 })
 
 router.all('*', (req, res, next) => {
