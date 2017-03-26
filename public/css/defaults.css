@@ -1,0 +1,42 @@
+body {
+    padding: 0;
+}
+
+#page-navigation {
+    background: #466675;
+}
+
+#page-footer-1 {
+    height: 100px;
+    background: #CDCDCD;
+}
+
+#page-footer-1 a {
+    color: #466675;
+}
+
+#page-footer-2 {
+    height: 50px;
+    background: #466675;
+    color: white !important;
+}
+
+#main-panel {
+    min-height: calc(100vh - 150px) !important;
+    margin-top: 55px;
+    padding: 20px;
+}
+
+#login-panel {
+	margin-top: 100px;
+}
+
+.link-icon {
+    padding: 20px;
+    font-size: 20px !important;
+    background: #466675;
+    line-height: 5px;
+    text-indent: -5px;
+    text-align: center;
+    border-radius: 100%;
+}
