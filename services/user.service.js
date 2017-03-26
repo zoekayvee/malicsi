@@ -59,9 +59,9 @@ exports.registerUser=(req,res)=>{
 		req.body.lastname
 	];
 	
-	connection.query(query_string, req_data, (err,result)=>{
+	connection.query(query_string, req_data, (err,rows)=>{
 		if(!err){
-			res.status(200).send(result);
+			res.status(200).send(rows);
 		}
 		else{
 			console.log(err);

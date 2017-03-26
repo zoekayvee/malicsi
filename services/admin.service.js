@@ -34,8 +34,9 @@ exports.removeUser=(req,res)=>{
 // updateUser - updates user information (uses user_id)
 exports.updateUser=(req,res)=>{
 
-		const query_string = 'call updateUser(?,?,?,?,?,?,?,?)';
+		const query_string = 'call updateUser(?,?,?,?,?,?,?,?,?,?)';
 		const req_data = [
+			req.params.user_id,
 			req.body.username,
 			req.body.password,
 			req.body.firstname,
@@ -44,8 +45,7 @@ exports.updateUser=(req,res)=>{
 			req.body.contactno,
 			req.body.email,
 			req.body.weight,
-			req.body.height,
-			req.params.user_id
+			req.body.height
 		];
 		connection.query(query_string, req_data,(err,result) => {
 			if (!err) {
