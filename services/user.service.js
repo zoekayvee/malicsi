@@ -73,7 +73,7 @@ exports.registerUser=(req,res)=>{
 // viewUser - views a user by ID (user_id)
 exports.viewUser=(req, res)=>{
 
-	const query_string = 'call viewUser(?)';
+	const query_string = 'SELECT * FROM users WHERE user_id = ?';
 	const req_data = [req.params.user_id]
 
 	connection.query(query_string, req_data, (err,result)=>{
@@ -89,7 +89,7 @@ exports.viewUser=(req, res)=>{
 //userJoinsTeam - use team_players table to add the user
 exports.userJoinsTeam=(req, res)=>{
 
-	const query_string = 'call joinUserToTeam(?,?)';
+	const query_string = 'INSERT INTO team_players (team_id, user_id) VALUES (?, ?);';
 	const req_data = [
 		req.body.team_id,
 		req.body.user_id
@@ -108,7 +108,7 @@ exports.userJoinsTeam=(req, res)=>{
 
 // viewAllCompetitors - views all competitors (teams) in a specific game;
 exports.viewAllCompetitors=(req, res)=>{
-	const query_string = 'call viewCompetitors(?)';
+	const query_string = 'SELECT * FROM team t1, team_plays_game t2 WHERE t1.team_id = t2.team_id AND t2.game_id = ?';
 	const req_data = [req.params.game_id];
 
 	connection.query(query_string, req_data, (err,result)=>{
@@ -125,7 +125,7 @@ exports.viewAllCompetitors=(req, res)=>{
 // viewCompetitor - views a specific competitor (by team_id)
 exports.viewCompetitor=(req, res)=>{
 
-	const query_string = 'call viewCompetitor(?)';
+	const query_string = 'SELECT * FROM team t1, team_plays_game t2 WHERE t1.team_id = ? AND t1.team_id = t2.team_id';
 	const req_data = [req.params.team_id];
 
 	connection.query(query_string, req_data, (err,result)=>{
