@@ -42,6 +42,19 @@ router.post('/createUser',                  userController.registerUser);
 
 
 
+
+// router.post('/login',                       userController.login);
+// router.get('/logout',                       userController.logout);
+// router.post('/createUser',                  userController.registerUser);
+
+// //authentication
+// router.use(function(req, res, next){
+//     if (req.session && req.session.accountid)
+//         next();
+//     else
+//         res.redirect('/login');
+// })
+
 router.get('/viewAllUsers',                 adminController.viewAllUsers);
 router.get('/viewUser/:user_id',            userController.viewUser);
 router.put('/updateUser/:user_id',          adminController.updateUser);
@@ -79,8 +92,10 @@ router.delete('/deleteAllWinners', winnerController.deleteAllWinners);
 
 
 router.get('/', (req,res)=>{
-	res.send({message: "Home page"});
+
+	res.sendFile('views/index.html',{root:__dirname+'/..'});
 });
+
 
 router.all('*', (req, res, next) => {
     res.status(404).send({
