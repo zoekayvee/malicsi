@@ -12,7 +12,9 @@
   "dependencies": {
     "body-parser": "^1.15.2",
     "express": "^4.15.2",
+    "express-session": "^1.15.1",
     "mariasql": "^0.2.6",
-    "mysql": "^2.13.0"
+    "mysql": "^2.13.0",
+    "nodemon": "^1.11.0"
   }
 }
