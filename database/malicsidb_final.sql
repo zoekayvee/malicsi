@@ -200,4 +200,30 @@ DELIMITER %%
 			INSERT INTO logs(user_id, message) VALUES(userid, concat((select username from users where user_id = userid)," viewed winner of game(id): ", gameid));
 		END;
 %%
+	/*ADDED Procedures*/
+	CREATE PROCEDURE login(in uname varchar(50), in pass varchar(50))
+		BEGIN
+			SELECT user_id,username FROM user WHERE username = BINARY uname and password = BINARY ENCODE(pass, uname);
+		END;
+%%
+	CREATE PROCEDURE createUser(in uname varchar(50), in pass varchar(50), in utype enum('admin', 'normal'), in fname varchar(50), in lname varchar(50))
+		BEGIN
+			INSERT INTO user (username, password, user_type, firstname, lastname) VALUES (uname, ENCODE(pass, uname), utype, fname, lname);
+		END;
+%%
+	CREATE PROCEDURE updateUser(in uname varchar(50), in pass varchar(50), in fname varchar(50), in lname varchar(50), in ucollege varchar(50), in contact varchar(50), in mail varchar(100), in wt int(11), in ht int (11), in uid int(10))
+		BEGIN
+			UPDATE user SET username=uname, firstname = fname, lastname = lname, college = ucollege, contactno = contact, email = mail, weight = wt, height = ht WHERE user_id = uid;
+			UPDATE user SET password = ENCODE(pass, uname) WHERE username = uname;
+		END;
+%%
+	CREATE PROCEDURE deleteUser(in uid int(10))
+		BEGIN
+			DELETE FROM event WHERE user_id = uid;
+			DELETE FROM logs WHERE user_id = uid;
+			DELETE FROM team_players WHERE user_id = uid;
+			DELETE FROM user_interests WHERE user_id = uid;
+			DELETE FROM user WHERE user_id LIKE uid;
+		END;
+%%
 DELIMITER ;
