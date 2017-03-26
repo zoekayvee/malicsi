@@ -5,7 +5,7 @@ Go to directory where malicsidb.sql is located or enter full path to file then r
 	mysql -u root -p < malicsidb.sql
 
 */
-DROP USER "projectOneTwoEight"@"localhost";
+-- DROP USER "projectOneTwoEight"@"localhost";
 
 CREATE USER "projectOneTwoEight"@"localhost" IDENTIFIED BY "password";
 
@@ -84,7 +84,7 @@ create table team_joins_event(
 create table game(
 	game_id 		int unsigned auto_increment,
 	sport_id 		int unsigned,
-	winner_team_id	int unsigned, 
+	winner_team_id	int unsigned,
 	referee 		varchar(100),
 	constraint 		game_id_pk primary key(game_id)
 );
@@ -124,7 +124,7 @@ create table sponsor_events(
 	sponsor_id 		int unsigned,
 	event_id 		int unsigned,
 	constraint 		sponsor_id_fk foreign key(sponsor_id) references sponsor(sponsor_id) ON DELETE CASCADE ON UPDATE CASCADE,
-	constraint 		event_id_fk foreign key(event_id) references event(event_id) ON DELETE CASCADE ON UPDATE CASCADE	
+	constraint 		event_id_fk foreign key(event_id) references event(event_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 
@@ -134,7 +134,7 @@ DELIMITER %%
 		FOR EACH ROW
 			BEGIN
 				INSERT INTO logs(user_id, message) VALUES(NEW.user_id, concat("Created new user with user name: ", NEW.username));
-			END; 
+			END;
 %%
 	CREATE TRIGGER userDelete AFTER DELETE ON users
 		FOR EACH ROW
@@ -180,7 +180,7 @@ DELIMITER %%
 		BEGIN
 			SELECT * FROM game;
 			INSERT INTO logs(user_id, message) VALUES(userid, concat((select username from users where user_id = userid), " viewed all games"));
-		END;	
+		END;
 %%
 	CREATE PROCEDURE userViewGame(in userid int unsigned, in gameid int unsigned)
 		BEGIN
