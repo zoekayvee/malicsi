@@ -1,7 +1,11 @@
-exports.addTeam = (req, res, next) => {
-	var query = 'call addTeam(?)';
+'use strict'
+const connection = require(__dirname + '/../db-connection.js');
+var path = require('path');
+
+exports.addSponsor = (req, res, next) => {
+	var query = 'call addSponsor(?)';
 	const data = [
-		req.body.team_name
+		req.body.sponsor_name
 	];
 	console.log(data);
 	var id = connection.query(
@@ -22,10 +26,11 @@ exports.addTeam = (req, res, next) => {
 	});
 }
 
-exports.viewTeam = (req, res, next) => {
-	var query = 'call viewTeam(?)';
+exports.sponsorEvent = (req, res, next) => {
+	var query = 'call sponsorEvent(?,?)';
 	const data = [
-		req.params.team_id
+		req.body.sponsor_id,
+		req.body.event_id
 	];
 	console.log(data);
 	var id = connection.query(
@@ -34,9 +39,10 @@ exports.viewTeam = (req, res, next) => {
 		(err, row, fields) => {
 			if(!err){
 				console.log(row);
+
 				console.log("Success");
-				res.status(200).send(row);
-				//return row
+				res.status(200).send("Success");
+				return row
 			}
 			else{
 				console.log(err);
@@ -44,9 +50,8 @@ exports.viewTeam = (req, res, next) => {
 			}
 	});
 }
-
-exports.viewAllTeam = (req, res, next) => {
-	var query = 'call viewAllTeam()';
+exports.viewAllSponsors = (req, res, next) => {
+	var query = 'call viewAllSponsors()';
 	
 		var id = connection.query(
 		query,
@@ -65,11 +70,11 @@ exports.viewAllTeam = (req, res, next) => {
 	});
 }
 
-exports.updateTeam = (req, res, next) => {
-	var query = 'call updateTeam(?,?)';
+exports.updateSponsor = (req, res, next) => {
+	var query = 'call updateSponsor(?,?)';
 	const data = [
-		req.body.team_id,
-		req.body.team_name
+		req.body.sponsor_id,
+		req.body.sponsor_name
 	];
 	console.log(data);
 	var id = connection.query(
@@ -79,8 +84,8 @@ exports.updateTeam = (req, res, next) => {
 			if(!err){
 				console.log(row);
 
-				console.log("Update Team Success");
-				res.status(200).send("Update Team Success");
+				console.log("Update Sponsor Success");
+				res.status(200).send("Update Sponsor Success");
 				return row
 			}
 			else{
@@ -90,11 +95,57 @@ exports.updateTeam = (req, res, next) => {
 	});
 }
 
-exports.deleteTeam = (req, res, next) => {
-	console.log(1);
-	var query = 'call deleteTeam(?)';
+exports.viewSponsor = (req, res, next) => {
+	var query = 'call viewSponsor(?)';
 	const data = [
-		req.params.team_id
+		req.params.sponsor_id
+	];
+	console.log(data);
+	var id = connection.query(
+		query,
+		data,
+		(err, row, fields) => {
+			if(!err){
+				console.log(row);
+				console.log("Success");
+				res.status(200).send(row);
+				//return row
+			}
+			else{
+				console.log(err);
+				res.status(500).send('Server error');
+			}
+	});
+}
+
+exports.viewSponsorByEvent = (req, res, next) => {
+	var query = 'call viewSponsorByEvent(?)';
+	const data = [
+		req.params.event_id
+	];
+	console.log(data);
+	var id = connection.query(
+		query,
+		data,
+		(err, row, fields) => {
+			if(!err){
+				console.log(row);
+				console.log("Success");
+				res.status(200).send(row);
+				//return row
+			}
+			else{
+				console.log(err);
+				res.status(500).send('Server error');
+			}
+	});
+}
+
+exports.deleteSponsor = (req, res, next) => {
+	console.log(1);
+	var query = 'call deleteSponsor(?)';
+	const data = [
+		req.params.sponsor_id
 	];
 	console.log(data);
 	var id = connection.query(
@@ -114,55 +165,3 @@ exports.deleteTeam = (req, res, next) => {
 			}
 	});
 }
-
-exports.teamJoinEvent = (req, res, next) => {
-	var query = 'call teamJoinEvent(?,?)';
-	const data = [
-		req.body.team_id,
-		req.body.event_id
-	];
-	console.log(data);
-	var id = connection.query(
-		query,
-		data,
-		(err, row, fields) => {
-			if(!err){
-				console.log(row);
-
-				console.log("Update Team Join Event Success");
-				res.status(200).send("Update Team Join Event Success");
-				return row
-			}
-			else{
-				console.log(err);
-				res.status(500).send('Server error');
-			}
-	});
-}
-
-exports.teamPlayGame = (req, res, next) => {
-	var query = 'call teamPlayGame(?,?)';
-	const data = [
-		req.body.team_id,
-		req.body.game_id
-	];
-	console.log(data);
-	var id = connection.query(
-		query,
-		data,
-		(err, row, fields) => {
-			if(!err){
-				console.log(row);
-
-				console.log("Update Team Play Game Success");
-				res.status(200).send("Update Team Play Game Success");
-				return row
-			}
-			else{
-				console.log(err);
-				res.status(500).send('Server error');
-			}
-	});
-}
-
-
