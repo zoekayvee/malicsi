@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 /*
 CMSC 128 MalICSi Database
 
@@ -203,4 +201,3 @@ DELIMITER %%
 		END;
 %%
 DELIMITER ;
->>>>>>> 5a6394d17c265f7ef6d52968c0ac5749adbb4d4a
