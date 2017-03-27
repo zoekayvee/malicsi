@@ -7,10 +7,15 @@
     function sponsorController($http){
         var vm = this;
         
-        vm.newSponsor = "";
+        vm.viewAllSponsors = viewAllSponsors;
         vm.addSponsor = addSponsor;
+        vm.deleteSponsor = deleteSponsor;
+        vm.updateSponsor = updateSponsor;
+        vm.newSponsor = "";
+        vm.newSponsorId;
+        vm.newSponsorName = "";
         vm.allSponsors = [];
-
+        
         function addSponsor() {
             var sponsorToBeAdded = {
             sponsor_name: vm.newSponsor
@@ -26,11 +31,39 @@
             });
         }
 
+
+         function deleteSponsor(id) {
+            $http
+                .delete('/deleteSponsor/'+id)
+                .then(function(response){
+                    console.log('Sponsor deleted')
+            },
+            function(response){
+                console.log("error");   
+            });
+         }
+
+         function updateSponsor() {
+            var sponsorToBeUpdated = {
+            sponsor_id: vm.newSponsorId,
+            sponsor_name: vm.newSponsorName
+            }
+            $http
+                    .put('/updateSponsor', sponsorToBeUpdated)
+                    .then(function(response){
+                        console.log(response.data);
+                        console.log('Success! Sponsor Updated!')
+                },
+                function(response){
+                    console.log("Error :()");
+                });
+        }
+
         function viewAllSponsors() {
         $http
-                .get('/viewAllSponsors')
+                .get('/viewAllSponsor')
                 .then(function(response){
-                    vm.allSponsors = response.data;
+                    vm.allSponsors = response.data[0];
                     console.log(response.data);
                     console.log('Viewing Sponsors!')
             },
