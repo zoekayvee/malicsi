@@ -1,0 +1,20 @@
+body {
+    padding: 0;
+}
+
+.menu {
+    /*height: 55px !important;*/
+}
+
+#main-panel {
+	min-height: calc(100vh - 210px) !important;
+   margin-top: 55px;
+   padding: 20px;
+}
+
+#page-footer {
+	height: 200px !important;
+   bottom: 0;
+   width: 100vw;
+}
+
