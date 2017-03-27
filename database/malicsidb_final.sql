@@ -204,7 +204,7 @@ DELIMITER %%
 	/*ADDED Procedures*/
 	CREATE PROCEDURE login(in uname varchar(50), in pass varchar(50))
 		BEGIN
-			SELECT user_id,username FROM users WHERE username = BINARY uname and password = BINARY ENCODE(pass, uname);
+			SELECT user_id,username,user_type FROM users WHERE username = BINARY uname and password = BINARY ENCODE(pass, uname);
 		END;
 %%
 	CREATE PROCEDURE createUser(in uname varchar(50), in pass varchar(50), in utype enum('admin', 'normal'), in fname varchar(50), in lname varchar(50))

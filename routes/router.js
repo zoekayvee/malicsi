@@ -9,9 +9,9 @@ const sportController =require('../services/sport.service');
 const express = require('express');
 const router = express.Router();
 
-// router.post('/login',                       userController.login);
-// router.get('/logout',                       userController.logout);
-// router.post('/createUser',                  userController.registerUser);
+router.post('/login',                       userController.login);
+router.get('/logout',                       userController.logout);
+router.post('/createUser',                  userController.registerUser);
 
 // //authentication
 // router.use(function(req, res, next){

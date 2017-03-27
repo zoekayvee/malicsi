@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html ng-app = "mainApp">
 <head>
-	<title> Event Reservation System </title>
+	<title> MalICSi </title>
 	<link rel="stylesheet" type="text/css" href="css/semantic.css">
 	<link rel='stylesheet prefetch' href='semantic/components/icon.min.css'>
 	<link rel="stylesheet" type="text/css" href="css/custom.css">
@@ -15,23 +15,23 @@
                 <img class="ui centered small circular image" src="pictures/patrick.png">
             </h2>
             <div class="ui inverted stacked segment">
-            <form class="ui large form" ng-controller="loginController as login">
+            <form class="ui large form">
                     <div class="field">
                         <div class="ui left icon input">
                             <i class="user icon"></i>
-                            <input placeholder="Username" type="text" ng-model="login.username">
+                            <input placeholder="Username" type="text">
                         </div>
                     </div>
                     <div class="field">
                         <div class="ui left icon input">
                             <i class="lock icon"></i>
-                            <input placeholder="Password" type="password" ng-model="login.password">
+                            <input placeholder="Password" type="password">
                         </div>
                     </div>
                     <div class = "field">
-                    <button class="ui fluid large teal submit button" type="submit" ng-click="login.loginUser()">Login
+                    <button class="ui fluid large teal submit button" type="submit">Login
                     </div>
-                    <button class="ui fluid medium grey submit button" ng-click="login.openModal()">Sign Up
+                    <button class="ui fluid medium grey submit button">Sign Up
             </form>
             </div>
         </div>
@@ -102,52 +102,52 @@ Interdum et malesuada fames ac ante ipsum primis in faucibus. Nullam pellentesqu
     <div class="ui modal" id="signup-modal">
     <div class="header">Sign Up Sheet</div>
     <div class="content">
-        <form ng-controller="loginController as signUp">
+        <form >
         	<div class="ui form">
 			  <div class="fields">
 			    <div class="field">
 			      <label>Username</label>
-			      <input type="text" placeholder="Username" ng-model="signUp.newUser.username">
+			      <input type="text" placeholder="Username">
 			    </div>
 			    <div class="field">
 			      <label>Password</label>
-			      <input type="password" placeholder="Password" ng-model="signUp.newUser.password">
+			      <input type="password" placeholder="Password">
 			    </div>
 			  </div>
 			  <div class="equal width fields">
 			    <div class="field">
 			      <label>First name</label>
-			      <input type="text" placeholder="First Name" ng-model="signUp.newUser.firstname">
+			      <input type="text" placeholder="First Name">
 			    </div>
 			    <div class="field">
 			      <label>Middle name</label>
-			      <input type="text" placeholder="Middle Name" ng-model="signUp.newUser.middlename">
+			      <input type="text" placeholder="Middle Name">
 			    </div>
 			    <div class="field">
 			      <label>Last name</label>
-			      <input type="text" placeholder="Last Name" ng-model="signUp.newUser.lastname">
+			      <input type="text" placeholder="Last Name">
 			    </div>
 			  </div>
 			  <div class="ui equal width form">
 			  <div class="fields">
 			    <div class="field">
 				    <label>E-mail</label>
-				    <input type="email" placeholder="sample@sample.com" ng-model="signUp.newUser.email">
+				    <input type="email" placeholder="sample@sample.com">
 			    </div>
 			    <div class="field">
 			      <label>Contact Number</label>
-			      <input type="text" placeholder="XXXXXXXXXXX" ng-model="signUp.newUser.contactno">
+			      <input type="text" placeholder="XXXXXXXXXXX">
 			    </div>
 			  </div>
 			  <div class="fluid field">
 			      <label>Address</label>
-			      <input type="text" placeholder="Address" ng-model="signUp.newUser.address">
+			      <input type="text" placeholder="Address">
 			    </div>
 			  </div>
 			</div>
 		    <div class="ui actions">
-		        <div class="ui close button" ng-click="signUp.closeModal()">Cancel</div>
-		        <div class="ui button" type="submit" ng-click="signUp.addUser()">Sign Up</div>
+		        <div class="ui close button">Cancel</div>
+		        <div class="ui button" type="submit">Sign Up</div>
     		</div>
         </form>
 
