@@ -19,13 +19,21 @@
         vm.teamName = "";
         vm.newTeamName = "";
 
+        vm.viewTeam = viewTeam;
+        vm.viewAllTeam = viewAllTeam;
+        vm.addTeam = addTeam;
+        vm.updateTeam = updateTeam;
+        vm.deleteTeam = deleteTeam;
+        vm.teamJoinEvent = teamJoinEvent;
+        vm.teamPlayGame = teamPlayGame;
+
         function viewTeam(teamId) {
             $http
             .get('/viewTeam/' + teamId)
             .then(function (response) {
-                vm.teams = response.data;
+                vm.teams = response.data[0];
                 console.log(response.data);
-                console.log('Viewing team ' + response.data.team_name)
+                console.log('Viewing team ' + response.data[0].team_name)
             },
             function (err) {
                 console.log(err);
@@ -34,9 +42,9 @@
 
         function viewAllTeam() {
             $http
-            .get('/viewAllTeam/')
+            .get('/viewAllTeam')
             .then(function (response) {
-                vm.teams = response.data;
+                vm.teams = response.data[0];
                 console.log(response.data);
                 console.log('Viewing all teams')
             },
@@ -46,9 +54,8 @@
         }
 
         function addTeam() {
-            var newTeam = {
-                team_name = vm.teamName
-            }
+            var newTeam = {};
+            newTeam.team_name = vm.teamName;
 
             $http
             .post('/addTeam', newTeam)
@@ -62,10 +69,9 @@
         }
 
         function updateTeam(teamId) {
-            var newTeam = {
-                team_id = team_id,
-                team_name = vm.newTeamName
-            }
+            var newTeam = {};
+            newTeam.team_id = team_id;
+            newTeam.team_name = vm.newTeamName;
 
             $http
             .put('/updateTeam', newTeam)
