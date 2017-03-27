@@ -14,7 +14,7 @@
                 .get('/loggedIn')
                 .then(function(response) {
                     $http
-                        .get('/users/'+response.data)
+                        .get('/viewUser/'+response.data)
                         .then(function(response) {
                             console.log(response.data);
                             if (response.data.usertype === 'admin') {

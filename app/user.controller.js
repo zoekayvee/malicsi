@@ -6,34 +6,33 @@
 
 	function userController($http){
 		var vm = this;
-
 		vm.username="";
 		vm.password="";
 		vm.loginUser=loginUser;
         vm.currentUser = {};
-
+        vm.user = [];
+        
         vm.firstname = "";
 		vm.lastname = "";
 		vm.newUser = {};
 		vm.registerUser=registerUser;
-		//vm.addUser = addUser;
 		vm.openModal = openModal;
 		vm.closeModal = closeModal;
 		vm.logOut = logOut;
 
         $http   
-            .get('/loggedIn')
+            .get('/loggedIn') 
             .then(function(response) {
                 if (response.data) {
                     $http
-                        .get('/users/'+response.data)
+                        .get('/viewUser/'+response.data)
                         .then(function(response) {
                             vm.currentUser = response.data;
+                            vm.user = response.data;
                             console.log(vm.currentUser);
                         });
                 }
             });
-
 		function loginUser(){
 			var credentials={
 				username: vm.username,
@@ -63,7 +62,7 @@
 		}
 
 	     function logOut() {
-	     	$http.post('/logout')
+	     	$http.get('/logout')
 	     			.then(function(response) {
 	     				var redirect = response.data.redirect;
 	     				window.location.href=redirect;

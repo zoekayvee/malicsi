@@ -8,7 +8,6 @@ const sportController =require('../services/sport.service');
 
 const express = require('express');
 const router = express.Router();
-
 router.get('/login', (req,res)=>{
 	res.sendFile('views/landing.html',{root:__dirname+'/..'});
 })

@@ -8,9 +8,10 @@
     <script type='text/script' src='js/jquery-3.1.1.min.js'></script>
     <script type='text/script' src='js/semantic.min.js'></script>
 </head>
+
 <body>
     <!-- NAVIGATION SECTION -->
-    <div class="ui fixed inverted menu" id="page-navigation">
+    <div class="ui fixed inverted menu" id="page-navigation" >
         <div class="ui container">
             <a href="#" class="header item">
                 <img class="logo" src="images/logo.jpg">
@@ -20,12 +21,13 @@
             <a href="#" class="item">Events</a>
             <a href="#" class="item">Home</a>
 
-            <div class="alight right ui simple dropdown item">
-                Reg Recario <i class="dropdown icon"></i>
-                <div class="menu">
+                <div class="alight right ui simple dropdown item" ng-controller= "userController as user">
+           
+                {{user.username}} <i class="dropdown icon"></i>
+                <div class="menu" >
                     <a class="item" href="#">Profile</a>
                     <a class="item" href="#">Activity Log</a>
-                    <a class="item" href="#">Logout</a>
+                    <a class="item" href="#" ng-click="user.logOut()">Logout</a>
                 </div>
             </div>
         </div>
@@ -69,10 +71,11 @@
         </div>
     </div>
     <script src="semantic/semantic.min.js"></script>
+    <script src="semantic/semantic.js"></script>
     <script src="angular.js"></script>
     <script src="app.module.js"></script>
     <script src="angular-route.js"></script>
-    <script src="login.controller.js"></script>
+    <script src="user.controller.js"></script>
 
 </body>
 </html>
