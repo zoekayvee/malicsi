@@ -59,10 +59,18 @@ router.delete('/deleteAllWinners', winnerController.deleteAllWinners);
 // router.get('/', (req,res)=>{
 // 	res.sendFile('views/index.html',{root:__dirname+'/..'});
 // })
-
-router.get('/', function (req, res) {
-    res.render("dashboard", {title: "Logs "});
+router.get('/home', function (req, res) {
+    res.render("user-dashboard", {title: "Home"});
 });
+
+router.get('/profile', function (req, res) {
+    res.render("user-profile", {title: "Profile"});
+});
+
+router.get('/event', function (req, res) {
+    res.render("user-event", {title: "Event"});
+});
+
 
 router.all('*', (req, res, next) => {
     res.status(404).send({
