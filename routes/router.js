@@ -4,7 +4,7 @@ const adminController =require('../services/admin.service');
 const userController =require('../services/user.service');
 const gameController =require('../services/game.service');
 const winnerController =require('../services/winner.service');
-const sportController =require('../services/sport.service');    
+const sportController =require('../services/sport.service');
 
 const express = require('express');
 const router = express.Router();
@@ -56,9 +56,13 @@ router.put('/updateWinner/:game_id', winnerController.updateWinner);
 router.delete('/deleteWinner/:game_id', winnerController.deleteWinner);
 router.delete('/deleteAllWinners', winnerController.deleteAllWinners);
 
-router.get('/', (req,res)=>{
-	res.sendFile('views/index.html',{root:__dirname+'/..'});
-})
+// router.get('/', (req,res)=>{
+// 	res.sendFile('views/index.html',{root:__dirname+'/..'});
+// })
+
+router.get('/', function (req, res) {
+    res.render("dashboard", {title: "Logs "});
+});
 
 router.all('*', (req, res, next) => {
     res.status(404).send({
