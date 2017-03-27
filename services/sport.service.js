@@ -4,9 +4,10 @@ var path = require('path');
 var logQuery = 'INSERT INTO logs(user_id,log_timestamp,message) VALUES(?,curdate(),?);';
 
 exports.addSport = (req,res) =>{
-	var query = 'INSERT INTO sport(sport_name) VALUES(?)';
+	var query = 'INSERT INTO sport(sport_id,sport_name) VALUES(?,?)';
 	const data = [
-		req.body.sport_name
+		req.body.sport_id;
+		req.body.sport_name;
 	];
 
 	var con = connection.query(
@@ -65,6 +66,7 @@ exports.viewAllSports = (req,res) =>{
 }
 
 exports.updateSport = (req,res) =>{
+
 	var query = 'UPDATE sport SET sport_name = ? WHERE sport_id = ?';
 	const data = [
 		req.body.sport_name,

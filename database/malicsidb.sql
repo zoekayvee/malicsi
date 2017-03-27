@@ -7,6 +7,7 @@ Go to directory where malicsidb.sql is located or enter full path to file then r
 	mysql -u root -p < malicsidb.sql
 
 */
+--comment 1st line on the first run || if user does not existssssss
 DROP USER "projectOneTwoEight"@"localhost";
 
 CREATE USER "projectOneTwoEight"@"localhost" IDENTIFIED BY "password";
@@ -83,12 +84,33 @@ create table team_joins_event(
 	constraint 		team_joins_event_id_fk foreign key(event_id) references event(event_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
+
+create table venue(
+	venue_id 		int unsigned auto_increment,
+	latitude 		float,
+	longitude		float,
+	address 		varchar(150),
+	venue_name 		varchar(100),
+	constraint 		venue_id_pk primary key(venue_id)
+);
+
+create table sport(
+	sport_id 		int unsigned auto_increment,
+	sport_name		varchar(100),
+	sport_event_id 	int unsigned,
+	constraint		sport_id_pk primary key(sport_id),
+	constraint 		sport_event_id_fk foreign key(sport_event_id) references event(event_id) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
 create table game(
 	game_id 		int unsigned auto_increment,
 	sport_id 		int unsigned,
-	winner_team_id	int unsigned, 
+	venue_id 		int unsigned,
+	winner_team_id	int unsigned,
 	referee 		varchar(100),
-	constraint 		game_id_pk primary key(game_id)
+	constraint 		game_id_pk primary key(game_id),
+	constraint 		sport_id_fk foreign key(sport_id) references sport(sport_id) ON DELETE CASCADE ON UPDATE CASCADE,
+	constraint 		venue_id_fk	foreign key(venue_id) references venue(venue_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
 create table team_plays_game(
@@ -98,22 +120,6 @@ create table team_plays_game(
 	bet_count 		int,
 	constraint 		team_plays_game_id_fk foreign key(game_id) references game(game_id) ON DELETE CASCADE ON UPDATE CASCADE,
 	constraint 		team_id_plays_game_fk foreign key(team_id) references team(team_id) ON DELETE CASCADE ON UPDATE CASCADE
-
-);
-
-create table sport(
-	sport_id 		int unsigned auto_increment,
-	sport_name		varchar(100),
-	constraint		sport_id_pk primary key(sport_id)
-);
-
-create table venue(
-	venue_id 		int unsigned auto_increment,
-	latitude 		float,
-	longitude		float,
-	address 		varchar(150),
-	venue_name 		varchar(100),
-	constraint 		venue_id_pk primary key(venue_id)
 );
 
 create table sponsor(
@@ -129,13 +135,13 @@ create table sponsor_events(
 	constraint 		event_id_fk foreign key(event_id) references event(event_id) ON DELETE CASCADE ON UPDATE CASCADE	
 );
 
-
-
 DELIMITER %%
+---TRIGGERS---
+	--USER INSERT AND DELETE--
 	CREATE TRIGGER userInsert AFTER INSERT ON users
 		FOR EACH ROW
 			BEGIN
-				INSERT INTO logs(user_id, message) VALUES(NEW.user_id, concat("Created new user with user name: ", NEW.username));
+				INSERT INTO logs(user_id, message) VALUES(NEW.user_id, concat("Created new user with username: ", NEW.username));
 			END; 
 %%
 	CREATE TRIGGER userDelete AFTER DELETE ON users
@@ -143,40 +149,44 @@ DELIMITER %%
 			BEGIN
 				INSERT INTO logs(user_id, message) VALUES(OLD.user_id, concat("Deleted user: ", OLD.username));
 			END;
+%%
+	CREATE TRIGGER userCreateEvent AFTER INSERT ON event
+		FOR EACH ROW
+			BEGIN
+				INSERT INTO logs(user_id, message) VALUES(NEW.user_id, concat((select username from users where user_id = NEW.user_id)," created new event"));
+			END;
+%%
+--PROCEDURES--
+	--SPORTS--
+	CREATE PROCEDURE sportUpdate(in userid int unsigned, in sportid int unsigned, in sportname varchar(100))
+		BEGIN
+			INSERT INTO logs(user_id, message) VALUES(userid, concat((select username from users where user_id = userid), " updated ", (select sport_name from sport where sport_id = sportid), "'s name to", sportname));
+		
+			UPDATE sport SET sport_name = sportname where sport_id = sportid;
+		END;
 
 %%
-	CREATE TRIGGER sportInsert AFTER INSERT ON sport
-		FOR EACH ROW
-			BEGIN
-				INSERT INTO logs(user_id, message) VALUES(NEW.sport_id, concat("Deleted user: ", NEW.sport_id));
-			END;
-%%
-
-	CREATE TRIGGER sportDelete AFTER DELETE ON sport
-		FOR EACH ROW
-			BEGIN
-				INSERT INTO logs(user_id, message) VALUES(OLD.sport_id, concat("Deleted user: ", OLD.sport_id));
-			END;
-%%
-	CREATE TRIGGER gameInsert AFTER INSERT ON game
-		FOR EACH ROW
-			BEGIN
-				INSERT INTO logs(user_id, message) VALUES(NEW.game_id, concat("Added new game: ", NEW.game_id));
-			END;
-%%
-	CREATE PROCEDURE userViewAllSports(in userid int)
+	CREATE PROCEDURE userViewAllSports(in userid int unsigned)
 		BEGIN
 			SELECT * from sport;
 			INSERT INTO logs(user_id, message) VALUES(userid, concat((select username from users where user_id = userid)," viewed all sports"));
-
 		END;
+
 %%
-	CREATE PROCEDURE useViewSport(in userid int, in sportid int)
+	CREATE PROCEDURE userViewSport(in userid int unsigned, in sportid int unsigned)
 		BEGIN
-			SELECT * FROM sport where spor_id = sportid;
-			INSERT INTO Logs(user_id, message) VALUES(userid, concat((select username from users where user_id = userid)," viewed sport with id: ", sportid));
+			SELECT * FROM sport where sport_id = sportid;
+			INSERT INTO logs(user_id, message) VALUES(userid, concat((select username from users where user_id = userid)," viewed sport with id: ", (select sport_name from sport where sport_id = sportid)));
 		END;
 
+%%
+	--GAME--
+	CREATE PROCEDURE gameUpdate(in userid int unsigned, in gameid int unsigned, in winnerTeamId int unsigned)
+		BEGIN
+			INSERT INTO logs(user_id, message) VALUES(userid, concat((select username from users where user_id = userid), " updated game "));
+		
+			UPDATE game SET winner_team_id = winnerTeamId where game_id = gameid;
+		END;
 %%
 	CREATE PROCEDURE userViewAllGames(in userid int unsigned)
 		BEGIN
@@ -190,10 +200,11 @@ DELIMITER %%
 			INSERT INTO logs(user_id, message) VALUES(userid, concat((select username from users where user_id = userid)," viewed game with id: ", gameid));
 		END;
 %%
+	--View WINNERS--
 	CREATE PROCEDURE userViewAllWinners(in userid int unsigned)
 		BEGIN
 			SELECT winner_team_id from game;
-			INSERT INTO logs(user_id, message) VALUES(userid, concat((select username from user where user_id = userid), " viewed all winners"));
+			INSERT INTO logs(user_id, message) VALUES(userid, concat((select username from users where user_id = userid), " viewed all winners"));
 		END;
 %%
 	CREATE PROCEDURE userViewWinnerInGame(in user_id int unsigned, in gameid int unsigned)
@@ -202,5 +213,14 @@ DELIMITER %%
 			INSERT INTO logs(user_id, message) VALUES(userid, concat((select username from users where user_id = userid)," viewed winner of game(id): ", gameid));
 		END;
 %%
+<<<<<<< HEAD
 DELIMITER ;
 >>>>>>> 5a6394d17c265f7ef6d52968c0ac5749adbb4d4a
+=======
+	CREATE PROCEDURE insertDummyUser()
+		BEGIN
+			INSERT INTO users(username, password, user_type, firstname, lastname, college, contactno, email, weight, height) VALUES("Tester", password("test"), "admin", "Nn", "Mm","CAS", 09166994203, "nMm@asdf.com", 1, 1);
+		END;
+%%
+DELIMITER ;
+>>>>>>> 3ae493ea4ef9832602aedc86341ca0d7c0817e52
