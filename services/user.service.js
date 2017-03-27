@@ -42,7 +42,7 @@ exports.logout=(req,res)=>{
 	if(req.session){
 		req.session.destroy(function(err){
 			res.json({
-				redirect: '/'
+				redirect: '/login'
 			});
 		});
 	}

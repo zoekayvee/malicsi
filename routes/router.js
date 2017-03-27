@@ -9,17 +9,20 @@ const sportController =require('../services/sport.service');
 const express = require('express');
 const router = express.Router();
 
+router.get('/login', (req,res)=>{
+	res.sendFile('views/landing.html',{root:__dirname+'/..'});
+})
 router.post('/login',                       userController.login);
 router.get('/logout',                       userController.logout);
-router.post('/createUser',                  userController.registerUser);
+router.post('/addUser',                  userController.registerUser);
 
-// //authentication
-// router.use(function(req, res, next){
-//     if (req.session && req.session.accountid)
-//         next();
-//     else
-//         res.redirect('/login');
-// })
+ //authentication
+/*router.use(function(req, res, next){
+     if (req.session && req.session.accountid)
+         next();
+     else
+         res.redirect('/login');
+})*/
 
 router.get('/viewAllUsers',                 adminController.viewAllUsers);
 router.get('/viewUser/:user_id',            userController.viewUser);
@@ -55,6 +58,13 @@ router.get('/viewAllWinners', winnerController.viewAllWinners);
 router.put('/updateWinner/:game_id', winnerController.updateWinner);
 router.delete('/deleteWinner/:game_id', winnerController.deleteWinner);
 router.delete('/deleteAllWinners', winnerController.deleteAllWinners);
+
+router.get('/loggedIn', (req, res) => {
+	if (req.session)
+		res.send(req.session.userid);
+	else
+		res.send({});
+});
 
 router.get('/', (req,res)=>{
 	res.sendFile('views/index.html',{root:__dirname+'/..'});

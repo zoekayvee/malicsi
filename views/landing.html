@@ -2,9 +2,8 @@
 <html ng-app = "mainApp">
 <head>
 	<title> MalICSi </title>
-	<link rel="stylesheet" type="text/css" href="css/semantic.css">
+	<link rel="stylesheet" type="text/css" href="css/semantic.min.css">
 	<link rel='stylesheet prefetch' href='semantic/components/icon.min.css'>
-	<link rel="stylesheet" type="text/css" href="css/custom.css">
 	<link rel="stylesheet" type="text/css" href="semantic/semantic.min.css">
 </head>
 
@@ -12,26 +11,26 @@
     <div id="login-header" class="ui middle aligned center aligned three column grid">
         <div class="column">
             <h2 class="image header">
-                <img class="ui centered small circular image" src="pictures/patrick.png">
+                <img class="ui centered small circular image">
             </h2>
             <div class="ui inverted stacked segment">
-            <form class="ui large form">
+            <form class="ui large form" ng-controller="userController as login">
                     <div class="field">
                         <div class="ui left icon input">
                             <i class="user icon"></i>
-                            <input placeholder="Username" type="text">
+                            <input placeholder="Username" type="text" ng-model="login.username">
                         </div>
                     </div>
                     <div class="field">
                         <div class="ui left icon input">
                             <i class="lock icon"></i>
-                            <input placeholder="Password" type="password">
+                            <input placeholder="Password" type="password" ng-model="login.password">
                         </div>
                     </div>
                     <div class = "field">
-                    <button class="ui fluid large teal submit button" type="submit">Login
+                    <button class="ui fluid large teal submit button" type="submit" ng-click="login.loginUser()">Login
                     </div>
-                    <button class="ui fluid medium grey submit button">Sign Up
+                    <button class="ui fluid medium grey submit button" ng-click="login.openModal()">Sign Up
             </form>
             </div>
         </div>
@@ -60,94 +59,36 @@ Interdum et malesuada fames ac ante ipsum primis in faucibus. Nullam pellentesqu
             <div class="column"></div>
         </div>
     </div>
-    <div class="ui inverted vertical footer segment">
-        <div class="ui container">
-            <div class="ui stackable inverted divided equal height stackable grid">
-                <div class="three wide column">
-                    <h4 class="ui inverted header">About</h4>
-                    <div class="ui inverted link list">
-                        <a href="#" class="item">Homepage</a>
-                        <a href="#" class="item">Contact Us</a>
-                        <a href="#" class="item">User Profile</a>
-                        <a href="#" class="item">Log out</a>
-                    </div>
-                </div>
-                <div class="four wide column">
-                    <h4 class="ui inverted header">Services</h4>
-                    <div class="ui inverted link list">
-                        <a href="#" class="item">Search for an Event</a>
-                        <a href="#" class="item">Add an Event</a>
-                        <a href="#" class="item">Edit an Event</a>
-                        <a href="#" class="item">Search for a Venue</a>
-                    </div>
-                </div>
-                <div class="right aligned nine wide column">
-                    <button class="ui circular facebook icon button">
-                    <i class="facebook icon"></i>
-                    </button>
-                    <button class="ui circular twitter icon button">
-                      <i class="twitter icon"></i>
-                    </button>
-                    <button class="ui circular linkedin icon button">
-                      <i class="linkedin icon"></i>
-                    </button>
-                    <button class="ui circular google plus icon button">
-                      <i class="google plus icon"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <div class="ui modal" id="signup-modal">
     <div class="header">Sign Up Sheet</div>
     <div class="content">
-        <form >
+        <form ng-controller="userController as signUp">
         	<div class="ui form">
 			  <div class="fields">
 			    <div class="field">
 			      <label>Username</label>
-			      <input type="text" placeholder="Username">
+			      <input type="text" placeholder="Username" ng-model="signUp.newUser.username">
 			    </div>
 			    <div class="field">
 			      <label>Password</label>
-			      <input type="password" placeholder="Password">
+			      <input type="password" placeholder="Password" ng-model="signUp.newUser.password">
 			    </div>
 			  </div>
 			  <div class="equal width fields">
 			    <div class="field">
 			      <label>First name</label>
-			      <input type="text" placeholder="First Name">
-			    </div>
-			    <div class="field">
-			      <label>Middle name</label>
-			      <input type="text" placeholder="Middle Name">
+			      <input type="text" placeholder="First Name" ng-model="signUp.newUser.firstname">
 			    </div>
 			    <div class="field">
 			      <label>Last name</label>
-			      <input type="text" placeholder="Last Name">
-			    </div>
-			  </div>
-			  <div class="ui equal width form">
-			  <div class="fields">
-			    <div class="field">
-				    <label>E-mail</label>
-				    <input type="email" placeholder="sample@sample.com">
-			    </div>
-			    <div class="field">
-			      <label>Contact Number</label>
-			      <input type="text" placeholder="XXXXXXXXXXX">
-			    </div>
-			  </div>
-			  <div class="fluid field">
-			      <label>Address</label>
-			      <input type="text" placeholder="Address">
+			      <input type="text" placeholder="Last Name" ng-model="signUp.newUser.lastname">
 			    </div>
 			  </div>
 			</div>
 		    <div class="ui actions">
-		        <div class="ui close button">Cancel</div>
-		        <div class="ui button" type="submit">Sign Up</div>
+		        <div class="ui close button" ng-click="signUp.closeModal()">Cancel</div>
+		        <div class="ui button" type="submit" ng-click="signUp.registerUser()">Sign Up</div>
     		</div>
         </form>
 
@@ -160,6 +101,6 @@ Interdum et malesuada fames ac ante ipsum primis in faucibus. Nullam pellentesqu
     <script src="angular.js"></script>
     <script src="app.module.js"></script>
     <script src="angular-route.js"></script>
-    <script src="login.controller.js"></script>
+    <script src="user.controller.js"></script>
 </body>
 </html>
