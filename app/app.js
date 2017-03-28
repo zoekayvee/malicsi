@@ -18,6 +18,9 @@
 			.when('/user/activity-log', {
 				templateUrl: 'layouts/user-activity-log.html'
 			})
+			.when('/user/new-event', {
+				templateUrl: 'layouts/user-create-event.html'
+			})
 			.when('/user/event', {
 				templateUrl: 'layouts/user-event.html'
 			})
@@ -34,7 +37,7 @@
 				templateUrl: 'layouts/user-team-page.html'
 			})
 			.when('/user/search', {
-				templateUrl: 'layouts/user-search-sched.html'
+				templateUrl: 'layouts/user-search-page.html'
 			})
 
 			// .otherwise({
