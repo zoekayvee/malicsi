@@ -56,26 +56,8 @@ router.put('/updateWinner/:game_id', winnerController.updateWinner);
 router.delete('/deleteWinner/:game_id', winnerController.deleteWinner);
 router.delete('/deleteAllWinners', winnerController.deleteAllWinners);
 
-// router.get('/', (req,res)=>{
-// 	res.sendFile('views/index.html',{root:__dirname+'/..'});
-// })
-router.get('/home', function (req, res) {
-    res.render("user-dashboard", {title: "Home"});
-});
-
-router.get('/profile', function (req, res) {
-    res.render("user-profile", {title: "Profile"});
-});
-
-router.get('/event', function (req, res) {
-    res.render("user-event", {title: "Event"});
-});
-
-
 router.all('*', (req, res, next) => {
-    res.status(404).send({
-        message: 'Not Found!'
-    })
+    res.sendFile('views/index.html',{root:__dirname+'/..'});
 });
 
 module.exports = router;
