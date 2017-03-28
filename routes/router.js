@@ -56,8 +56,17 @@ router.put('/updateWinner/:game_id', winnerController.updateWinner);
 router.delete('/deleteWinner/:game_id', winnerController.deleteWinner);
 router.delete('/deleteAllWinners', winnerController.deleteAllWinners);
 
-router.all('*', (req, res, next) => {
-    res.sendFile('views/index.html',{root:__dirname+'/..'});
+// router.get('/', (req, res, next) => {
+//     res.sendFile('views/index.html',{root:__dirname+'/..'});
+// });
+
+// router.all('*', (req, res, next) => {
+//     res.sendFile('index.html',{root:__dirname+'/..'});
+// });
+//
+
+router.all('*', (req, res) => {
+    res.status(404).send({message : 'Unmatched route. =(('});
 });
 
 module.exports = router;
