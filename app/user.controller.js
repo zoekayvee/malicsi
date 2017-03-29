@@ -24,11 +24,7 @@
             .get('/loggedIn') 
             .then(function(response) {
                 if (response.data) {
-<<<<<<< HEAD
-                    $http	
-=======
                     $http
->>>>>>> d029d85146cb7af317f0b7fe541c322a96c36cb0
                         .get('/viewUser/'+response.data)
                         .then(function(response) {
                             vm.currentUser = response.data;
