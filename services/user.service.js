@@ -13,12 +13,13 @@ exports.login=(req,res)=>{
 	const req_data= [user.username,user.password];
 	console.log(user.username);
 	console.log(user.password);
+
 	connection.query(query_string,req_data, (err,rows)=>{
 		//this is where the connection to the database is being done, the rows will acquire the result of the query
 		if(!err) {
 			if(rows[0]){
-				req.session.userid = rows[0].user_id
-				req.session.usertype = rows[0].user_type
+				req.session.userid = rows[0][0].user_id
+				req.session.usertype = rows[0][0].user_type
 				var json =  JSON.parse((JSON.stringify(req.session)));
 				console.log(json);
 				res.json({
@@ -88,6 +89,7 @@ exports.viewProfile = (req,res) =>{
 		}
 	});
 }
+
 // viewUser - views a user by ID (user_id)
 exports.viewUser=(req, res)=>{
 
@@ -104,7 +106,6 @@ exports.viewUser=(req, res)=>{
 		}
 	});
 }
-
 
 //userJoinsTeam - use team_players table to add the user
 exports.userJoinsTeam=(req, res)=>{

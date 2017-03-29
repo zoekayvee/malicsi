@@ -23,10 +23,12 @@ router.post('/addUser',                  userController.registerUser);
      else
          res.redirect('/login');
 })*/
+
 router.get('/viewProfile',function(req,res){
     res.sendFile('views/user-profile.html',{root:__dirname+'/..'});
 });
 router.post('/viewProfile',                  userController.viewProfile);
+
 router.get('/viewAllUsers',                 adminController.viewAllUsers);
 router.get('/viewUser/:user_id',            userController.viewUser);
 router.put('/updateUser/:user_id',          adminController.updateUser);
@@ -38,6 +40,7 @@ router.get('/viewLog',function(req,res){
     res.sendFile('views/user-activity-log.html',{root:__dirname+'/..'});
 });
 router.post('/viewLog',adminController.viewLogs); 
+
 
 
 router.post('/addCompetitor',               adminController.addCompetitor);
