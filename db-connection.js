@@ -3,7 +3,8 @@ var Client = require('mariasql');
 var c = new Client({
   host: '127.0.0.1',
   user: 'root',
-  password: 'a5390040597',
+  // password: 'a5390040597',
+  password: 'user',
   db: 'malicsiDB'
 });
 
