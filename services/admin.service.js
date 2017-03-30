@@ -38,7 +38,7 @@ exports.updateUser=(req,res)=>{
 		const req_data = [
 			req.params.user_id,
 			req.body.username,
-			req.body.password,
+			CryptoJS.AES.encrypt(req.body.password, req.body.username).toString(),
 			req.body.firstname,
 			req.body.lastname,
 			req.body.college,

@@ -45,8 +45,9 @@
 					console.log(redirect);
 					if (redirect === '/#!/user/home'){
 						window.location.href=redirect;
-					}	
+					}
 				}, function (response){	
+
 				});
 		}
 		function registerUser(){

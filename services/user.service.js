@@ -3,13 +3,15 @@ const connection = require(__dirname + '/../db-connection');
 var path = require('path');
 ///CRUDE EVENT///
 
+var CryptoJS = require('crypto-js');
+
 exports.login=(req,res)=>{
 	const user = {
 		username: req.body.username,
-		password: req.body.password
+		password: CryptoJS.AES.decrypt(req.body.password, req.body.username).toString()
 	};
 
-	const query_string = 'SELECT user_id,username,user_type FROM users WHERE username = ? and password = ?'
+	const query_string = 'call login(?,?)'
 	const req_data= [user.username,user.password];
 	console.log(user.username);
 	console.log(user.password);
@@ -56,7 +58,7 @@ exports.registerUser=(req,res)=>{
 	const query_string = 'call createUser(?,?,?,?,?,?)';
 	const req_data = [
 		req.body.username,
-		req.body.password,
+		CryptoJS.AES.encrypt(req.body.password, req.body.username).toString(),
 		'normal',
 		req.body.firstname,
 		req.body.lastname,

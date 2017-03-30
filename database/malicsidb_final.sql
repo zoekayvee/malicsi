@@ -5,10 +5,9 @@ Go to directory where malicsidb.sql is located or enter full path to file then r
 	mysql -u root -p < malicsidb.sql
 
 */
-
 DROP DATABASE IF EXISTS `malicsiDB`;
 
-DROP USER "projectOneTwoEight"@"localhost";
+DROP USER IF EXISTS "projectOneTwoEight"@"localhost";
 
 CREATE USER "projectOneTwoEight"@"localhost" IDENTIFIED BY "password";
 
@@ -192,7 +191,7 @@ DELIMITER %%
 	CREATE PROCEDURE userViewAllWinners(in userid int unsigned)
 		BEGIN
 			SELECT winner_team_id from game;
-			INSERT INTO logs(user_id, message) VALUES(userid, concat((select username from user where user_id = userid), " viewed all winners"));
+			INSERT INTO logs(user_id, message) VALUES(userid, concat((select username from users where user_id = userid), " viewed all winners"));
 		END;
 %%
 	CREATE PROCEDURE userViewWinnerInGame(in user_id int unsigned, in gameid int unsigned)
@@ -201,4 +200,32 @@ DELIMITER %%
 			INSERT INTO logs(user_id, message) VALUES(userid, concat((select username from users where user_id = userid)," viewed winner of game(id): ", gameid));
 		END;
 %%
+	/*ADDED Procedures*/
+	CREATE PROCEDURE login(in uname varchar(50), in pass varchar(50))
+		BEGIN
+			SELECT user_id,username,user_type FROM users WHERE username = BINARY uname and password = BINARY pass;
+		END;
+%%
+	CREATE PROCEDURE createUser(in uname varchar(50), in pass varchar(50), in utype enum('admin', 'normal'), in fname varchar(50), in lname varchar(50), in em varchar(100))
+		BEGIN
+			INSERT INTO users (username, password, user_type, firstname, lastname, email) VALUES (uname, pass, utype, fname, lname, em);
+		END;
+%%
+	CREATE PROCEDURE updateUser(in uid int(10), in uname varchar(50), in pass varchar(50), in fname varchar(50), in lname varchar(50), in ucollege varchar(50), in contact varchar(50), in mail varchar(100), in wt int(11), in ht int (11))
+		BEGIN
+			UPDATE users SET username=uname, firstname = fname, lastname = lname, college = ucollege, contactno = contact, email = mail, weight = wt, height = ht WHERE user_id = uid;
+			UPDATE users SET password = pass WHERE username = uname;
+		END;
+%%
+	CREATE PROCEDURE deleteUser(in uid int(10))
+		BEGIN
+			DELETE FROM event WHERE user_id = uid;
+			DELETE FROM logs WHERE user_id = uid;
+			DELETE FROM team_players WHERE user_id = uid;
+			DELETE FROM user_interests WHERE user_id = uid;
+			DELETE FROM users WHERE user_id LIKE uid;
+		END;
+%%
 DELIMITER ;
+
+ insert into users(username,password,user_type,firstname,lastname,college,contactno,email,weight,height) VALUES("vlromero","haha","normal","Vanessa","Romero","CAS","09278549145","vlromero@up.edu.ph",123,123);
