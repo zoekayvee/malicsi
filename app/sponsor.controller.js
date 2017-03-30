@@ -31,6 +31,55 @@
             });
         }
 
+function sponsorEvent(){
+            var sponEvent = {
+                sponsor_id: vm.sponsorId,
+                event_id : vm.eventId
+            }
+            $http
+                .post('/sponsorEvent',sponEvent)
+                .then(function(response){
+                    console.log(response.data);
+                },
+                function(response){
+                    console.log("error");
+                });
+
+
+
+        }
+
+
+
+        function getData() {
+    $http
+        .get('/viewAllSponsor')
+        .then(function(response){
+            vm.allSponsors = response.data[0];
+        },
+        function(response){
+            console.log("error");
+        });
+
+}
+
+function interval(){
+    setTimeout(function() {
+        viewAllSponsor();
+        interval();
+    }, 1000);
+}
+
+
+
+
+
+
+
+
+
+
+
 
          function deleteSponsor(id) {
             $http
@@ -71,5 +120,23 @@
                 console.log("error");   
             });
         }
+
+        function viewSponsor(id) {
+        $http
+                .get('/viewSponsor/'+id)
+                .then(function(response){
+                    vm.allSponsors = response.data[0];
+                    console.log(response.data);
+                    console.log('Viewing Sponsors!')
+            },
+            function(response){
+                console.log("error");   
+            });
+        }
+
+
+
+
+        
     }
 })();
