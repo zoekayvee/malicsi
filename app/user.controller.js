@@ -43,7 +43,7 @@
 				.then(function (response){
 					var redirect = response.data.redirect;
 					console.log(redirect);
-					if (redirect === '/user/home'){
+					if (redirect === '/#!/user/home'){
 						window.location.href=redirect;
 					}	
 				}, function (response){	

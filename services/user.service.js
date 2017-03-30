@@ -23,7 +23,7 @@ exports.login=(req,res)=>{
 				var json =  JSON.parse((JSON.stringify(req.session)));
 				console.log(json);
 				res.json({
-					redirect: '/'
+					redirect: '/#!/user/home'
 				});
 			}
 			else{
