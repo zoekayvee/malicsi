@@ -1,7 +1,7 @@
 (function(){
 	'use strict'
 	angular
-		.module('mainApp')
+		.module('malicsi')
 		.controller('userController', userController);
 
 	function userController($http){
@@ -11,21 +11,22 @@
 		vm.loginUser=loginUser;
         vm.currentUser = {};
         vm.user = [];
-        
+        vm.allLogs = [];
+
         vm.firstname = "";
 		vm.lastname = "";
 		vm.newUser = {};
 		vm.registerUser=registerUser;
-		vm.openModal = openModal;
-		vm.closeModal = closeModal;
 		vm.logOut = logOut;
-
+		vm.userProfile=userProfile;
+		vm.getLogs = getLogs;
+		
         $http   
-            .get('/loggedIn') 
+            .get('/user_loggedin') 
             .then(function(response) {
                 if (response.data) {
                     $http
-                        .get('/viewUser/'+response.data)
+                        .get('/users/'+response.data)
                         .then(function(response) {
                             vm.currentUser = response.data;
                             vm.user = response.data;
@@ -42,16 +43,15 @@
 				.then(function (response){
 					var redirect = response.data.redirect;
 					console.log(redirect);
-					if (redirect === '/'){
+					if (redirect === '/user/home'){
 						window.location.href=redirect;
 					}	
 				}, function (response){	
 				});
 		}
 		function registerUser(){
-			vm.newUser.usertype= "normal";
 			$http
-				.post('/addUser', vm.newUser)
+				.post('/users', vm.newUser)
 				.then(function(response){
 					console.log(response.data);
 					console.log('User added!');
@@ -69,19 +69,34 @@
 	     			});
 	     }
 
-	     function openModal() {
-			 $('.ui.modal')
-			 	.modal('setting', {
-					 closable: false
-				})
-				.modal('show');
-		 }
-		 
-		 function closeModal() {
-			 $('.ui.modal')
-			 	.modal('hide');
-			vm.newUser = {};	
-		 }
-	}
+	     function userProfile(){
+			var credentials={
+				username: vm.username,
+				password: vm.password
+			}		
+	       	$http   
+	            .get('/user_loggedin') 
+	            .then(function(response) {
+	                if (response.data) {
+	                    $http
+	                        .get('/users/'+response.data)
+	                        .then(function(response) {
+	                            vm.user = response.data;
+								console.log(response.data);
+								console.log("HERE");
+	                        });
+	                }
+	            });
+		}
+		function getLogs(){
+			$http
+			.post('/logs')
+			.then(function(response) {
+				if(response.data) {
+					vm.allLogs = response.data;
+				} else console.log('Error');
+			});
+		}
+		}
 
 })();

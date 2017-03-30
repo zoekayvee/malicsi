@@ -1,0 +1,5 @@
+Seco changes:
+
+added email to user.service, malicsidb_final call createUser()
+
+some errors in registering user- password and normality of users are not stored properly in DB

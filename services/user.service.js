@@ -18,8 +18,8 @@ exports.login=(req,res)=>{
 		//this is where the connection to the database is being done, the rows will acquire the result of the query
 		if(!err) {
 			if(rows[0]){
-				req.session.userid = rows[0][0].user_id
-				req.session.usertype = rows[0][0].user_type
+				req.session.userid = rows[0].user_id
+				req.session.usertype = rows[0].user_type
 				var json =  JSON.parse((JSON.stringify(req.session)));
 				console.log(json);
 				res.json({
@@ -28,7 +28,7 @@ exports.login=(req,res)=>{
 			}
 			else{
 				res.json({
-					redirect: '/login'
+					redirect: '/'
 				});
 			}
 		}
@@ -44,7 +44,7 @@ exports.logout=(req,res)=>{
 	if(req.session){
 		req.session.destroy(function(err){
 			res.json({
-				redirect: '/login'
+				redirect: '/'
 			});
 		});
 	}
@@ -53,13 +53,14 @@ exports.logout=(req,res)=>{
 exports.registerUser=(req,res)=>{
 	//automatic normal user
 
-	const query_string = 'call createUser(?,?,?,?,?)';
+	const query_string = 'call createUser(?,?,?,?,?,?)';
 	const req_data = [
 		req.body.username,
 		req.body.password,
 		'normal',
 		req.body.firstname,
-		req.body.lastname
+		req.body.lastname,
+		req.body.email
 	];
 	
 	connection.query(query_string, req_data, (err,rows)=>{
@@ -73,7 +74,7 @@ exports.registerUser=(req,res)=>{
 	});
 }
 
-exports.viewProfile = (req,res) =>{
+/*exports.viewProfile = (req,res) =>{
 	const query_string = 'SELECT * FROM users WHERE user_id = ?';
 	const req_data = [req.session.userid]
 
@@ -88,7 +89,7 @@ exports.viewProfile = (req,res) =>{
 			res.status(500).send(err);
 		}
 	});
-}
+}*/
 
 // viewUser - views a user by ID (user_id)
 exports.viewUser=(req, res)=>{
@@ -99,6 +100,8 @@ exports.viewUser=(req, res)=>{
 	connection.query(query_string, req_data, (err,result)=>{
 		if(!err){
 			res.status(200).send(result[0]);
+			console.log(result[0]);
+			console.log(req.session.userid);
 		}
 		else{
 			console.log(err);

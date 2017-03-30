@@ -16,6 +16,7 @@ app.use(session({
 	saveUninitialized: false
 }));
 
+app.use(express.static(__dirname+'/bower_components'));
 app.use(express.static(__dirname+'/public'));
 app.use(express.static(__dirname+'/app'));
 app.use(router);

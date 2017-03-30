@@ -1,3 +1,7 @@
+$(document).ready(function(){
+    $('.slider').glide();
+});
+
 google.charts.load('current', {packages: ['corechart', 'bar']});
 google.charts.setOnLoadCallback(drawBarColors);
 

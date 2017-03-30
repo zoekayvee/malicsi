@@ -118,11 +118,12 @@ exports.deleteCompetitor=(req,res)=>{
 
 
 exports.viewLogs=(req,res)=>{
-	const query_string = 'SELECT user_id,message FROM logs';
+	const query_string = "SELECT users.user_id,message,firstname FROM logs RIGHT JOIN users ON logs.user_id = users.user_id";
 
 	connection.query(query_string, null, (err,result) =>{
 		if(!err){
 			res.status(200).send(result);
+			console.log(result);
 		}
 		else{
 			console.log(err);
