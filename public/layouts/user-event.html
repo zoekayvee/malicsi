@@ -7,9 +7,10 @@
 		<table id="events" class="ui celled table">
 			<tr>
 				
-				<th> <h1> Description </h1></th>
-				<th> <h1> Date Start </h1></th>
-				<th> <h1> Date End </h1></th>
+				<th>  Event </th>
+				<th>  Date Start </th>
+				<th>  Date End </th>
+				<th>  Open for registration? </th>
 			</tr>
 
 			<tbody ng-init = "event.viewAllEvent()" >
@@ -20,6 +21,7 @@
 					</td>
 					<td>{{x.date_start}}</td>
 					<td>{{x.date_end}}</td>
+					<td>{{x.allow_reg == '1' ? 'Yes' : 'No'}}</td>
 					
 				</tr>
 				
