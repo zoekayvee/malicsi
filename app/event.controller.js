@@ -31,7 +31,7 @@ function addEvent() {
         date_end : vm.dateEnd
 }
 $http
-    .post('/event', newEvent)
+    .post('/events', newEvent)
     .then(function(response){
         console.log(response.data);
         console.log('Success! Event Added!')
@@ -50,7 +50,7 @@ function interval(){
 
 function viewAllEvent() {
 $http
-    .get('/event')
+    .get('/events')
     .then(function(response){
         vm.allEvents = response.data[0];
         console.log(response.data[0]);
@@ -83,6 +83,7 @@ function viewEvent(id){
 
 function viewClickedEvent(){
     $http
+
         .get('/event/' + $routeParams.event_id)
         .then(function(response){
             vm.allEvents = response.data[0];
@@ -94,7 +95,7 @@ function viewClickedEvent(){
 function deleteEvent(id) {
     
 $http
-    .delete('/event/'+id)
+    .delete('/events/'+id)
     .then(function(response){
         console.log('Event deleted')
 },
