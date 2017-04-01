@@ -15,13 +15,13 @@
 </div> <br><br>
 
 
-<div class="ui centered grid">
+<div class="ui centered grid" ng-controller="userGameSchedController as UGSC">
     <div class="row">
         <div class="one wide column">
 
         </div>
-        <div class="center aligned ten wide column">
-            <h3 class="centered" id="sportsname"> Basketball </h3>
+        <div class="center aligned ten wide column" ng-repeat="x in UGSC.allSports" ng-init="a=x.sport_id">
+            <h3 class="centered" id="sportsname"> {{x.sport_name}} </h3>
 
             <table class="ui single line table">
                 <thead>
@@ -34,24 +34,26 @@
                         <th> Score </th>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr>
-                        <td id="date"> March 26, 2017 </td>
-                        <td id="time"> 14h30 </td>
-                        <td id="venue"> Copeland Gym </td>
-                        <td id="teamname"> Team 1</td>
-                        <td id="teamname"> Team2 </td>
-                        <td id="score"> 67-71 </td>
+                <tbody ng-init="UGSC.viewGamesLeaderboards(x)">
+                    <tr ng-repeat="y in UGSC.allGames[a-1] track by $index">
+                        <!-- <td id="game"> {{y.game_id}} </td> -->
+                        <td id="date"> {{y.date_start|date : 'yyyy-mm-dd'}} </td>
+                        <!-- <td id="time">  </td> -->
+                        <td id="venue"> {{y.venue_name}} </td>
+                        <td id="teamname"> {{y.team_name}} </td>
+                        <td id="teamname"> {{y.team_name_2}} </td>
+                        <td id="ref"> {{y.referee}} </td>
+                        <td id="ref"> {{y.score}}-{{y.score2}} </td>
                     </tr>
 
-                    <tr>
+                    <!-- <tr>
                         <td id="date"> March 26, 2017 </td>
                         <td id="time"> 16h00 </td>
                         <td id="venue"> Baker Hall </td>
                         <td id="teamname"> Team 1</td>
                         <td id="teamname"> Team2 </td>
                         <td id="score"> 70-73 </td>
-                    </tr>
+                    </tr> -->
                 </tbody>
             </table>
         </div>

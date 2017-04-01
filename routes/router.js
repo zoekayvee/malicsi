@@ -5,6 +5,9 @@ const userController =require('../services/user.service');
 const gameController =require('../services/game.service');
 const winnerController =require('../services/winner.service');
 const sportController =require('../services/sport.service');    
+const eventController =require('../services/event.services');
+const teamController = require('../services/team.services');
+const sponsorController = require('../services/sponsor.services');
 
 const express = require('express');
 const router = express.Router();
@@ -57,41 +60,28 @@ router.put('/winner/:game_id', 				winnerController.updateWinner);
 router.delete('/winner/:game_id', 			winnerController.deleteWinner);
 router.delete('/winner', 					winnerController.deleteAllWinners);
 
+router.post     ('/events',      eventController.addEvent); 
+router.get      ('/events/:event_id', eventController.viewEvent);
+router.get      ('/events',   eventController.viewAllEvent);
+router.put      ('/events',    eventController.updateEvent);
+router.delete   ('/events/:event_id',    eventController.deleteEvent);
 
-router.get('/viewScheds/:sport_id', gameController.viewScheds);
+router.post     ('/teams',      eventController.addEvent); 
+router.get      ('/teams/:team_id', eventController.viewEvent);
+router.get      ('/teams',   eventController.viewAllEvent);
+router.put      ('/teams',    eventController.updateEvent);
+router.delete   ('/teams/:team_id',    eventController.deleteEvent);
 
-// router.get('/', (req,res)=>{
-// 	res.sendFile('views/layout/user-game-sched.html',{root:__dirname+'/..'});
-// })
+router.post     ('/sponsors',      eventController.addEvent); 
+router.get      ('/sponsors/:sponsor_id', eventController.viewEvent);
+router.get      ('/sponsors',   eventController.viewAllEvent);
+router.put      ('/sponsors',    eventController.updateEvent);
+router.delete   ('/sponsors/:sponsor_id',    eventController.deleteEvent);
 
-router.get('/sample', (req,res)=>{
-	res.sendFile('views/layout/user-game-sched.html',{root:__dirname+'/..'});
-})
 
-router.get('/', (req,res)=>{
-	res.sendFile('views/index.html',{root:__dirname+'/..'});
-})
-// module.exports = (router) => {
-router.post('/addGame', gameController.addGame);//
-router.get('/viewGame/:game_id', gameController.viewGame);
-router.get('/viewAllGames', gameController.viewAllGames);;//
-router.put('/updateGame/:game_id', gameController.updateGame);
-router.delete('/deleteGame/:game_id', gameController.deleteGame);
-router.delete('/deleteAllGames', gameController.deleteAllGames);//
 
-router.post('/addSport', sportController.addSport);
-router.get('/viewSports/:sport_id', sportController.viewSports);
-router.get('/viewAllSports', sportController.viewAllSports);
-router.put('/updateSport', sportController.updateSport);
-router.delete('/deleteSport/:sport_id', sportController.deleteSport);
-router.delete('/deleteAllSports', sportController.deleteAllSports);
-
-router.post('/addWinner', winnerController.addWinner);
-router.get('/viewWinner/:game_id', winnerController.viewWinner);
-router.get('/viewAllWinners', winnerController.viewAllWinners);
-router.put('/updateWinner/:game_id', winnerController.updateWinner);
-router.delete('/deleteWinner/:game_id', winnerController.deleteWinner);
-router.delete('/deleteAllWinners', winnerController.deleteAllWinners);
+router.get('/schedule/:sport_id', gameController.viewScheds);
+router.get('/leaderboard/:sport_id', gameController.viewLeaderboards);
 
 router.all('*', (req, res, next) => {
     res.status(404).send({

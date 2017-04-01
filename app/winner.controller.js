@@ -1,8 +1,8 @@
 (function(){
 	'use strict'
 	angular
-		.module('malicsi')
-		.controller('winnerController',winnerController);
+	.module('malicsi')
+	.controller('winnerController',winnerController);
 
 	function winnerController($http){
 		var vm = this;
@@ -10,13 +10,13 @@
 		vm.viewWinner = viewWinner;
 		vm.addWinner = addWinner;
 		vm.updateWinner = updateWinner;
+		vm.deleteWinner = deleteWinner;
+		vm.deleteAllWinners = deleteAllWinners;
 		vm.addWinnerTeamId = null;
 		vm.addWinnerGameId = null;
 		vm.updateWinnerTeamId = null;
 		vm.updateWinnerGameId = null;
-		vm.deleteWinner = deleteWinner;
 		vm.deleteWinnerGameId = null;
-		vm.deleteAllWinners = deleteAllWinners;
 		vm.allWinner = [];
 		vm.winner = null;
 
@@ -24,7 +24,6 @@
 			.get('/winner')
 			.then(function(response){
 				vm.allWinner = response.data;
-				// console.log(response.data);
 			},
 			function(response){
 				console.log("Error retrieving data!");
@@ -34,8 +33,8 @@
 			$http
 				.get('/winner')
 				.then(function(response){
+					console.log("Viewing All Winners Successful! ");
 					vm.allWinner = response.data;
-					// console.log(response.data);
 				},
 				function(response){
 					console.log("Error retrieving data!");
@@ -43,14 +42,11 @@
 		}
 
 		function viewWinner($gameid){
-			// var gameToDeleteWinner = {
-			// 	gameId: $gameid
-			// }
 			$http
 				.get('/winner/' + $gameid)
 				.then(function(response){
+					console.log("Viewing Winner Successful! ");
 					vm.winner = response.data;
-					// console.log(response.data);
 				},
 				function(response){
 					console.log("Error viewing winner!");
@@ -58,7 +54,6 @@
 		}
 
 		function addWinner(){
-			console.log("entered");
 			var winnerToBeAdded = {
 				winner_team_id: vm.addWinnerTeamId,
 				game_id: vm.addWinnerGameId
@@ -82,13 +77,10 @@
 		}
 
 		function deleteWinner($gameid){
-			// var gameToDeleteWinner = {
-			// 	gameId: $gameid
-			// }
 			$http
 				.delete('/winner/' + $gameid)
 				.then(function(response){
-					// console.log("Deleting Winner Successful! ");
+					console.log("Deleting Winner Successful! ");
 				},
 				function(response){
 					console.log("Error deleting winner!");
@@ -96,19 +88,14 @@
 		}
 
 		function deleteAllWinners(){
-			// var gameToDeleteWinner = {
-			// 	gameId: $gameid
-			// }
 			$http
 				.delete('/winner')
 				.then(function(response){
-					// console.log("Deleting Winner Successful! ");
+					console.log("Deleting All Winners Successful! ");
 				},
 				function(response){
 					console.log("Error deleting all winners!");
 				});
 		}
-
 	}
-
 })();

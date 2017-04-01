@@ -1,7 +1,6 @@
 'use strict'
 const connection = require(__dirname + '/../db-connection');
 var path = require('path');
-var logQuery = 'INSERT INTO logs(user_id,log_timestamp,message) VALUES(?,curdate(),?);';
 
 exports.addGame = (req,res) =>{
 	var query = 'INSERT INTO game(sport_id,venue_id,winner_team_id,referee) VALUES(?,?,?,?)';
@@ -41,7 +40,6 @@ exports.viewGameBySportId = (req,res) =>{
 			if(!err){
 				console.log("Viewing Game Successs");
 				res.send(rows);
-				// connection.query(logQuery, [null,'Viewed Game # '], (err,rows) => {})
 			}
 			else{
 				console.log(err);
@@ -68,7 +66,6 @@ exports.viewGame = (req,res) =>{
 			if(!err){
 				console.log("Viewing Game Success");
 				res.send(rows[0]);
-				connection.query(logQuery, [null,'Viewed Game # '], (err,rows) => {})
 			}
 			else{
 				console.log(err);
@@ -96,7 +93,28 @@ exports.viewScheds = (req,res) =>{
 			if(!err){
 				console.log("Retrieving data Success");
 				res.send(rows);
-				// connection.query(logQuery, [null,'Viewed All Games'], (err,rows) => {})
+			}
+			else{
+				console.log(err);
+				res.send('Server Error');
+			}
+	})
+}
+
+exports.viewLeaderboards = (req,res) =>{
+	var query = 'SELECT distinct G.game_id, G.date_start,V.venue_name, A.team_name, T1.score, B.team_name as team_name_2, T2.score as score2 , G.referee FROM team A, team B, game G, venue V, sport S, team_plays_game T1, team_plays_game T2 WHERE A.team_id IN (SELECT team_id FROM team_plays_game WHERE G.sport_id = ?) AND B.team_id IN (SELECT team_id FROM team_plays_game WHERE G.sport_id = ?) AND A.team_id != B.team_id and A.team_id = T1.team_id and B.team_id = T2.team_id and G.game_id = T1.game_id and V.venue_id = G.venue_id and G.sport_id = S.sport_id and G.sport_id = ?';
+	const data = [
+		req.params.sport_id,
+		req.params.sport_id,
+		req.params.sport_id
+	];
+	var id = connection.query(
+		query,
+		data,
+		(err, rows) => {
+			if(!err){
+				console.log("Retrieving data Success");
+				res.send(rows);
 			}
 			else{
 				console.log(err);
@@ -113,7 +131,6 @@ exports.viewAllGames = (req,res) =>{
 			if(!err){
 				console.log("Viewing All Games Success");
 				res.send(rows);
-				connection.query(logQuery, [null,'Viewed All Games'], (err,rows) => {})
 			}
 			else{
 				console.log(err);
@@ -137,7 +154,6 @@ exports.updateGame = (req,res) =>{
 			if(!err){
 				console.log("Updating Game Success");
 				res.send("Game Successfully Updated");
-				connection.query(logQuery, [null,'Updated Game # '], (err,rows) => {})
 			}
 			else{
 				console.log(err);
@@ -158,7 +174,6 @@ exports.deleteGame = (req,res) =>{
 			if(!err){
 				console.log("Deleting Game Success");
 				res.send("Game Successfully Deleted");
-				connection.query(logQuery, [null,'Deleted Game # '], (err,rows) => {})
 			}
 			else{
 				console.log(err);
@@ -175,7 +190,6 @@ exports.deleteAllGames = (req,res) =>{
 			if(!err){
 				console.log("Deleting All Games Success");
 				res.send("All Games Successfully Deleted");
-				connection.query(logQuery, [null,'Deleted All Games'], (err,rows) => {})
 			}
 			else{
 				console.log(err);

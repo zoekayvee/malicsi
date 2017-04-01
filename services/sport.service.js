@@ -1,7 +1,6 @@
 'use strict'
 const connection = require(__dirname + '/../db-connection');
 var path = require('path');
-var logQuery = 'INSERT INTO logs(user_id,log_timestamp,message) VALUES(?,curdate(),?);';
 
 exports.addSport = (req,res) =>{
 	var query = 'INSERT INTO sport(sport_name) VALUES(?)';
@@ -16,7 +15,6 @@ exports.addSport = (req,res) =>{
 			if(!err){
 				console.log("Adding Sport Success");
 		    	res.send('Sport Successfully added');
-		    	connection.query(logQuery, [null,'Added Sport # '], (err,rows) => {})
 			}
 			else{
 				console.log(err);
@@ -37,7 +35,6 @@ exports.viewSports = (req,res) =>{
 			if(!err){
 				console.log("Viewing Sport Success");
 				res.send(rows[0]);
-				connection.query(logQuery, [null,'Viewed Sport # '], (err,rows) => {})
 			}
 			else{
 				console.log(err)
@@ -54,7 +51,6 @@ exports.viewAllSports = (req,res) =>{
 			if(!err){
 				console.log("Viewing All Sports Success");
 				res.send(rows);
-				connection.query(logQuery, [null,'Viewed All Sports '], (err,rows) => {})
 			}
 			else{
 				console.log(err);
@@ -78,7 +74,6 @@ exports.updateSport = (req,res) =>{
 			if(!err){
 				console.log("Updating Sport Success");
 				res.send("Sport Successfully Updated");
-				connection.query(logQuery, [null,'Updated Sport # '], (err,rows) => {})
 			}
 			else{
 				console.log(err);
@@ -99,7 +94,6 @@ exports.deleteSport = (req,res) =>{
 			if(!err){
 				console.log("Deleting Sport Success");
 				res.send("Sport Successfully Deleted");
-				connection.query(logQuery, [null,'Deleted Sport # '], (err,rows) => {})
 			}
 			else{
 				console.log(err);
@@ -117,7 +111,6 @@ exports.deleteAllSports = (req,res) =>{
 			if(!err){
 				console.log("Deleting All Sports Success");
 				res.send("All Sports Successfully Deleted");
-				connection.query(logQuery, [null,'Deleted All Sports '], (err,rows) => {})
 			}
 			else{
 				console.log(err);

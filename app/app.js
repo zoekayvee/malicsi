@@ -23,17 +23,29 @@
 				templateUrl: 'layouts/user-create-event.html'
 			})
 			.when('/user/event', {
-				templateUrl: 'layouts/user-event.html'
+				templateUrl: 'layouts/user-event.html',
+				controller: 'eventController',
+				controllerAs: 'event'
+			})
+			.when('/user/event/:id'	, {
+				templateUrl: 'layouts/user-event-sports.html',
+				controller: 'eventController',
+				controllerAs: 'event'
 			})
 			.when('/user/game', {
-				templateUrl: 'layouts/user-game-page.html'
+				templateUrl: 'layouts/user-game-page.html',
+				controller:'gameController',
+				controllerAs:'game'
 			})
 			.when('/user/game/sched', {
 				templateUrl: 'layouts/user-game-sched.html',
-				controller:'userGameSchedController'
+				controller:'userGameSchedController',
+				controllerAs:'UGSC'
 			})
 			.when('/user/scoreboard', {
-				templateUrl: 'layouts/user-scoreboard-page.html'
+				templateUrl: 'layouts/user-scoreboard-page.html',
+				controller:'userGameSchedController',
+				controllerAs:'UGSC'
 			})
 			.when('/user/team', {
 				templateUrl: 'layouts/user-team-page.html'

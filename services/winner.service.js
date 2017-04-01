@@ -1,7 +1,6 @@
 'use strict'
 const connection = require(__dirname + '/../db-connection');
 var path = require('path');
-var logQuery = 'INSERT INTO logs(user_id,log_timestamp,message) VALUES(?,curdate(),?);';
 
 exports.addWinner = (req,res) =>{
 	var query = 'UPDATE game SET winner_team_id = ? where game_id = ?';
@@ -17,7 +16,6 @@ exports.addWinner = (req,res) =>{
 			if(!err){
 				console.log("Adding Winner Success");
 		    		res.send('Winner Successfully added');
-		    		connection.query(logQuery, [null,'Added Winner '], (err,rows) => {})
 			}
 			else{
 				console.log(err);
@@ -39,7 +37,6 @@ exports.viewWinner = (req,res) =>{
 			if(!err){
 				console.log("Viewing Winner Success");
 				res.send(rows[0]);
-				connection.query(logQuery, [null,'Viewed Winner '], (err,rows) => {})
 			}
 			else{
 				console.log(err);
@@ -56,7 +53,6 @@ exports.viewAllWinners = (req,res) =>{
 			if(!err){
 				console.log("Viewing All Winner Success");
 				res.send(rows);
-				connection.query(logQuery, [null,'Viewed All Winners'], (err,rows) => {})
 			}
 			else{
 				console.log(err);
@@ -79,7 +75,6 @@ exports.updateWinner = (req,res) =>{
 			if(!err){
 				console.log("Updating Winner Success");
 				res.send("Winner Successfully Updated");
-				connection.query(logQuery, [null,'Winner Updated'], (err,rows) => {})
 			}
 			else{
 				console.log(err);
@@ -101,7 +96,6 @@ exports.deleteWinner = (req,res) =>{
 			if(!err){
 				console.log("Deleting Winner Success");
 				res.send("Winner Successfully Deleted");
-				connection.query(logQuery, [null,'Winner Deleted'], (err,rows) => {})
 			}
 			else{
 				console.log(err);
@@ -119,7 +113,6 @@ exports.deleteAllWinners = (req,res) =>{
 			if(!err){
 				console.log("Deleting All Winners Success");
 				res.send("All Winners Successfully Deleted");
-				connection.query(logQuery, [null,'Deleted All Winners'], (err,rows) => {})
 			}
 			else{
 				console.log(err);
