@@ -16,26 +16,26 @@
         vm.newSponsorName = "";
         vm.allSponsors = [];
         
-        function addSponsor() {
+        function addSponsor() {    
             var sponsorToBeAdded = {
-            sponsor_name: vm.newSponsor
-        }
-        $http
+                sponsor_name: vm.newSponsor
+            };
+            $http
                 .post('/addSponsor', sponsorToBeAdded)
                 .then(function(response){
                     console.log(response.data);
                     console.log('Success! Sponsor Added!')
-            },
-            function(response){
-                console.log("Error :()");
-            });
+                },
+                function(response){
+                    console.log("Error :()");
+                });
         }
 
-function sponsorEvent(){
+        function sponsorEvent() { 
             var sponEvent = {
                 sponsor_id: vm.sponsorId,
                 event_id : vm.eventId
-            }
+            };
             $http
                 .post('/sponsorEvent',sponEvent)
                 .then(function(response){
@@ -44,44 +44,20 @@ function sponsorEvent(){
                 function(response){
                     console.log("error");
                 });
-
-
-
         }
 
-
-
         function getData() {
-    $http
-        .get('/viewAllSponsor')
-        .then(function(response){
-            vm.allSponsors = response.data[0];
-        },
-        function(response){
-            console.log("error");
-        });
+            $http
+                .get('/viewAllSponsor')
+                .then(function(response){
+                    vm.allSponsors = response.data[0];
+                },
+                function(response){
+                    console.log("error");
+                });
+        }
 
-}
-
-function interval(){
-    setTimeout(function() {
-        viewAllSponsor();
-        interval();
-    }, 1000);
-}
-
-
-
-
-
-
-
-
-
-
-
-
-         function deleteSponsor(id) {
+        function deleteSponsor(id) {
             $http
                 .delete('/deleteSponsor/'+id)
                 .then(function(response){
@@ -90,13 +66,13 @@ function interval(){
             function(response){
                 console.log("error");   
             });
-         }
+        }
 
-         function updateSponsor() {
+        function updateSponsor() {
             var sponsorToBeUpdated = {
-            sponsor_id: vm.newSponsorId,
-            sponsor_name: vm.newSponsorName
-            }
+                sponsor_id: vm.newSponsorId,
+                sponsor_name: vm.newSponsorName
+            };
             $http
                     .put('/updateSponsor', sponsorToBeUpdated)
                     .then(function(response){
@@ -109,16 +85,16 @@ function interval(){
         }
 
         function viewAllSponsors() {
-        $http
+            $http
                 .get('/viewAllSponsor')
                 .then(function(response){
                     vm.allSponsors = response.data[0];
                     console.log(response.data);
                     console.log('Viewing Sponsors!')
-            },
-            function(response){
-                console.log("error");   
-            });
+                },
+                function(response){
+                    console.log("error");   
+                });
         }
 
         function viewSponsor(id) {
@@ -133,10 +109,5 @@ function interval(){
                 console.log("error");   
             });
         }
-
-
-
-
-        
     }
 })();
