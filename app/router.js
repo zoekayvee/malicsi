@@ -1,7 +1,7 @@
 'use strict';
 
 (function() {
-	angular.module('malicsi', ['ngRoute'])
+	angular.module('malicsi')
 			.config(router);
 
 	function router($routeProvider) {
@@ -21,8 +21,15 @@
 			.when('/user/new-event', {
 				templateUrl: 'layouts/user-create-event.html'
 			})
-			.when('/user/event', {
-				templateUrl: 'layouts/user-event.html'
+			.when('/user/events', {
+				templateUrl: 'layouts/user-event.html',
+				controller: 'eventController',
+				controllerAs: 'event'
+			})
+			.when('/events/:event_id',{
+				templateUrl: 'layouts/user-view-event.html',
+				controller: 'eventController',
+				controllerAs: 'event'
 			})
 			.when('/user/game', {
 				templateUrl: 'layouts/user-game-page.html'
