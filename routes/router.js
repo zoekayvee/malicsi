@@ -3,17 +3,14 @@
 //var path = require('path');
 
 const eventController =require('../services/event.services');
-const teamController =require('../services/team.services');
-const sponsorController =require('../services/sponsor.services');
-
-
+const teamController = require('../services/team.services');
+const sponsorController = require('../services/sponsor.services');
 
 
 const express = require('express');
 const router = express.Router();
 
 //module.exports = (router) => {
-
 router.post     ('/events',      eventController.addEvent); 
 router.get      ('/events/:event_id', eventController.viewEvent);
 router.get      ('/events',   eventController.viewAllEvent);
@@ -45,34 +42,13 @@ router.delete   ('/sponsors/:sponsor_id',    eventController.deleteEvent);
 //         res.redirect('/login');
 // })
 
-
 router.get('/', (req,res)=>{
 
 	res.sendFile('views/index.html',{root:__dirname+'/..'});
 });
 
-
-
-
- //    return router;
-// };
-// router.get('/', (req, res, next) => {
-//     res.sendFile('views/index.html',{root:__dirname+'/..'});
-// });
-
-// router.all('*', (req, res, next) => {
-//     res.sendFile('index.html',{root:__dirname+'/..'});
-// });
-//
-
-
 router.all('*', (req, res) => {
     res.status(404).send({message : 'Unmatched route. =(('});
-
-
 });
 
 module.exports = router;
-
- //   return router;
-// };
