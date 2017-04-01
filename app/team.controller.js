@@ -30,10 +30,10 @@
 		    .post('/teams', newTeam)
 		    .then(function(response){
 		        console.log(response.data);
-		        console.log('Success! Event Added!')
+		        console.log('Success! Team Added!')
 			},
 			function(response){
-		   console.log("Error :(");
+		   console.log("Error: Team cannot be added");
 			});
 		}    
 	    
@@ -57,7 +57,7 @@
 	    			console.log(response.data);
 	    			console.log('Viewing All Teams')
 	    		}, function(response){
-	    			console.log("error");
+	    			console.log("Error: Cannot retrieve teams");
 	    		});
 	    }
 
