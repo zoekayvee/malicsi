@@ -1,12 +1,13 @@
 (function(){
 'use strict'
 angular
-.module('mainApp')
+.module('malicsi')
 .controller('eventController', eventController);
 
-function eventController($http){
+function eventController($http,$location,$routeParams){
+
     var vm = this;
-    
+
     vm.userId = "";
     vm.eventName = "";
     vm.dateStart = "";
@@ -19,6 +20,9 @@ function eventController($http){
     vm.deleteEvent = deleteEvent;
     vm.updateEvent = updateEvent;
     vm.viewEvent = viewEvent;
+    vm.viewClickedEvent = viewClickedEvent;
+    vm.reload = interval;
+
 function addEvent() {
     var newEvent = {
         user_id : vm.userId,
@@ -37,31 +41,52 @@ function(response){
 });
 }
 
-
+function interval(){
+    setTimeout(function() {
+        viewClickedEvent();
+        interval();
+    }, 1000);
+}
 
 function viewAllEvent() {
 $http
     .get('/event')
     .then(function(response){
         vm.allEvents = response.data[0];
-        console.log(response.data);
+        console.log(response.data[0]);
         console.log('Viewing All Events!')
-},
-function(response){
-    console.log("error");   
-});
-
-
+    },
+    function(response){
+        console.log("error");   
+    });
 }
 
 function viewEvent(id){
-
+    $location.path('/event/' + id)
     $http
         .get('/event/' + id)
         .then(function(response){
             vm.allEvents = response.data[0];
-            console.log(response.data);
-            console.log('Viewing event ' + response.data.event_name);
+            vm.eventId = vm.allEvents[0].event_id;
+            console.log("response data" + vm.allEvents[0].event_id);
+            console.log('Viewing event ' + vm.allEvents[0].event_name);
+            console.log(vm.eventId);
+            //$window.localStorage.setItem("event_id",vm.eventId);
+            //console.log($window.localStorage);
+
+        })
+        
+ 
+
+}
+
+
+function viewClickedEvent(){
+    $http
+        .get('/event/' + $routeParams.event_id)
+        .then(function(response){
+            vm.allEvents = response.data[0];
+            console.log(response.data[0][0]);
         })
 }
 
@@ -81,7 +106,7 @@ function(response){
 
 function updateEvent(){
     var updateData = {
-        event_id : vm.eventId,
+        event_id : $routeParams.event_id,
         event_name : vm.eventName,
         date_start : vm.dateStart,
         date_end : vm.dateEnd,
