@@ -1,13 +1,17 @@
 (function(){
     'use strict'
     angular
+
         .module('malicsi')
+
         .controller('sponsorController', sponsorController);
 
     function sponsorController($http){
         var vm = this;
         
+
         vm.viewAllSponsor = viewAllSponsor;
+
         vm.addSponsor = addSponsor;
         vm.deleteSponsor = deleteSponsor;
         vm.updateSponsor = updateSponsor;
@@ -23,8 +27,8 @@
         $http
             .post('/sponsors', sponsorToBeAdded)
             .then(function(response){
-                    console.log(response.data);
-                    console.log('Success! Sponsor Added!')
+                console.log(response.data);
+                console.log('Success! Sponsor Added!')
                 },
                 function(response){
                     console.log("Error :()");
@@ -37,7 +41,9 @@
                 event_id : vm.eventId
             };
             $http
+
                 .post('/sponsors',sponEvent)
+
                 .then(function(response){
                     console.log(response.data);
                 },
@@ -45,6 +51,7 @@
                     console.log("error");
                 });
         }
+
 
     function getData() {
         $http
@@ -111,6 +118,7 @@
         function viewSponsor(id) {
         $http
                 .get('/sponsors/'+id)
+
                 .then(function(response){
                     vm.allSponsors = response.data[0];
                     console.log(response.data);
@@ -122,4 +130,5 @@
         }
     }
 }
+
 })();

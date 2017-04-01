@@ -1,6 +1,7 @@
 (function(){
 	'use strict'
 	angular
+
 		.module('malicsi')
 		.controller('teamController', teamController);
 
@@ -27,6 +28,7 @@
 	        team_name : vm.teamName
 			}
 			$http
+
 		    .post('/teams', newTeam)
 		    .then(function(response){
 		        console.log(response.data);
@@ -40,6 +42,7 @@
 	    
 	    function viewTeam(id){
 	    	$http
+
 	    		.get('/teams/'+id)
 	    		.then(function(response){
 	    			vm.allTeams = response.data[0];
@@ -51,7 +54,8 @@
 		    /*--------- view all teams --------*/
 	    function viewAllTeam(){
 	    	$http
-	    		.get('/teams')
+				.get('/teams')
+
 	    		.then(function(response){
 	    			vm.allTeams = response.data[0];
 	    			console.log(response.data);
@@ -117,6 +121,7 @@
 	    	}
 
 		    $http
+
 		        .put('/teams',updateData)
 		        .then(function(response){
 		            console.log('event updated')
@@ -134,6 +139,7 @@
 	        }
 	        
 		    	$http
+
 		    		.post('/teams',gameToPlay)
 		    		.then(function(response){
 		    			console.log('Team Joined Event')

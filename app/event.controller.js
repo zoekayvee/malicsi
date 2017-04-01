@@ -75,14 +75,10 @@ function viewEvent(id){
             //console.log($window.localStorage);
 
         })
-        
- 
-
-   
+}
 
 function viewClickedEvent(){
     $http
-
         .get('/events/' + $routeParams.event_id)
         .then(function(response){
             vm.allEvents = response.data[0];
@@ -130,7 +126,3 @@ function updateEvent(){
 
 }   
 }();
-
-
-
- 

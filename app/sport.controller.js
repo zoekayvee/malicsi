@@ -45,21 +45,17 @@
 
 
         function deleteSport(id) {
-            
-        $http
-            .delete('/deleteSport'+id)
-            .then(function(response){
-            	vm.allSports = response.data;
-                console.log(response.data);
-                console.log('Sport deleted')
-        },
-        function(response){
-        	console.log("error");	
-        });
-        }
-
-
-
+           $http
+              .delete('/deleteSport'+id)
+              .then(function(response){
+                vm.allSports = response.data;
+                  console.log(response.data);
+                  console.log('Sport deleted')
+          },
+          function(response){
+            console.log("error");	
+          });
+          }
         }	
     }
 )();
