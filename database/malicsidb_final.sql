@@ -396,7 +396,7 @@ delimiter ;
 
 /*VIEW ALL SPONSORS*/
 delimiter //
-	create procedure viewAllSponsors()
+	create procedure viewAllSponsor()
 	BEGIN
 		select * from sponsor;
 	END;
