@@ -6,6 +6,9 @@
 
 	function router($routeProvider) {
 		$routeProvider
+			.when('/events/:event_id',{
+				templateUrl: 'layouts/user-view-event.html'
+			})
 			.when('/', {
 				templateUrl: 'layouts/login.html'
 			})
