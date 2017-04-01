@@ -23,15 +23,15 @@ function eventController($http,$location,$routeParams){
     vm.viewClickedEvent = viewClickedEvent;
     vm.reload = interval;
 
-function addEvent() {
+function addEvent(id) {
     var newEvent = {
-        user_id : vm.userId,
+        user_id : id,
         event_name : vm.eventName,
         date_start : vm.dateStart,
         date_end : vm.dateEnd
 }
 $http
-    .post('/events', newEvent)
+    .post('/event', newEvent)
     .then(function(response){
         console.log(response.data);
         console.log('Success! Event Added!')
@@ -50,7 +50,7 @@ function interval(){
 
 function viewAllEvent() {
 $http
-    .get('/events')
+    .get('/event')
     .then(function(response){
         vm.allEvents = response.data[0];
         console.log(response.data[0]);
@@ -95,7 +95,7 @@ function viewClickedEvent(){
 function deleteEvent(id) {
     
 $http
-    .delete('/events/'+id)
+    .delete('/event/'+id)
     .then(function(response){
         console.log('Event deleted')
 },
