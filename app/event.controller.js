@@ -78,8 +78,7 @@ function viewEvent(id){
         
  
 
-}
-
+   
 
 function viewClickedEvent(){
     $http
@@ -130,5 +129,8 @@ function updateEvent(){
 
 
 }   
-}
-)();
+}();
+
+
+
+ 
