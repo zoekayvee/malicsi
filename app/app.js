@@ -6,7 +6,7 @@
 
 	function router($routeProvider) {
 		$routeProvider
-			.when('/event/:event_id', {
+			.when('/events/:event_id', {
 				templateUrl: 'layouts/user-view-event.html',
 			})
 			.when('/', {
