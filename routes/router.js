@@ -36,35 +36,37 @@ router.get('/competitors/:team_id',      userController.viewCompetitor);
 router.put('/competitors/:team_id',    adminController.updateCompetitor);
 router.delete('/competitors/:team_id', adminController.deleteCompetitor);
 
-router.post('/addGame', gameController.addGame);//
-router.get('/viewGame/:game_id', gameController.viewGame);
-router.get('/viewAllGames', gameController.viewAllGames);;//
-router.put('/updateGame/:game_id', gameController.updateGame);
-router.delete('/deleteGame/:game_id', gameController.deleteGame);
-router.delete('/deleteAllGames', gameController.deleteAllGames);//
+//module.exports = (router) => {
+router.post     ('/events',      eventController.addEvent); 
+router.get      ('/events/:event_id', eventController.viewEvent);
+router.get      ('/events',   eventController.viewAllEvent);
+router.put      ('/events',    eventController.updateEvent);
+router.delete   ('/events/:event_id',    eventController.deleteEvent);
 
-router.post('/addSport', sportController.addSport);
-router.get('/viewSports/:sport_id', sportController.viewSports);
-router.get('/viewAllSports', sportController.viewAllSports);
-router.put('/updateSport', sportController.updateSport);
-router.delete('/deleteSport/:sport_id', sportController.deleteSport);
-router.delete('/deleteAllSports', sportController.deleteAllSports);
+router.post     ('/teams',      eventController.addEvent); 
+router.get      ('/teams/:team_id', eventController.viewEvent);
+router.get      ('/teams',   eventController.viewAllEvent);
+router.put      ('/teams',    eventController.updateEvent);
+router.delete   ('/teams/:team_id',    eventController.deleteEvent);
 
-router.post('/addWinner', winnerController.addWinner);
-router.get('/viewWinner/:game_id', winnerController.viewWinner);
-router.get('/viewAllWinners', winnerController.viewAllWinners);
-router.put('/updateWinner/:game_id', winnerController.updateWinner);
-router.delete('/deleteWinner/:game_id', winnerController.deleteWinner);
-router.delete('/deleteAllWinners', winnerController.deleteAllWinners);
+router.post     ('/sponsors',      eventController.addEvent); 
+router.get      ('/sponsors/:sponsor_id', eventController.viewEvent);
+router.get      ('/sponsors',   eventController.viewAllEvent);
+router.put      ('/sponsors',    eventController.updateEvent);
+router.delete   ('/sponsors/:sponsor_id',    eventController.deleteEvent);
 
-// router.get('/', (req, res, next) => {
-//     res.sendFile('views/index.html',{root:__dirname+'/..'});
-// });
 
-// router.all('*', (req, res, next) => {
-//     res.sendFile('index.html',{root:__dirname+'/..'});
-// });
-//
+// router.post('/login',                       userController.login);
+// router.get('/logout',                       userController.logout);
+// router.post('/createUser',                  userController.registerUser);
+
+// //authentication
+// router.use(function(req, res, next){
+//     if (req.session && req.session.accountid)
+//         next();
+//     else
+//         res.redirect('/login');
+// })
 
 router.get('/user_loggedin', (req, res) => {
 	if (req.session)
@@ -72,6 +74,13 @@ router.get('/user_loggedin', (req, res) => {
 	else
 		res.send({});
 });
+
+
+// router.get('/', (req,res)=>{
+
+// 	res.sendFile('views/index.html',{root:__dirname+'/..'});
+// });
+
 
 router.all('*', (req, res) => {
     res.status(404).send({message : 'Unmatched route. =(('});
