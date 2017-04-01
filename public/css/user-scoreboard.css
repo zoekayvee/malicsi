@@ -1,0 +1,13 @@
+#maintable {
+	border-color: #0D2235;
+}
+
+#maintable th {
+	background-color: #0D2235;
+	color: white;
+	padding: 17px;
+}
+
+#maintable tr:hover {
+	background-color: #E7EAE1;
+}
