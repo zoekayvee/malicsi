@@ -1,24 +1,33 @@
+div {
+    /*border: solid 1px red;*/
+}
+
 body {
     padding: 0;
+    background-color: #e7eae1;
 }
 
 #page-navigation {
-    background: #466675;
+    background: #bc0203;
+    color: #e7eae1 !important;
+    box-shadow: 1px 1px 5px rgba(0,0,0,0.5);
 }
 
 #page-footer-1 {
     height: 100px;
-    background: #CDCDCD;
+    background-color: #CDCDCD;
+    background-image: url('../images/patterns/3.png');
+    box-shadow: 1px 1px 5px rgba(0,0,0,0.5);
 }
 
 #page-footer-1 a {
-    color: #466675;
+    color: #bc0203;
 }
 
 #page-footer-2 {
     height: 50px;
-    background: #466675;
-    color: white !important;
+    background: #bc0203;
+    color: #e7eae1 !important;
 }
 
 #main-panel {
@@ -34,7 +43,7 @@ body {
 .link-icon {
     padding: 20px;
     font-size: 20px !important;
-    background: #466675;
+    background: #04050a;
     line-height: 5px;
     text-indent: -5px;
     text-align: center;
