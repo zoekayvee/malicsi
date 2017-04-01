@@ -25,7 +25,7 @@ exports.login=(req,res)=>{
 	        	toastr.error('Invalid credentials!');
 				console.log('Wrong username or password...');
 	            res.status(404).send({message: 'Wrong username'});
-	        } /*else if (req.session != undefined && req.session.user_id != result[0].user_id){
+	        } /*else if (req.session.usertype != undefined && req.session.userid != result[0].user_id){
 	        	console.log('Login session is not yet finished...');
 	            return res.status(404).send({message: 'Login session is not yet finished.'});
 	            //uncomment if we have authentication
