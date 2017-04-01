@@ -6,9 +6,6 @@
 
 	function router($routeProvider) {
 		$routeProvider
-			.when('/events/:event_id', {
-				templateUrl: 'layouts/user-view-event.html',
-			})
 			.when('/', {
 				templateUrl: 'layouts/login.html'
 			})
@@ -24,8 +21,15 @@
 			.when('/user/new-event', {
 				templateUrl: 'layouts/user-create-event.html'
 			})
-			.when('/user/event', {
-				templateUrl: 'layouts/user-event.html'
+			.when('/user/events', {
+				templateUrl: 'layouts/user-event.html',
+				controller: 'eventController',
+				controllerAs: 'event'
+			})
+			.when('/user/events/:id', {
+				templateUrl: 'layouts/user-event.html',
+				controller: 'eventController',
+				controllerAs: 'event'
 			})
 			.when('/user/game', {
 				templateUrl: 'layouts/user-game-page.html'

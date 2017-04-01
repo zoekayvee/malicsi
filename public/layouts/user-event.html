@@ -1,0 +1,30 @@
+<link rel='stylesheet' href='css/event.css'/>
+
+<div class="ui container">
+
+
+	<div  ng-controller = "eventController as event">
+		<table id="events" class="ui celled table">
+			<tr>
+				
+				<th> <h1> Description </h1></th>
+				<th> <h1> Date Start </h1></th>
+				<th> <h1> Date End </h1></th>
+			</tr>
+
+			<tbody ng-init = "event.viewAllEvent()" >
+				<tr ng-repeat = "x in event.allEvents">
+					
+					<td>
+					<button class = "ui button teal" ng-click = "event.viewEvent(x.event_id)">{{x.event_name}}</button>
+					</td>
+					<td>{{x.date_start}}</td>
+					<td>{{x.date_end}}</td>
+					
+				</tr>
+				
+
+			</tbody>
+		</table>
+	</div>
+</div>

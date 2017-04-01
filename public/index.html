@@ -18,7 +18,8 @@
        <script src="logged.user.controller.js"></script>
 
 </head>
-<body ng-controller = "eventController as event" ng-controller = "loggedUserController as logged" >
+
+<body ng-controller = "loggedUserController as logged" >
     <!-- NAVIGATION SECTION -->
     <div class="ui fixed inverted menu" id="page-navigation">
         <div class="ui container">
@@ -27,13 +28,14 @@
                 &nbsp;&nbsp;MALICSI
             </a>
             <a href="/#!/user/home" class="item">Home</a>
-            <a href="/#!/user/event" class="item">Events</a>
+            <a href="/#!/user/events" class="item">Events</a>
             <a href="/#!/user/team" class="item">Team</a>
 
             <div class="alight right ui simple dropdown item">
                 Reg Recario <i class="dropdown icon"></i>
                 <div class="menu">
-
+                    <a class="item" href="/../layout/user-profile.html">Profile</a>
+                    <a class="item" href="#">Activity Log</a>
                     <a class="item" href="/#!/user/profile">Profile</a>
                     <a class="item" href="/#!/user/activity-log">Activity Log</a>
                     <a class="item" href="#">Lgout</a>

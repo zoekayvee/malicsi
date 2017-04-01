@@ -25,5 +25,36 @@
 }
 #card2 {
 	width: 40%;
-	margin-top: 0px;
+	/*margin-top: 0px;*/
+	
+
+}
+.action.input{
+	width: 100%;
+}
+#mgtop {
+	margin-top: 40px;
+}
+#searchbut, .animated.button, .ui.button  {
+	background-color: #6a8e9e;
+	color: white;
+}
+th {
+	background-color: #6a8e9e;
+	color: white;
+}
+tr:hover {
+	background-color: #cdcdcd;
+}
+#padcard {
+	padding: 10px;
+}
+#divtable1 {
+	margin-top: 10px;
+}
+.description {
+	text-align: justify;
+}
+.table {
+	table-layout: fixed;
 }
