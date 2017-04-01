@@ -1,7 +1,7 @@
 (function(){
 	'use strict'
 	angular
-		.module('mainApp')
+		.module('malicsi')
 		.controller('teamController', teamController);
 
 	function teamController($http){
@@ -27,7 +27,7 @@
 	        team_name : vm.teamName
 			}
 			$http
-		    .post('/addTeam', newTeam)
+		    .post('/teams', newTeam)
 		    .then(function(response){
 		        console.log(response.data);
 		        console.log('Success! Event Added!')
@@ -40,7 +40,7 @@
 	    
 	    function viewTeam(id){
 	    	$http
-	    		.get('/viewTeam/'+id)
+	    		.get('/teams/'+id)
 	    		.then(function(response){
 	    			vm.allTeams = response.data[0];
 	    			console.log(response.data);
@@ -51,7 +51,7 @@
 		    /*--------- view all teams --------*/
 	    function viewAllTeam(){
 	    	$http
-	    		.get('/viewAllTeam')
+	    		.get('/teams')
 	    		.then(function(response){
 	    			vm.allTeams = response.data[0];
 	    			console.log(response.data);
@@ -64,7 +64,7 @@
 
 		function getData() {
 		    $http
-		        .get('/viewAllTeam')
+		        .get('/teams')
 		        .then(function(response){
 		            vm.allTeams = response.data[0];
 		        },
@@ -84,7 +84,7 @@
 	    /*-------- delete event ------------*/
 	    function deleteTeam(id){
 	    	$http
-	    		.delete('/deleteTeam/'+id)
+	    		.delete('/teams/'+id)
 	    		.then(function(response){
 	    			console.log('Team deleted')
 	    		}, function(response){
@@ -101,7 +101,7 @@
 		    }
 	    
 	    	$http
-	    		.post('/teamJoinEvent',teamToJointEvent)
+	    		.post('/teams',teamToJointEvent)
 	    		.then(function(response){
 	    			console.log('Team Joined Event')
 	    		}, function(response){
@@ -117,7 +117,7 @@
 	    	}
 
 		    $http
-		        .put('/updateTeam',updateData)
+		        .put('/teams',updateData)
 		        .then(function(response){
 		            console.log('event updated')
 		        },
@@ -134,7 +134,7 @@
 	        }
 	        
 		    	$http
-		    		.post('/teamPlayGame',gameToPlay)
+		    		.post('/teams',gameToPlay)
 		    		.then(function(response){
 		    			console.log('Team Joined Event')
 		    		}, function(response){
