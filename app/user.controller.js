@@ -21,6 +21,7 @@
 		vm.dropDown = dropDown;
 		vm.openModal = openModal;
 		vm.closeModal= closeModal;
+		vm.updateUser= updateUser;
 		
         $http   
             .get('/user_loggedin') 
@@ -34,6 +35,7 @@
                         });
                 }
             });
+
 		function loginUser(){
 			var credentials={
 				username: vm.username,
@@ -52,6 +54,7 @@
 					window.location.reload();
 				});
 		}
+
 		function registerUser(){
 			$http
 				.post('/users', vm.newUser)
@@ -59,9 +62,7 @@
 					console.log(response.data);
 					console.log('User added!');
 					vm.username= vm.newUser.username;
-					console.log(vm.username);
-					vm.password= vm.newUser.password;
-					console.log(vm.password); 
+					vm.password= vm.newUser.password; 
 					vm.newUser={};
 					loginUser();
 				},
@@ -69,6 +70,72 @@
 					console.log('Error');
 					window.location.reload();
 				});
+		}
+		function updateUser(user,uname,pw,loc,college,age,height,weight,fname,lname,email,contactno,gender,about){
+			var editUser=vm.user;
+			var flag = "false";
+			if(uname == "" || typeof(uname)== 'undefined'){
+                uname= user.username
+            }
+            if(pw =="" || typeof(pw)=='undefined'){
+                pw=user.password //the pw is still encrypted
+                flag = "true";
+            }
+            if(loc =="" || typeof(loc)=='undefined'){
+                loc= user.location
+            }
+            if(college =="" || typeof(college)== 'undefined'){
+                college= user.college
+            }
+            if(age =="" || typeof(age)=='undefined'){
+                age = user.age
+            }
+            if(height =="" || typeof(height)=='undefined'){
+                height= user.height
+            }
+            if(weight =="" || typeof(weight)== 'undefined'){
+                weight= user.weight
+            }
+            if(fname =="" || typeof(fname)=='undefined'){
+                fname = user.firstname
+            }
+            if(lname =="" || typeof(lname)=='undefined'){
+                lname= user.lastname
+            }
+            if( email =="" || typeof(email)=='undefined'){
+                email= user.email
+            }
+            if(contactno =="" || typeof(contactno)=='undefined'){
+                contactno= user.contactno
+            }
+            if(gender =="" || typeof(gender)=='undefined'){
+                gender= user.gender
+            }
+            if(about =="" || typeof(about)== 'undefined'){
+                about= user.about
+            }
+            editUser.username=uname;
+            editUser.password=pw;
+            editUser.location=loc;
+            editUser.college=college;
+            editUser.age=age;
+            editUser.height=height;
+            editUser.weight=weight;
+            editUser.firstname=fname;
+            editUser.lastname=lname;
+            editUser.email=email;
+            editUser.contactno=contactno;
+            editUser.about=about;
+            editUser.gender=gender;
+            editUser.flag=flag;
+          	$http
+                .put('/users/'+editUser.user_id, editUser)
+                .then(function(response) {
+                	delete editUser.flag;
+                	vm.user=editUser;
+                    console.log(response.data);
+                });
+			window.location.reload();
 		}
 
 	     function logOut() {
@@ -106,8 +173,7 @@
 		}
 		function closeModal(){
 			$('.ui.modal')
-			 	.modal('hide');
-			vm.newUser = {};	
+			 	.modal('hide');	
 		}
 		}
 

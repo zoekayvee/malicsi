@@ -20,9 +20,9 @@ USE `malicsiDB`;
 create table users(
 	user_id 		int unsigned auto_increment,
 	username 		varchar(50) not null,
-	password 		varchar(72) not null,
+	password 		varchar(100) not null,
 	user_type 		enum('admin','normal'),
-	gender 			enum('female','male'),
+	gender 			enum('F','M'),
 	firstname 		varchar(50) not null,
 	lastname 		varchar(50) not null,
 	college 		varchar(50),
@@ -30,9 +30,9 @@ create table users(
 	email 			varchar(100),
 	about			varchar(160),
 	location		varchar(100),
-	weight 			int,
-	height 			int,
-	age 			int,
+	weight 			int DEFAULT 0,
+	height 			int DEFAULT 0,
+	age 			int DEFAULT 0,
 	UNIQUE 			(username),
 	constraint 		user_id_pk primary key(user_id)
 );
@@ -216,19 +216,19 @@ DELIMITER %%
 		END;
 %%
 	/*ADDED Procedures*/
-	CREATE PROCEDURE login(in uname varchar(50), in pass varchar(72))
+	CREATE PROCEDURE login(in uname varchar(50), in pass varchar(100))
 		BEGIN
 			SELECT user_id,username,user_type FROM users WHERE username = BINARY uname and password = BINARY pass;
 		END;
 %%
-	CREATE PROCEDURE createUser(in uname varchar(50), in pass varchar(72), in utype enum('admin', 'normal'), in fname varchar(50), in lname varchar(50), in em varchar(100))
+	CREATE PROCEDURE createUser(in uname varchar(50), in pass varchar(100), in utype enum('admin', 'normal'), in fname varchar(50), in lname varchar(50), in em varchar(100))
 		BEGIN
 			INSERT INTO users (username, password, user_type, firstname, lastname, email) VALUES (uname, pass, utype, fname, lname, em);
 		END;
 %%
-	CREATE PROCEDURE updateUser(in uid int(10), in uname varchar(50), in pass varchar(72), in fname varchar(50), in lname varchar(50),in gtype enum('female','male') , in ucollege varchar(50), in contact varchar(50), in mail varchar(100), in abt varchar(160),in loc varchar(100) ,in wt int(11), in ht int (11), in ag int(3))
+	CREATE PROCEDURE updateUser(in uid int(10), in uname varchar(50), in pass varchar(100), in fname varchar(50), in lname varchar(50),in gtype enum('F','M') , in ucollege varchar(50), in contact varchar(50), in mail varchar(100), in abt varchar(160),in loc varchar(100) ,in wt int(11), in ht int (11), in ag int(3))
 		BEGIN
-			UPDATE users SET username=uname, firstname = fname, lastname = lname, gender=gtype ,college = ucollege, contactno = contact, email = mail, about = abt, location=loc, weight = wt, height = ht, age=ag WHERE user_id = uid;
+			UPDATE users SET username=uname, firstname = fname, lastname = lname, gender=gtype,college = ucollege, contactno = contact, email = mail, about = abt, location=loc, weight = wt, height = ht, age=ag WHERE user_id = uid;
 			UPDATE users SET password = pass WHERE username = uname;
 		END;
 %%
