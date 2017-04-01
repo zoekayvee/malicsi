@@ -1,11 +1,11 @@
 'use strict'
 
-const express = require('express');
-const router = require('./routes/router');
-const session = require('express-session');
-const bodyParser = require('body-parser');
+var express = require('express');
+var router = require('./routes/router');
+var session = require('express-session');
+var bodyParser = require('body-parser');
 
-const app = express();
+var app = express();
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -16,9 +16,10 @@ app.use(session({
 	saveUninitialized: false
 }));
 
-app.use(router);
+app.use(express.static(__dirname+'/bower_components'));
 app.use(express.static(__dirname+'/public'));
 app.use(express.static(__dirname+'/app'));
+app.use(router);
 
 app.listen(3000);
-console.log('Server running on PORT 3000...')
+console.log('Server running...')

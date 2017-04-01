@@ -1,0 +1,13 @@
+CHANGES:
+
+	added email variable to user.service, malicsidb_final.sql procedure files
+
+	changed password size from 50 to 72
+
+	added age, gender, about, location in malicsidb_final.sql users attributes
+
+PROBLEMS ENCOUNTERED:
+
+login.html - needs to restrict user to fill up everything in sign-up and login
+
+the new routing affects user authentication

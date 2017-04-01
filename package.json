@@ -10,8 +10,16 @@
   "author": "Villanueva, Zoe Kirsten T.",
   "license": "ISC",
   "dependencies": {
+    "angular": "^1.6.3",
+    "angular-router": "0.0.2",
+    "bcrypt": "^1.0.2",
     "body-parser": "^1.15.2",
     "express": "^4.15.2",
-    "mariasql": "^0.2.6"
+    "express-handlebars": "^3.0.0",
+    "express-session": "^1.15.1",
+    "mariasql": "^0.2.6",
+    "mysql": "^2.13.0",
+    "nodemon": "^1.11.0",
+    "path": "^0.12.7"
   }
 }
