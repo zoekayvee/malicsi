@@ -12,24 +12,23 @@ const router = express.Router();
 
 //module.exports = (router) => {
 
-router.post     ('/events',      eventController.addEvent); 
-router.get      ('/events/:event_id', eventController.viewEvent);
-router.get      ('/events',   eventController.viewAllEvent);
-router.put      ('/events',    eventController.updateEvent);
-router.delete   ('/events/:event_id',    eventController.deleteEvent);
+router.post     ('/events',      			eventController.addEvent); 
+router.get      ('/events/:event_id', 		eventController.viewEvent);
+router.get      ('/events',   				eventController.viewAllEvent);
+router.put      ('/events',    				eventController.updateEvent);
+router.delete   ('/events/:event_id',   	eventController.deleteEvent);
 
-router.post     ('/teams',      teamController.addTeam); 
-router.get      ('/teams/:team_id', teamController.viewTeam);
-router.get      ('/teams',   teamController.viewAllTeam);
-router.put      ('/teams',    teamController.updateTeam);
-router.delete   ('/teams/:team_id',    teamController.deleteTeam);
+router.post     ('/teams',      			teamController.addTeam); 
+router.get      ('/teams/:team_id', 		teamController.viewTeam);
+router.get      ('/teams',   				teamController.viewAllTeam);
+router.put      ('/teams',    				teamController.updateTeam);
+router.delete   ('/teams/:team_id',    		teamController.deleteTeam);
 
-router.post     ('/sponsors',      sponsorController.addSponsor); 
-router.get      ('/sponsors/:sponsor_id', sponsorController.viewSponsor);
-router.get      ('/sponsors',   sponsorController.viewAllSponsor);
-router.put      ('/sponsors',    sponsorController.updateSponsor);
-router.delete   ('/sponsors/:sponsor_id',    sponsorController.deleteSponsor);
-
+router.post     ('/sponsors',      			sponsorController.addSponsor); 
+router.get      ('/sponsors/:sponsor_id', 	sponsorController.viewSponsor);
+router.get      ('/sponsors',   			sponsorController.viewAllSponsor);
+router.put      ('/sponsors',    			sponsorController.updateSponsor);
+router.delete   ('/sponsors/:sponsor_id',   sponsorController.deleteSponsor);
 
 
 
@@ -61,19 +60,4 @@ router.all('*', (req, res, next) => {
     });
 });
 
- //    return router;
-// };
-// router.get('/', (req, res, next) => {
-//     res.sendFile('views/index.html',{root:__dirname+'/..'});
-// });
-
-// router.all('*', (req, res, next) => {
-//     res.sendFile('index.html',{root:__dirname+'/..'});
-// });
-//
-
-
 module.exports = router;
-
- //   return router;
-// };

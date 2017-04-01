@@ -16,26 +16,26 @@
         vm.newSponsorName = "";
         vm.allSponsors = [];
         
-        function addSponsor() {
+        function addSponsor() {    
             var sponsorToBeAdded = {
-            sponsor_name: vm.newSponsor
-        }
+                 sponsor_name: vm.newSponsor
+            }
         $http
-                .post('/sponsors', sponsorToBeAdded)
-                .then(function(response){
+            .post('/sponsors', sponsorToBeAdded)
+            .then(function(response){
                     console.log(response.data);
                     console.log('Success! Sponsor Added!')
-            },
-            function(response){
-                console.log("Error :()");
-            });
+                },
+                function(response){
+                    console.log("Error :()");
+                });
         }
 
-function sponsorEvent(){
+        function sponsorEvent() { 
             var sponEvent = {
                 sponsor_id: vm.sponsorId,
                 event_id : vm.eventId
-            }
+            };
             $http
                 .post('/sponsors',sponEvent)
                 .then(function(response){
@@ -44,12 +44,7 @@ function sponsorEvent(){
                 function(response){
                     console.log("error");
                 });
-
-
-
         }
-
-
 
     function getData() {
         $http
@@ -70,16 +65,6 @@ function sponsorEvent(){
     }
 
 
-
-
-
-
-
-
-
-
-
-
     function deleteSponsor(id) {
         $http
             .delete('/sponsors/'+id)
@@ -91,11 +76,13 @@ function sponsorEvent(){
         });
     }
 
+
+
     function updateSponsor() {
-        var sponsorToBeUpdated = {
-            sponsor_id: vm.newSponsorId,
-            sponsor_name: vm.newSponsorName
-            }
+            var sponsorToBeUpdated = {
+                sponsor_id: vm.newSponsorId,
+                sponsor_name: vm.newSponsorName
+            };
             $http
                 .put('/sponsors', sponsorToBeUpdated)
                 .then(function(response){
@@ -106,6 +93,7 @@ function sponsorEvent(){
                 console.log("Error :()");
             });
         }
+
 
     function viewAllSponsor() {
         $http
@@ -118,7 +106,7 @@ function sponsorEvent(){
             function(response){
                 console.log("error");   
             });
-        }
+
 
         function viewSponsor(id) {
         $http
@@ -132,10 +120,6 @@ function sponsorEvent(){
                 console.log("error");   
             });
         }
-
-
-
-
-        
     }
+}
 })();
