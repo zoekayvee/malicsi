@@ -9,12 +9,8 @@ const adminController =require('../services/admin.service');
 const userController =require('../services/user.service');
 const gameController =require('../services/game.service');
 const winnerController =require('../services/winner.service');
-<<<<<<< HEAD
-const sportController =require('../services/sport.service');  
-=======
 const sportController =require('../services/sport.service');
 
->>>>>>> 258302a043ca9e1be1a3dc20d5d842cd7c4f5a36
 const express = require('express');
 const router = express.Router();
 
@@ -95,7 +91,6 @@ router.put('/updateWinner/:game_id', winnerController.updateWinner);
 router.delete('/deleteWinner/:game_id', winnerController.deleteWinner);
 router.delete('/deleteAllWinners', winnerController.deleteAllWinners);
 
-<<<<<<< HEAD
 
 router.get('/', (req,res)=>{
 
@@ -108,21 +103,6 @@ router.all('*', (req, res, next) => {
         message: 'Not Found!'
 
     });
- //    return router;
-// };
-=======
-// router.get('/', (req, res, next) => {
-//     res.sendFile('views/index.html',{root:__dirname+'/..'});
-// });
-
-// router.all('*', (req, res, next) => {
-//     res.sendFile('index.html',{root:__dirname+'/..'});
-// });
-//
-
-router.all('*', (req, res) => {
-    res.status(404).send({message : 'Unmatched route. =(('});
->>>>>>> 258302a043ca9e1be1a3dc20d5d842cd7c4f5a36
 });
 
 module.exports = router;
