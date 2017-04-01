@@ -117,7 +117,7 @@ function updateEvent(){
     }
 
     $http
-        .put('/event',updateData)
+        .put('/events',updateData)
         .then(function(response){
             console.log('event updated')
         },
