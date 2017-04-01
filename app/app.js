@@ -7,7 +7,8 @@
 	function router($routeProvider) {
 		$routeProvider
 			.when('/', {
-				templateUrl: 'layouts/login.html'
+				templateUrl: 'layouts/login.html',
+				controller:'userController'
 			})
             .when('/user/home', {
 				templateUrl: 'layouts/user-dashboard.html'
@@ -28,7 +29,8 @@
 				templateUrl: 'layouts/user-game-page.html'
 			})
 			.when('/user/game/sched', {
-				templateUrl: 'layouts/user-game-sched.html'
+				templateUrl: 'layouts/user-game-sched.html',
+				controller:'userGameSchedController'
 			})
 			.when('/user/scoreboard', {
 				templateUrl: 'layouts/user-scoreboard-page.html'
