@@ -67,13 +67,17 @@ function viewEvent(id){
         .get('/events/' + id)
         .then(function(response){
             vm.allEvents = response.data[0];
+            if(vm.allEvents[0] == undefined){
+                $location.path('/user/events');
+            }
+            else{
             vm.eventId = vm.allEvents[0].event_id;
             console.log("response data" + vm.allEvents[0].event_id);
             console.log('Viewing event ' + vm.allEvents[0].event_name);
             console.log(vm.eventId);
             //$window.localStorage.setItem("event_id",vm.eventId);
             //console.log($window.localStorage);
-
+            }
         })
 }
 
@@ -93,6 +97,7 @@ $http
     .delete('/events/'+id)
     .then(function(response){
         console.log('Event deleted')
+        viewEvent($routeParams.event_id)
 },
 function(response){
     console.log("error");   
@@ -115,6 +120,7 @@ function updateEvent(){
         .put('/events',updateData)
         .then(function(response){
             console.log('event updated')
+            viewEvent($routeParams.event_id)
         },
         function(response){
             console.log("error");
