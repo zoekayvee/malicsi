@@ -31,7 +31,7 @@ function addEvent(user_id) {
         date_end : vm.dateEnd
 }
 $http
-    .post('/event', newEvent)
+    .post('/events', newEvent)
     .then(function(response){
         console.log(response.data);
         console.log('Success! Event Added!')
@@ -50,7 +50,7 @@ function interval(){
 
 function viewAllEvent() {
 $http
-    .get('/event')
+    .get('/events')
     .then(function(response){
         vm.allEvents = response.data[0];
         console.log(response.data[0]);
@@ -62,9 +62,9 @@ $http
 }
 
 function viewEvent(id){
-    $location.path('/event/' + id)
+    $location.path('/events/' + id)
     $http
-        .get('/event/' + id)
+        .get('/events/' + id)
         .then(function(response){
             vm.allEvents = response.data[0];
             vm.eventId = vm.allEvents[0].event_id;
@@ -83,7 +83,7 @@ function viewEvent(id){
 function viewClickedEvent(){
     $http
 
-        .get('/event/' + $routeParams.event_id)
+        .get('/events/' + $routeParams.event_id)
         .then(function(response){
             vm.allEvents = response.data[0];
             console.log(response.data[0][0]);
@@ -94,7 +94,7 @@ function viewClickedEvent(){
 function deleteEvent(id) {
     
 $http
-    .delete('/event/'+id)
+    .delete('/events/'+id)
     .then(function(response){
         console.log('Event deleted')
 },
@@ -116,7 +116,7 @@ function updateEvent(){
     }
 
     $http
-        .put('/event',updateData)
+        .put('/events',updateData)
         .then(function(response){
             console.log('event updated')
         },
