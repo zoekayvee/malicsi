@@ -3,9 +3,11 @@ const connection = require(__dirname + '/../db-connection');
 var path = require('path');
 ///CRUDE EVENT///
 
-var CryptoJS = require('crypto-js');
+var bcrypt = require('bcrypt');
+const saltRounds = 10;
 
 exports.login=(req,res)=>{
+
 	const user = {
 		username: req.body.username,
 		password: req.body.password
@@ -20,30 +22,29 @@ exports.login=(req,res)=>{
 	function next_auth(err, rows){
 		if(!err){
 	        if(!rows.length) {
+	        	toastr.error('Invalid credentials!');
 				console.log('Wrong username or password...');
-	            res.status(404).send({message: 'Wrong username or password.'});
-	        }
-	        else if (req.session.userid!= undefined && req.session.usertype!= undefined && req.session.user_id != rows[0].user_id){
+	            res.status(404).send({message: 'Wrong username'});
+	        } /*else if (req.session != undefined && req.session.user_id != result[0].user_id){
 	        	console.log('Login session is not yet finished...');
-	        	var json =  JSON.parse((JSON.stringify(req.session)));
-					console.log(json);
 	            return res.status(404).send({message: 'Login session is not yet finished.'});
 	            //uncomment if we have authentication
-	        } 
+	        }*/ 
 	        else{
-	        	var password = CryptoJS.AES.decrypt(rows[0].password, user.username).toString(CryptoJS.enc.Utf8);
-	        	if(password!==user.password){
-		        	res.status(404).send({message: 'Wrong username or password.'}); 
-		        }else {
-		            console.log('SUCCESSFULLY LOGGED IN!');
-		            req.session.userid = rows[0].user_id
+	        	var hash = rows[0].password;
+		   		if(bcrypt.compareSync(user.password, hash)){
+		   			console.log('SUCCESSFULLY LOGGED IN!');
+					req.session.userid = rows[0].user_id
 					req.session.usertype = rows[0].user_type
-					var json =  JSON.parse((JSON.stringify(req.session)));
+					var json =  JSON.parse((JSON.stringify(rows[0])));
 					console.log(json);
 					res.json({
-						redirect: '/#!/user/home'
+					redirect: '/#!/user/home'	
 					});
-		        }
+		   		}
+		   		else{
+		   			res.status(404).send({message: 'Wrong username or password.'}); 
+		   		}
 	        }    
 		}
 		else{
@@ -56,16 +57,22 @@ exports.login=(req,res)=>{
 exports.logout=(req,res)=>{
 	if(req.session){
 		req.session.destroy(function(err){
+			res.json({
+				redirect: '/#!/'
+			});
 		});
 	}
 }
 
 exports.registerUser=(req,res)=>{
+	const salt = bcrypt.genSaltSync(saltRounds);
+	const hash = bcrypt.hashSync(req.body.password, salt);
+
 	//automatic normal user
 	const query_string = 'call createUser(?,?,?,?,?,?)';
 	const req_data = [
 		req.body.username,
-		CryptoJS.AES.encrypt(req.body.password, req.body.username).toString(),
+		hash,
 		'normal',
 		req.body.firstname,
 		req.body.lastname,

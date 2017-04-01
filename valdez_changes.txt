@@ -1,6 +1,2 @@
 changes:
-* added simple encryption of password using CryptoJS (used AES encryption and decryption)
-* fixed register user
-
-bugs:
-* logs in even if non-existent user in database
+* changed encryption from CryptoJS to bcrypt
