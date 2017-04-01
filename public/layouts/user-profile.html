@@ -1,16 +1,16 @@
 <div class="ui containter">
 
-    <div class="ui grid">
+    <div class="ui grid" ng-controller= "userController as profile">
         <div class="five wide column">
             <div class="ui center aligned segment">
                 <img class="ui centered small circular image" src="images/id.jpg">
                 <h2 class ="ui centered header" id="header-section">
-                    NAME
+                    {{profile.user.username}}
                     <div class="sub header" id="header-section">
-                        LOCATION
+                        {{profile.user.location}}
                     </div>
                 </h2>
-                <button class="ui labeled icon button">
+                <button class="ui labeled icon button" ng-click="profile.openModal()">
                     <i class="edit icon"></i>
                     Update
                 </button>
@@ -46,10 +46,10 @@
                 <div class="ui clearing divider"></div>
                 <!--STATISTICS-->
                 <div class="ui segment" id="stat">
-                    <div class="ui three inverted statistics">
+                    <div class="ui three statistics">
                         <div class="ui statistic">
                             <div class="value">
-                                27
+                                {{profile.user.height}}
                             </div>
                             <div class="label">
                                 HEIGHT
@@ -57,7 +57,7 @@
                         </div>
                         <div class="ui statistic">
                             <div class="value">
-                                8
+                                {{profile.user.weight}}
                             </div>
                             <div class="label">
                                 WEIGHT
@@ -65,7 +65,7 @@
                         </div>
                         <div class="ui statistic">
                             <div class="value">
-                                28
+                                {{profile.user.age}}
                             </div>
                             <div class="label">
                                 AGE
@@ -76,16 +76,16 @@
                 <!--LIST OF ABOUTS-->
                 <div class="ui very relaxed list">
                     <div class="item">
-                        information 1
+                        Name : {{profile.user.firstname + " " + profile.user.lastname}}
                     </div>
                     <div class="item">
-                        information 1
+                        College : {{profile.user.college}}
                     </div>
                     <div class="item">
-                        information 1
+                        Contact Number : {{profile.user.contactno}}
                     </div>
                     <div class="item">
-                        information 1
+                        Email : {{profile.user.email}}
                     </div>
                 </div>
             </div>
@@ -156,5 +156,83 @@
             </div>
 
         </div>
+    </div>
+</div>
+
+<div class="ui modal" id="update-modal">
+    <div class="header">Update Profile</div>
+        <div class="content">
+            <form ng-controller="userController as update">
+                <div class="ui form">
+                    <div class="fields">
+                        <div class="field">
+                            <label>Username</label>
+                            <input type="text" placeholder="{{update.user.username}}">
+                        </div>
+                        <div class="field">
+                            <label>Password</label>
+                            <input type="password">
+                        </div>
+                        <div class="field">
+                            <label>College</label>
+                            <input type="text" placeholder="{{update.user.college}}">
+                        </div>
+                        <div class="field">
+                            <label>Age</label>
+                            <input type="text" placeholder="{{update.user.age}}">
+                        </div>
+                        <div class="field">
+                            <label>Height</label>
+                            <input type="text" placeholder="{{update.user.height}}">
+                        </div>
+                        <div class="field">
+                            <label>Weight</label>
+                            <input type="text" placeholder="{{update.user.weight}}">
+                        </div>
+                    </div>
+                    <div class="equal width fields">
+                        <div class="field">
+                            <label>First name</label>
+                            <input type="text" placeholder="{{update.user.firstname}}">
+                        </div>
+                        <div class="field">
+                            <label>Last name</label>
+                            <input type="text" placeholder="{{update.user.lastname}}">
+                        </div>  
+                    </div>
+                    <div class="ui equal width form">
+                        <div class="fields">
+                            <div class="field">
+                                <label>E-mail</label>
+                                <input type="email" placeholder="{{update.user.email}}">
+                            </div>
+                            <div class="field">
+                                <label>Contact Number</label>
+                                <input type="text" placeholder="{{update.user.contactno}}">
+                            </div>
+                        </div>
+                        <div class="fluid field">
+                            <label>Address</label>
+                            <input type="text" placeholder="{{update.user.location}}">
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label>Gender</label>
+                        <div class="ui selection dropdown" ng-init="update.dropDown()">
+                            <input type="hidden" name="gender">
+                            <i class="dropdown icon"></i>
+                            <div class="default text">Gender</div>
+                            <div class="menu">
+                                <div class="item" data-value="1">Male</div>
+                                <div class="item" data-value="0">Female</div>
+                            </div>
+                        </div> 
+                    </div>
+                </div>
+            <div class="ui actions">
+                <div class="ui close button" ng-click="update.closeModal()">Cancel</div>
+                <div class="ui button" type="submit">Update</div>
+            </div>
+        </form>
     </div>
 </div>

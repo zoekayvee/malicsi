@@ -34,16 +34,19 @@ exports.removeUser=(req,res)=>{
 // updateUser - updates user information (uses user_id)
 exports.updateUser=(req,res)=>{
 
-		const query_string = 'call updateUser(?,?,?,?,?,?,?,?,?,?)';
+		const query_string = 'call updateUser(?,?,?,?,?,?,?,?,?,?,?,?,?)';
 		const req_data = [
 			req.params.user_id,
 			req.body.username,
 			CryptoJS.AES.encrypt(req.body.password, req.body.username).toString(),
 			req.body.firstname,
 			req.body.lastname,
+			req.body.gender,
 			req.body.college,
 			req.body.contactno,
 			req.body.email,
+			req.body.about,
+			req.body.location,
 			req.body.weight,
 			req.body.height
 		];

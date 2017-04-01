@@ -22,14 +22,17 @@ create table users(
 	username 		varchar(50) not null,
 	password 		varchar(72) not null,
 	user_type 		enum('admin','normal'),
+	gender 			enum('female','male'),
 	firstname 		varchar(50) not null,
 	lastname 		varchar(50) not null,
 	college 		varchar(50),
 	contactno 		varchar(50),
 	email 			varchar(100),
+	about			varchar(160),
+	location		varchar(100),
 	weight 			int,
 	height 			int,
-
+	age 			int,
 	UNIQUE 			(username),
 	constraint 		user_id_pk primary key(user_id)
 );
@@ -136,6 +139,12 @@ DELIMITER %%
 				INSERT INTO logs(user_id, message) VALUES(NEW.user_id, concat("Created new user with user name: ", NEW.username));
 			END;
 %%
+	CREATE TRIGGER userUpdate AFTER UPDATE ON users
+		FOR EACH ROW
+			BEGIN
+				INSERT INTO logs(user_id, message) VALUES(OLD.user_id, concat("Updated his/her user profile with user name: ", NEW.username));
+			END;
+%%
 	CREATE TRIGGER userDelete AFTER DELETE ON users
 		FOR EACH ROW
 			BEGIN
@@ -147,6 +156,12 @@ DELIMITER %%
 		FOR EACH ROW
 			BEGIN
 				INSERT INTO logs(user_id, message) VALUES(NEW.sport_id, concat("Deleted user: ", NEW.sport_id));
+			END;
+%%
+	CREATE TRIGGER sportUpdate AFTER UPDATE ON sport
+		FOR EACH ROW
+			BEGIN
+				INSERT INTO logs(user_id, message) VALUES(OLD.sport_id, concat("Deleted user: ", OLD.sport_id));
 			END;
 %%
 
@@ -211,9 +226,9 @@ DELIMITER %%
 			INSERT INTO users (username, password, user_type, firstname, lastname, email) VALUES (uname, pass, utype, fname, lname, em);
 		END;
 %%
-	CREATE PROCEDURE updateUser(in uid int(10), in uname varchar(50), in pass varchar(72), in fname varchar(50), in lname varchar(50), in ucollege varchar(50), in contact varchar(50), in mail varchar(100), in wt int(11), in ht int (11))
+	CREATE PROCEDURE updateUser(in uid int(10), in uname varchar(50), in pass varchar(72), in fname varchar(50), in lname varchar(50),in gtype enum('female','male') , in ucollege varchar(50), in contact varchar(50), in mail varchar(100), in abt varchar(160),in loc varchar(100) ,in wt int(11), in ht int (11), in ag int(3))
 		BEGIN
-			UPDATE users SET username=uname, firstname = fname, lastname = lname, college = ucollege, contactno = contact, email = mail, weight = wt, height = ht WHERE user_id = uid;
+			UPDATE users SET username=uname, firstname = fname, lastname = lname, gender=gtype ,college = ucollege, contactno = contact, email = mail, about = abt, location=loc, weight = wt, height = ht, age=ag WHERE user_id = uid;
 			UPDATE users SET password = pass WHERE username = uname;
 		END;
 %%

@@ -29,12 +29,12 @@
             <a href="/#!/user/event" class="item">Events</a>
             <a href="/#!/user/team" class="item">Team</a>
 
-            <div class="alight right ui simple dropdown item">
-                Reg Recario <i class="dropdown icon"></i>
+            <div class="alight right ui simple dropdown item" ng-controller= "userController as user">
+                {{user.user.firstname + " " + user.user.lastname}}<i class="dropdown icon"></i>
                 <div class="menu">
                     <a class="item" href="/#!/user/profile">Profile</a>
                     <a class="item" href="/#!/user/activity-log">Activity Log</a>
-                    <a class="item" href="#">Logout</a>
+                    <a class="item" href="#" ng-click="user.logOut()">Logout</a>
                 </div>
             </div>
         </div>

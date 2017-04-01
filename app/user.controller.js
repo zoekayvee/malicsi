@@ -9,8 +9,7 @@
 		vm.username="";
 		vm.password="";
 		vm.loginUser=loginUser;
-        vm.currentUser = {};
-        vm.user = [];
+        vm.user = {};
         vm.allLogs = [];
 
         vm.firstname = "";
@@ -18,9 +17,11 @@
 		vm.newUser = {};
 		vm.registerUser=registerUser;
 		vm.logOut = logOut;
-		vm.userProfile=userProfile;
 		vm.getLogs = getLogs;
-		
+		vm.openModal = openModal;
+		vm.closeModal = closeModal;
+		vm.dropDown = dropDown;
+
         $http   
             .get('/user_loggedin') 
             .then(function(response) {
@@ -28,9 +29,8 @@
                     $http
                         .get('/users/'+response.data)
                         .then(function(response) {
-                            vm.currentUser = response.data;
                             vm.user = response.data;
-                            console.log(vm.currentUser);
+                            console.log(vm.user);
                         });
                 }
             });
@@ -56,8 +56,12 @@
 				.post('/users', vm.newUser)
 				.then(function(response){
 					console.log(response.data);
+					vm.username= vm.newUser.username;
+					console.log(vm.username);
+					vm.password=vm.newUser.password;
+					console.log(vm.password);
 					console.log('User added!');
-					window.location.href='/#!/user/home';
+					loginUser();
 				},
 				function(response){
 					console.log('Error');
@@ -68,30 +72,9 @@
 	     function logOut() {
 	     	$http.get('/logout')
 	     			.then(function(response) {
-	     				var redirect = response.data.redirect;
-	     				window.location.href=redirect;
+	     				vm.user={};
 	     			});
 	     }
-
-	     function userProfile(){
-			var credentials={
-				username: vm.username,
-				password: vm.password
-			}		
-	       	$http   
-	            .get('/user_loggedin') 
-	            .then(function(response) {
-	                if (response.data) {
-	                    $http
-	                        .get('/users/'+response.data)
-	                        .then(function(response) {
-	                            vm.user = response.data;
-								console.log(response.data);
-								console.log("HERE");
-	                        });
-	                }
-	            });
-		}
 		function getLogs(){
 			$http
 			.post('/logs')
@@ -101,6 +84,24 @@
 				} else console.log('Error');
 			});
 		}
+
+		function openModal(){
+			$('.ui.modal')
+				.modal('show');
 		}
+		function closeModal() {
+			 $('.ui.modal')
+			 	.modal('hide');
+			vm.newUser = {};	
+		 }
+
+		function dropDown() {
+			$('.ui.dropdown')
+			  .dropdown();
+			$('select.dropdown')
+				.dropdown();
+		}
+
+	}
 
 })();

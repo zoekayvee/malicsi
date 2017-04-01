@@ -13,14 +13,14 @@ router.post('/login',                       userController.login);
 router.get('/logout',                       userController.logout);
 router.post('/users',                  userController.registerUser);
 
-// //authentication
-// router.use(function(req, res, next){
-//     if (req.session && req.session.accountid)
-//         next();
-//     else
-//         res.redirect('/login');
-// })
-
+//authentication
+/*router.use(function(req, res, next){
+     if (req.usertype && req.session.userid)
+         next();
+     else
+         res.redirect('/#!/');
+ })
+*/
 router.get('/users',                 adminController.viewAllUsers);
 router.get('/users/:user_id',            userController.viewUser);
 router.put('/users/:user_id',          adminController.updateUser);
