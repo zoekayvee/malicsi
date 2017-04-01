@@ -1,4 +1,3 @@
-
 (function(){
 	'use strict'
 	angular
@@ -23,22 +22,22 @@
     	vm.reload = interval;
 	    /*---------- view team ---------*/
     
-	function addTeam() {
-   	 	var newTeam = {
-        team_name : vm.teamName
-		}
-	$http
-    .post('/addTeam', newTeam)
-    .then(function(response){
-        console.log(response.data);
-        console.log('Success! Event Added!')
-	},
-	function(response){
-   console.log("Error :(");
-	});
-	}    
-    
-    
+		function addTeam() {
+	   	 	var newTeam = {
+	        team_name : vm.teamName
+			}
+			$http
+		    .post('/addTeam', newTeam)
+		    .then(function(response){
+		        console.log(response.data);
+		        console.log('Success! Event Added!')
+			},
+			function(response){
+		   console.log("Error :(");
+			});
+		}    
+	    
+	    
 	    function viewTeam(id){
 	    	$http
 	    		.get('/viewTeam/'+id)
@@ -49,7 +48,7 @@
 	    		})
 	    }
 
-	    /*--------- view all teams --------*/
+		    /*--------- view all teams --------*/
 	    function viewAllTeam(){
 	    	$http
 	    		.get('/viewAllTeam')
@@ -63,24 +62,23 @@
 	    }
 
 
-	    function getData() {
-    $http
-        .get('/viewAllTeam')
-        .then(function(response){
-            vm.allTeams = response.data[0];
-        },
-        function(response){
-            console.log("error");
-        });
+		function getData() {
+		    $http
+		        .get('/viewAllTeam')
+		        .then(function(response){
+		            vm.allTeams = response.data[0];
+		        },
+		        function(response){
+		            console.log("error");
+		        });
+		}
 
-}
-
-function interval(){
-    setTimeout(function() {
-        viewAllTeam();
-        interval();
-    }, 1000);
-}
+		function interval(){
+		    setTimeout(function() {
+		        viewAllTeam();
+		        interval();
+		    }, 1000);
+		}
 
 
 	    /*-------- delete event ------------*/
@@ -97,11 +95,11 @@ function interval(){
 	    /*-------- team join event -----------*/
 	    //di ako sure dito haha
 	    function teamJoinEvent(){
-        var teamToJointEvent = {
-        	team_id : vm.teamId,
-          event_id : vm.eventId
-        }
-        
+		    var teamToJointEvent = {
+		    	team_id : vm.teamId,
+		      event_id : vm.eventId
+		    }
+	    
 	    	$http
 	    		.post('/teamJoinEvent',teamToJointEvent)
 	    		.then(function(response){
@@ -111,41 +109,38 @@ function interval(){
 	    		});
 
 	    }
-    
-    
-  function updateTeam(){
-    var updateData = {
-        team_id : vm.teamId,
-        team_name : vm.teamName
+	    
+	    function updateTeam(){
+		    var updateData = {
+		        team_id : vm.teamId,
+		        team_name : vm.teamName
+	    	}
 
-    }
-
-    $http
-        .put('/updateTeam',updateData)
-        .then(function(response){
-            console.log('event updated')
-        },
-        function(response){
-            console.log("error");
-        });
-}
-    
-    
-    function teamPlayGame(){
-        var gameToPlay = {
-        	team_id : vm.teamId,
-          	game_id : vm.gameId
-        }
-        
-	    	$http
-	    		.post('/teamPlayGame',gameToPlay)
-	    		.then(function(response){
-	    			console.log('Team Joined Event')
-	    		}, function(response){
-	    			console.log("error");
-	    		});
-
-	    }
-
+		    $http
+		        .put('/updateTeam',updateData)
+		        .then(function(response){
+		            console.log('event updated')
+		        },
+		        function(response){
+		            console.log("error");
+		        });
+		}
+	    
+	    
+	    function teamPlayGame(){
+	        var gameToPlay = {
+	        	team_id : vm.teamId,
+	          	game_id : vm.gameId
+	        }
+	        
+		    	$http
+		    		.post('/teamPlayGame',gameToPlay)
+		    		.then(function(response){
+		    			console.log('Team Joined Event')
+		    		}, function(response){
+		    			console.log("error");
+		    		});
+		    }
+		}
 	}
-})();
+)();
