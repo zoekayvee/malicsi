@@ -15,7 +15,7 @@ exports.viewCurrentGame =  (req,res) => {
 	})
 }
 exports.viewUpcomingGame = (req,res) => {
-	const query_string = "SELECT venue_name, sport_name,game_id,DATE_FORMAT(date_start,'%M %e %Y') Date from game natural join sport natural join venue WHERE DATEDIFF(date_start,NOW()) < 3 ORDER BY Date ASC";
+	const query_string = "SELECT venue_name, sport_name,game_id,DATE_FORMAT(date_start,'%M %e %Y') Date from game natural join sport natural join venue WHERE DATEDIFF(date_start,NOW()) < 3 AND DATEDIFF(NOW(),date_start) != 0 ORDER BY Date ASC";
 	//Check the next games in reference with the current game. e.g. If today is monday, select games on Tuesday
 	connection.query(query_string,null,(err,rows) =>{
 		if(!err){
