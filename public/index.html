@@ -14,9 +14,11 @@
 
     <!-- import angular router -->
     <script type="text/javascript" src="app.js"></script>
+    <script src="event.controller.js"></script>
+       <script src="logged.user.controller.js"></script>
 
 </head>
-<body>
+<body ng-controller = "eventController as event" ng-controller = "loggedUserController as logged" >
     <!-- NAVIGATION SECTION -->
     <div class="ui fixed inverted menu" id="page-navigation">
         <div class="ui container">

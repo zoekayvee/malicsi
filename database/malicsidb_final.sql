@@ -10,18 +10,15 @@ Go to directory where malicsidb.sql is located or enter full path to file then r
 
 */
 
-<<<<<<< HEAD
-DROP USER "projectOneTwoEight"@"localhost";
-=======
+
 
 DROP USER "local"@"localhost";
->>>>>>> 33085a4d4593271efb2edc57c11d2727e9f63a85
 
 -- DROP USER "projectOneTwoEight"@"localhost";
 
-CREATE USER "projectOneTwoEight"@"localhost" IDENTIFIED BY "password";
+CREATE USER "local"@"localhost" IDENTIFIED BY "a5390040597";
 
-GRANT ALL PRIVILEGES ON malicsiDB.* TO "projectOneTwoEight"@"localhost" WITH GRANT OPTION;
+GRANT ALL PRIVILEGES ON malicsiDB.* TO "local"@"localhost" WITH GRANT OPTION;
 
 DROP DATABASE IF EXISTS `malicsiDB`;
 
@@ -315,7 +312,7 @@ delimiter //
 							 in dateEnd date
 							 )
 	BEGIN
-		update event set event_name = eventName, allow_reg = allowReg, date_start = dateStart, date_end = dateEnd, duration = datediff(dateEnd,dateStartN) where event_id = eventId; 
+		update event set event_name = eventName, allow_reg = allowReg, date_start = dateStart, date_end = dateEnd, duration = datediff(dateEnd,dateStart) where event_id = eventId; 
 	END;
 	//
 delimiter ;
