@@ -23,9 +23,9 @@ function eventController($http,$location,$routeParams){
     vm.viewClickedEvent = viewClickedEvent;
     vm.reload = interval;
 
-function addEvent(id) {
+function addEvent(user_id) {
     var newEvent = {
-        user_id : id,
+        user_id : user_id,
         event_name : vm.eventName,
         date_start : vm.dateStart,
         date_end : vm.dateEnd

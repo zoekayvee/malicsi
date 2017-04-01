@@ -32,7 +32,6 @@ router.delete   ('/event/:event_id',    eventController.deleteEvent);
 
 
 
-
 router.get('/', (req,res)=>{
 
 	res.sendFile('views/index.html',{root:__dirname+'/..'});
@@ -57,6 +56,10 @@ router.all('*', (req, res, next) => {
 // });
 //
 
+
+router.all('*', (req, res) => {
+    res.status(404).send({message : 'Unmatched route. =(('});
+});
 
 module.exports = router;
 
