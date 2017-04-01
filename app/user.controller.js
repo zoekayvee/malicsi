@@ -47,7 +47,8 @@
 						window.location.href=redirect;
 					}
 				}, function (response){	
-
+					console.log('Error');
+					window.location.reload();
 				});
 		}
 		function registerUser(){
@@ -56,9 +57,11 @@
 				.then(function(response){
 					console.log(response.data);
 					console.log('User added!');
+					window.location.href='/#!/user/home';
 				},
 				function(response){
 					console.log('Error');
+					window.location.reload();
 				});
 		}
 

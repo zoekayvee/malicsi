@@ -1,7 +1,7 @@
 'use strict'
 const connection = require(__dirname + '/../db-connection');
 var path = require('path');
-
+var CryptoJS = require('crypto-js');
 // viewAllUsers - views all users
 exports.viewAllUsers=(req,res)=>{
 	const query_string = 'SELECT * FROM users;';

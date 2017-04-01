@@ -1,7 +1,10 @@
 Seco changes:
 
 added email variable to user.service, malicsidb_final.sql procedure files
-
+changed password size from 50 to 72
 
 some errors in registering user- password and normality of users are not stored properly in DB
 	action: back to simple insertion and login
+
+login.html - needs to restrict user to fill up everything in sign-up and login
+

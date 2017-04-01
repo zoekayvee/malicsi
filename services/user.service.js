@@ -8,45 +8,53 @@ var CryptoJS = require('crypto-js');
 exports.login=(req,res)=>{
 	const user = {
 		username: req.body.username,
-		password: CryptoJS.AES.decrypt(req.body.password, req.body.username).toString()
+		password: req.body.password
 	};
 
-	const query_string = 'call login(?,?)'
-	const req_data= [user.username,user.password];
-	console.log(user.username);
-	console.log(user.password);
+	function start(){
+		const query_string = 'SELECT * from users where username = ?'
+		const req_data= [user.username];
+		connection.query(query_string,req_data,next_auth);
+	}
 
-	connection.query(query_string,req_data, (err,rows)=>{
-		//this is where the connection to the database is being done, the rows will acquire the result of the query
-		if(!err) {
-			if(rows[0]){
-				req.session.userid = rows[0].user_id
-				req.session.usertype = rows[0].user_type
-				var json =  JSON.parse((JSON.stringify(req.session)));
-				console.log(json);
-				res.json({
-					redirect: '/#!/user/home'
-				});
-			}
-			else{
-				res.json({
-					redirect: '/'
-				});
-			}
+	function next_auth(err, rows){
+		if(!err){
+	        if(!rows.length) {
+				console.log('Wrong username or password...');
+	            res.status(404).send({message: 'Wrong username or password.'});
+	        } /*else if (req.session != undefined && req.session.user_id != result[0].user_id){
+	        	console.log('Login session is not yet finished...');
+	            return res.status(404).send({message: 'Login session is not yet finished.'});
+	            //uncomment if we have authentication
+	        }*/ 
+	        else{
+	        	var password = CryptoJS.AES.decrypt(rows[0].password, user.username).toString(CryptoJS.enc.Utf8);
+	        	if(password!==user.password){
+		        	res.status(404).send({message: 'Wrong username or password.'}); 
+		        }else {
+		            console.log('SUCCESSFULLY LOGGED IN!');
+		            req.session.userid = rows[0].user_id
+					req.session.usertype = rows[0].user_type
+					var json =  JSON.parse((JSON.stringify(rows[0])));
+					console.log(json);
+					res.json({
+						redirect: '/#!/user/home'
+					});
+		        }
+	        }    
 		}
-		else
-			//throw err;
-			res.status(500).send(err);
-
-	});
-
+		else{
+            return res.status(500).send(err);
+		}
+	}
+	start();
 }
 
 exports.logout=(req,res)=>{
 	if(req.session){
 		req.session.destroy(function(err){
 			res.json({
-				redirect: '/'
+				redirect: '/#!/'
 			});
 		});
 	}
@@ -54,7 +62,6 @@ exports.logout=(req,res)=>{
 
 exports.registerUser=(req,res)=>{
 	//automatic normal user
-
 	const query_string = 'call createUser(?,?,?,?,?,?)';
 	const req_data = [
 		req.body.username,
