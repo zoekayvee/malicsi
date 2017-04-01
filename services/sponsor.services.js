@@ -50,7 +50,7 @@ exports.sponsorEvent = (req, res, next) => {
 			}
 	});
 }
-exports.viewAllSponsors = (req, res, next) => {
+exports.viewAllSponsor = (req, res, next) => {
 	var query = 'call viewAllSponsors()';
 	
 		var id = connection.query(
