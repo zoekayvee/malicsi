@@ -1,0 +1,60 @@
+<link rel='stylesheet' href='css/event.css'/>
+
+<div class="ui container">
+
+
+	<div  ng-controller = "eventController as event">
+		<table id="events" class="ui celled table">
+			<tr>
+				
+				<th> <h1> Description New </h1></th>
+				<th> <h1> Date Start </h1></th>
+				<th> <h1> Date End </h1></th>
+			</tr>
+
+			<tbody ng-init = "event.viewClickedEvent()">
+				<tr ng-repeat = "x in event.allEvents">
+					
+					<td>
+					<button class = "ui button teal" >{{x.event_name}}</button>
+					</td>
+					<td>{{x.date_start}}</td>
+					<td>{{x.date_end}}</td>
+					<td>
+					<button class = "ui button green" >Update</button>
+					</td>
+					<td>
+					<button class = "ui button red" ng-click = "event.deleteEvent(x.event_id)">Delete</button>
+					</td>
+					
+					
+				</tr>
+				
+
+			</tbody>
+
+		</table>
+		 <div class="ui form" >
+                      <div class="fields">
+ 
+                        <div class="field">
+                          <label>Event name</label>
+                          <input type="text" ng-model = "event.eventName" name="event_name">
+                        </div>
+                        <div class="field">
+                          <label>Start Date</label>
+                          <input type="text" name="start_date" ng-model = "event.dateStart">
+                        </div>
+                        <div class="field">
+                          <label>End Date</label>
+                          <input type="text" name="end_date" ng-model = "event.dateEnd">
+                        </div>
+                        <div class="field">
+                          <label>Allow reg</label>
+                          <input type="text" name="end_date" ng-model = "event.allow_reg">
+                        </div>
+                        <button class="ui button" ng-click = "event.updateEvent()">Submit</button>
+                      </div>
+                </div>
+	</div>
+</div>

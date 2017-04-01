@@ -25,7 +25,7 @@ function eventController($http,$location,$routeParams){
 
 function addEvent(user_id) {
     var newEvent = {
-        user_id : userId,
+        user_id : user_id,
         event_name : vm.eventName,
         date_start : vm.dateStart,
         date_end : vm.dateEnd
@@ -75,16 +75,11 @@ function viewEvent(id){
             //console.log($window.localStorage);
 
         })
-        
- 
-
 }
-
 
 function viewClickedEvent(){
     $http
-
-        .get('/event/' + $routeParams.event_id)
+        .get('/events/' + $routeParams.event_id)
         .then(function(response){
             vm.allEvents = response.data[0];
             console.log(response.data[0][0]);
@@ -117,7 +112,7 @@ function updateEvent(){
     }
 
     $http
-        .put('/event',updateData)
+        .put('/events',updateData)
         .then(function(response){
             console.log('event updated')
         },
@@ -130,5 +125,4 @@ function updateEvent(){
 
 
 }   
-}
-)();
+}();
