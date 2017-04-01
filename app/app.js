@@ -1,3 +1,4 @@
+
 'use strict';
 
 (function() {
@@ -24,6 +25,12 @@
 			.when('/user/event', {
 				templateUrl: 'layouts/user-event.html'
 			})
+			.when('/user/event-profile', {
+				templateUrl: 'layouts/event-profile.html'
+			})
+			.when('/user/view-all-event', {
+				templateUrl: 'layouts/view-all-events.html'
+			})
 			.when('/user/game', {
 				templateUrl: 'layouts/user-game-page.html'
 			})
@@ -39,7 +46,9 @@
 			.when('/user/search', {
 				templateUrl: 'layouts/user-search-page.html'
 			})
-
+			.when('/user/other', {
+				templateUrl: 'layouts/user-visit-profile.html'
+			})
 			// .otherwise({
 			// 	redirectTo: '/'
 			// })

@@ -1,0 +1,15 @@
+$(document).ready(function(){
+     $('#update-event').click(function(){
+        $('#modalc').modal('show');    
+     });
+});
+$(document).ready(function(){
+     $('#delete-event').click(function(){
+        $('.ui.basic.modal').modal('show');    
+     });
+});
+$(document).ready(function(){
+     $('#add-sport').click(function(){
+        $('#modal-sport').modal('show');    
+     });
+});

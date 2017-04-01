@@ -1,0 +1,96 @@
+div {
+    /*border: solid 1px red;*/
+}
+
+
+#event-name {
+    text-align: center;
+}
+
+#event-details {
+    text-align: justify;
+}
+
+#member-icon-panel {
+    text-align: center;
+}
+
+#event-poster {
+
+}
+
+#confirmation{
+    text-align:center;
+}
+
+.ui .card {
+    padding: 20px;
+}
+
+.main-section {
+    border: soild 1px red;
+}
+
+.section-title {
+    margin-bottom: 10px;
+}
+
+.sport-panel, .team-panel {
+    background-color: white;
+    color: #0d2235;
+}
+
+#right-panel {
+    padding-left: 0;
+}
+
+.member-request {
+    display: inline-block !important;
+    padding: 3px !important;
+    width: 100% !important;
+    background: #CDCDCD !important;
+    line-height: 40px;
+    color: #666;
+    box-shadow: none !important;
+}
+
+.request-icon {
+    height: 35px;
+    width: 35px;
+    border: none;
+    margin: 3px;
+    line-height: 35px;
+    border-radius: 100%;
+    float: left;
+}
+
+.request-text {
+    display: inline-block;
+    text-indent: 10px;
+}
+
+.membership-command {
+    height: 35px;
+    width: 35px;
+    border: none;
+    margin: 3px;
+    line-height: 35px;
+    border-radius: 100%;
+    color:
+}
+
+.request-approve {
+    float: right;
+}
+
+.request-approve button {
+    background-color: #0d2235;
+}
+
+.request-decline {
+    float: right;
+}
+
+.request-decline button {
+    background-color: #72b7bc;
+}

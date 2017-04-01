@@ -1,0 +1,10 @@
+$(document).ready(function(){
+     $('#create').click(function(){
+        $('#event-modal').modal('show');    
+     });
+});
+$(document).ready(function(){
+     $('#updateButton').click(function(){
+        $('#update').modal('show');    
+     });
+});
