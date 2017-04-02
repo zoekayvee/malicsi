@@ -61,8 +61,8 @@ $http
     });
 }
 
-function viewEvent(id){
-    $location.path('/user/event/' + id)
+function viewEvent(event_id){
+    $location.path('/user/event/' + event_id)
     $http
         .get('/events/' + id)
         .then(function(response){

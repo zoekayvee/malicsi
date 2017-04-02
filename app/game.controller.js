@@ -4,7 +4,7 @@
 	.module('malicsi')
 	.controller('gameController',gameController);
 
-	function gameController($http){
+	function gameController($http,$routeParams){
 		var vm = this;
 		
 		vm.game = null;
@@ -42,9 +42,9 @@
 			});
 
 		}
-		function viewGame(id){
+		function viewGame(){
 			$http
-				.get('/game/' + id)
+				.get('/game/' + $routeParams.game_id)
 				.then(function(response){
 					vm.game = response.data;
 					console.log('Viewing Game Successful');
@@ -54,6 +54,18 @@
 			});
 
 		}
+		// function viewGame(id){
+		// 	$http
+		// 		.get('/game/' + id)
+		// 		.then(function(response){
+		// 			vm.game = response.data;
+		// 			console.log('Viewing Game Successful');
+		// 	},
+		// 	function(response){
+		// 		console.log('Error Viewng Game');
+		// 	});
+
+		// }
 		function viewAllGames(){
 			$http
 				.get('/game')

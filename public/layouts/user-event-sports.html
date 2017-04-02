@@ -1,40 +1,35 @@
 <link rel='stylesheet' href='css/event.css'/>
 
 <div class="ui container">
-	<div ng-controller="userGameSchedController as UGSC">
+	<div ng-controller="userEventController as UEC">
 		<table id="sports" class="ui celled table">
 			<tr> <th> <h1> List of Sports </h1></th></tr>
 
 			<tbody>
-				<tr ng-repeat="x in UGSC.allSports"> 
-					<td ng-click="UGSC.viewGames(x); showGame=true">
+				<tr ng-repeat="x in UEC.allSports" ng-init="a=x.sport_id"> 
+					<td ng-click="showGame[$index]=!showGame[$index]">
 					{{x.sport_name}} 
-							<div ng-show="showGame">
-								&nbsp;&nbsp;&nbsp;display games here
-							</div>
-
+						<div>
+							<table class="ui single line table" ng-show="showGame[$index]">
+								<thead>
+				                    <tr>
+				                    	<th> Game ID </th>
+				                        <th> Date/Time </th>
+				                        <th> Venue </th>
+				                    </tr>
+				                </thead>
+				                <tbody ng-init="UEC.viewGamesByEvent(x)">
+				                    <tr ng-repeat="y in UEC.allGames[a-1]" ng-click="UEC.viewGame(y.game_id)">
+				                        <td id="game"> {{y.game_id}} </td>
+				                        <td id="date"> {{y.date_start|date : 'yyyy-mm-dd'}} </td>
+				                        <td id="venue"> {{y.venue_id}} </td>
+				                    </tr>
+				                </tbody>
+				            </table>
+						</div>
 					</td>
 				</tr>
-				<!-- <tr> <td>Baseball</td> </tr>
-				<tr> <td>Basketball</td> </tr>
-				<tr> <td>Bowling</td> </tr>
-				<tr> <td>Soccer</td> </tr>
-				<tr> <td>Volleyball</td> </tr>
-				<tr> <td>Swimming</td> </tr> -->
 			</tbody>
 		</table>
 	</div>
-	<!-- <div>
-		<table id="teams" class="ui celled table" >
-			<tr> <th> <h1> List of Teams </h1></th></tr>
-			<tbody>
-				<tr> <td>Blue Champions</td> </tr>
-				<tr> <td>Red Griffins</td> </tr>
-				<tr> <td>Green Hunters</td> </tr>
-				<tr> <td>Royal White</td> </tr>
-				<tr> <td>Yellow Raptors</td> </tr>
-			</tbody>
-		</table>
-	</div> -->
 </div>
-	

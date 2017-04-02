@@ -27,7 +27,7 @@ exports.addGame = (req,res) =>{
 	})
 }
 
-exports.viewGameBySportId = (req,res) =>{
+exports.viewGamesBySport = (req,res) =>{
 	// SELECT distinct G.game_id, G.date_start,V.venue_name, A.team_name, B.team_name as team_name_2	, G.referee FROM team A, team B, game G, venue V, sport S WHERE A.team_id IN (SELECT team_id FROM team_plays_game WHERE G.sport_id = ?) AND B.team_id IN (SELECT team_id FROM team_plays_game WHERE G.sport_id = ?) AND A.team_id != B.team_id and V.venue_id = G.venue_id and G.sport_id = S.sport_id and G.sport_id = ?
 	var query = 'SELECT * FROM game WHERE sport_id = ?';
 	const data = [

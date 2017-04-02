@@ -43,7 +43,7 @@
                     <tbody ng-init="UGSC.viewGames(x)">
                         <thead class="single line">
                             <tr>
-                                <th> Date/Time </th>
+                                <th> Date/Timea </th>
                                 <!-- <th> Time </th> -->
                                 <th> Venue </th>
                                 <th> Team1 </th>
@@ -51,7 +51,7 @@
                                 <th> Referee </th>
                             </tr>
                         </thead>
-                        <tr ng-repeat="y in UGSC.allGames[a-1]">
+                        <tr ng-repeat="y in UGSC.allGames[a-1]" ng-click="UGSC.viewGame(y.game_id)">
                             <!-- <td id="game"> {{y.game_id}} </td> -->
                             <td id="date"> {{y.date_start|date : 'yyyy-mm-dd'}} </td>
                             <!-- <td id="time">  </td> -->

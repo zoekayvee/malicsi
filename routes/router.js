@@ -79,9 +79,11 @@ router.put      ('/sponsors',    eventController.updateEvent);
 router.delete   ('/sponsors/:sponsor_id',    eventController.deleteEvent);
 
 
-
-router.get('/schedule/:sport_id', gameController.viewScheds);
-router.get('/leaderboard/:sport_id', gameController.viewLeaderboards);
+//additional
+router.get('/sportByEvent/:event_id', 		sportController.viewSportsByEvent);
+router.get('/gamesBySport/:sport_id', 		gameController.viewGamesBySport);
+router.get('/schedule/:sport_id', 		gameController.viewScheds);
+router.get('/leaderboard/:sport_id', 		gameController.viewLeaderboards);
 
 router.all('*', (req, res, next) => {
     res.status(404).send({

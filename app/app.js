@@ -27,17 +27,17 @@
 				controller: 'eventController',
 				controllerAs: 'event'
 			})
-			.when('/user/event/:id'	, {
+			.when('/user/event/:event_id'	, {
 				templateUrl: 'layouts/user-event-sports.html',
-				controller: 'eventController',
+				controller: 'userEventController',
 				controllerAs: 'event'
 			})
-			.when('/user/game', {
+			.when('/user/game/:game_id', {
 				templateUrl: 'layouts/user-game-page.html',
 				controller:'gameController',
 				controllerAs:'game'
 			})
-			.when('/user/game/sched', {
+			.when('/user/gameSched', {
 				templateUrl: 'layouts/user-game-sched.html',
 				controller:'userGameSchedController',
 				controllerAs:'UGSC'

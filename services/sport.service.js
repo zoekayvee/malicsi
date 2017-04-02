@@ -60,6 +60,26 @@ exports.viewAllSports = (req,res) =>{
 	})
 }
 
+exports.viewSportsByEvent = (req,res) =>{
+	var query = 'SELECT * from sport where event_event_id = ?';
+	const data = [
+		req.params.event_id
+	];
+	var con = connection.query(
+		query,
+		data,
+		(err, rows) =>{
+			if(!err){
+				console.log("Viewing Sport Success");
+				res.send(rows);
+			}
+			else{
+				console.log(err)
+				res.status(500).send("Server Error")
+			}
+	}) 
+}
+
 exports.updateSport = (req,res) =>{
 	var query = 'UPDATE sport SET sport_name = ? WHERE sport_id = ?';
 	const data = [

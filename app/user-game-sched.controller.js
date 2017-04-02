@@ -4,12 +4,13 @@
 	.module('malicsi')
 	.controller('userGameSchedController',userGameSchedController);
 
-	function userGameSchedController($http){
+	function userGameSchedController($http,$location){
 		var vm = this;
 
 		vm.allSports = [];
 		vm.allSportGames;
 		vm.allGames = [];
+		vm.viewGame = viewGame;
 		vm.viewGames = viewGames;
 		vm.viewGamesLeaderboards = viewGamesLeaderboards;
 
@@ -56,6 +57,10 @@
 				function(response){
 					console.log("Error retrieving data!");
 				});
+		}
+
+		function viewGame(game_id){
+			$location.path('/user/game/' + game_id)
 		}
 	}
 
