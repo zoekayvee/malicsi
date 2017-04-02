@@ -22,6 +22,7 @@
 		vm.openModal = openModal;
 		vm.closeModal= closeModal;
 		vm.updateUser= updateUser;
+
         $http   
             .get('/user_loggedin') 
             .then(function(response) {
@@ -35,7 +36,25 @@
                 }
             });
 
+        function setToastr(){
+		    toastr.options.positionClass = "toast-bottom-right";
+		    toastr.options.closeButton = true;
+		    toastr.options.showMethod = 'slideDown';
+		    toastr.options.hideMethod = 'slideUp';
+		    toastr.options.positionClass = "toast-bottom-full-width";
+		    toastr.options.timeOut = 2000;
+		    toastr.options.newestOnTop = false;
+    	}
+
+    	function redirectLocation(redirect){
+			if(redirect === '/#!/user/home')
+				window.location.href=redirect;
+			else
+				window.location.reload();
+		}
+
 		function loginUser(){
+			setToastr();
 			var credentials={
 				username: vm.username,
 				password: vm.password
@@ -46,15 +65,22 @@
 					console.log(redirect);
 					vm.user = response.data
 					if (redirect === '/#!/user/home'){
-						window.location.href=redirect;
+						toastr.success('Login successful!');
+						setTimeout(function(){
+							redirectLocation(redirect);
+						}, 500);
 					}
 				}, function (response){	
+					toastr.error('Invalid input!');
 					console.log('Error');
-					window.location.reload();
+					setTimeout(function(){
+						redirectLocation('no');
+					}, 500);
 				});
 		}
 
 		function registerUser(){
+			setToastr();
 			$http
 				.post('/users', vm.newUser)
 				.then(function(response){
@@ -63,11 +89,17 @@
 					vm.username= vm.newUser.username;
 					vm.password= vm.newUser.password; 
 					vm.newUser={};
-					loginUser();
+					toastr.success('User successfully created!');
+					setTimeout(function(){
+					   loginUser();
+					  }, 1000 );
 				},
 				function(response){
+					toastr.error('Error on input!');
 					console.log('Error');
-					window.location.reload();
+					setTimeout(function(){
+						redirectLocation('no');
+					}, 500);
 				});
 		}
 		function updateUser(user,uname,pw,loc,college,age,height,weight,fname,lname,email,contactno,gender){
@@ -137,6 +169,7 @@
 	     	$http.get('/logout')
 	     			.then(function(response) {
 	     				var redirect = response.data.redirect;
+	     				toastr.success('Logged out.');
 	     				window.location.href=redirect;
 	     			});
 	     }

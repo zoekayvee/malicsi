@@ -1,2 +1,6 @@
 changes:
 * changed encryption from CryptoJS to bcrypt
+* added simple toastr for error handling
+
+bugs:
+* user firstname and lastname does not reflect on navbar when logged in
