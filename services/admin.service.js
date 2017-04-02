@@ -16,7 +16,6 @@ exports.viewAllUsers=(req,res)=>{
 			}
 	});
 }
-
 // removeUser - removes all instances of user in database (uses user_id)
 exports.removeUser=(req,res)=>{
 	
@@ -40,7 +39,7 @@ exports.updateUser=(req,res)=>{
 			const hash = bcrypt.hashSync(req.body.password, salt);
 			req.body.password=hash;
 		}
-		const query_string = 'call updateUser(?,?,?,?,?,?,?,?,?,?,?,?,?,?)';
+		const query_string = 'call updateUser(?,?,?,?,?,?,?,?,?,?,?,?,?)';
 		const req_data = [
 			req.params.user_id,
 			req.body.username,
@@ -51,12 +50,12 @@ exports.updateUser=(req,res)=>{
 			req.body.college,
 			req.body.contactno,
 			req.body.email,
-			req.body.about,
 			req.body.location,
 			req.body.weight,
 			req.body.height,
 			req.body.age
 		];
+
 		connection.query(query_string, req_data,(err,result) => {
 			if (!err) {
     		res.status(200).send(result);
@@ -125,9 +124,22 @@ exports.deleteCompetitor=(req,res)=>{
 	});
 }
 
-
-
 exports.viewLogs=(req,res)=>{
+	const query_string = "SELECT users.user_id,message,firstname FROM logs RIGHT JOIN users ON logs.user_id = users.user_id";
+
+	connection.query(query_string, null, (err,result) =>{
+		if(!err){
+			res.status(200).send(result);
+			console.log(result);
+		}
+		else{
+			console.log(err);
+			res.status(500).send(err);
+		}
+	});	
+}
+
+exports.viewAllLogs=(req,res)=>{
 	const query_string = "SELECT users.user_id,message,firstname FROM logs RIGHT JOIN users ON logs.user_id = users.user_id";
 
 	connection.query(query_string, null, (err,result) =>{

@@ -22,7 +22,6 @@
 		vm.openModal = openModal;
 		vm.closeModal= closeModal;
 		vm.updateUser= updateUser;
-		
         $http   
             .get('/user_loggedin') 
             .then(function(response) {
@@ -71,7 +70,7 @@
 					window.location.reload();
 				});
 		}
-		function updateUser(user,uname,pw,loc,college,age,height,weight,fname,lname,email,contactno,gender,about){
+		function updateUser(user,uname,pw,loc,college,age,height,weight,fname,lname,email,contactno,gender){
 			var editUser=vm.user;
 			var flag = "false";
 			if(uname == "" || typeof(uname)== 'undefined'){
@@ -111,9 +110,6 @@
             if(gender =="" || typeof(gender)=='undefined'){
                 gender= user.gender
             }
-            if(about =="" || typeof(about)== 'undefined'){
-                about= user.about
-            }
             editUser.username=uname;
             editUser.password=pw;
             editUser.location=loc;
@@ -125,7 +121,6 @@
             editUser.lastname=lname;
             editUser.email=email;
             editUser.contactno=contactno;
-            editUser.about=about;
             editUser.gender=gender;
             editUser.flag=flag;
           	$http
@@ -155,28 +150,23 @@
 				} else console.log('Error');
 			});
 		}
-
-
-
 		function dropDown(){
 			$('.ui.dropdown')
 			  .dropdown()
 			;
 		}
-		function openModal(){
-			$('.ui.modal')
+		function openModal(dmodal){
+			$('#'+dmodal+'.modal')
 		 	.modal('setting', {
 				 closable: false
 			})
 			.modal('show');
 		
 		}
-		function closeModal(){
-			$('.ui.modal')
+		function closeModal(dmodal){
+			$('#'+dmodal+'.modal')
 			 	.modal('hide');	
 		}
 		}
-
-
 
 })();

@@ -4,7 +4,7 @@ CHANGES:
 
 	changed password size from 50 to 72
 
-	added age, gender, about, location in malicsidb_final.sql users attributes
+	added age, gender, location in malicsidb_final.sql users attributes
 
 	controller for updating, creating users
 
@@ -15,3 +15,5 @@ login.html - needs to restrict user to fill up everything in sign-up and login
 the new routing affects user authentication
 
 modal of updating user profile: widen the form and make the dropdown chosen visible
+
+no pages/buttons for user interests

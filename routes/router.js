@@ -27,7 +27,8 @@ router.put('/users/:user_id',          adminController.updateUser);
 router.delete('/users/:user_id',       adminController.removeUser);
 
 router.post('/user_team',               userController.userJoinsTeam);
-router.get('/logs',                      adminController.viewLogs);
+router.get('/logs',                      adminController.viewAllLogs);
+router.get('/logs/:user_id',             adminController.viewLogs);
 
 
 router.post('/competitors',               adminController.addCompetitor);
