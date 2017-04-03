@@ -2,9 +2,10 @@
 
 const adminController =require('../services/admin.service');
 const userController =require('../services/user.service');
-const gameController =require('../services/game.service');
-const winnerController =require('../services/winner.service');
-const sportController =require('../services/sport.service');
+const eventController =require('../services/event.services');
+// const gameController =require('../services/game.service');
+// const winnerController =require('../services/winner.service');
+// const sportController =require('../services/sport.service');
 
 const express = require('express');
 const router = express.Router();
@@ -29,14 +30,12 @@ router.delete('/users/:user_id',       adminController.removeUser);
 router.post('/user_team',               userController.userJoinsTeam);
 router.get('/logs',                      adminController.viewLogs);
 
-
 router.post('/competitors',               adminController.addCompetitor);
 router.get('/competitors/:game_id',  userController.viewAllCompetitors); 
 router.get('/competitors/:team_id',      userController.viewCompetitor);
 router.put('/competitors/:team_id',    adminController.updateCompetitor);
 router.delete('/competitors/:team_id', adminController.deleteCompetitor);
 
-//module.exports = (router) => {
 router.post     ('/events',      eventController.addEvent); 
 router.get      ('/events/:event_id', eventController.viewEvent);
 router.get      ('/events',   eventController.viewAllEvent);

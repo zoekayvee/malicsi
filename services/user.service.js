@@ -22,7 +22,6 @@ exports.login=(req,res)=>{
 	function next_auth(err, rows){
 		if(!err){
 	        if(!rows.length) {
-	        	toastr.error('Invalid credentials!');
 				console.log('Wrong username or password...');
 	            res.status(404).send({message: 'Wrong username'});
 	        } /*else if (req.session.usertype != undefined && req.session.userid != result[0].user_id){
@@ -73,7 +72,7 @@ exports.registerUser=(req,res)=>{
 	const req_data = [
 		req.body.username,
 		hash,
-		'normal',
+		'pending',
 		req.body.firstname,
 		req.body.lastname,
 		req.body.email
