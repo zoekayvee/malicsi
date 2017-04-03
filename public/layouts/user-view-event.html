@@ -57,7 +57,7 @@
                 <div class="fields">
                         <div class="field">
                           <label>Date Start</label>
-                          <input type="text" ng-model = "event.dateStart" ng-init = "event.dateStart = x.date_start" name="event_name">
+                        	 <input type="text" ng-model = "event.dateStart" ng-init = "event.dateStart = x.date_start" name="event_name">
                         </div>
                 </div>
                 <div class="fields"> 
@@ -69,8 +69,13 @@
                 <div class="fields">
                     <div class="field">
                        <label>Open for registration?</label>
-                        <input type="text" ng-model = "event.allowReg" ng-init = "event.allowReg = x.allow_reg" name="event_name">
+                       <form>
+  							<input type="radio" name="register" ng-model = "event.allowReg" value="1" checked> Yes<br>
+ 							<input type="radio" name="register" ng-model = "event.allowReg" value="0"> No<br>
+					  </form> 
                     </div>       
                 </div>
 	</div>
 </div>
+
+
