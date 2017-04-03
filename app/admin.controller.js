@@ -1,7 +1,7 @@
 (function(){
 	'use strict'
 	angular
-		.module('mainApp')
+		.module('malicsi')
 		.controller('adminController', adminController);
 
 	function adminController($http){

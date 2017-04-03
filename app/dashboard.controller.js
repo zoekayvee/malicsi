@@ -10,6 +10,6 @@
 		vm.sa = "sa";
 
 		console.log("FIRED");
-		
+	}	
 
 })();
