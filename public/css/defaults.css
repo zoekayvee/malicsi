@@ -4,23 +4,30 @@ div {
 
 body {
     padding: 0;
-    background-color: #e7eae1;
+    background: url("../images/bg.jpg");
+    background-size: 100%;
 }
 
 #page-navigation {
-    background: #bc0203;
+    background: rgba(0,0,0,0.5);
     color: #e7eae1 !important;
-    box-shadow: 1px 1px 5px rgba(0,0,0,0.5);
+}
+
+#overlay {
+    min-width: 100vw;
+    min-height: 100vh;
+    background: rgba(0,0,0,0.5);
+    position: absolute;
+    z-index: 100;
+    margin: 0;
+    border: solid 1px red;
+    margin-top: -100px;
 }
 
 #page-footer-1 {
     height: 100px;
     background-color: #CDCDCD;
     background-image: url('../images/patterns/3.png');
-<<<<<<< HEAD
-    border-bottom: solid 3px #0d2235 !important;
-=======
->>>>>>> 2a934dd20ee65369bb0142e7b8be2f77da403340
     box-shadow: 1px 1px 5px rgba(0,0,0,0.5);
 }
 
