@@ -1,6 +1,7 @@
 <link rel='stylesheet' href='css/event.css'/>
 
 <div class="ui container">
+<<<<<<< HEAD
 	<div>
 		<table id="sports" class="ui celled table">
 			<tr> <th> <h1> List of Sports </h1></th></tr>
@@ -47,6 +48,32 @@
 					<td>Event 3</td>
 					<td>"Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit..."</td>
 				</tr>
+=======
+
+
+	<div  ng-controller = "eventController as event">
+		<table id="events" class="ui celled table">
+			<tr>
+				
+				<th>  Event </th>
+				<th>  Date Start </th>
+				<th>  Date End </th>
+				<th>  Open for registration? </th>
+			</tr>
+
+			<tbody ng-init = "event.viewAllEvent()" >
+				<tr ng-repeat = "x in event.allEvents">
+					
+					<td>
+					<button class = "ui button teal" ng-click = "event.viewEvent(x.event_id)">{{x.event_name}}</button>
+					</td>
+					<td>{{x.date_start}}</td>
+					<td>{{x.date_end}}</td>
+					<td>{{x.allow_reg == '1' ? 'Yes' : 'No'}}</td>
+					
+				</tr>
+				
+>>>>>>> 2a934dd20ee65369bb0142e7b8be2f77da403340
 
 			</tbody>
 		</table>

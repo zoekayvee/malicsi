@@ -19,14 +19,15 @@
             <div class="section-title">
                 <h3>Leaderboard</h3>
             </div>
+
             <table class="ui very basic collapsing celled table">
                 <thead>
                     <tr><th>Team</th>
                         <th>Total Score</th>
                     </tr>
                 </thead>
-                <tbody ng-repeat = "x in dashboard.teamGames">
-                    <tr>
+                <tbody>
+                    <tr ng-repeat="x in dashboard.teamGames">
                         <td>
                             <h4 class="ui image header">
                                 <img src="images/tnt.jpg" class="ui mini rounded image">
@@ -41,6 +42,7 @@
                         </td>
                     </tr>
                 </tbody>
+
             </table>
         </div>
 
@@ -89,7 +91,6 @@
             </div>
         </div>
         <br>
-
+        
     </div>
-
 </div>
