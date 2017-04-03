@@ -78,7 +78,7 @@ router.put      ('/sponsors',    eventController.updateEvent);
 router.delete   ('/sponsors/:sponsor_id',    eventController.deleteEvent);
 
 //additional
-router.get('/bet', 		gameController.bet);
+router.post('/bet', 		gameController.bet);
 router.get('/sport/event/:event_id', 		sportController.viewSportsByEvent);
 router.post('/game/sport/:sport_id', 		gameController.viewGamesBySport);
 router.get('/schedule/:sport_id', 		gameController.viewScheds);

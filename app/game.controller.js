@@ -16,6 +16,7 @@
 		vm.deleteAllGames = deleteAllGames;
 		vm.viewGame = viewGame;
 		vm.viewAllGames = viewAllGames;
+		vm.bet = bet;
 		vm.addSportId = null;
 		vm.addVenueId = null;
 		vm.addDate = null;
