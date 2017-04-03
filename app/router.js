@@ -49,6 +49,9 @@
 			.when('/user/scoreboard', {
 				templateUrl: 'layouts/user-scoreboard-page.html'
 			})
+			.when('/hehe', {
+				templateUrl: 'layouts/user-team.html'
+			})
 			.when('/user/teams', {
 				templateUrl: 'layouts/user-view-all-teams.html'
 			})
