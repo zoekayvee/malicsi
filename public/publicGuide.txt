@@ -1,2 +1,0 @@
-- All front-end frameworks go here
-- All images go here
