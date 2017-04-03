@@ -8,22 +8,22 @@
 					Log-in to your account
 				</div>
 			</h2>
-			<form class="ui form">
+			<form class="ui form" ng-controller="userController">
 				<div class="required field">
 					<label> Username </label>
 					<div class="ui left labeled icon input">
-						<input id="username" type="text">
+						<input id="username" type="text" ng-model="login.username">
 						<i class="user icon"></i>
 					</div>
 				</div>
 				<div class="required field">
 					<label> Password </label>
 					<div class="ui left labeled icon input">
-						<input id="password" type="password">
+						<input id="password" type="password" ng-model="login.password">
 						<i class="lock icon"></i>
 					</div>
 				</div>
-				<button class="ui submit button" id="submitbutton" >SIGN IN</button>
+				<button class="ui submit button" id="submitbutton" ng-click="login.loginUser()">SIGN IN</button>
 				<div class="ui error message"></div>
 			</form>
 		</div>
@@ -36,28 +36,28 @@
 					Create an account here!
 				</div>
 			</h2>
-			<form class="ui form">
+			<form class="ui form" ng-controller="userController as signUp">
 				<div class="required field">
 					<label> Username </label>
-					<input id="username" type="text" placeholder="Username">
+					<input id="username" type="text" placeholder="Username" ng-model="signUp.newUser.username">
 				</div>
 				<div class="required field">
 					<label>Password</label>
-					<input type="password" id="password" placeholder="Password">
+					<input type="password" id="password" placeholder="Password" ng-model="signUp.newUser.password">
 				</div>
 				<div class="required field">
 					<label>First Name</label>
-					<input type="text" id="firstName" placeholder="First Name">
+					<input type="text" id="firstName" placeholder="First Name" ng-model="signUp.newUser.firstname">
 				</div>
 				<div class="required field">
 					<label>Last Name</label>
-					<input type="text" id="lastName" placeholder="Last Name ">
+					<input type="text" id="lastName" placeholder="Last Name " ng-model="signUp.newUser.lastname">
 				</div>
 				<div class="required field">
 					<label>Email Address</label>
-					<input type="email" id="email" placeholder="Email Address">
+					<input type="email" id="email" placeholder="Email Address" ng-model="signUp.newUser.email">
 				</div>
-				<button class="ui submit button" id="submitbutton">SIGN UP</button>
+				<button class="ui submit button" id="submitbutton" ng-click="signUp.registerUser()">SIGN UP</button>
 				<div class="ui error message"></div>
 			</form>
 		</div>
