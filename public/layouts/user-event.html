@@ -1,27 +1,53 @@
 <link rel='stylesheet' href='css/event.css'/>
 
 <div class="ui container">
-	<div  ng-controller = "eventController as event">
-		<table id="events" class="ui celled table">
+	<div>
+		<table id="sports" class="ui celled table">
+			<tr> <th> <h1> List of Sports </h1></th></tr>
+			<tbody>
+				<tr> <td>Badminton</td> </tr>
+				<tr> <td>Baseball</td> </tr>
+				<tr> <td>Basketball</td> </tr>
+				<tr> <td>Bowling</td> </tr>
+				<tr> <td>Soccer</td> </tr>
+				<tr> <td>Volleyball</td> </tr>
+				<tr> <td>Swimming</td> </tr>
+			</tbody>
+		</table>
+	</div>
+	<div>
+		<table id="teams" class="ui celled table" >
+			<tr> <th> <h1> List of Teams </h1></th></tr>
+			<tbody>
+				<tr> <td>Blue Champions</td> </tr>
+				<tr> <td>Red Griffins</td> </tr>
+				<tr> <td>Green Hunters</td> </tr>
+				<tr> <td>Royal White</td> </tr>
+				<tr> <td>Yellow Raptors</td> </tr>
+			</tbody>
+		</table>
+	</div>
+	<div>
+		<table id="events" class="ui celled table" >
 			<tr>
-				
-				<th>  Event </th>
-				<th>  Date Start </th>
-				<th>  Date End </th>
-				<th>  Open for registration? </th>
+				<th> <h1> List of Events </h1></th>
+				<th> <h1> Description </h1></th>
 			</tr>
 
-			<tbody ng-init = "event.viewAllEvent()" >
-				<tr ng-repeat = "x in event.allEvents">
-					
-					<td>
-					<button class = "ui button teal" ng-click = "event.viewEvent(x.event_id)">{{x.event_name}}</button>
-					</td>
-					<td>{{x.date_start}}</td>
-					<td>{{x.date_end}}</td>
-					<td>{{x.allow_reg == '1' ? 'Yes' : 'No'}}</td>
-					
+			<tbody>
+				<tr>
+					<td>Event 1</td>
+					<td>"Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit..."</td>
 				</tr>
+				<tr>
+					<td>Event 2</td>
+					<td>"Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit..."</td>
+				</tr>
+				<tr>
+					<td>Event 3</td>
+					<td>"Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit..."</td>
+				</tr>
+
 			</tbody>
 		</table>
 	</div>

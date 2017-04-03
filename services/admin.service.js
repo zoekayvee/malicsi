@@ -1,8 +1,9 @@
 'use strict'
 const connection = require(__dirname + '/../db-connection');
 var path = require('path');
-var CryptoJS = require('crypto-js');
-// viewAllUsers - views all users
+var bcrypt = require('bcrypt');
+const saltRounds = 10;
+
 exports.viewAllUsers=(req,res)=>{
 	const query_string = 'SELECT * FROM users;';
 
@@ -15,7 +16,6 @@ exports.viewAllUsers=(req,res)=>{
 			}
 	});
 }
-
 // removeUser - removes all instances of user in database (uses user_id)
 exports.removeUser=(req,res)=>{
 	
@@ -33,23 +33,29 @@ exports.removeUser=(req,res)=>{
 
 // updateUser - updates user information (uses user_id)
 exports.updateUser=(req,res)=>{
-
+		if(req.body.flag === "false"){
+			//password not yet encrypted
+			const salt = bcrypt.genSaltSync(saltRounds);
+			const hash = bcrypt.hashSync(req.body.password, salt);
+			req.body.password=hash;
+		}
 		const query_string = 'call updateUser(?,?,?,?,?,?,?,?,?,?,?,?,?)';
 		const req_data = [
 			req.params.user_id,
 			req.body.username,
-			CryptoJS.AES.encrypt(req.body.password, req.body.username).toString(),
+			req.body.password,
 			req.body.firstname,
 			req.body.lastname,
 			req.body.gender,
 			req.body.college,
 			req.body.contactno,
 			req.body.email,
-			req.body.about,
 			req.body.location,
 			req.body.weight,
-			req.body.height
+			req.body.height,
+			req.body.age
 		];
+
 		connection.query(query_string, req_data,(err,result) => {
 			if (!err) {
     		res.status(200).send(result);
@@ -118,9 +124,22 @@ exports.deleteCompetitor=(req,res)=>{
 	});
 }
 
-
-
 exports.viewLogs=(req,res)=>{
+	const query_string = "SELECT users.user_id,message,firstname FROM logs RIGHT JOIN users ON logs.user_id = users.user_id";
+
+	connection.query(query_string, null, (err,result) =>{
+		if(!err){
+			res.status(200).send(result);
+			console.log(result);
+		}
+		else{
+			console.log(err);
+			res.status(500).send(err);
+		}
+	});	
+}
+
+exports.viewAllLogs=(req,res)=>{
 	const query_string = "SELECT users.user_id,message,firstname FROM logs RIGHT JOIN users ON logs.user_id = users.user_id";
 
 	connection.query(query_string, null, (err,result) =>{

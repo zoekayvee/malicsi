@@ -24,11 +24,11 @@ exports.login=(req,res)=>{
 	        if(!rows.length) {
 				console.log('Wrong username or password...');
 	            res.status(404).send({message: 'Wrong username'});
-	        } /*else if (req.session.usertype != undefined && req.session.userid != result[0].user_id){
+	        }else if (req.session.usertype != undefined && req.session.userid != undefined && req.session.userid != rows[0].user_id){
 	        	console.log('Login session is not yet finished...');
 	            return res.status(404).send({message: 'Login session is not yet finished.'});
-	            //uncomment if we have authentication
-	        }*/ 
+	            //comment if we don't have authentication THIS should work
+	        } 
 	        else{
 	        	var hash = rows[0].password;
 		   		if(bcrypt.compareSync(user.password, hash)){
@@ -36,7 +36,7 @@ exports.login=(req,res)=>{
 					req.session.userid = rows[0].user_id
 					req.session.usertype = rows[0].user_type
 					var json =  JSON.parse((JSON.stringify(rows[0])));
-					console.log(json);
+					//console.log(json);
 					res.json({
 					redirect: '/#!/user/home'	
 					});
@@ -72,7 +72,7 @@ exports.registerUser=(req,res)=>{
 	const req_data = [
 		req.body.username,
 		hash,
-		'pending',
+		'normal',
 		req.body.firstname,
 		req.body.lastname,
 		req.body.email
@@ -88,24 +88,6 @@ exports.registerUser=(req,res)=>{
 		}
 	});
 }
-
-/*exports.viewProfile = (req,res) =>{
-	const query_string = 'SELECT * FROM users WHERE user_id = ?';
-	const req_data = [req.session.userid]
-
-	connection.query(query_string, req_data, (err,result)=>{
-		if(!err){
-			res.status(200).send(result[0]);
-			console.log(result[0]);
-			console.log(req.session.userid);
-		}
-		else{
-			console.log(err);
-			res.status(500).send(err);
-		}
-	});
-}*/
-
 // viewUser - views a user by ID (user_id)
 exports.viewUser=(req, res)=>{
 
@@ -115,8 +97,7 @@ exports.viewUser=(req, res)=>{
 	connection.query(query_string, req_data, (err,result)=>{
 		if(!err){
 			res.status(200).send(result[0]);
-			console.log(result[0]);
-			console.log(req.session.userid);
+			//console.log(result[0]);
 		}
 		else{
 			console.log(err);

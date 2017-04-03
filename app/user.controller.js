@@ -21,7 +21,8 @@
 		vm.dropDown = dropDown;
 		vm.openModal = openModal;
 		vm.closeModal= closeModal;
-		
+		vm.updateUser= updateUser;
+
         $http   
             .get('/user_loggedin') 
             .then(function(response) {
@@ -34,7 +35,26 @@
                         });
                 }
             });
+
+        function setToastr(){
+		    toastr.options.positionClass = "toast-bottom-right";
+		    toastr.options.closeButton = true;
+		    toastr.options.showMethod = 'slideDown';
+		    toastr.options.hideMethod = 'slideUp';
+		    toastr.options.positionClass = "toast-bottom-full-width";
+		    toastr.options.timeOut = 2000;
+		    toastr.options.newestOnTop = false;
+    	}
+
+    	function redirectLocation(redirect){
+			if(redirect === '/#!/user/home')
+				window.location.href=redirect;
+			else
+				window.location.reload();
+		}
+
 		function loginUser(){
+			setToastr();
 			var credentials={
 				username: vm.username,
 				password: vm.password
@@ -45,36 +65,111 @@
 					console.log(redirect);
 					vm.user = response.data
 					if (redirect === '/#!/user/home'){
-						window.location.href=redirect;
+						toastr.success('Login successful!');
+						setTimeout(function(){
+							redirectLocation(redirect);
+						}, 500);
 					}
 				}, function (response){	
+					toastr.error('Invalid input!');
 					console.log('Error');
-					window.location.reload();
+					setTimeout(function(){
+						redirectLocation('no');
+					}, 500);
 				});
 		}
+
 		function registerUser(){
+			setToastr();
 			$http
 				.post('/users', vm.newUser)
 				.then(function(response){
 					console.log(response.data);
 					console.log('User added!');
 					vm.username= vm.newUser.username;
-					console.log(vm.username);
-					vm.password= vm.newUser.password;
-					console.log(vm.password); 
+					vm.password= vm.newUser.password; 
 					vm.newUser={};
-					loginUser();
+					toastr.success('User successfully created!');
+					setTimeout(function(){
+					   loginUser();
+					  }, 1000 );
 				},
 				function(response){
+					toastr.error('Error on input!');
 					console.log('Error');
-					window.location.reload();
+					setTimeout(function(){
+						redirectLocation('no');
+					}, 500);
 				});
+		}
+		function updateUser(user,uname,pw,loc,college,age,height,weight,fname,lname,email,contactno,gender){
+			var editUser=vm.user;
+			var flag = "false";
+			if(uname == "" || typeof(uname)== 'undefined'){
+                uname= user.username
+            }
+            if(pw =="" || typeof(pw)=='undefined'){
+                pw=user.password //the pw is still encrypted
+                flag = "true";
+            }
+            if(loc =="" || typeof(loc)=='undefined'){
+                loc= user.location
+            }
+            if(college =="" || typeof(college)== 'undefined'){
+                college= user.college
+            }
+            if(age =="" || typeof(age)=='undefined'){
+                age = user.age
+            }
+            if(height =="" || typeof(height)=='undefined'){
+                height= user.height
+            }
+            if(weight =="" || typeof(weight)== 'undefined'){
+                weight= user.weight
+            }
+            if(fname =="" || typeof(fname)=='undefined'){
+                fname = user.firstname
+            }
+            if(lname =="" || typeof(lname)=='undefined'){
+                lname= user.lastname
+            }
+            if( email =="" || typeof(email)=='undefined'){
+                email= user.email
+            }
+            if(contactno =="" || typeof(contactno)=='undefined'){
+                contactno= user.contactno
+            }
+            if(gender =="" || typeof(gender)=='undefined'){
+                gender= user.gender
+            }
+            editUser.username=uname;
+            editUser.password=pw;
+            editUser.location=loc;
+            editUser.college=college;
+            editUser.age=age;
+            editUser.height=height;
+            editUser.weight=weight;
+            editUser.firstname=fname;
+            editUser.lastname=lname;
+            editUser.email=email;
+            editUser.contactno=contactno;
+            editUser.gender=gender;
+            editUser.flag=flag;
+          	$http
+                .put('/users/'+editUser.user_id, editUser)
+                .then(function(response) {
+                	delete editUser.flag;
+                	vm.user=editUser;
+                    console.log(response.data);
+                });
+            window.location.reload();
 		}
 
 	     function logOut() {
 	     	$http.get('/logout')
 	     			.then(function(response) {
 	     				var redirect = response.data.redirect;
+	     				toastr.success('Logged out.');
 	     				window.location.href=redirect;
 	     			});
 	     }
@@ -88,29 +183,23 @@
 				} else console.log('Error');
 			});
 		}
-
-
-
 		function dropDown(){
 			$('.ui.dropdown')
 			  .dropdown()
 			;
 		}
-		function openModal(){
-			$('.ui.modal')
+		function openModal(dmodal){
+			$('#'+dmodal+'.modal')
 		 	.modal('setting', {
 				 closable: false
 			})
 			.modal('show');
 		
 		}
-		function closeModal(){
-			$('.ui.modal')
-			 	.modal('hide');
-			vm.newUser = {};	
+		function closeModal(dmodal){
+			$('#'+dmodal+'.modal')
+			 	.modal('hide');	
 		}
 		}
-
-
 
 })();
