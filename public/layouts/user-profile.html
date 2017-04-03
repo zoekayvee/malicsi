@@ -89,6 +89,29 @@
                         </div>
                     </div>
 
+                </div>
+                <div class="ui form" ng-controller = "eventController as event">
+                      <div class="fields">
+                        <div class="field">
+                          <label>Event name</label>
+                          <input type="text" ng-model = "event.eventName" name="event_name">
+                        </div>
+                        <div class="field">
+                          <label>Start Date</label>
+                          <input type="text" name="start_date" ng-model = "event.dateStart">
+                        </div>
+                        <div class="field">
+                          <label>End Date</label>
+                          <input type="text" name="end_date" ng-model = "event.dateEnd">
+                        </div>
+                        <button class="ui button event" ng-click = "event.addEvent(logged.userId)">Submit</button>
+                      </div>
+                </div>
+
+
+            </div>
+
+
                     <!--EVENTS-->
                     <div class="ui segment">
                         <h3 class="ui right floated header" id="header-section">

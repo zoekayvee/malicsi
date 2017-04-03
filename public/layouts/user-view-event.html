@@ -38,6 +38,14 @@
 
 			</tbody>
 
+	         <div class="ui form" ng-controller = "teamController as team">
+                <div class="field">
+                  	<label>Team name</label>
+                    <input type="text" ng-model = "team.teamName" name="team_name">
+                 </div>
+                    <button class="ui button team" ng-click = "team.addTeam(event.eventId)">Submit</button>
+             </div>
+
 		</table>
 		 <div class="ui form" ng-repeat = "x in event.allEvents" >
                       <div class="fields">
