@@ -7,7 +7,9 @@
         <link rel='stylesheet' href='css/defaults.css'/>
     </head>
 
-    <body ng-controller = "loggedUserController as logged" >
+    <body ng-controller="loggedUserController as logged">
+        <div id="overlay"></div>
+
         <!-- NAVIGATION SECTION -->
         <div class="ui fixed inverted menu" id="page-navigation">
             <div class="ui container">
@@ -17,7 +19,6 @@
                 </a>
                 <a href="/#!/user/home" class="item">Home</a>
                 <a href="/#!/user/events" class="item">Events</a>
-                <a href="/#!/user/team" class="item">Team</a>
 
                 <div class="alight right ui simple dropdown item">
                     Reg Recario <i class="dropdown icon"></i>
@@ -33,25 +34,13 @@
         <div id="overlay"></div>
 
         <!-- CONTENT SECTION -->
-        <div class="ui main" id="main-panel">
-            <div class="ui container">
-
-                <div ng-view></div>
-
-            </div>
-        </div>
+        <div ng-view></div>
 
 
         <!-- FOOTER SECTION -->
-        <div class="ui inverted vertical footer segment" id="page-footer-1">
+        <div class="ui inverted vertical footer segment" id="page-footer">
             <div class="ui center aligned container">
-                <div class="ui container">
-                    <i class="facebook f icon link-icon"></i>
-                    <i class="github icon link-icon"></i>
-                    <i class="flickr icon link-icon"></i>
-                </div>
-
-                <div class="ui horizontal inverted small divided link list">
+                    <div class="ui horizontal inverted small divided link list">
                     <a class="item" href="#">Site Map</a>
                     <a class="item" href="#">Contact Us</a>
                     <a class="item" href="#">Terms and Conditions</a>
@@ -59,18 +48,13 @@
                 </div>
             </div>
         </div>
-        <div class="ui inverted vertical footer segment" id="page-footer-2">
-            <div class="ui center aligned container">
-                <div class="seven wide column">
-                    <p>CMSC 128 A-1L | All Rights Reserved | 2017</p>
-                </div>
-            </div>
-        </div>
-
     </body>
 
     <script type='text/javascript' src='js/jquery-3.1.1.min.js'></script>
     <script type='text/javascript' src='js/semantic.min.js'></script>
+    <script type='text/javascript' src='js/defaults.js'></script>
+    <script src="chart.js/dist/Chart.bundle.js"></script>
+    <script src="chart.js/samples/utils.js"></script>
 
     <!-- pull angular js -->
     <script type='text/javascript' src='angular/angular.js'></script>

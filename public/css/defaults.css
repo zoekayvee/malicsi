@@ -3,65 +3,31 @@ div {
 }
 
 body {
-    padding: 0;
-    /*background: url("../images/bg.jpg");*/
-    background-size: 100%;
+    background-image: url('../images/patterns/3.png ');
+}
+
+.ui .card {
+    padding: 20px;
 }
 
 #page-navigation {
-    background: rgba(0,0,0,0.5);
-    color: #e7eae1 !important;
+    background: #DE1B1B;
+    height: 65px !important;
 }
 
-#overlay {
-    min-width: 100vw;
-    min-height: 100vh;
-    background: rgba(0,0,0,0.5);
-    position: absolute;
-    z-index: 100;
+#main-wrapper {
+    padding-top: 20px;
+    min-height: calc(100vh - 65px);
+    margin-top: 65px;
+}
+
+#page-footer {
+    height: 65px;
     margin: 0;
-    border: solid 1px red;
-    margin-top: -100px;
-    display: none;
+    background-color: #DEDEDE;
+    border-bottom: solid 3px #DE1B1B !important;
 }
 
-#page-footer-1 {
-    height: 100px;
-    background-color: #CDCDCD;
-    background-image: url('../images/patterns/3.png');
-    box-shadow: 1px 1px 5px rgba(0,0,0,0.5);
-}
-
-#page-footer-1 a {
-    color: #bc0203;
-}
-
-#page-footer-2 {
-    height: 50px;
-    background: #bc0203;
-    color: #e7eae1 !important;
-}
-
-#main-panel {
-    min-height: calc(100vh - 150px) !important;
-    margin-top: 55px;
-    padding: 20px;
-}
-
-#login-panel {
-	margin-top: 100px;
-}
-
-.link-icon {
-    padding: 20px;
-    font-size: 20px !important;
-<<<<<<< HEAD
-    background: #466675;
-=======
-    background: #04050a;
->>>>>>> 2a934dd20ee65369bb0142e7b8be2f77da403340
-    line-height: 5px;
-    text-indent: -5px;
-    text-align: center;
-    border-radius: 100%;
+#page-footer a {
+    color: #DE1B1B;
 }
