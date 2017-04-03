@@ -5,11 +5,11 @@
     	<link rel='stylesheet prefetch' href='css/components/icon.min.css'>
         <link rel='stylesheet' href='css/semantic.min.css'/>
         <link rel='stylesheet' href='css/defaults.css'/>
-
-
     </head>
 
-    <body ng-controller = "loggedUserController as logged" >
+    <body ng-controller="loggedUserController as logged">
+        <div id="overlay"></div>
+
         <!-- NAVIGATION SECTION -->
         <div class="ui fixed inverted menu" id="page-navigation">
             <div class="ui container">
@@ -32,19 +32,12 @@
             </div>
         </div>
 
-
         <!-- CONTENT SECTION -->
-        <div class="ui main" id="main-panel">
-            <div class="ui container">
-
-                <div ng-view></div>
-
-            </div>
-        </div>
+        <div ng-view></div>
 
 
         <!-- FOOTER SECTION -->
-        <div class="ui inverted vertical footer segment" id="page-footer-1">
+        <!-- <div class="ui inverted vertical footer segment" id="page-footer-1">
             <div class="ui center aligned container">
                 <div class="ui container">
                     <i class="facebook f icon link-icon"></i>
@@ -66,12 +59,15 @@
                     <p>CMSC 128 A-1L | All Rights Reserved | 2017</p>
                 </div>
             </div>
-        </div>
+        </div> -->
 
     </body>
-    
+
     <script type='text/javascript' src='js/jquery-3.1.1.min.js'></script>
     <script type='text/javascript' src='js/semantic.min.js'></script>
+    <script type='text/javascript' src='js/defaults.js'></script>
+    <script src="chart.js/dist/Chart.bundle.js"></script>
+    <script src="chart.js/samples/utils.js"></script>
 
     <!-- pull angular js -->
     <script type='text/javascript' src='angular/angular.js'></script>

@@ -2,7 +2,29 @@ div {
     /*border: solid 1px red;*/
 }
 
+#public-event {
+    height: calc(100vh - 65px);
+    margin-top: 65px;
+    text-align: center;
+}
 
+#feeds-panel {
+    min-height: calc(100vh - 65px);
+    /*background-color: #1A1A1D;*/
+    background-color: #F6F6F6;
+    background-image: url('../images/patterns/3.png ');
+}
+
+#leadchart {
+    height: 400px !important;
+}
+
+#feeds-trigger {
+    padding: 10px;
+    color: white !important;
+    border: solid 2px white;
+    background: rgba(0, 0, 0, 0);
+}
 #event-name {
     text-align: center;
 }
@@ -11,16 +33,11 @@ div {
     text-align: justify;
 }
 
-#member-icon-panel {
-    text-align: center;
-}
-
-#event-poster {
-
-}
-
-.ui .card {
+.card {
     padding: 20px;
+    /*background: #F6F6F6;*/
+    margin-bottom: 20px;
+    border: solid 1px rgba(0,0,0,0.5);
 }
 
 .main-section {
@@ -44,7 +61,7 @@ div {
     display: inline-block !important;
     padding: 3px !important;
     width: 100% !important;
-    background: #CDCDCD !important;
+    background: #DEDEDE !important;
     line-height: 40px;
     color: #666;
     box-shadow: none !important;
@@ -80,7 +97,7 @@ div {
 }
 
 .request-approve button {
-    background-color: #0d2235;
+    background-color: #F6F6F6;
 }
 
 .request-decline {
@@ -88,5 +105,5 @@ div {
 }
 
 .request-decline button {
-    background-color: #72b7bc;
+    background-color: #F6F6F6;
 }
