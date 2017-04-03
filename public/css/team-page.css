@@ -1,3 +1,7 @@
+div {
+	border: solid 1px red;
+}
+
 #box {
 	border-style: solid;
 }
@@ -26,7 +30,7 @@
 #card2 {
 	width: 71%;
 	/*margin-top: 0px;*/
-	
+
 
 }
 .action.input{
