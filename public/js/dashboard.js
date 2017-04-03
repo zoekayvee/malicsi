@@ -1,8 +1,8 @@
 $(document).ready(function(){
     $('#feeds-trigger').click(function(){
-        var offset = 20; //Offset of 20px
+        var offset = 65; //Offset of 20px
         $('html, body').animate({
-            scrollTop: $("#feeds-panel").offset().top + offset
+            scrollTop: $("#feeds-panel").offset().top - offset
         }, 500);
     });
 

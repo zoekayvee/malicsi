@@ -3,6 +3,7 @@ div {
 }
 
 #public-event {
+    color: white;
     height: calc(100vh - 65px);
     margin-top: 65px;
     text-align: center;
@@ -10,7 +11,6 @@ div {
 
 #feeds-panel {
     min-height: calc(100vh - 65px);
-    /*background-color: #1A1A1D;*/
     background-color: #F6F6F6;
     background-image: url('../images/patterns/3.png ');
 }
@@ -25,6 +25,7 @@ div {
     border: solid 2px white;
     background: rgba(0, 0, 0, 0);
 }
+
 #event-name {
     text-align: center;
 }
@@ -35,7 +36,6 @@ div {
 
 .card {
     padding: 20px;
-    /*background: #F6F6F6;*/
     margin-bottom: 20px;
     border: solid 1px rgba(0,0,0,0.5);
 }
