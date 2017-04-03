@@ -61,7 +61,7 @@ exports.viewEvent = (req, res, next) => {
 }
 
 exports.viewAllEvent = (req, res, next) => {
-	var query = 'call viewAllEvent()';
+	var query = 'call viewAllEvents()';
 	
 		var id = connection.query(
 		query,

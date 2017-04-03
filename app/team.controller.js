@@ -34,6 +34,7 @@
 		    .then(function(response){
 		    
 		        console.log('Success! Team Added!')
+		        console.log("team" + vm.teamName);
 				getTeamId(vm.teamName,event_id)
 				
 			},
@@ -49,7 +50,7 @@
 			}
 
 			$http
-			.post('/join_team',joinTeam)
+			.post('/teams/join',joinTeam)
 			.then(function(response){
 				console.log(response.data);
 				console.log('Joined team')
@@ -68,8 +69,9 @@
 	    		.get('/teams/'+id)
 	    		.then(function(response){
 	    			vm.allTeams = response.data[0];
+	    			console.log(vm.allTeams);
 	    			if(vm.allTeams[0] = undefined){
-	    				$location.path('/user/teams');
+	    				$location.path('/user/team');
 	    			}
 	    			else{
 						console.log(response.data);
@@ -112,6 +114,8 @@
 	    		.delete('/teams/'+id)
 	    		.then(function(response){
 	    			console.log('Team deleted')
+	    			$location.path('/user/team');
+	    			viewAllTeam();
 	    		}, function(response){
 	    			console.log("error");
 	    		});
@@ -128,7 +132,7 @@
 		    }
 	    
 	    	$http
-	    		.post('/team_join_event',teamToJointEvent)
+	    		.post('/teams/event',teamToJointEvent)
 	    		.then(function(response){
 	    			console.log('Team Joined Event')
 	    		}, function(response){
@@ -139,7 +143,7 @@
 	    
 	    function updateTeam(){
 		    var updateData = {
-		        team_id : vm.teamId,
+		        team_id : $routeParams.team_id,
 		        team_name : vm.teamName
 	    	}
 
@@ -147,6 +151,7 @@
 		        .put('/teams',updateData)
 		        .then(function(response){
 		            console.log('event updated')
+		            viewClickedTeam();
 		        },
 		        function(response){
 		            console.log("error");
@@ -154,12 +159,13 @@
 		}
 	    
 		function getTeamId(team_name,event_id){
+			console.log("ooh"+team_name);
 			$http
-				.get('/getTeam_id/'+team_name)
+				.get('/teams_get_id/'+team_name)
 				.then(function(response){
 					console.log(response.data[0].team_id)
 					vm.teamId = response.data[0].team_id;
-					console.log(vm.teamId);
+					console.log("PP" + vm.teamId);
 					console.log(team_name);
 					teamJoinEvent(event_id,vm.teamId);
 					//vm.teamId = response;

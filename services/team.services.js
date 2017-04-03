@@ -50,7 +50,7 @@ exports.viewTeam = (req, res, next) => {
 }
 
 exports.viewAllTeam = (req, res, next) => {
-	var query = 'call viewAllTeam()';
+	var query = 'call viewAllTeams()';
 	
 		var id = connection.query(
 		query,
@@ -120,7 +120,7 @@ exports.deleteTeam = (req, res, next) => {
 }
 
 exports.teamJoinEvent = (req, res, next) => {
-	var query = 'call teamJoinEvent(?,?)';
+	var query = 'call teamJoinsEvent(?,?)';
 	const data = [
 		req.body.team_id,
 		req.body.event_id
