@@ -12,22 +12,30 @@
 		vm.allGames = [];
 		vm.viewGame = viewGame;
 		vm.viewGamesByEvent = viewGamesByEvent;
+		vm.viewSportByEvent = viewSportByEvent;
+		vm.event_id = $routeParams.event_id;
 
-		// function viewAllWinners(){
+		viewSportByEvent();
+
+		function viewSportByEvent(){
 			$http
-				.get('/sportByEvent/' + $routeParams.event_id)
+				.get('/sport/event/' + $routeParams.event_id)
 				.then(function(response){
 					vm.allSports = response.data;
 				},
 				function(response){
 					console.log("Error retrieving data!");
 				});
-		// }
+		}
 
 
 		function viewGamesByEvent(sport){
+			var event = {
+				event_event_id: $routeParams.event_id
+			}
+			console.log(event);
 			$http
-				.get('/gamesBySport/'+sport.sport_id)
+				.post('/game/sport/'+sport.sport_id,event)
 				.then(function(response){
 					vm.games = [];
 					for (var i = 0; i != response.data.length; i++) {
@@ -35,7 +43,7 @@
 					}
 					while(vm.allGames.length!=(sport.sport_id-1)) vm.allGames.push(null);
 					vm.allGames.push(vm.games);
-					
+					console.log(vm.allGames);
 				},
 				function(response){
 					console.log("Error retrieving data!");

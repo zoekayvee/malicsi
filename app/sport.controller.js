@@ -4,7 +4,7 @@
 	.module('malicsi')
 	.controller('sportController',sportController);
 
-	function sportController($http){
+	function sportController($http,$routeParams){
 		var vm = this;
 		
 		vm.allSports = null;
@@ -26,7 +26,7 @@
 				sport_name: vm.addSportName,
 			}
 			$http
-				.post('/sport',sportToBeAdded)
+				.post('/sport/' + $routeParams.event_id, sportToBeAdded)
 				.then(function(response){
 					console.log('Adding Sport Successful!')
 			},

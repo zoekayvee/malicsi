@@ -35,18 +35,17 @@ router.get('/viewLog',                      adminController.viewLogs);
 router.post('/addCompetitor',               adminController.addCompetitor);
 router.get('/viewAllCompetitors/:game_id',  userController.viewAllCompetitors);
 router.get('/viewCompetitor/:team_id',      userController.viewCompetitor);
-router.put('/updateCompetitor/:team_id',    adminController.updateCompetitor); //event creator
+router.put('/updateCompetitor/:team_id',    adminController.updateCompetitor);
 router.delete('/deleteCompetitor/:team_id', adminController.deleteCompetitor);
 
-router.post('/game', 						gameController.addGame);//
-//router.get('/game/:sport_id',				gameController.viewGameBySportId);
+router.post('/game', 						gameController.addGame);
 router.get('/game/:game_id',				gameController.viewGame);
-router.get('/game', 						gameController.viewAllGames);;//
+router.get('/game', 						gameController.viewAllGames);;
 router.put('/game/:game_id', 				gameController.updateGame);
 router.delete('/game/:game_id', 			gameController.deleteGame);
-router.delete('/game', 						gameController.deleteAllGames);//
+router.delete('/game', 						gameController.deleteAllGames);
 
-router.post('/sport',						sportController.addSport);
+router.post('/sport/:event_id',				sportController.addSport);
 router.get('/sport/:sport_id',				sportController.viewSports);
 router.get('/sport', 						sportController.viewAllSports);
 router.put('/sport', 						sportController.updateSport);
@@ -78,10 +77,10 @@ router.get      ('/sponsors',   eventController.viewAllEvent);
 router.put      ('/sponsors',    eventController.updateEvent);
 router.delete   ('/sponsors/:sponsor_id',    eventController.deleteEvent);
 
-
 //additional
-router.get('/sportByEvent/:event_id', 		sportController.viewSportsByEvent);
-router.get('/gamesBySport/:sport_id', 		gameController.viewGamesBySport);
+router.get('/bet', 		gameController.bet);
+router.get('/sport/event/:event_id', 		sportController.viewSportsByEvent);
+router.post('/game/sport/:sport_id', 		gameController.viewGamesBySport);
 router.get('/schedule/:sport_id', 		gameController.viewScheds);
 router.get('/leaderboard/:sport_id', 		gameController.viewLeaderboards);
 

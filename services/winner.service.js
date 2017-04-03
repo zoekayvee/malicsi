@@ -2,6 +2,7 @@
 const connection = require(__dirname + '/../db-connection');
 var path = require('path');
 
+// ADDING WINNER (UPDATES VALUE OF THE ATTRIBUTE 'winner_team_id' from game)
 exports.addWinner = (req,res) =>{
 	var query = 'UPDATE game SET winner_team_id = ? where game_id = ?';
 	const data = [
@@ -15,7 +16,7 @@ exports.addWinner = (req,res) =>{
 		(err, rows) => {
 			if(!err){
 				console.log("Adding Winner Success");
-		    		res.send('Winner Successfully added');
+		    	res.send('Winner Successfully added');
 			}
 			else{
 				console.log(err);
@@ -24,6 +25,7 @@ exports.addWinner = (req,res) =>{
 	})
 }
 
+// VIEWING WINNER 
 exports.viewWinner = (req,res) =>{
 	var query = 'SELECT winner_team_id, game_id from game where game_id = ?';
 	const data = [
@@ -45,6 +47,7 @@ exports.viewWinner = (req,res) =>{
 	})
 }
 
+// VIEWING ALL WINNERS
 exports.viewAllWinners = (req,res) =>{
 	var query = 'SELECT winner_team_id,game_id from game';
 	var con = connection.query(
@@ -61,6 +64,7 @@ exports.viewAllWinners = (req,res) =>{
 	})
 }
 
+// UPDATING WINNER THROUGH 'game_id'
 exports.updateWinner = (req,res) =>{
 	var query = 'UPDATE game SET winner_team_id = ? where game_id = ?';
 	const data = [
@@ -83,6 +87,7 @@ exports.updateWinner = (req,res) =>{
 	})
 }
 
+// DELETING WINNER (SETTING VALUE OF 'winner_team_id' to NULL)
 exports.deleteWinner = (req,res) =>{
 	var query = 'UPDATE game SET winner_team_id = NULL where game_id = ?';
 	const data = [
@@ -104,6 +109,7 @@ exports.deleteWinner = (req,res) =>{
 	})
 }
 
+// DELETING ALL WINNERS (SETTING ALL VALUES OF 'winner_team_id' to NULL)
 exports.deleteAllWinners = (req,res) =>{
 	var query = 'UPDATE game SET winner_team_id = NULL';
 

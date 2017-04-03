@@ -66,8 +66,6 @@
 				function(response){
 					console.log("Error adding winner!");
 				});
-
-
 		}
 
 		function updateWinner(){

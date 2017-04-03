@@ -64,7 +64,7 @@ $http
 function viewEvent(event_id){
     $location.path('/user/event/' + event_id)
     $http
-        .get('/events/' + id)
+        .get('/events/' + event_id)
         .then(function(response){
             vm.allEvents = response.data;
             vm.eventId = vm.allEvents[0].event_id;

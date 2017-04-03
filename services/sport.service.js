@@ -2,8 +2,11 @@
 const connection = require(__dirname + '/../db-connection');
 var path = require('path');
 
+// ADDING SPORT (VALUES  'sport_name')
 exports.addSport = (req,res) =>{
 	var query = 'INSERT INTO sport(sport_name) VALUES(?)';
+	var query1 = 'SELECT sport_id from sport WHERE sport_name = ?';
+	var query2 = 'INSERT INTO event_has_sport VALUES(?,?)';
 	const data = [
 		req.body.sport_name
 	];
@@ -15,14 +18,23 @@ exports.addSport = (req,res) =>{
 			if(!err){
 				console.log("Adding Sport Success");
 		    	res.send('Sport Successfully added');
+		    	var con1 = connection.query( query1, data, (err,rows) => {
+					const data2 = [
+						req.params.event_id,
+						rows[0].sport_id
+					];
+		    		var con2 = connection.query( query2, data2, (err,rows) => {} );
+		    	} );
 			}
 			else{
 				console.log(err);
 				res.status(500).send("Server Error");
 			}
-	})
+		}
+	)   
 }
 
+// VIEWING SPORT THROUGH 'sport_id'
 exports.viewSports = (req,res) =>{
 	var query = 'SELECT * from sport where sport_id = ?';
 	const data = [
@@ -36,15 +48,16 @@ exports.viewSports = (req,res) =>{
 				console.log("Viewing Sport Success");
 				res.send(rows[0]);
 			}
-			else{
+			else{	
 				console.log(err)
 				res.status(500).send("Server Error")
 			}
 	}) 
 }
 
+// VIEWING ALL SPORTS
 exports.viewAllSports = (req,res) =>{
-	var query = 'SELECT * FROM sport';
+	var query = 'SELECT * FROM sport order by sport_id';
 	var con = connection.query(
 		query,
 		(err, rows) => {
@@ -60,8 +73,9 @@ exports.viewAllSports = (req,res) =>{
 	})
 }
 
+// VIEWING SPORT THROUGH 'event_event_id'
 exports.viewSportsByEvent = (req,res) =>{
-	var query = 'SELECT * from sport where event_event_id = ?';
+	var query = 'SELECT * from sport where sport_id IN (select h_sport_id from event_has_sport where h_event_id = ?) order by sport_id';
 	const data = [
 		req.params.event_id
 	];
@@ -80,6 +94,7 @@ exports.viewSportsByEvent = (req,res) =>{
 	}) 
 }
 
+// UPDATING SPORT (VALUES - 'sport_name')
 exports.updateSport = (req,res) =>{
 	var query = 'UPDATE sport SET sport_name = ? WHERE sport_id = ?';
 	const data = [
@@ -102,6 +117,7 @@ exports.updateSport = (req,res) =>{
 	})
 }
 
+// DELETING SPORT THROUGH 'sport_id'
 exports.deleteSport = (req,res) =>{
 	var query = 'DELETE FROM sport where sport_id = ?';
 	const data = [
@@ -123,6 +139,7 @@ exports.deleteSport = (req,res) =>{
 	})
 }
 
+// DELETING ALL SPORTS
 exports.deleteAllSports = (req,res) =>{
 	var query = 'DELETE FROM sport';
 	var con = connection.query(

@@ -18,7 +18,9 @@
 		vm.viewAllGames = viewAllGames;
 		vm.addSportId = null;
 		vm.addVenueId = null;
-		vm.addWinnerTeamId = null;
+		vm.addDate = null;
+		vm.addTime = null;
+		vm.addDuration = null;
 		vm.addReferee = null;
 		vm.updateGameId = null;
 		vm.updateSportId = null;
@@ -29,7 +31,10 @@
 			var gameToBeAdded = {
 				sport_id: vm.addSportId,
 				venue_id: vm.addVenueId,
-				winner_team_id: vm.addWinnerTeamId,
+				event_id: $routeParams.event_id,
+				date_start: vm.addDate,
+				time_start: vm.addTime,
+				duration: vm.addDuration,
 				referee: vm.addReferee
 			}
 			$http
@@ -54,18 +59,24 @@
 			});
 
 		}
-		// function viewGame(id){
-		// 	$http
-		// 		.get('/game/' + id)
-		// 		.then(function(response){
-		// 			vm.game = response.data;
-		// 			console.log('Viewing Game Successful');
-		// 	},
-		// 	function(response){
-		// 		console.log('Error Viewng Game');
-		// 	});
 
-		// }
+		function bet(game_id,team_id){
+			var bet ={
+				game_id: game_id,
+				team_id: team_id
+			}
+			$http
+				.post('/bet',bet)
+				.then(function(response){
+					// vm.game = response.data;
+					console.log('Betting Successful');
+			},
+			function(response){
+				console.log('Error Viewng Game');
+			});
+
+		}
+	
 		function viewAllGames(){
 			$http
 				.get('/game')
