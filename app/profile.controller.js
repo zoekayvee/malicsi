@@ -1,7 +1,7 @@
 (function(){
 	'use strict'
 	angular
-		.module('mainApp')
+		.module('malicsi')
 		.controller('profileController', profileController);
 
 	function profileController($http){
@@ -9,13 +9,13 @@
 		
 		vm.user = [];
 
-		$http
-			.post('/viewProfile')
-			.then(function(response){
-				vm.user = response.data;
-				console.log(response.data);
-				console.log("HERE");
-			});
+		// $http
+		// 	.post('/viewProfile')
+		// 	.then(function(response){
+		// 		vm.user = response.data;
+		// 		console.log(response.data);
+		// 		console.log("HERE");
+		// 	});
 		
 	}
 
