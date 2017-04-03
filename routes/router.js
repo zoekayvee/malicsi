@@ -17,17 +17,20 @@ router.get      ('/events',   eventController.viewAllEvent);
 router.put      ('/events',    eventController.updateEvent);
 router.delete   ('/events/:event_id',    eventController.deleteEvent);
 
-router.post     ('/teams',      eventController.addEvent); 
-router.get      ('/teams/:team_id', eventController.viewEvent);
-router.get      ('/teams',   eventController.viewAllEvent);
-router.put      ('/teams',    eventController.updateEvent);
-router.delete   ('/teams/:team_id',    eventController.deleteEvent);
+router.post     ('/teams',      teamController.addTeam); 
+router.get      ('/teams/:team_id', teamController.viewTeam);
+router.get      ('/teams',   teamController.viewAllTeam);
+router.put      ('/teams',    teamController.updateTeam);
+router.delete   ('/teams/:team_id',    teamController.deleteTeam);
+router.post		('/join_team',			teamController.userJoinTeam);
+router.get      ('/getTeam_id/:team_name',			teamController.getTeamId);
+router.post		('/team_join_event',	teamController.teamJoinEvent);
 
-router.post     ('/sponsors',      eventController.addEvent); 
-router.get      ('/sponsors/:sponsor_id', eventController.viewEvent);
-router.get      ('/sponsors',   eventController.viewAllEvent);
-router.put      ('/sponsors',    eventController.updateEvent);
-router.delete   ('/sponsors/:sponsor_id',    eventController.deleteEvent);
+router.post     ('/sponsors',      sponsorController.addSponsor); 
+router.get      ('/sponsors/:sponsor_id', sponsorController.viewSponsor);
+router.get      ('/sponsors',   sponsorController.viewAllSponsor);
+router.put      ('/sponsors',    sponsorController.updateSponsor);
+router.delete   ('/sponsors/:sponsor_id',    sponsorController.deleteSponsor);
 
 
 // router.post('/login',                       userController.login);

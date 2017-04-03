@@ -4,7 +4,7 @@
 		.module('malicsi')
 		.controller('teamController', teamController);
 
-	function teamController($http){
+	function teamController($http,$location,$routeParams){
 		var vm = this;
 
 		vm.userId = "";
@@ -19,32 +19,62 @@
     	vm.teamJointEvent = teamJoinEvent;
     	vm.updateTeam = updateTeam;
     	vm.teamPlayGame = teamPlayGame;
-    	vm.reload = interval;
+    	vm.viewClickedTeam = viewClickedTeam;
+    	vm.userJoinTeam = userJoinTeam;
+    	vm.getTeamId = getTeamId;
 	    /*---------- view team ---------*/
     
-		function addTeam() {
+		function addTeam(event_id) {
+			console.log(event_id);
 	   	 	var newTeam = {
-	        team_name : vm.teamName
+	        	team_name : vm.teamName
 			}
 			$http
 		    .post('/teams', newTeam)
 		    .then(function(response){
-		        console.log(response.data);
+		    
 		        console.log('Success! Team Added!')
+				getTeamId(vm.teamName,event_id)
+				
 			},
 			function(response){
 		   console.log("Error: Team cannot be added");
 			});
 		}    
 	    
+		function userJoinTeam(user_id) {
+			var joinTeam = {
+				user_id : user_id,
+				team_id : vm.teamId
+			}
+
+			$http
+			.post('/join_team',joinTeam)
+			.then(function(response){
+				console.log(response.data);
+				console.log('Joined team')
+			},
+			function(response){
+				console.log("Error");
+			})
+
+
+		}
+
 	    
 	    function viewTeam(id){
+	    	$location.path('/teams/'+id)
 	    	$http
 	    		.get('/teams/'+id)
 	    		.then(function(response){
 	    			vm.allTeams = response.data[0];
-	    			console.log(response.data);
-	    			console.log('Viewing team ' + response.data.event_name);
+	    			if(vm.allTeams[0] = undefined){
+	    				$location.path('/user/teams');
+	    			}
+	    			else{
+						console.log(response.data);
+	    				console.log('Viewing team ' + response.data.event_name);	
+	    			}
 	    		})
 	    }
 
@@ -61,24 +91,19 @@
 	    		});
 	    }
 
+	    function viewClickedTeam(){
+	    	$http
+	    		.get('/teams/' + $routeParams.team_id)
+	    		.then(function(response){
+	    			vm.allTeams = response.data[0];
+	    			console.log('Viewing team ' + vm.allTeams[0].team_name);
+	    		},
+	    		function(response){
+	    			console.log('Team does not exist');
+	    		})
+	    }
 
-		function getData() {
-		    $http
-		        .get('/teams')
-		        .then(function(response){
-		            vm.allTeams = response.data[0];
-		        },
-		        function(response){
-		            console.log("error");
-		        });
-		}
 
-		function interval(){
-		    setTimeout(function() {
-		        viewAllTeam();
-		        interval();
-		    }, 1000);
-		}
 
 
 	    /*-------- delete event ------------*/
@@ -94,14 +119,16 @@
 
 	    /*-------- team join event -----------*/
 	    //di ako sure dito haha
-	    function teamJoinEvent(){
+	    function teamJoinEvent(event_id,team_id){
+		    console.log("event id " + event_id);
+		    console.log("team id " + team_id);
 		    var teamToJointEvent = {
-		    	team_id : vm.teamId,
-		      event_id : vm.eventId
+		    	team_id : team_id,
+		      	event_id : event_id
 		    }
 	    
 	    	$http
-	    		.post('/teams',teamToJointEvent)
+	    		.post('/team_join_event',teamToJointEvent)
 	    		.then(function(response){
 	    			console.log('Team Joined Event')
 	    		}, function(response){
@@ -126,6 +153,25 @@
 		        });
 		}
 	    
+		function getTeamId(team_name,event_id){
+			$http
+				.get('/getTeam_id/'+team_name)
+				.then(function(response){
+					console.log(response.data[0].team_id)
+					vm.teamId = response.data[0].team_id;
+					console.log(vm.teamId);
+					console.log(team_name);
+					teamJoinEvent(event_id,vm.teamId);
+					//vm.teamId = response;
+					//console.log("Team id" + vm.teamId);
+				},
+				function(response){
+					console.log('error');
+				});
+				return vm.teamId;	
+
+		}
+
 	    
 	    function teamPlayGame(){
 	        var gameToPlay = {

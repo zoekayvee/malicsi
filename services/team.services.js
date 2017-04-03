@@ -170,3 +170,48 @@ exports.teamPlayGame = (req, res, next) => {
 }
 
 
+exports.userJoinTeam = (req,res, next) => {
+	var query = 'insert into team_players(team_id,user_id) values (?,?)';
+	const data = [
+		req.body.team_id,
+		req.body.user_id
+		];
+
+		var id = connection.query(
+			query,
+			data,
+			(err,row,fields) => {
+				if(!err){
+					console.log(row);
+					res.status(200).send(row);
+					return row
+				}
+				else{
+					console.log(err);
+					res.status(500).send('server error');
+				}
+			})
+}
+
+
+exports.getTeamId = (req, res, next) => {
+	var query = 'select team_id from team where team_name = ?';
+	const data = [
+		req.params.team_name
+		];
+
+		var id = connection.query(
+			query,
+			data,
+			(err,row,fields) => {
+				if(!err){
+					console.log(row);
+					res.status(200).send(row);
+					return row
+				}
+				else{
+					console.log(err);
+					res.status(500).send('server error');
+				}
+			})
+}

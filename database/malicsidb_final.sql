@@ -86,7 +86,7 @@ create table team_players(
 create table team_joins_event(
 	event_id 		int unsigned,
 	team_id 		int unsigned,
-	constraint 		event_id_pk primary key(event_id),
+	/*constraint 		event_id_pk primary key(event_id),*/
 	constraint 		team_id_joins_event_fk foreign key(team_id) references team(team_id) ON DELETE CASCADE ON UPDATE CASCADE,
 	constraint 		team_joins_event_id_fk foreign key(event_id) references event(event_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
