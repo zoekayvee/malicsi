@@ -1,13 +1,12 @@
-#maintable {
-	border-color: #0D2235;
+#sport-wrapper {
+	/*margin-top: 85px;*/
 }
 
 #maintable th {
-	background-color: #0D2235;
+	background-color: #2B2B2B;
 	color: white;
-	padding: 17px;
 }
 
 #maintable tr:hover {
-	background-color: #E7EAE1;
+	background-color: #E9E581;
 }
