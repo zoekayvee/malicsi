@@ -14,7 +14,8 @@ body {
 }
 
 #main-wrapper {
-    /*border: solid 1px red;*/
+    padding-top: 65px;
+    min-height: calc(100vh - 65px);
 }
 
 #page-footer-1 {
