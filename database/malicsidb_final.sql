@@ -5,13 +5,8 @@ Go to directory where malicsidb.sql is located or enter full path to file then r
 	mysql -u root -p < malicsidb.sql
 
 */
-DROP DATABASE IF EXISTS `malicsiDB`;
 
-DROP USER IF EXISTS "projectOneTwoEight"@"localhost";
-
-CREATE USER "projectOneTwoEight"@"localhost" IDENTIFIED BY "password";
-
-GRANT ALL PRIVILEGES ON malicsiDB.* TO "projectOneTwoEight"@"localhost" WITH GRANT OPTION;
+DROP DATABASE `malicsiDB`;
 
 CREATE DATABASE IF NOT EXISTS `malicsiDB`;
 
@@ -393,5 +388,3 @@ CREATE TRIGGER sponsorEventInsert AFTER INSERT ON sponsor_events
 		END;
 %%
 DELIMITER ;
-
- insert into users(username,password,user_type,firstname,lastname,college,contactno,email,weight,height) VALUES("vlromero","haha","normal","Vanessa","Romero","CAS","09278549145","vlromero@up.edu.ph",123,123);

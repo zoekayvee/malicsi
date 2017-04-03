@@ -10,7 +10,8 @@
 				templateUrl: 'layouts/login.html'
 			})
             .when('/user/home', {
-				templateUrl: 'layouts/user-dashboard.html'
+				templateUrl: 'layouts/user-dashboard.html',
+				controller:'userController'
 			})
 			.when('/user/profile', {
 				templateUrl: 'layouts/user-profile.html'

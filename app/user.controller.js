@@ -22,11 +22,13 @@
 		vm.openModal = openModal;
 		vm.closeModal= closeModal;
 		vm.updateUser= updateUser;
+		vm.userEvents = [];
+		vm.sponsoredEvents = [];
 
         $http   
             .get('/user_loggedin') 
             .then(function(response) {
-                if (response.data) {
+                if (response.data){
                     $http
                         .get('/users/'+response.data)
                         .then(function(response) {
@@ -35,6 +37,37 @@
                         });
                 }
             });
+
+        $http   
+            .get('/user_loggedin') 
+            .then(function(response) {
+                if (response.data){
+                    $http
+                        .get('/users/'+response.data)
+                        .then(function(response) {
+                            vm.user = response.data;
+                            console.log(vm.user);
+                        });
+
+                    $http
+                        .get('/user/events/'+response.data)
+                        .then(function(response) {
+                            vm.userEvents = response.data;
+                            console.log(vm.userEvents);
+
+                        });
+
+                    $http
+                        .get('/user/sponsored/'+response.data)
+                        .then(function(response) {
+                            vm.sponsoredEvents = response.data;
+                            console.log(vm.sponsoredEvents);
+                        });
+                }
+            });
+
+
+
 
         function setToastr(){
 		    toastr.options.positionClass = "toast-bottom-right";

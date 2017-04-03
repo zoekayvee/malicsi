@@ -23,6 +23,9 @@ router.post('/users',                  userController.registerUser);
 */
 router.get('/users',                 adminController.viewAllUsers);
 router.get('/users/:user_id',            userController.viewUser);
+router.get('/user/events/:user_id',      userController.viewUserEvents);
+router.get('/user/sponsored/:user_id',      userController.viewUserEvents);
+
 router.put('/users/:user_id',          adminController.updateUser);
 router.delete('/users/:user_id',       adminController.removeUser);
 
