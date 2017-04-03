@@ -77,8 +77,17 @@
             $http
                 .get('/events/' + $routeParams.event_id)
                 .then(function(response){
+                    vm.allEvents = [];
+                    vm.eventId = $routeParams.event_id;
                     vm.allEvents = response.data[0];
-                    console.log(response.data[0][0]);
+                    if(vm.allEvents[0] == undefined){
+                        vm.allEvents = [];
+                        $location.path('/user/events');
+                        viewAllEvent();
+                    }
+                    else{ 
+                    console.log(response.data[0][0]);   
+                    }
                 })
         }
 
