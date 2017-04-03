@@ -11,7 +11,7 @@
 			})
 			.when('/user/teams', {
 				templateUrl: 'layouts/user-view-teams.html'
-			})		
+			})
 			.when('/', {
 				templateUrl: 'layouts/login.html'
 			})
