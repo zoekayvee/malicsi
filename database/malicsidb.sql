@@ -5,11 +5,11 @@ Go to directory where malicsidb.sql is located or enter full path to file then r
 	mysql -u root -p < malicsidb.sql
 
 */
-DROP USER "root"@"localhost";
+/*DROP USER "local"@"localhost";*/
 
-CREATE USER "root"@"localhost" IDENTIFIED BY "password";
+/*CREATE USER "local"@"localhost" IDENTIFIED BY "a";*/
 
-GRANT ALL PRIVILEGES ON malicsiDB.* TO "root"@"localhost" WITH GRANT OPTION;
+GRANT ALL PRIVILEGES ON malicsiDB.* TO "local"@"localhost" WITH GRANT OPTION;
 
 DROP DATABASE IF EXISTS `malicsiDB`;
 
@@ -272,10 +272,11 @@ DELIMITER %%
 			SELECT A.winner_team_id, B.team_name from game as A JOIN team as B on A.game_id = gameid and (B.team_id = A.winner_team_id);
 		END;
 %%
-	CREATE PROCEDURE addEvent(in userid int unsigned, in eventName varchar(100), in dateStart date, in dateEnd date)
+	CREATE PROCEDURE addEvent(in userid int unsigned, 
+		in eventName varchar(100), in dateStart timestamp, in dateEnd timestamp)
 		BEGIN
 
-			INSERT INTO event(user_id, event_name, date_start, date_end, duration ) VALUES(userid, eventName, dateStart, dateEnd, datediff(dateEnd, dateStart));
+			INSERT INTO event(user_id, event_name, date_start, date_end, duration ) VALUES(userid, eventName, dateStart, dateEnd, datediff(dateStart, dateEnd));
 		END;
 %%
 	CREATE PROCEDURE viewEvent(in eventId int unsigned)

@@ -1,5 +1,12 @@
 <link rel='stylesheet' href='css/event.css'/>
+<link rel='stylesheet' href='semantic-ui-calendar/dist/calendar.css'/>
+<script src="semantic-ui-calendar/dist/calendar.js"></script>
 
+<script>
+$('#start-date-pick').calendar();
+$('#end-date-pick').calendar();
+
+</script>
 <div id="main-wrapper">
 
 	<div  ng-controller = "eventController as event" class="ui container">
@@ -55,9 +62,10 @@
                 <div class="fields">
                         <div class="field">
                           <label>Date Start</label>
-                        	 <input type="text" ng-model = "event.dateStart" ng-init = "event.dateStart = x.date_start" name="event_name">
+                          <input type="text" ng-model = "event.dateStart" ng-init = "event.dateStart = x.date_start" name="event_name">
                         </div>
                 </div>
+                
                 <div class="fields">
                         <div class="field">
                           <label>Date End</label>
