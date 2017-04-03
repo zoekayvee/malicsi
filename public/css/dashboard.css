@@ -2,6 +2,14 @@ div {
     /*border: solid 1px red;*/
 }
 
+body {
+    padding: 0;
+    background: url("../images/grass.jpg");
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
 /* special navigation bar */
 #page-navigation {
     background: rgba(0,0,0,0);
