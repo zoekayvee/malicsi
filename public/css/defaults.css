@@ -11,22 +11,8 @@ body {
 }
 
 #page-navigation {
-    background: rgba(0,0,0,0);
+    background: #DE1B1B;
     height: 65px !important;
-}
-
-.nav-scrolled {
-    background: #DE1B1B !important;
-    transition: all 500ms linear;
-}
-
-#overlay {
-    background: rgba(0, 0, 0, 0.8);
-    position: absolute;
-    min-width: 100vw;
-    min-height: calc(100vh + 100px);
-    margin-top: -100px;
-    z-index: -1000;
 }
 
 #main-wrapper {

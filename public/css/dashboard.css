@@ -2,6 +2,16 @@ div {
     /*border: solid 1px red;*/
 }
 
+/* special navigation bar */
+#page-navigation {
+    background: rgba(0,0,0,0);
+}
+
+.nav-scrolled {
+    background: #DE1B1B !important;
+    transition: all 500ms linear !important;
+}
+
 #public-event {
     color: white;
     height: calc(100vh - 65px);
@@ -17,6 +27,15 @@ div {
 
 #leadchart {
     height: 400px !important;
+}
+
+#overlay {
+    background: rgba(0, 0, 0, 0.8);
+    position: absolute;
+    min-width: 100vw;
+    min-height: calc(100vh + 100px);
+    margin-top: -100px;
+    z-index: -1000;
 }
 
 #feeds-trigger {

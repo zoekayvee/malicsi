@@ -1,11 +1,21 @@
 $(document).ready(function(){
+    $(this).scroll(function() {
+        var scroll = $(this).scrollTop();
+        console.log(scroll);
+        if (scroll > 0 ) {
+            $('#page-navigation').addClass('nav-scrolled');
+        }
+        else {
+            $('#page-navigation').removeClass('nav-scrolled');
+        }
+    });
+
     $('#feeds-trigger').click(function(){
         var offset = 65; //Offset of 20px
         $('html, body').animate({
             scrollTop: $("#feeds-panel").offset().top - offset
         }, 500);
     });
-
 });
 
 var ctx = document.getElementById("leadchart");
