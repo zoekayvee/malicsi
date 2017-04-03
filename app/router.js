@@ -50,7 +50,7 @@
 				templateUrl: 'layouts/user-scoreboard-page.html'
 			})
 			.when('/hehe', {
-				templateUrl: 'layouts/user-team.html'
+				templateUrl: 'layouts/user-team-page.html'
 			})
 			.when('/user/teams', {
 				templateUrl: 'layouts/user-view-all-teams.html'
