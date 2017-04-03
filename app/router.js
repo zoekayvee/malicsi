@@ -46,9 +46,8 @@
 			.when('/user/search', {
 				templateUrl: 'layouts/user-search-page.html'
 			})
-
-			// .otherwise({
-			// 	redirectTo: '/'
-			// })
+			.otherwise({
+				templateUrl: 'layouts/error.html'
+			})
 	}
 })();
