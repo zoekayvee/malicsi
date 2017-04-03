@@ -82,4 +82,9 @@ $('#end-date-pick').calendar();
                     </div>
                 </div>
 	</div>
+	<div ng-controller = "teamController as team">
+		<button class = "ui button fluid red" ng-click = "team.viewTeamPerEvent(event.eventId)">View Teams participating in event</button>
+	
+	</div>
+	
 </div>

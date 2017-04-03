@@ -22,6 +22,7 @@
     	vm.viewClickedTeam = viewClickedTeam;
     	vm.userJoinTeam = userJoinTeam;
     	vm.getTeamId = getTeamId;
+    	vm.viewTeamPerEvent = viewTeamPerEvent;
 	    /*---------- view team ---------*/
     
 		function addTeam(event_id) {
@@ -60,6 +61,19 @@
 			})
 
 
+		}
+
+		function viewTeamPerEvent(event_id){
+			$location.path('/teams_per/'+event_id);
+			$http
+				.get('/teams_per/'+event_id)
+				.then(function(response){
+					vm.allTeams = response.data;
+					console.log(vm.allTeams);
+				},
+				function(response){
+					console.log("error");
+				})
 		}
 
 	    

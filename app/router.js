@@ -6,11 +6,8 @@
 
 	function router($routeProvider) {
 		$routeProvider
-			.when('/teams/:team_id',{
-				templateUrl: 'layouts/user-view-team.html'
-			})
-			.when('/user/teams', {
-				templateUrl: 'layouts/user-view-teams.html'
+			.when('/teams_per/:event_id', {
+				templateUrl: 'layouts/user-view-all-teams.html'
 			})
 			.when('/', {
 				templateUrl: 'layouts/login.html'
@@ -49,9 +46,9 @@
 			.when('/user/scoreboard', {
 				templateUrl: 'layouts/user-scoreboard-page.html'
 			})
-			.when('/user/team', {
-				templateUrl: 'layouts/user-view-teams.html'
-			})
+			.when('/teams/:team_id', {
+				templateUrl: 'layouts/user-team-page.html'
+			})	
 			.when('/user/search', {
 				templateUrl: 'layouts/user-search-page.html'
 			})
