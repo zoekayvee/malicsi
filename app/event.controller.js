@@ -15,6 +15,7 @@
         vm.eventId = "";
         vm.allowReg = "";
         vm.allEvents = [];
+        vm.currEvent = null;
         vm.addEvent = addEvent;
         vm.viewAllEvent = viewAllEvent;
         vm.deleteEvent = deleteEvent;

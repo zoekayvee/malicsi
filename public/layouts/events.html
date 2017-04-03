@@ -1,15 +1,15 @@
 <link rel='stylesheet' href='css-event.css'/>
 
-<div class="container">
+<div class="container" ng-controller = "eventController as event">
 	<div class="ui grid">
 		<div class="four wide column">
 			<div class="ui vertical pointing menu">
 				<div> <h1 style="text-align: center;" >Events</h1></div>
-					<a class="active item">PalICSihan</a>
-					<a class="item">PalaCASan</a>
+					<a class="active item">Test 0</a>
+					<a class="item">Test 1</a>
 					<a class="item">Palarong UPLB</a>
 					<a class="item">CEMplangan</a>
-					<a class="item">Enginering Meet</a>
+					<a class="item">{{event.currEvent.event_name}}</a>
 				</div>
 				</div>
 				<div class="eight wide stretched column">
