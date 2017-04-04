@@ -39,6 +39,9 @@
 			.when('/user/search', {
 				templateUrl: 'layouts/user-search-page.html'
 			})
+			.when('/users', {
+				templateUrl: 'layouts/admin-list-users.html'
+			})
 			.otherwise({
 				'redirectTo': '/'
 			})

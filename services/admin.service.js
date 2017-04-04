@@ -18,7 +18,7 @@ exports.viewAllUsers=(req,res)=>{
 }
 // removeUser - removes all instances of user in database (uses user_id)
 exports.removeUser=(req,res)=>{
-	
+
 		const query_string = 'call deleteUser(?)';
 		const req_data = [req.params.user_id];
 		connection.query(query_string, req_data,(err,result) => {
