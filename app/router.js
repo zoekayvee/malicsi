@@ -33,7 +33,7 @@
 			// 	templateUrl:'layouts/user-event.html'
 			// })
 			.when('/events/:event_id',{
-				templateUrl: 'layouts/user-view-event.html',
+				templateUrl: 'layouts/events.html',
 				controller: 'eventController',
 				controllerAs: 'event'
 			})

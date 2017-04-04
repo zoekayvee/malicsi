@@ -16,7 +16,7 @@
         vm.newSponsorName = "";
         vm.allSponsors = [];
         
-        function addSponsor() {    
+        function addSponsor(event_id) {    
             var sponsorToBeAdded = {
                  sponsor_name: vm.newSponsor
             }
@@ -25,16 +25,17 @@
             .then(function(response){
                     console.log(response.data);
                     console.log('Success! Sponsor Added!')
+                    sponsorEvent(event_id);
                 },
                 function(response){
                     console.log("Error :()");
                 });
         }
 
-        function sponsorEvent() { 
+        function sponsorEvent(event_id) { 
             var sponEvent = {
                 sponsor_id: vm.sponsorId,
-                event_id : vm.eventId
+                event_id : event_id
             };
             $http
                 .post('/sponsors',sponEvent)

@@ -76,6 +76,7 @@
 				})
 		}
 
+		
 	    
 	    function viewTeam(id){
 	    	$location.path('/teams/'+id)

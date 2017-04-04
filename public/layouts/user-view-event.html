@@ -48,7 +48,14 @@ $('#end-date-pick').calendar();
                   	<label>Team name</label>
                     <input type="text" ng-model = "team.teamName" name="team_name">
                  </div>
-                    <button class="ui button team" ng-click = "team.addTeam(event.eventId)">Submit</button>
+                    <button class="ui button team" ng-click = "team.addTeam(event.eventId)">Enlist Team</button>
+             </div>
+            <div class="ui form" ng-controller = "sponsorController as sponsor">
+                <div class="field">
+                  	<label>Sponsor name</label>
+                    <input type="text" ng-model = "sponsor.sponsorName" name="team_name">
+                 </div>
+                    <button class="ui button team" ng-click = "sponsor.addSponsor(event.eventId)">Add Sponsorhip</button>
              </div>
 
 		</table>
