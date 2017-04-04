@@ -1,5 +1,13 @@
 <script type='text/javascript' src='js/user-profile.js'></script>
 
+<link rel='stylesheet' href='semantic-ui-calendar/dist/calendar.css'/>
+<script src="semantic-ui-calendar/dist/calendar.js"></script>
+
+<script>
+    $('#start-date-pick').calendar();
+    $('#end-date-pick').calendar();
+</script>
+
 <div id="main-wrapper" ng-controller = "userController as user">
 
     <div class="ui grid container">
@@ -9,7 +17,7 @@
                 <h2 class ="ui centered header" id="header-section">
                     {{user.user.firstname + " " + user.user.lastname}}
                     <div class="sub header" id="header-section">
-                    {{user.user.location}}
+                        {{user.user.location}}
                     </div>
                 </h2>
                 <button class="ui basic button" id="updateButton">
@@ -20,69 +28,69 @@
                 <!--UPDATE MODAL-->
                 <div class="ui modal" id="update-modal">
                     <div class="header">Update Profile</div>
-                        <div class="content">
-                            <form ng-controller="userController as update">
-                                <div class="ui form">
-                                    <div class="fields">
-                                        <div class="field">
-                                            <label>Username</label>
-                                            <input type="text" placeholder="{{update.user.username}}" ng-model="username">
-                                        </div>
-                                        <div class="field">
-                                            <label>Password</label>
-                                            <input type="password" ng-model="password">
-                                        </div>
-                                        <div class="field">
-                                            <label>Location</label>
-                                            <input type="text" placeholder="Country/City" ng-model="location">
-                                        </div>
-                                        <div class="field">
-                                            <label>College</label>
-                                            <input type="text" placeholder="{{update.user.college}}" ng-model="college">
-                                        </div>
-                                        <div class="field">
-                                            <label>Age</label>
-                                            <input type="text" placeholder="{{update.user.age}}" ng-model="age">
-                                        </div>
-                                        <div class="field">
-                                            <label>Height</label>
-                                            <input type="text" placeholder="{{update.user.height}}" ng-model="height">
-                                        </div>
-                                        <div class="field">
-                                            <label>Weight</label>
-                                            <input type="text" placeholder="{{update.user.weight}}" ng-model="weight">
-                                        </div>
-                                    </div>
-                                    <div class="equal width fields">
-                                        <div class="field">
-                                            <label>First name</label>
-                                            <input type="text" placeholder="{{update.user.firstname}}" ng-model="firstname">
-                                        </div>
-                                        <div class="field">
-                                            <label>Last name</label>
-                                            <input type="text" placeholder="{{update.user.lastname}}" ng-model="lastname">
-                                        </div>
-                                    </div>
-                                    <div class="ui equal width form">
-                                        <div class="fields">
-                                            <div class="field">
-                                                <label>E-mail</label>
-                                                <input type="email" placeholder="{{update.user.email}}" ng-model="email">
-                                            </div>
-                                            <div class="field">
-                                                <label>Contact Number</label>
-                                                <input type="text" placeholder="{{update.user.contactno}}" ng-model="contactno">
-                                            </div>
-                                        </div>
+                    <div class="content">
+                        <form ng-controller="userController as update">
+                            <div class="ui form">
+                                <div class="fields">
+                                    <div class="field">
+                                        <label>Username</label>
+                                        <input type="text" placeholder="{{update.user.username}}" ng-model="username">
                                     </div>
                                     <div class="field">
-                                        <label>Gender</label>
-                                        <select class="ui selection dropdown" ng-model="gender">
-                                                <option value="M">Male</option>
-                                                <option value="F">Female</option>
-                                        </select>
+                                        <label>Password</label>
+                                        <input type="password" ng-model="password">
+                                    </div>
+                                    <div class="field">
+                                        <label>Location</label>
+                                        <input type="text" placeholder="Country/City" ng-model="location">
+                                    </div>
+                                    <div class="field">
+                                        <label>College</label>
+                                        <input type="text" placeholder="{{update.user.college}}" ng-model="college">
+                                    </div>
+                                    <div class="field">
+                                        <label>Age</label>
+                                        <input type="text" placeholder="{{update.user.age}}" ng-model="age">
+                                    </div>
+                                    <div class="field">
+                                        <label>Height</label>
+                                        <input type="text" placeholder="{{update.user.height}}" ng-model="height">
+                                    </div>
+                                    <div class="field">
+                                        <label>Weight</label>
+                                        <input type="text" placeholder="{{update.user.weight}}" ng-model="weight">
                                     </div>
                                 </div>
+                                <div class="equal width fields">
+                                    <div class="field">
+                                        <label>First name</label>
+                                        <input type="text" placeholder="{{update.user.firstname}}" ng-model="firstname">
+                                    </div>
+                                    <div class="field">
+                                        <label>Last name</label>
+                                        <input type="text" placeholder="{{update.user.lastname}}" ng-model="lastname">
+                                    </div>
+                                </div>
+                                <div class="ui equal width form">
+                                    <div class="fields">
+                                        <div class="field">
+                                            <label>E-mail</label>
+                                            <input type="email" placeholder="{{update.user.email}}" ng-model="email">
+                                        </div>
+                                        <div class="field">
+                                            <label>Contact Number</label>
+                                            <input type="text" placeholder="{{update.user.contactno}}" ng-model="contactno">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <label>Gender</label>
+                                    <select class="ui selection dropdown" ng-model="gender">
+                                        <option value="M">Male</option>
+                                        <option value="F">Female</option>
+                                    </select>
+                                </div>
+                            </div>
                             <div class="ui actions">
                                 <div class="ui close button" ng-click="update.closeModal('update-modal')">Cancel</div>
                                 <div class="ui button" type="submit" ng-click="update.updateUser(update.user,username,password,location,college,age,height,weight,firstname,lastname,email,contactno,gender)">Update</div>
@@ -93,37 +101,37 @@
 
                 <!--ABOUT-->
                 <table class="ui very basic collapsing celled table">
-                <tbody>
-                    <tr>
-                        <td class="five wide column">College</td>
-                        <td> {{user.user.college}} </td>
-                    </tr>
-                    <tr>
-                        <td>Contact No.</td>
-                        <td>{{user.user.contactno}}</td>
-                    </tr>
-                    <tr>
-                        <td>E-mail</td>
-                        <td>{{user.user.email}}</td>
-                    </tr>
-                    <tr>
-                        <td>Age</td>
-                        <td>{{user.user.age}}</td>
-                    </tr>
-                    <tr>
-                        <td>Gender</td>
-                        <td>{{user.user.gender}}</td>
-                    </tr>
-                    <tr>
-                        <td>Weight</td>
-                        <td>{{user.user.weight}}</td>
-                    </tr>
-                    <tr>
-                        <td>Height</td>
-                        <td>{{user.user.height}}</td>
-                    </tr>
+                    <tbody>
+                        <tr>
+                            <td class="five wide column">College</td>
+                            <td> {{user.user.college}} </td>
+                        </tr>
+                        <tr>
+                            <td>Contact No.</td>
+                            <td>{{user.user.contactno}}</td>
+                        </tr>
+                        <tr>
+                            <td>E-mail</td>
+                            <td>{{user.user.email}}</td>
+                        </tr>
+                        <tr>
+                            <td>Age</td>
+                            <td>{{user.user.age}}</td>
+                        </tr>
+                        <tr>
+                            <td>Gender</td>
+                            <td>{{user.user.gender}}</td>
+                        </tr>
+                        <tr>
+                            <td>Weight</td>
+                            <td>{{user.user.weight}}</td>
+                        </tr>
+                        <tr>
+                            <td>Height</td>
+                            <td>{{user.user.height}}</td>
+                        </tr>
 
-                </tbody>
+                    </tbody>
                 </table>
             </div>
         </div>
@@ -155,35 +163,35 @@
                 <div id ="event-modal" class="ui modal">
                     <div class="ui segment">
                         <form class="ui form" ng-controller = "eventController as event">
-                        <h2 class="ui dividing header">CREATE EVENT</h2>
-                        <div class="field">
-                            <label>Event Name</label>
-                            <input type="text" ng-model = "event.eventName" name="event_name">
-                        </div>
-                        <div class="fields">
+                            <h2 class="ui dividing header">CREATE EVENT</h2>
                             <div class="field">
-                                <label>Start Date</label>
-                                <div class="ui calendar" id="start-date-pick">
-                                    <div class="ui input left icon">
-                                        <i class="calendar icon"></i>
-                                        <input type="text" placeholder="Date" name="start_date" ng-model = "event.dateStart">
+                                <label>Event Name</label>
+                                <input type="text" ng-model = "event.eventName" name="event_name">
+                            </div>
+                            <div class="fields">
+                                <div class="field">
+                                    <label>Start Date</label>
+                                    <div class="ui calendar" id="start-date-pick">
+                                        <div class="ui input left icon">
+                                            <i class="calendar icon"></i>
+                                            <input type="text" placeholder="Date" name="start_date" ng-model = "event.dateStart">
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="field">
-                                <label>End Date</label>
-                                <div class="ui calendar" id="end-date-pick">
-                                    <div class="ui input left icon">
-                                        <i class="calendar icon"></i>
-                                        <input type="text" placeholder="Date" name="end_date" ng-model = "event.dateEnd">
+                                <div class="field">
+                                    <label>End Date</label>
+                                    <div class="ui calendar" id="end-date-pick">
+                                        <div class="ui input left icon">
+                                            <i class="calendar icon"></i>
+                                            <input type="text" placeholder="Date" name="end_date" ng-model = "event.dateEnd">
+                                        </div>
                                     </div>
                                 </div>
+                                <button class="ui button event" id ="submit-create" ng-click = "event.addEvent(logged.userId)">
+                                    Submit
+                                </button>
                             </div>
-                            <button class="ui button event" id ="submit-create" ng-click = "event.addEvent(logged.userId)">
-                            Submit
-                            </button>
-                        </div>
-                    </form>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -210,30 +218,33 @@
                     </div>
                 </div>
                 <!-- DELETE modal-->
-                    <div class="ui basic modal" id="delete-modal">
-                        <div class="ui icon header">
+                <div class="ui basic modal" id="delete-modal">
+                    <div class="ui icon header">
                         <i class="trash icon"></i>
                         Delete Event
+                    </div>
+                    <div class=" center aligned content">
+                        <p id="confirmation"> Are you sure you want to delete event?</p>
+                    </div>
+                    <div class="actions">
+                        <div class="ui red basic cancel inverted button">
+                            <i class="remove icon"></i>
+                            No
                         </div>
-                        <div class=" center aligned content">
-                            <p id="confirmation"> Are you sure you want to delete event?</p>
-                        </div>
-                        <div class="actions">
-                            <div class="ui red basic cancel inverted button">
-                              <i class="remove icon"></i>
-                              No
-                            </div>
-                            <div class="ui green ok inverted button">
-                              <i class="checkmark icon"></i>
-                              Yes
-                            </div>
+                        <div class="ui green ok inverted button">
+                            <i class="checkmark icon"></i>
+                            Yes
                         </div>
                     </div>
+                </div>
 
 
 
             </div>
 
         </div>
+    </div>
+    <div class="two wide column">
+        <!--<h2>RIGHT</h2>-->
     </div>
 </div>

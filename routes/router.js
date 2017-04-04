@@ -33,7 +33,7 @@ router.get      ('/events',   eventController.viewAllEvent);
 router.put      ('/events',    eventController.updateEvent);
 router.delete   ('/events/:event_id',    eventController.deleteEvent);
 
-router.post     ('/teams',      teamController.addTeam); 
+router.post     ('/teams',      teamController.addTeam);
 router.get      ('/teams/:team_id', teamController.viewTeam);
 router.get      ('/teams',   teamController.viewAllTeam);
 router.put      ('/teams',    teamController.updateTeam);
@@ -42,12 +42,11 @@ router.post		('/teams/join',			teamController.userJoinTeam);
 router.get      ('/teams_get_id/:team_name',			teamController.getTeamId);
 router.post		('/teams/event',	teamController.teamJoinEvent);
 
-router.post     ('/sponsors',      sponsorController.addSponsor); 
+router.post     ('/sponsors',      sponsorController.addSponsor);
 router.get      ('/sponsors/:sponsor_id', sponsorController.viewSponsor);
 router.get      ('/sponsors',   sponsorController.viewAllSponsor);
 router.put      ('/sponsors',    sponsorController.updateSponsor);
 router.delete   ('/sponsors/:sponsor_id',    sponsorController.deleteSponsor);
-
 
 // router.post('/login',                       userController.login);
 // router.get('/logout',                       userController.logout);
