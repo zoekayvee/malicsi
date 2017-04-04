@@ -164,6 +164,19 @@ DELIMITER %%
 			END;
 
 %%
+	--TEAMS
+	CREATE TRIGGER userJoinsTeam AFTER INSERT ON team_players 
+		FOR EACH ROW
+			BEGIN
+				INSERT INTO logs(user_id, message) VALUES(NEW.user_id, concat("Joined team ", NEW.team_id));
+			END;
+%%
+	CREATE TRIGGER teamJoinsEvent AFTER INSERT ON team_joins_event 
+		FOR EACH ROW
+			BEGIN
+				INSERT INTO logs(team_id, message) VALUES(NEW.team_id, concat("Joined event ", NEW.event_id));
+			END;
+%%
 	-- USER INTERESTS
 	CREATE TRIGGER userInterestInsert AFTER INSERT ON user_interests
 		FOR EACH ROW

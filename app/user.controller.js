@@ -23,7 +23,11 @@
 		vm.closeModal= closeModal;
 		vm.updateUser= updateUser;
 		vm.userEvents = [];
+		vm.userInterests = [];
 		vm.sponsoredEvents = [];
+		vm.interests = "";
+
+		vm.updateInterest = updateInterest;
 
         $http   
             .get('/user_loggedin') 
@@ -62,6 +66,13 @@
                         .then(function(response) {
                             vm.sponsoredEvents = response.data;
                             console.log(vm.sponsoredEvents);
+                        });
+
+                     $http
+                        .get('/user/interests/'+response.data)
+                        .then(function(response) {
+                            vm.userInterests = response.data;
+                            console.log(vm.userInterests);
                         });
                 }
             });
@@ -134,6 +145,23 @@
 						redirectLocation('no');
 					}, 500);
 				});
+		}
+
+		function updateInterest(){
+			var user = {
+				interests: vm.interests
+			}
+
+			$http
+				.get('user_loggedin')
+				.then(function(response){
+					 $http
+                        .put('/users/updateInterests/'+response.data, user)
+                        .then(function(response) {
+                        	console.log("Added interest");
+                        });
+				});
+			//window.location.reload();		
 		}
 		function updateUser(user,uname,pw,loc,college,age,height,weight,fname,lname,email,contactno,gender){
 			var editUser=vm.user;

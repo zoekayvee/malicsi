@@ -123,6 +123,21 @@ exports.viewSponsoredEvents=(req, res)=>{
 
 
 
+exports.viewUserInterests = (req,res) => {
+	const query_string = "SELECT * from user_interests WHERE user_id = ?";
+	const req_data = [req.params.user_id]
+
+	connection.query(query_string, req_data, (err,result)=>{
+		if(!err){
+			res.status(200).send(result);
+		}
+		else{
+			console.log(err);
+			res.status(500).send(err);
+		}
+	});
+}
+
 exports.viewUserEvents = (req,res) => {
 	const query_string = "SELECT username,event_name,DATE_FORMAT(date_start,'%M %e %Y') Date FROM users NATURAL JOIN event WHERE user_id = ?";
 	const req_data = [req.params.user_id]
@@ -137,6 +152,21 @@ exports.viewUserEvents = (req,res) => {
 			res.status(500).send(err);
 		}
 	});
+}
+
+exports.updateInterests = (req,res) => {
+	const query_string = "INSERT INTO user_interests VALUES (?,?)";
+	const req_data = [req.params.user_id,req.body.interests];
+	console.log(req.body.interests);
+	connection.query(query_string,req_data, (err,result) => {
+		if(!err){
+			res.status(200).send(result);
+		}
+		else{
+			console.log(err);
+			res.status(500).send(err);
+		}
+	})
 }
 
 
