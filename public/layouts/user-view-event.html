@@ -1,12 +1,10 @@
 <link rel='stylesheet' href='css/event.css'/>
 
-<div class="ui container">
+<div id="main-wrapper">
 
-
-	<div  ng-controller = "eventController as event">
+	<div  ng-controller = "eventController as event" class="ui container">
 		<table id="events" class="ui celled table">
 			<tr>
-				
 				<th> Event </th>
 				<th> Date Start </th>
 				<th> Date End </th>
@@ -17,24 +15,24 @@
 
 			<tbody ng-init = "event.viewClickedEvent()">
 				<tr ng-repeat = "x in event.allEvents">
-					
+
 					<td>
 					<button class = "ui button teal" >{{x.event_name}}</button>
 					</td>
 					<td>{{x.date_start}}</td>
 					<td>{{x.date_end}}</td>
 					<td>{{x.allow_reg == '1' ? 'Yes' : 'No'}}</td>
-					
+
 					<td>
 					<button class = "ui button green" ng-click = "event.updateEvent()">Update</button>
 					</td>
 					<td>
 					<button class = "ui button red" ng-click = "event.deleteEvent(x.event_id)">Delete</button>
 					</td>
-					
-					
+
+
 				</tr>
-				
+
 
 			</tbody>
 
@@ -57,20 +55,23 @@
                 <div class="fields">
                         <div class="field">
                           <label>Date Start</label>
-                          <input type="text" ng-model = "event.dateStart" ng-init = "event.dateStart = x.date_start" name="event_name">
+                        	 <input type="text" ng-model = "event.dateStart" ng-init = "event.dateStart = x.date_start" name="event_name">
                         </div>
                 </div>
-                <div class="fields"> 
+                <div class="fields">
                         <div class="field">
                           <label>Date End</label>
                           <input type="text" ng-model = "event.dateEnd" ng-init = "event.dateEnd = x.date_end" name="event_name">
-                        </div>       
+                        </div>
                 </div>
                 <div class="fields">
                     <div class="field">
                        <label>Open for registration?</label>
-                        <input type="text" ng-model = "event.allowReg" ng-init = "event.allowReg = x.allow_reg" name="event_name">
-                    </div>       
+                       <form>
+  							<input type="radio" name="register" ng-model = "event.allowReg" value="1" checked> Yes<br>
+ 							<input type="radio" name="register" ng-model = "event.allowReg" value="0"> No<br>
+					  </form>
+                    </div>
                 </div>
 	</div>
 </div>
