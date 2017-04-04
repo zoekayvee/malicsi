@@ -33,8 +33,8 @@
 			function(response){
 				console.log('Error Adding Sport');
 			});
-
 		}
+		
 		function viewSport(id){
 			$http
 				.get('/sport' + id)

@@ -10,9 +10,11 @@
 		vm.allSports = [];
 		vm.allSportGames;
 		vm.allGames = [];
+		vm.rankList = [];
 		vm.viewGame = viewGame;
 		vm.viewGames = viewGames;
 		vm.viewSports = viewSports;
+		vm.getRanking = getRanking;
 		vm.viewGamesLeaderboards = viewGamesLeaderboards;
 
 		viewSports();
@@ -21,6 +23,8 @@
 			$http
 				.get('/sport')
 				.then(function(response){
+					vm.allSports = null;
+					vm.allSports = null;
 					vm.allSports = response.data;
 				},
 				function(response){
@@ -34,8 +38,8 @@
 				.then(function(response){
 
 					vm.games = [];
-					for (var i = 0; i != response.data.length/2; i++) {
-						vm.games.push(response.data[i]);
+					for (var i = 0; i != response.data.length; i++) {
+						if(i%2 == 0) vm.games.push(response.data[i]);
 					}
 					while(vm.allGames.length!=(sport.sport_id-1)) vm.allGames.push(null);
 					vm.allGames.push(vm.games);
@@ -51,8 +55,8 @@
 				.get('/leaderboard/'+sport.sport_id)
 				.then(function(response){
 					vm.games = [];
-					for (var i = 0; i != response.data.length/2; i++) {
-						vm.games.push(response.data[i]);
+					for (var i = 0; i != response.data.length; i++) {
+						if(i%2==0) vm.games.push(response.data[i]);
 					}
 					console.log("done");
 					while(vm.allGames.length!=(sport.sport_id-1)) vm.allGames.push(null);
@@ -62,6 +66,20 @@
 				function(response){
 					console.log("Error retrieving data!");
 				});
+		}
+
+
+		function getRanking(sport){
+			$http
+				.post('/ranking/' + sport.sport_id)
+				.then(function(response){
+					vm.rankList = response.data;
+					console.log('Viewing Rank Successful');
+			},
+			function(response){
+				console.log('Error Viewing Rank');
+			});
+
 		}
 
 		function viewGame(game_id){

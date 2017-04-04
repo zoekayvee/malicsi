@@ -1,200 +1,110 @@
 <link rel='stylesheet' href='css/dashboard.css'/>
-<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-<script type='text/javascript' src='js/dashboard.js'></script>
 
-<div class="ui fluid three column very relaxed grid">
+<div id="main-wrapper">
+    <div id="public-event" class="ui container">
+        <h3>Leaderboard</h3>
+        <canvas id="leadchart"></canvas>
+        <br><br>
+        <button id="feeds-trigger">Show Feeds</button>
+    </div>
 
-    <div class="6 wide column">
+    <div id="feeds-panel">
 
-        <div id=leaderboard-panel class="ui padded segment right-panel">
-            <h3>Leaderboard</h3>
-            <table class="ui very basic collapsing celled table">
-                <thead>
-                    <tr><th>Team</th>
-                        <th>Total Score</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>
-                            <h4 class="ui image header">
-                                <img src="images/tnt.jpg" class="ui mini rounded image">
-                                <div class="content">
-                                    TNT Tropa Texters
-                                    <div class="sub header">Lorem Ipsum</div>
-                                </div>
-                            </h4>
-                        </td>
-                        <td>
-                            22
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <h4 class="ui image header">
-                                <img src="images/star.jpg" class="ui mini rounded image">
-                                <div class="content">
-                                    Star Hotshots
-                                    <div class="sub header">Lorem Ipsum
+        <div
+        ng-controller="userController as dashboard"
+        class="ui two column grid container">
+
+        <div class="five wide column">
+
+            <!-- Event Details -->
+            <div id="event-panel" class="ui card">
+                <h1 id="event-name">Event Name</h1>
+                <p id="event-details">
+                    Event Details
+                </p>
+            </div>
+            <!-- Leaderboard -->
+            <div id="leaderboard" class="ui card">
+                <div class="section-title">
+                    <h3>Leaderboard</h3>
+                </div>
+
+                <table class="ui very basic collapsing celled table">
+                    <thead>
+                        <tr><th>Team</th>
+                            <th>Total Score</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="x in dashboard.teamGames">
+                            <td>
+                                <h4 class="ui image header">
+                                    <img src="images/tnt.jpg" class="ui mini rounded image">
+                                    <div class="content">
+                                        {{x.team_name}}
+                                        <div class="sub header">Lorem Ipsum</div>
                                     </div>
-                                </div>
-                            </h4>
-                        </td>
-                        <td>
-                            20
-                        </td>
-                    </tr>
+                                </h4>
+                            </td>
+                            <td>
+                                {{x.score}}
+                            </td>
+                        </tr>
+                    </tbody>
 
-                    <tr>
-                        <td>
-                            <h4 class="ui image header">
-                                <img src="images/logo.jpg" class="ui mini rounded image">
-                                <div class="content">
-                                    Hello World
-                                    <div class="sub header">Lorem Ipsum
-                                    </div>
-                                </div>
-                            </h4>
-                        </td>
-                        <td>
-                            20
-                        </td>
-                    </tr>
+                </table>
+            </div>
 
-                </tbody>
-            </table>
         </div>
+        <div class="eleven wide column" id="right-panel">
 
-        <div id="game-sched-panel" class="ui padded segment right-panel">
-            <h3>Game Schedule</h3>
-            <div class="ui feed sched-feed">
-                <div class="event">
-                    <div class="label">
-                        <img src="images/tnt.jpg">
+            <!-- Membership Requests -->
+            <div class="ui section" id="membership-request-panel">
+                <div class="ui card member-request">
+                    <div class="request-text">
+                        Angelo Guiam has requested to join Palarong UPLB
                     </div>
-                    <div class="content">
-                        <div class="date">
-                            March 20, 2017
-                        </div>
-                        <div class="summary">
-                            <h5>TNT vs Alaska Game 1</h5>
-                            Copeland Gym, 5:00PM
-                        </div>
+                    <div class="request-approve two wide column">
+                        <button type="button" name="button" class="membership-command">X</button>
+                    </div>
+                    <div class="request-decline two wide column">
+                        <button type="button" name="button" class="membership-command">/</button>
                     </div>
                 </div>
             </div>
-            <div class="ui feed sched-feed">
-                <div class="event">
-                    <div class="label">
-                        <img src="images/tnt.jpg">
-                    </div>
-                    <div class="content">
-                        <div class="date">
-                            March 20, 2017
-                        </div>
-                        <div class="summary">
-                            <h5>TNT vs Alaska Game 1</h5>
-                            Copeland Gym, 5:00PM
-                        </div>
+            <br>
+
+            <div class="ui section">
+                <div class="section-title">
+                    <h3>Current Games</h3>
+                    <br>
+                    <div ng-repeat="game in dashboard.currentGames" class="ui card-panel">
+                        <h5>{{game.sport_name + " Game " + game.game_id }}</h5>
+                        <p>{{game.Date}}</p>
+                        <p>{{game.venue_name}}</p>
                     </div>
                 </div>
             </div>
-            <div class="ui feed sched-feed">
-                <div class="event">
-                    <div class="label">
-                        <img src="images/tnt.jpg">
-                    </div>
-                    <div class="content">
-                        <div class="date">
-                            March 20, 2017
-                        </div>
-                        <div class="summary">
-                            <h5>TNT vs Alaska Game 1</h5>
-                            Copeland Gym, 5:00PM
-                        </div>
+            <br>
+
+            <div class="ui section">
+                <div class="section-title" >
+                    <h3>Upcoming Games</h3>
+                    <br>
+                    <div ng-repeat="up in dashboard.upcomingGames" class="ui card-panel">
+                        <h5>{{up.Date}}</h5>
+                        <p>{{up.sport_name + " Game " +up.game_id}}</p>
+                        <p>{{up.venue_name}}</p>
                     </div>
                 </div>
             </div>
+            <br>
 
         </div>
 
     </div>
-
-    <div class="ten wide column">
-
-        <div class="slider slider1">
-            <div class="slides">
-              <div class="slide-item item1">
-              </div>
-              <div class="slide-item item2">
-              </div>
-              <div class="slide-item item3">
-              </div>
-              <div class="slide-item item4">
-              </div>
-          	</div>
-    	</div>
-
-        <!-- loads team rank bar chart -->
-        <div id="chart_div"></div>
-
-        <h2>Game Standing</h2>
-
-        <div class="ui two column center aligned padded grid">
-
-            <div class="ui column">
-                <div class="ui card score-panel">
-                    <h3>Basketball</h3>
-                    <div class="ui two column description grid">
-                        <div class="column">
-                            <h1 class="ui header">
-                                <img src="images/tnt.jpg" class="ui medium image">
-                                67
-                            </h1>
-                            TNT Tropatexters
-                        </div>
-
-                        <div class="column">
-                            <h1 class="ui header">
-                                <img src="images/star.jpg" class="ui medium image">
-                                78
-                            </h1>
-                            Star Hotshots
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="ui column">
-                <div class="ui card score-panel">
-                    <h3>Basketball</h3>
-                    <div class="ui two column description grid">
-                        <div class="column">
-                            <h1 class="ui header">
-                                <img src="images/tnt.jpg" class="ui medium image">
-                                67
-                            </h1>
-                            TNT Tropatexters
-                        </div>
-
-                        <div class="column">
-                            <h1 class="ui header">
-                                <img src="images/star.jpg" class="ui medium image">
-                                78
-                            </h1>
-                            Star Hotshots
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
-
-        <h3>Game Recap</h3>
-        <img class="ui huge fluid rounded image" src="images/recap1.jpg"><br>
-        <img class="ui huge fluid rounded image" src="images/recap2.jpg">
-
-    </div>
-
+</div>
 
 </div>
+
+<script type='text/javascript' src='js/dashboard.js'></script>

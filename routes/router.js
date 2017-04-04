@@ -8,9 +8,46 @@ const sportController =require('../services/sport.service');
 const eventController =require('../services/event.services');
 const teamController = require('../services/team.services');
 const sponsorController = require('../services/sponsor.services');
+// const dashboardController =require('../services/dashboard.service');
 
+
+var path = require('path');
 const express = require('express');
 const router = express.Router();
+
+/*-------------------------DASHBOARD------------------------*/
+// router.get('/viewTeamPlayGame', 			dashboardController.viewTeamPlayGame);
+// router.get('/viewCurrentGames', 			    dashboardController.viewCurrentGame);
+// router.get('/viewUpcomingGame', 			dashboardController.viewUpcomingGame);
+
+/*----------------------------------------------------------*/
+router.post('/',                       		userController.login);
+router.get('/logout',                       userController.logout);
+router.post('/users',                  userController.registerUser);
+
+
+//module.exports = (router) => {
+router.post     ('/events',      eventController.addEvent);
+router.get      ('/events/:event_id', eventController.viewEvent);
+router.get      ('/events',   eventController.viewAllEvent);
+router.put      ('/events',    eventController.updateEvent);
+router.delete   ('/events/:event_id',    eventController.deleteEvent);
+
+router.post     ('/teams',      teamController.addTeam); 
+router.get      ('/teams/:team_id', teamController.viewTeam);
+router.get      ('/teams',   teamController.viewAllTeam);
+router.put      ('/teams',    teamController.updateTeam);
+router.delete   ('/teams/:team_id',    teamController.deleteTeam);
+router.post		('/teams/join',			teamController.userJoinTeam);
+router.get      ('/teams_get_id/:team_name',			teamController.getTeamId);
+router.post		('/teams/event',	teamController.teamJoinEvent);
+
+router.post     ('/sponsors',      sponsorController.addSponsor); 
+router.get      ('/sponsors/:sponsor_id', sponsorController.viewSponsor);
+router.get      ('/sponsors',   sponsorController.viewAllSponsor);
+router.put      ('/sponsors',    sponsorController.updateSponsor);
+router.delete   ('/sponsors/:sponsor_id',    sponsorController.deleteSponsor);
+
 
 // router.post('/login',                       userController.login);
 // router.get('/logout',                       userController.logout);
@@ -23,14 +60,14 @@ const router = express.Router();
 //     else
 //         res.redirect('/login');
 // })
+router.get('/users',                 adminController.viewAllUsers);
+router.get('/users/:user_id',            userController.viewUser);
+router.put('/users/:user_id',          adminController.updateUser);
+router.delete('/users/:user_id',       adminController.removeUser);
 
-router.get('/viewAllUsers',                 adminController.viewAllUsers);
-router.get('/viewUser/:user_id',            userController.viewUser);
-router.put('/updateUser/:user_id',          adminController.updateUser);
-router.delete('/deleteUser/:user_id',       adminController.removeUser);
+router.post('/user_team',               userController.userJoinsTeam);
+router.get('/logs',                      adminController.viewLogs);
 
-router.post('/userJoinsTeam',               userController.userJoinsTeam);
-router.get('/viewLog',                      adminController.viewLogs);
 
 router.post('/addCompetitor',               adminController.addCompetitor);
 router.get('/viewAllCompetitors/:game_id',  userController.viewAllCompetitors);
@@ -40,7 +77,7 @@ router.delete('/deleteCompetitor/:team_id', adminController.deleteCompetitor);
 
 router.post('/game', 						gameController.addGame);
 router.get('/game/:game_id',				gameController.viewGame);
-router.get('/game', 						gameController.viewAllGames);;
+router.get('/game', 						gameController.viewAllGames);
 router.put('/game/:game_id', 				gameController.updateGame);
 router.delete('/game/:game_id', 			gameController.deleteGame);
 router.delete('/game', 						gameController.deleteAllGames);
@@ -59,35 +96,42 @@ router.put('/winner/:game_id', 				winnerController.updateWinner);
 router.delete('/winner/:game_id', 			winnerController.deleteWinner);
 router.delete('/winner', 					winnerController.deleteAllWinners);
 
-router.post     ('/events',      eventController.addEvent); 
-router.get      ('/events/:event_id', eventController.viewEvent);
-router.get      ('/events',   eventController.viewAllEvent);
-router.put      ('/events',    eventController.updateEvent);
-router.delete   ('/events/:event_id',    eventController.deleteEvent);
-
-router.post     ('/teams',      eventController.addEvent); 
-router.get      ('/teams/:team_id', eventController.viewEvent);
-router.get      ('/teams',   eventController.viewAllEvent);
-router.put      ('/teams',    eventController.updateEvent);
-router.delete   ('/teams/:team_id',    eventController.deleteEvent);
-
-router.post     ('/sponsors',      eventController.addEvent); 
-router.get      ('/sponsors/:sponsor_id', eventController.viewEvent);
-router.get      ('/sponsors',   eventController.viewAllEvent);
-router.put      ('/sponsors',    eventController.updateEvent);
-router.delete   ('/sponsors/:sponsor_id',    eventController.deleteEvent);
-
 //additional
-router.post('/bet', 		gameController.bet);
+router.post('/ranking/:sport_id', 					gameController.getRanking);
+router.post('/bet', 						gameController.bet);
 router.get('/sport/event/:event_id', 		sportController.viewSportsByEvent);
 router.post('/game/sport/:sport_id', 		gameController.viewGamesBySport);
 router.get('/schedule/:sport_id', 		gameController.viewScheds);
 router.get('/leaderboard/:sport_id', 		gameController.viewLeaderboards);
 
-router.all('*', (req, res, next) => {
-    res.status(404).send({
-        message: 'Not Found!'
-    })
+router.post('/competitors',               adminController.addCompetitor);
+router.get('/competitors/:game_id',  userController.viewAllCompetitors);
+router.get('/competitors/:team_id',      userController.viewCompetitor);
+router.put('/competitors/:team_id',    adminController.updateCompetitor);
+router.delete('/competitors/:team_id', adminController.deleteCompetitor);
+
+// router.get('/', (req, res, next) => {
+//     res.sendFile('views/index.html',{root:__dirname+'/..'});
+// });
+
+// router.all('*', (req, res, next) => {
+//     res.sendFile('index.html',{root:__dirname+'/..'});
+// });
+//
+
+router.get('/loggedIn', (req, res) => {
+	if (req.session)
+		res.send(req.session.userid);
+	else
+		res.send({});
+});
+
+router.get('/', (req,res)=>{
+	res.sendFile('views/index.html',{root:__dirname+'/..'});
+});
+
+router.all('*', (req, res) => {
+    res.status(404).send({message : 'Unmatched route. =(('});
 });
 
 module.exports = router;

@@ -9,14 +9,17 @@ exports.login=(req,res)=>{
 		password: req.body.password
 	};
 
-	const query_string = 'call login(?,?)';
-	const req_data= [user.username, user.password];
+	const query_string = 'SELECT user_id,username,user_type FROM users WHERE username = ? and password = ?'
+	const req_data= [user.username,user.password];
+	console.log(user.username);
+	console.log(user.password);
 
 	connection.query(query_string,req_data, (err,rows)=>{
 		//this is where the connection to the database is being done, the rows will acquire the result of the query
 		if(!err) {
 			if(rows[0]){
-				req.session.accountid = rows[0][0].user_id
+				req.session.userid = rows[0].user_id
+				req.session.usertype = rows[0].user_type
 				var json =  JSON.parse((JSON.stringify(req.session)));
 				console.log(json);
 				res.json({
@@ -41,7 +44,7 @@ exports.logout=(req,res)=>{
 	if(req.session){
 		req.session.destroy(function(err){
 			res.json({
-				redirect: '/'
+				redirect: '/login'
 			});
 		});
 	}
@@ -59,9 +62,26 @@ exports.registerUser=(req,res)=>{
 		req.body.lastname
 	];
 	
+	connection.query(query_string, req_data, (err,rows)=>{
+		if(!err){
+			res.status(200).send(rows);
+		}
+		else{
+			console.log(err);
+			res.status(500).send(err);
+		}
+	});
+}
+
+exports.viewProfile = (req,res) =>{
+	const query_string = 'SELECT * FROM users WHERE user_id = ?';
+	const req_data = [req.session.userid]
+
 	connection.query(query_string, req_data, (err,result)=>{
 		if(!err){
-			res.status(200).send(result);
+			res.status(200).send(result[0]);
+			console.log(result[0]);
+			console.log(req.session.userid);
 		}
 		else{
 			console.log(err);
@@ -73,7 +93,7 @@ exports.registerUser=(req,res)=>{
 // viewUser - views a user by ID (user_id)
 exports.viewUser=(req, res)=>{
 
-	const query_string = 'call viewUser(?)';
+	const query_string = 'SELECT * FROM users WHERE user_id = ?';
 	const req_data = [req.params.user_id]
 
 	connection.query(query_string, req_data, (err,result)=>{
@@ -86,10 +106,11 @@ exports.viewUser=(req, res)=>{
 		}
 	});
 }
+
 //userJoinsTeam - use team_players table to add the user
 exports.userJoinsTeam=(req, res)=>{
 
-	const query_string = 'call joinUserToTeam(?,?)';
+	const query_string = 'INSERT INTO team_players (team_id, user_id) VALUES (?, ?);';
 	const req_data = [
 		req.body.team_id,
 		req.body.user_id
@@ -108,7 +129,7 @@ exports.userJoinsTeam=(req, res)=>{
 
 // viewAllCompetitors - views all competitors (teams) in a specific game;
 exports.viewAllCompetitors=(req, res)=>{
-	const query_string = 'call viewCompetitors(?)';
+	const query_string = 'SELECT * FROM team t1, team_plays_game t2 WHERE t1.team_id = t2.team_id AND t2.game_id = ?';
 	const req_data = [req.params.game_id];
 
 	connection.query(query_string, req_data, (err,result)=>{
@@ -125,7 +146,7 @@ exports.viewAllCompetitors=(req, res)=>{
 // viewCompetitor - views a specific competitor (by team_id)
 exports.viewCompetitor=(req, res)=>{
 
-	const query_string = 'call viewCompetitor(?)';
+	const query_string = 'SELECT * FROM team t1, team_plays_game t2 WHERE t1.team_id = ? AND t1.team_id = t2.team_id';
 	const req_data = [req.params.team_id];
 
 	connection.query(query_string, req_data, (err,result)=>{

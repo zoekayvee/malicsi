@@ -41,7 +41,7 @@ exports.addGame = (req,res) =>{
 
 // VIEWING GAME THROUGH 'sport_id'
 exports.viewGamesBySport = (req,res) =>{
-	var query = 'SELECT * FROM game WHERE sport_id = ? and event_event_id = ? order by sport_id';
+	var query = 'SELECT * FROM game G, venue V WHERE sport_id = ? and event_event_id = ? order by sport_id and G.venue_id = V.venue_id';
 	const data = [
 		req.params.sport_id,
 		req.body.event_event_id
@@ -109,9 +109,31 @@ exports.bet = (req,res) =>{
 	})
 }
 
+exports.getRanking = (req,res) =>{
+	var query = 'SELECT @rn:=@rn+1 as rank, z.* FROM(SELECT sport_name,team.team_name as team_name, (SELECT COUNT(*) FROM game WHERE winner_team_id = team.team_id AND sport_id = ?) AS win,(select count(*) FROM game NATURAL JOIN team_plays_game AS tpg WHERE tpg.team_id = team.team_id AND (winner_team_id!=team.team_id AND sport_id=?)) AS loss FROM team,sport where sport_id = ? and team_name != "TBA" and team_name != " TBA")z, (SELECT @rn:=0)y ORDER BY win DESC';
+	const data = [
+		req.params.sport_id,
+		req.params.sport_id,
+		req.params.sport_id
+	];
+	var id = connection.query(
+		query,
+		data,
+		(err, rows) => {
+			if(!err){
+				console.log("Retrieving data Successssss");
+				res.send(rows);
+			}
+			else{
+				console.log(err);
+				res.send('Server Error');
+			}
+	})
+}
+
 // VIEWING GAME SCHEDULE THROUGH 'sport_id' (JOINED WITH TABLES (VENUE, GAME, TEAM, TEAM_PLAYS_GAME))
 exports.viewScheds = (req,res) =>{
-	var query = 'SELECT distinct G.game_id, G.date_start,V.venue_name, A.team_name, B.team_name as team_name_2	, G.referee FROM team A, team B, game G, venue V, sport S WHERE A.team_id IN (SELECT team_id FROM team_plays_game WHERE G.sport_id = ?) AND B.team_id IN (SELECT team_id FROM team_plays_game WHERE G.sport_id = ?) AND A.team_id != B.team_id and V.venue_id = G.venue_id and G.sport_id = S.sport_id and G.sport_id = ?';
+	var query = 'SELECT distinct G.game_id, G.date_start,V.venue_name, A.team_name, B.team_name as team_name_2, G.referee FROM team A, team B, game G, venue V, sport S, team_plays_game T1, team_plays_game T2 WHERE A.team_id IN (SELECT team_id FROM team_plays_game WHERE G.sport_id = ?) AND B.team_id IN (SELECT team_id FROM team_plays_game WHERE G.sport_id = ?) AND A.team_id != B.team_id and V.venue_id = G.venue_id and G.sport_id = S.sport_id and G.sport_id = ? and T1.team_id = A.team_id and T2.team_id = B.team_id and T1.game_id = G.game_id and T2.game_id = G.game_id;';
 	const data = [
 		req.params.sport_id,
 		req.params.sport_id,
@@ -135,7 +157,7 @@ exports.viewScheds = (req,res) =>{
 // VIEWING LEADERBOARDS THROUGH 'sport_id' (TABLES (GAME, SPORT, VENUE, TEAM, TEAM_PLAYS_GAME))
 exports.viewLeaderboards = (req,res) =>{
 	// SELECT distinct G.game_id, G.date_start,V.venue_name, A.team_name, T1.score, B.team_name as team_name_2, T2.score as score2 , G.referee FROM team A, team B, game G, venue V, sport S, team_plays_game T1, team_plays_game T2 WHERE A.team_id IN (SELECT team_id FROM team_plays_game WHERE G.sport_id = 1) AND B.team_id IN (SELECT team_id FROM team_plays_game WHERE G.sport_id = 1) AND A.team_id != B.team_id and A.team_id = T1.team_id and B.team_id = T2.team_id and G.game_id = T1.game_id and V.venue_id = G.venue_id and G.sport_id = S.sport_id and G.sport_id = 1
-	var query = 'SELECT distinct G.game_id, G.date_start,V.venue_name, A.team_name, GS.team_score as score, B.team_name as team_name_2, GS2.team_score as score2 , G.referee FROM team A, team B, game G, venue V, sport S, team_plays_game T1, team_plays_game T2, game_score GS, game_score GS2 WHERE A.team_id IN (SELECT team_id FROM team_plays_game WHERE G.sport_id = ?) AND B.team_id IN (SELECT team_id FROM team_plays_game WHERE G.sport_id = ?) AND A.team_id != B.team_id and A.team_id = T1.team_id and B.team_id = T2.team_id and T1.game_id = T2.game_id  and G.game_id = T1.game_id and V.venue_id = G.venue_id and G.sport_id = S.sport_id and G.sport_id = ? and T1.game_id = GS.game_id and T2.game_id = GS2.game_id';
+	var query = 'SELECT distinct G.game_id, G.date_start,V.venue_name, A.team_name, GS.team_score as score, B.team_name as team_name_2, GS2.team_score as score2 , G.referee FROM team A, team B, game G, venue V, sport S, team_plays_game T1, team_plays_game T2, game_score GS, game_score GS2 WHERE A.team_id IN (SELECT team_id FROM team_plays_game WHERE G.sport_id = ?) AND B.team_id IN (SELECT team_id FROM team_plays_game WHERE G.sport_id = ?) AND A.team_id != B.team_id and A.team_id = T1.team_id and B.team_id = T2.team_id and T1.game_id = T2.game_id  and G.game_id = T1.game_id and V.venue_id = G.venue_id and G.sport_id = S.sport_id and G.sport_id = ?;';
 	const data = [
 		req.params.sport_id,
 		req.params.sport_id,
