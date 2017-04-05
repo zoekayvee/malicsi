@@ -9,8 +9,9 @@ td,th {
     padding: 8px;
 }
 </style>
+<script type='text/javascript' src='js/admin.js'></script>
 
-    <div class="ui container" id="main-wrapper">
+<div class="ui container" id="main-wrapper">
     <div class="ui header">Users</div>
     <div class="ui row">
         <table class="ui center aligned table" id="user-table">
@@ -44,11 +45,41 @@ td,th {
                             <div class="visible content">Edit</div>
                             <div class="hidden content"> <i class="edit icon"> </i> </div>
                         </div>
+                        <div class="ui modal" id="edit-modal">
+                            <div class="header"> UPDATE USER</div>
+                                <div class="content">
+                                    <div class="ui form">
+                                        <div class="field">
+                                            <label>User</label>
+                                            <input type="text">
+                                        </div>
+                                    </div>
+                                    <br>
+                                    <div class="ui button" id="cancel">Cancel</div>
+                                    <div class="ui button">Submit</div>
+                                </div>
+                        </div>
                     </td>
                     <td>
-                        <div class="ui animated button">
+                        <div class="ui animated button" id="delete">
                             <div class="visible content">Delete</div>
                             <div class="hidden content"> <i class="trash icon"> </i> </div>
+                        </div>
+                        <div class="ui basic modal" id="delete-user">
+                            <div class="ui icon header">
+                                <i class="trash icon"></i>
+                                DELETE
+                            </div>
+                              <div class="actions">
+                                <div class="ui red basic cancel inverted button">
+                                  <i class="remove icon"></i>
+                                  No
+                                </div>
+                                <div class="ui green ok inverted button">
+                                  <i class="checkmark icon"></i>
+                                  Yes
+                                </div>
+                              </div>
                         </div>
                     </td>
                 </tr>
@@ -64,37 +95,6 @@ td,th {
 
             </tfoot>
         </table>
-
-        <div class="ui modal" id="update-user">
-  <i class="close icon"></i>
-  <div class="header">
-    Header
-  </div>
-  <div class="content">
-    <div class="left">
-      Some content to the left, usually an image or icon
     </div>
-    <div class="right">
-      Some content to the right
-    </div>
-  </div>
-  <div class="actions">
-    <div class="ui button">
-      Cancel
-    </div>
-    <div class="ui button">
-      Okay
-    </div>
-  </div>
 </div>
-
-</div>
-</div>
-
-<script>
-   
-     $('#edit').click(function(){
-        $('#update-user').modal('show');    
-     });
-</script>
 
