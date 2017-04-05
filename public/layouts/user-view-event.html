@@ -1,12 +1,5 @@
 <link rel='stylesheet' href='css/event.css'/>
-<link rel='stylesheet' href='semantic-ui-calendar/dist/calendar.css'/>
-<script src="semantic-ui-calendar/dist/calendar.js"></script>
 
-<script>
-$('#start-date-pick').calendar();
-$('#end-date-pick').calendar();
-
-</script>
 <div id="main-wrapper">
 
 	<div  ng-controller = "eventController as event" class="ui container">
@@ -52,12 +45,12 @@ $('#end-date-pick').calendar();
              </div>
             <div class="ui form" ng-controller = "sponsorController as sponsor">
                 <div class="field">
-                  	<label>Sponsor name</label>
-                    <input type="text" ng-model = "sponsor.sponsorName" name="team_name">
+                  	<label>Sponsor Name</label>
+                    <input type="text" ng-model = "sponsor.sponsorName" >
                  </div>
-                    <button class="ui button team" ng-click = "sponsor.addSponsor(event.eventId)">Add Sponsorhip</button>
+                    <button class="ui button team" ng-click = "sponsor.addSponsor(event.eventId)">Add Sponsorship</button>
              </div>
-
+			
 		</table>
 		 <div class="ui form" ng-repeat = "x in event.allEvents" >
                       <div class="fields">
@@ -69,10 +62,9 @@ $('#end-date-pick').calendar();
                 <div class="fields">
                         <div class="field">
                           <label>Date Start</label>
-                          <input type="text" ng-model = "event.dateStart" ng-init = "event.dateStart = x.date_start" name="event_name">
+                        	 <input type="text" ng-model = "event.dateStart" ng-init = "event.dateStart = x.date_start" name="event_name">
                         </div>
                 </div>
-                
                 <div class="fields">
                         <div class="field">
                           <label>Date End</label>
@@ -89,9 +81,40 @@ $('#end-date-pick').calendar();
                     </div>
                 </div>
 	</div>
+
+	<table class="ui celled table" ng-controller = "sponsorController as sponsor">
+			<tr>
+				<th> Sponsorships </th>
+				<th>  </th>
+			</tr>
+
+			<tbody ng-init = "sponsor.getSponsorByEvent(event.eventId)">
+				<tr ng-repeat = "x in sponsor.allSponsors">
+					<td>{{x.sponsor_name}}</td>
+					<td><button class = "ui red button" ng-click = "sponsor.deleteSponsor(x.sponsor_id)">Delete</button></td>
+				</tr>
+			</tbody>
+		</table>
+			
 	<div ng-controller = "teamController as team">
-		<button class = "ui button fluid red" ng-click = "team.viewTeamPerEvent(event.eventId)">View Teams participating in event</button>
-	
+			<table class="ui celled table" ng-init = "team.viewTeamPerEvent()">
+			<tr>
+				<th> Teams </th>
+				<th>  </th>
+				
+			</tr>
+
+			<tbody>
+				<tr ng-repeat = "x in team.allTeams">
+					<td><button class = "ui teal button" ng-click="team.viewTeam(x.team_id)">{{x.team_name}}</button></</td>
+					<td><button class = "ui red button" ng-click = "team.deleteTeam(x.team_id)">Delete</button></td>
+				</tr>
+			</tbody>
+		</table>
+		
+
+
 	</div>
-	
+</div>
+
 </div>
