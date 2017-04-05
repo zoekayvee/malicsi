@@ -1,0 +1,100 @@
+<style>
+
+#user-table{
+    width: 100%;
+}
+
+td,th {
+    border: 1px solid #dddddd;
+    padding: 8px;
+}
+</style>
+
+    <div class="ui container" id="main-wrapper">
+    <div class="ui header">Users</div>
+    <div class="ui row">
+        <table class="ui center aligned table" id="user-table">
+            <thead>
+                <tr>
+                    <th>User ID</th>
+                    <th>Username</th>
+                    <th>First name</th>
+                    <th>Last name</th>
+                    <th>College</th>
+                    <th>Contact number</th>
+                    <th>Email</th>
+                    <th>Weight (kg)</th>
+                    <th>Height (ft)</th>
+                    <th colspan="4">Commands </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td> 1</td>
+                    <td> krisantaagdan</td>
+                    <td> Krisanta</td>
+                    <td> Agdan</td>
+                    <td> CAS</td>
+                    <td> 0999999999</td>
+                    <td> cutiepie@gmail.com</td>
+                    <td> 45</td>
+                    <td> 5</td>
+                    <td colspan="">
+                        <div class="ui animated button" id="edit">
+                            <div class="visible content">Edit</div>
+                            <div class="hidden content"> <i class="edit icon"> </i> </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="ui animated button">
+                            <div class="visible content">Delete</div>
+                            <div class="hidden content"> <i class="trash icon"> </i> </div>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+            <tfoot class="full-width">
+                <tr>
+                    <th colspan="100%">
+                        <div class="ui right floated small primary labeled icon button">
+                            <i class="user icon"></i> Add User
+                        </div>
+                    </th>
+                </tr>
+
+            </tfoot>
+        </table>
+
+        <div class="ui modal" id="update-user">
+  <i class="close icon"></i>
+  <div class="header">
+    Header
+  </div>
+  <div class="content">
+    <div class="left">
+      Some content to the left, usually an image or icon
+    </div>
+    <div class="right">
+      Some content to the right
+    </div>
+  </div>
+  <div class="actions">
+    <div class="ui button">
+      Cancel
+    </div>
+    <div class="ui button">
+      Okay
+    </div>
+  </div>
+</div>
+
+</div>
+</div>
+
+<script>
+   
+     $('#edit').click(function(){
+        $('#update-user').modal('show');    
+     });
+</script>
+

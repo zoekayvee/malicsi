@@ -58,6 +58,9 @@
 			.when('/user/search', {
 				templateUrl: 'layouts/user-search-page.html'
 			})
+			.when('/admin/all-users', {
+				templateUrl: 'layouts/admin-all-users.html'
+			})
 			.otherwise({
 				templateUrl: 'layouts/error.html'
 			})
