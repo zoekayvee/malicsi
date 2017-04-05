@@ -72,7 +72,7 @@ exports.registerUser=(req,res)=>{
 	const req_data = [
 		req.body.username,
 		hash,
-		'normal',
+		"normal",
 		req.body.firstname,
 		req.body.lastname,
 		req.body.email

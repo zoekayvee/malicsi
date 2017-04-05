@@ -30,7 +30,33 @@ exports.removeUser=(req,res)=>{
 			}
 		});
 }
+exports.updateUserPassword= (req,res) =>{
+	const query_string = 'UPDATE users SET password = ? WHERE user_id = ?';
+	const req_data = [req.body.password,
+					  req.params.user_id];
+    connection.query(query_string, req_data, (err,result) => {
+    	if (!err) {
+			res.status(200).send(result);
+			} else {
+				console.log(err);
+				res.status(500).send(err);
+			}
+    })
+} 
 
+exports.approveUser= (req,res) =>{
+	const query_string = 'UPDATE users SET user_type = ? WHERE user_id = ?';
+	const req_data = [req.body.user_type,
+					  req.params.user_id];
+    connection.query(query_string, req_data, (err,result) => {
+    	if (!err) {
+			res.status(200).send(result);
+			} else {
+				console.log(err);
+				res.status(500).send(err);
+			}
+    })
+} 
 // updateUser - updates user information (uses user_id)
 exports.updateUser=(req,res)=>{
 		if(req.body.flag === "false"){
