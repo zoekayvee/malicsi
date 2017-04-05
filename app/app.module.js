@@ -1,1 +1,5 @@
-angular.module('malicsi',['ngRoute']);
+'use strict';
+
+(function() {
+	angular.module('malicsi', ['ngRoute']);
+})();

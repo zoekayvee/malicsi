@@ -106,6 +106,71 @@ exports.viewUser=(req, res)=>{
 	});
 }
 
+exports.viewSponsoredEvents=(req, res)=>{
+
+	const query_string = 'SELECT * FROM event NATURAL JOIN (SELECT * FROM sponsor NATURAL JOIN sponsor_events) A';
+
+	connection.query(query_string, null, (err,result)=>{
+		if(!err){
+			res.status(200).send(result);
+		}
+		else{
+			console.log(err);
+			res.status(500).send(err);
+		}
+	});
+}
+
+
+
+exports.viewUserInterests = (req,res) => {
+	const query_string = "SELECT * from user_interests WHERE user_id = ?";
+	const req_data = [req.params.user_id]
+
+	connection.query(query_string, req_data, (err,result)=>{
+		if(!err){
+			res.status(200).send(result);
+		}
+		else{
+			console.log(err);
+			res.status(500).send(err);
+		}
+	});
+}
+
+exports.viewUserEvents = (req,res) => {
+	const query_string = "SELECT username,event_name,DATE_FORMAT(date_start,'%M %e %Y') Date FROM users NATURAL JOIN event WHERE user_id = ?";
+	const req_data = [req.params.user_id]
+
+	connection.query(query_string, req_data, (err,result)=>{
+		if(!err){
+			res.status(200).send(result);
+			//console.log(result[0]);
+		}
+		else{
+			console.log(err);
+			res.status(500).send(err);
+		}
+	});
+}
+
+exports.updateInterests = (req,res) => {
+	const query_string = "INSERT INTO user_interests VALUES (?,?)";
+	const req_data = [req.params.user_id,req.body.interests];
+	console.log(req.body.interests);
+	connection.query(query_string,req_data, (err,result) => {
+		if(!err){
+			res.status(200).send(result);
+		}
+		else{
+			console.log(err);
+			res.status(500).send(err);
+		}
+	})
+}
+
+
+
 //userJoinsTeam - use team_players table to add the user
 exports.userJoinsTeam=(req, res)=>{
 

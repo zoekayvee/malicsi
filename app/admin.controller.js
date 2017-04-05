@@ -3,7 +3,7 @@
 	angular
 		.module('malicsi')
 		.controller('adminController', adminController);
-
+		
 	function adminController($http){
 		var vm = this;
 
@@ -31,4 +31,5 @@
 				});
 		}
 	}
+
 })();

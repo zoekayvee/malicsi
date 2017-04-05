@@ -10,23 +10,29 @@
 		vm.password="";
 		vm.loginUser=loginUser;
         vm.user = {};
-        vm.allLogs = [];
-
+        vm.allLogs = null;
         vm.firstname = "";
 		vm.lastname = "";
 		vm.newUser = {};
+
+
 		vm.registerUser=registerUser;
 		vm.logOut = logOut;
-		vm.getLogs = getLogs;
 		vm.dropDown = dropDown;
 		vm.openModal = openModal;
 		vm.closeModal= closeModal;
 		vm.updateUser= updateUser;
+		vm.userEvents = [];
+		vm.userInterests = [];
+		vm.sponsoredEvents = [];
+		vm.interests = "";
+
+		vm.updateInterest = updateInterest;
 
         $http   
             .get('/user_loggedin') 
             .then(function(response) {
-                if (response.data) {
+                if (response.data){
                     $http
                         .get('/users/'+response.data)
                         .then(function(response) {
@@ -34,6 +40,70 @@
                             console.log(vm.user);
                         });
                 }
+            });
+
+        $http   
+            .get('/user_loggedin') 
+            .then(function(response) {
+                if (response.data){
+                    $http
+                        .get('/users/'+response.data)
+                        .then(function(response) {
+                            vm.user = response.data;
+                            console.log(vm.user);
+                        });
+
+                    $http
+                        .get('/user/events/'+response.data)
+                        .then(function(response) {
+                            vm.userEvents = response.data;
+                            console.log(vm.userEvents);
+
+                        });
+
+                    $http
+                        .get('/user/sponsored/'+response.data)
+                        .then(function(response) {
+                            vm.sponsoredEvents = response.data;
+                            console.log(vm.sponsoredEvents);
+                        });
+
+                     $http
+                        .get('/user/interests/'+response.data)
+                        .then(function(response) {
+                            vm.userInterests = response.data;
+                            console.log(vm.userInterests);
+                        });
+                }
+            });
+
+            $http   
+            .get('/user_loggedin') 
+            .then(function(response) {
+	        	$http
+	                .get('/users/'+response.data)
+	                .then(function(response) {
+	                    vm.user = response.data;
+	                    if(vm.user.user_type==='normal'){
+		                	$http
+		                        .get('/logs/'+vm.user.user_id)
+		                        .then(function(response) {
+		                        	console.log('here');
+		                            vm.allLogs = response.data;
+		                            console.log(vm.allLogs);
+		                    });
+	                    }
+	                    else{
+		                	$http
+								.get('/logs')
+								.then(function(response) {
+									if(response.data) {
+										vm.allLogs = response.data;
+										console.log(vm.allLogs);
+									} else console.log('Error');
+							});
+		                }
+	                });                
             });
 
         function setToastr(){
@@ -102,6 +172,23 @@
 					}, 500);
 				});
 		}
+
+		function updateInterest(){
+			var user = {
+				interests: vm.interests
+			}
+
+			$http
+				.get('user_loggedin')
+				.then(function(response){
+					 $http
+                        .put('/users/updateInterests/'+response.data, user)
+                        .then(function(response) {
+                        	console.log("Added interest");
+                        });
+				});
+			//window.location.reload();		
+		}
 		function updateUser(user,uname,pw,loc,college,age,height,weight,fname,lname,email,contactno,gender){
 			var editUser=vm.user;
 			var flag = "false";
@@ -162,7 +249,7 @@
                 	vm.user=editUser;
                     console.log(response.data);
                 });
-            window.location.reload();
+			window.location.reload();
 		}
 
 	     function logOut() {
@@ -173,16 +260,6 @@
 	     				window.location.href=redirect;
 	     			});
 	     }
-
-		function getLogs(){
-			$http
-			.post('/logs')
-			.then(function(response) {
-				if(response.data) {
-					vm.allLogs = response.data;
-				} else console.log('Error');
-			});
-		}
 		function dropDown(){
 			$('.ui.dropdown')
 			  .dropdown()

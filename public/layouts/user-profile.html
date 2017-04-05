@@ -1,154 +1,151 @@
-<div class="ui containter">
+<script type='text/javascript' src='js/user-profile.js'></script>
 
-    <div class="ui grid" ng-controller= "userController as profile">
+
+<div class="ui containter" ng-controller = "userController as user">
+
+    <div class="ui grid">
         <div class="five wide column">
             <div class="ui center aligned segment">
                 <img class="ui centered small circular image" src="images/id.jpg">
                 <h2 class ="ui centered header" id="header-section">
-                    {{profile.user.username}}
+                    {{user.user.firstname}}
                     <div class="sub header" id="header-section">
-                        {{profile.user.location}}
+                    {{user.user.location}}
                     </div>
                 </h2>
-                <button class="ui labeled icon button" ng-click="profile.openModal('update-modal')">
-                    <i class="edit icon"></i>
+                <button class="ui labeled icon button" id="updateButton" ng-click="user.openModal('update-modal')">
+                    <i class="edit icon"></i> 
                     Update
                 </button>
-                <h4 class="ui horizontal divider header">
-                    BETS
-                </h4>
-                <div class="ui list">
-                    <div class="item">
-                        <div class="header">Event</div>
-                        TEAM - SPORT
-                    </div>
-                    <div class="item">
-                        <div class="header">Event</div>
-                        TEAM - SPORT
-                    </div>
-                    <div class="item">
-                        <div class="header">Event</div>
-                        TEAM - SPORT
-                    </div>
-                    <div class="item">
-                        <div class="header">Event</div>
-                        TEAM - SPORT
-                    </div>
+                <div class="ui modal" id="update">
+                    <form class="ui form">
+                        <h2 class="ui dividing header">UPDATE PROFILE</h2>
+                        <div class="fields">
+                            <div class="field">
+                                <label>First Name</label>
+                                <input type="text" id="firstname">
+                            </div>
+                            <div class="field">
+                                <label>Last Name</label>
+                                <input type="text" id="lastname">
+                            </div>
+                        </div>
+                        <div class="fields">
+                            <div class="field">
+                                <label>College</label>
+                                <input type="text" id="college">
+                            </div>
+                            <div class="field">
+                                <label>Contact No.</label>
+                                <input type="number" id="contactno">
+                            </div>
+                            <div class="field">
+                                <label>E-mail</label>
+                                <input type="text" id="email">
+                            </div>
+                        </div>
+                        <div class="fiels">
+                            <div class="field">
+                                <label>Weight</label>
+                                <input type="text" id="weight">
+                            </div>
+                            <div class="field">
+                                <label>Height</label>
+                                <input type="text" id="height">
+                            </div>
+                        </div>
+
+                            <button class="ui button">Submit</button>
+                    </form>
                 </div>
+
+                <!--ABOUT-->
+                <table class="ui very basic collapsing celled table">
+                <tbody>
+                    <tr>
+                        <td class="two wide column">College</td>
+                        <td> {{user.user.college}} </td>
+                    </tr>
+                    <tr>
+                        <td>Contact No.</td>
+                        <td>{{user.user.contactno}}</td>
+                    </tr>
+                    <tr>
+                        <td>E-mail</td>
+                        <td>{{user.user.email}}</td>
+                    </tr>
+                    <tr>
+                        <td>Weight</td>
+                        <td>{{user.user.weight}}</td>
+                    </tr>
+                    <tr>
+                        <td>Height</td>
+                        <td>{{user.user.height}}</td>
+                    </tr>
+                </tbody>
+                </table>
             </div>
         </div>
-
+        
         <div class="eleven wide column">
-            <div class="ui segment">
-                <h3 class="ui right floated header" id="header-section">ABOUT
-                    <i class="hand peace icon"></i>
-                </h3>
-                <div class="ui clearing divider"></div>
-                <!--STATISTICS-->
-                <div class="ui segment" id="stat">
-                    <div class="ui four statistics">
-                        <div class="ui statistic">
-                            <div class="value">
-                                {{profile.user.height}}
-                            </div>
-                            <div class="label">
-                                HEIGHT
-                            </div>
-                        </div>
-                        <div class="ui statistic">
-                            <div class="value">
-                                {{profile.user.weight}}
-                            </div>
-                            <div class="label">
-                                WEIGHT
-                            </div>
-                        </div>
-                        <div class="ui statistic">
-                            <div class="value">
-                                {{profile.user.age}}
-                            </div>
-                            <div class="label">
-                                AGE
-                            </div>
-                        </div>
-                        <div class="ui statistic">
-                            <div class="item">
-                                {{profile.user.gender}}
-                            </div>
-                            <div class="label">
-                                GENDER
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!--LIST OF ABOUTS-->
-                <div class="ui very relaxed list">
-                    <div class="item">
-                        Name : {{profile.user.firstname + " " + profile.user.lastname}}
-                    </div>
-                    <div class="item">
-                        Gender : {{profile.user.gender}}
-                    </div>
-                    <div class="item">
-                        College : {{profile.user.college}}
-                    </div>
-                    <div class="item">
-                        Contact Number : {{profile.user.contactno}}
-                    </div>
-                    <div class="item">
-                        E-mail : {{profile.user.email}}
-                    </div>
-                </div>
-            </div>
             <div class="ui segment" ng-controller= "userController as interests">
                 <h3 class="ui right floated header" id="header-section">
-                    INTERESTS
-                    <i class="certificate icon"></i>
-                </h3>
-                <div class="ui clearing divider"></div>
-                <!--LIST OF Interests-->
-                <div class="ui very relaxed list"> <!-- ng-repeat= "  -->
-                    <div class="item">
-                        <div class="content">
-                            <a class="header">Interest 1</a>
-                        </div>
-                    </div>
-                </div>
-                <center>
-                    <button class="ui button" ng-click="interests.openModal('interest-modal')">UPDATE</button>
-                </center>
-            </div>
-            <div class="ui segment">
-                <h3 class="ui right floated header" id="header-section">
-                    EVENTS
-                    <i class="certificate icon"></i>
+                    Interests
+                    <i class="hand rock icon"></i>
                 </h3>
                 <div class="ui clearing divider"></div>
                 <!--LIST OF EVENTS-->
-                <div class="ui very relaxed list">
-                    <div class="item">
+                <div class="ui very relaxed list" >
+                    <div class="item" ng-repeat = "interest in interests.userInterests">
                         <div class="content">
-                            <a class="header">Event 1</a>
-                            <div class="description">Last January 2017.</div>
+                            <a class="header">{{interest.interests}}</a>
+                        </div>
+                    </div> 
+                    <center>
+                        <button class="ui button" ng-click="interests.openModal('interest-modal')">UPDATE</button>
+                    </center>
+            </div>
+
+        </div>
+            <div class="ui segment">
+                <h3 class="user-profile right floated header" id="header-section">
+                    <i class="certificate icon"></i>
+                    EVENTS
+                </h3>
+                <div class="ui clearing divider"></div>
+                <!--LIST OF EVENTS-->
+                <div class="ui four cards">
+                    <div class="card" ng-repeat="event in user.userEvents">
+                        <div class="content" >
+                            <div class="header">{{event.event_name}}</div>
+                            <div class="description">{{event.Date}}</div>
+
                         </div>
                     </div>
-                    <div class="item">
-                        <div class="content">
-                            <a class="header">Event 2</a>
-                            <div class="description">10 hours ago.</div>
-                        </div>
-                    </div>
-                    <div class="item">
-                        <div class="content">
-                            <a class="header">Event 3</a>
-                            <div class="description">Ongoing.</div>
-                        </div>
-                    </div>
+                    
                 </div>
-                <div class="three ui buttons">
-                    <button class="ui button" >UPDATE</button>
-                    <button class="ui button" >CREATE</button>
-                    <button class="ui button" >DELETE</button>
+                <br>
+                <button class="ui button" id="create">CREATE</button>
+                <!--MODAL OF CREATE EVENT-->
+                <div id ="event-modal" class="ui modal">
+                    <form class="ui form">
+                        <h2 class="ui dividing header">CREATE EVENT</h2>
+                        <div class="field">
+                            <label>Event Name</label>
+                            <input type="text" name="event-name">
+                        </div>
+                        <div class="fields">
+                            <div class="field">
+                                <label>Start Date</label>
+                                <input name="date-start" type="date" required>
+                            </div>
+                            <div class="field">
+                                <label>End Date</label>
+                                <input name="date-start" type="date" required>
+                            </div>
+                            <button class="ui button">Submit</button>
+                        </div>
+                    </form>
                 </div>
             </div>
 
@@ -160,27 +157,16 @@
                 </h3>
                 <div class="ui clearing divider"></div>
                 <!--LIST OF EVENTS-->
-                <div class="ui very relaxed list">
-                    <div class="item">
-                        <div class="content">
-                            <a class="header">Event 1</a>
-                            <div class="description">Last January 2017.</div>
+                <div class="ui middle aligned divided list">
+                    <div class="item" ng-repeat = "sponsored in user.sponsoredEvents">
+                        <div class="right floated content">
+                            <div class="ui button">DELETE</div>
                         </div>
-                    </div>
-                    <div class="item">
                         <div class="content">
-                            <a class="header">Event 2</a>
-                            <div class="description">10 hours ago.</div>
+                            <a class="header">{{sponsored.event_name}}</a>
+                            <div class="description">Last {{sponsored.date_start}}.</div>
                         </div>
-                    </div>
-                    <div class="item">
-                        <div class="content">
-                            <a class="header">Event 3</a>
-                            <div class="description">Ongoing.</div>
-                        </div>
-                    </div>
-                </div>
-                <button class="fluid ui button">SPONSOR EVENT</button>
+                    </div> 
             </div>
 
         </div>
@@ -260,6 +246,8 @@
     </div>
 </div>
 
+
+
 <div class="ui modal" id="interest-modal">
     <div class="header">Sport Intersets</div>
         <div class="content">
@@ -268,13 +256,13 @@
                     <div class="fields">
                         <div class="field">
                             <label>Add Sport</label>
-                            <input type="text" ng-model="interest">
+                            <input type="text" ng-model="update.interests">
                         </div>
                     </div>
                 </div> 
             <div class="ui actions">
                 <div class="ui close button" ng-click="update.closeModal('interest-modal')">Cancel</div>
-                <div class="ui button" type="submit">Update</div>
+                <div class="ui button" type="submit" ng-click ="update.updateInterest()" >Update</div>
             </div>
         </form>
     </div>

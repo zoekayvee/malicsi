@@ -1,7 +1,7 @@
 (function(){
 'use strict'
     angular
-        .module('mainApp')
+        .module('malicsi')
         .controller('sportController', sportController);
 
         function sportController($http){

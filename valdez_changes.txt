@@ -1,4 +1,6 @@
 changes:
 * changed encryption from CryptoJS to bcrypt
 * added simple toastr for error handling
-* added view all users with delete button
+
+bugs:
+* user firstname and lastname does not reflect on navbar when logged in
