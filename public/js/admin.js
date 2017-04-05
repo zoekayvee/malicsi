@@ -10,6 +10,6 @@ $(document).ready(function(){
 });
 $(document).ready(function(){
      $('#delete').click(function(){
-        $('#delete-user').modal('show');    
+        $('#delete-modal').modal('show');    
      });
 });
