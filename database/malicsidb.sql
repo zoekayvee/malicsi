@@ -5,11 +5,11 @@ Go to directory where malicsidb.sql is located or enter full path to file then r
 	mysql -u root -p < malicsidb.sql
 
 */
-DROP USER "projectOneTwoEight"@"localhost";
+/*DROP USER "projectOneTwoEight"@"localhost";
 
 CREATE USER "projectOneTwoEight"@"localhost" IDENTIFIED BY "password";
 
-GRANT ALL PRIVILEGES ON malicsiDB.* TO "projectOneTwoEight"@"localhost" WITH GRANT OPTION;
+GRANT ALL PRIVILEGES ON malicsiDB.* TO "projectOneTwoEight"@"localhost" WITH GRANT OPTION;*/
 
 DROP DATABASE IF EXISTS `malicsiDB`;
 
@@ -421,18 +421,6 @@ CREATE TRIGGER sponsorEventInsert AFTER INSERT ON sponsor_events
 			END;
 %%
 	/* END OF TRIGGERS */
-	CREATE TRIGGER userInsert AFTER INSERT ON users
-		FOR EACH ROW
-			BEGIN
-				INSERT INTO logs(user_id, message) VALUES(NEW.user_id, concat("Created new user with user name: ", NEW.username));
-			END; 
-%%
-	CREATE TRIGGER userDelete AFTER DELETE ON users
-		FOR EACH ROW
-			BEGIN
-				INSERT INTO logs(user_id, message) VALUES(OLD.user_id, concat("Deleted user: ", OLD.username));
-			END;
-%%
 	CREATE PROCEDURE addSport(in sportname varchar(100))
 		BEGIN
 			INSERT INTO sport(sport_name) VALUES(sportname);	
