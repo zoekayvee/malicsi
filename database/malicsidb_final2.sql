@@ -11,11 +11,11 @@ CREATE USER "projectOneTwoEight"@"localhost" IDENTIFIED BY "password";
 
 GRANT ALL PRIVILEGES ON malicsiDB.* TO "projectOneTwoEight"@"localhost" WITH GRANT OPTION;
 
-DROP DATABASE IF EXISTS `malicsiDB2`;
+DROP DATABASE IF EXISTS `malicsiDB`;
 
-CREATE DATABASE IF NOT EXISTS `malicsiDB2`;
+CREATE DATABASE IF NOT EXISTS `malicsiDB`;
 
-USE `malicsiDB2`;
+USE `malicsiDB`;
 
 create table users(
 	user_id 		int unsigned auto_increment,
@@ -82,7 +82,6 @@ create table team_joins_event(
 	team_id 		int unsigned,
 	status			enum('accepted', 'rejected', 'pending'),
 	
-	constraint 		event_id_pk primary key(event_id),
 	constraint 		team_id_joins_event_fk foreign key(team_id) references team(team_id) ON DELETE CASCADE ON UPDATE CASCADE,
 	constraint 		team_joins_event_id_fk foreign key(event_id) references event(event_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
@@ -139,13 +138,21 @@ create table game_score(
 	constraint		game_id_fk foreign key(game_id) references game(game_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
+create table bet_status(
+	b_game_id		int unsigned,
+	b_player_id 	int unsigned,
+
+	constraint		b_game_id foreign key(b_game_id) references	game(game_id) ON DELETE CASCADE ON UPDATE CASCADE,
+	constraint 		b_player_id foreign key(b_player_id) references users(user_id) ON DELETE CASCADE ON UPDATE CASCADE
+);
+
 create table team_plays_game(
 	game_id 		int unsigned,
 	team_id 		int unsigned,
 	bet_count 		int,
+
 	constraint 		team_plays_game_id_fk foreign key(game_id) references game(game_id) ON DELETE CASCADE ON UPDATE CASCADE,
 	constraint 		team_id_plays_game_fk foreign key(team_id) references team(team_id) ON DELETE CASCADE ON UPDATE CASCADE
-
 );
 
 create table sponsor(
@@ -160,8 +167,6 @@ create table sponsor_events(
 	constraint 		sponsor_id_fk foreign key(sponsor_id) references sponsor(sponsor_id) ON DELETE CASCADE ON UPDATE CASCADE,
 	constraint 		event_id_fk foreign key(event_id) references event(event_id) ON DELETE CASCADE ON UPDATE CASCADE	
 );
-
-
 
 DELIMITER %%
 	CREATE TRIGGER userInsert AFTER INSERT ON users
@@ -235,6 +240,11 @@ DELIMITER %%
 		BEGIN
 			
 			UPDATE game SET sport_id = newSportId, venue_id = newVenue, date_start = newDateStart, duration = newDuration where game_id = gameid;
+		END;
+%%
+	CREATE PROCEDURE betStatus(in gameid int unsigned, in playerid int unsigned)
+		BEGIN
+			INSERT INTO bet_status(b_game_id, b_player_id) VALUES(gameid, playerid);
 		END;
 %%
 	CREATE PROCEDURE viewAllGamesInSport(in sportId int unsigned, in eventId int unsigned)
@@ -452,11 +462,15 @@ DELIMITER %%
 			INSERT INTO logs(user_id, message) VALUES(userid, concat((select username from users where user_id = userid), " viewed the logs"));
 		END;
 %%
-DELIMITER ;
+DELIMITER ;	
 
-	insert into users(username, password, user_type, firstname, lastname, college, contactno, email, weight, height) values("Tester", "test", "admin", "nathaniel", "carvajal", "CAS", 09166994203, "nfcarvajal@up.edu.ph", 59, 177);
+	call addTeam("TBA");
+	call addTeam(" TBA ");
+
+	insert into users(username, password, user_type, firstname, lastname, college, contactno, email, weight, height) values("Tester1", "test", "admin", "nathaniel", "carvajal", "CAS", 09166994203, "nfcarvajal@up.edu.ph", 59, 177);
 	insert into users(username, password, user_type, firstname, lastname, college, contactno, email, weight, height) values("Tester2", "test", "admin", "nathaniel", "carvajal", "CAS", 09166994203, "nfcarvajal@up.edu.ph", 59, 177);
-	
+	insert into users(username, password, user_type, firstname, lastname, college. contactno, email, weight, height) values("Tester3", "test", "normal", "nathaniel", "carvajal", "CAS", 09166994203, "nfcarvajal@up.edu.ph", 59, 177);
+
 	insert into venue(latitude, longitude, address, venue_name) values(12.23,32.123, "los banos, laguna", "Copeland Gymasium");
 
 	call addEvent(1, "Malicsihan", "2017-12-23", "2017-12-25");
@@ -466,19 +480,27 @@ DELIMITER ;
 	call addSport("Volleyball");
 	call addSport("Badminton");
 	call addSport("Phil. Games");
+	call addSport("Dota");
+	call addSport("Soccer");
+	call addSport("Volleyball");
 
 	call attachSportToEvent(1, 1);
-	call attachSportToEvent(3, 1);
+	call attachSportToEvent(4, 1);
+	call attachSportToEvent(5, 1);
+	call attachSportToEvent(6, 1);
+	call attachSportToEvent(7, 1);
+
+	call attachSportToEvent(1, 2);
 	call attachSportToEvent(2, 2);
-	call attachSportToEvent(4, 2);
+	call attachSportToEvent(3, 2);
 
 	call addGame(1, 1, 1,  "2017-12-23", "11:59:59", 1, "Ma'am Kat");
 	call addGame(2, 1, 1, "2017-12-23", "11:59:59", 1, "Ma'am K");
 
 	call addTeam("team1");
 	call addTeam("team2");
-	call userJoinsTeam(1, "team1");
 
+	call userJoinsTeam(1, "team1");
 	call userJoinsTeam(1, "team1");
 
 	call teamPlaysGame(1, 1);
