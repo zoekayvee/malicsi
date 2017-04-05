@@ -6,8 +6,11 @@
 
 	function router($routeProvider) {
 		$routeProvider
-			.when('/teams_per/:event_id', {
-				templateUrl: 'layouts/user-view-all-teams.html'
+			.when('/teams/:team_id',{
+				templateUrl: 'layouts/user-view-team.html'
+			})
+			.when('/user/teams', {
+				templateUrl: 'layouts/user-view-teams.html'
 			})
 			.when('/', {
 				templateUrl: 'layouts/login.html'
@@ -33,7 +36,7 @@
 			// 	templateUrl:'layouts/user-event.html'
 			// })
 			.when('/events/:event_id',{
-				templateUrl: 'layouts/events.html',
+				templateUrl: 'layouts/user-view-event.html',
 				controller: 'eventController',
 				controllerAs: 'event'
 			})
@@ -46,14 +49,15 @@
 			.when('/user/scoreboard', {
 				templateUrl: 'layouts/user-scoreboard-page.html'
 			})
-			.when('/teams/:team_id', {
-				templateUrl: 'layouts/user-team-page.html'
-			})	
+			.when('/user/team', {
+				templateUrl: 'layouts/user-view-teams.html'
+			})
 			.when('/user/search', {
 				templateUrl: 'layouts/user-search-page.html'
 			})
-			.otherwise({
-				templateUrl: 'layouts/error.html'
-			})
+
+			// .otherwise({
+			// 	redirectTo: '/'
+			// })
 	}
 })();

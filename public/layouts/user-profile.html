@@ -97,7 +97,6 @@ $('#end-date-pick').calendar();
                             </div>
                         </div>
                     </div>
-
                 </div>
 
                 <div class="ui form" ng-controller = "eventController as event">
@@ -108,7 +107,7 @@ $('#end-date-pick').calendar();
                         </div>
                         <div class="field">
                             <label>Start Date</label>
-                            <div class="ui calendar" id="start-date-pick">
+                            <div class="field " >
                                 <div class="ui input left icon">
                                     <i class="calendar icon"></i>
                                     <input type="text" placeholder="Date/Time" name="start_date" ng-model = "event.dateStart">
@@ -117,7 +116,7 @@ $('#end-date-pick').calendar();
                         </div>
                         <div class="field">
                             <label>End Date</label>
-                            <div class="ui calendar" id="end-date-pick">
+                            <div class="field" >
                                 <div class="ui input left icon">
                                     <i class="calendar icon"></i>
                                     <input type="text" placeholder="Date/Time" name="end_date" ng-model = "event.dateEnd">
@@ -128,7 +127,6 @@ $('#end-date-pick').calendar();
                     </div>
                 </div>
             </div>
-
 
             <!--EVENTS-->
             <div class="ui segment">
@@ -166,7 +164,7 @@ $('#end-date-pick').calendar();
             </div>
 
             <!--SPONSORED EVENTS-->
-            <div class="ui segment">
+            <div class="ui segment" ng-controller = "sponsorController as sponsor">
                 <h3 class="ui right floated header" id="header-section">
                     SPONSORED EVENTS
                     <i class="hand rock icon"></i>
@@ -193,7 +191,13 @@ $('#end-date-pick').calendar();
                         </div>
                     </div>
                 </div>
-                <button class="fluid ui button">SPONSOR EVENT</button>
+                <div class = "ui form">
+                    <div class="field">
+                            <label>Sponsorship</label>
+                            <input type="text" ng-model = "sponsor.sponsorName">
+                    </div>
+                </div>
+                <button class="fluid ui button" ng-click = "sponsor.addSponsor()">ADD SPONSORSHIP</button>
             </div>
 
         </div>
