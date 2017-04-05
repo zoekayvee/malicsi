@@ -61,6 +61,12 @@
 			.when('/admin/all-users', {
 				templateUrl: 'layouts/admin-all-users.html'
 			})
+			.when('/admin/all-events', {
+				templateUrl: 'layouts/admin-all-events.html'
+			})
+			.when('/admin/all-sponsors', {
+				templateUrl: 'layouts/admin-all-sponsors.html'
+			})
 			.otherwise({
 				templateUrl: 'layouts/error.html'
 			})
