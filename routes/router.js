@@ -8,7 +8,7 @@ const sportController =require('../services/sport.service');
 const eventController =require('../services/event.services');
 const teamController = require('../services/team.services');
 const sponsorController = require('../services/sponsor.services');
-// const dashboardController =require('../services/dashboard.service');
+const dashboardController =require('../services/dashboard.service');
 
 
 var path = require('path');
@@ -16,8 +16,8 @@ const express = require('express');
 const router = express.Router();
 
 /*-------------------------DASHBOARD------------------------*/
-// router.get('/viewTeamPlayGame', 			dashboardController.viewTeamPlayGame);
-// router.get('/viewCurrentGames', 			    dashboardController.viewCurrentGame);
+router.get('/viewTeamPlayGame', 			dashboardController.viewTeamPlayGame);
+router.get('/viewCurrentGames', 			    dashboardController.viewCurrentGame);
 // router.get('/viewUpcomingGame', 			dashboardController.viewUpcomingGame);
 
 /*----------------------------------------------------------*/

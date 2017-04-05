@@ -32,11 +32,12 @@
 				controller: 'eventController',
 				controllerAs: 'event'
 			})
-			// .when('/user/events',{
-			// 	templateUrl:'layouts/user-event.html'
-			// })
+			.when('/event',{
+				templateUrl:'layouts/user-event.html'
+			})
 			.when('/events/:event_id',{
-				templateUrl: 'layouts/user-view-event.html',
+				templateUrl:'layouts/user-event.html',
+				// templateUrl:'layouts/user-view-event.html',
 				controller: 'eventController',
 				controllerAs: 'event'
 			})
