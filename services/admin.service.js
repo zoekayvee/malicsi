@@ -154,3 +154,29 @@ exports.viewAllLogs=(req,res)=>{
 	});	
 }
 
+exports.addUser=(req,res)=>{
+	const salt = bcrypt.genSaltSync(saltRounds);
+	const hash = bcrypt.hashSync(req.body.password, salt);
+
+	//automatic normal user
+	const query_string = 'call createUser(?,?,?,?,?,?)';
+	const req_data = [
+		req.body.username,
+		hash,
+		'normal',
+		req.body.firstname,
+		req.body.lastname,
+		req.body.email
+	];
+	
+	connection.query(query_string, req_data, (err,rows)=>{
+		if(!err){
+			res.status(200).send(rows);
+		}
+		else{
+			console.log(err);
+			res.status(500).send(err);
+		}
+	});
+}
+

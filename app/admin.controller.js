@@ -30,6 +30,16 @@
 					console.log('Error');
 				});
 		}
-	}
+
+		function addUser(){
+			// console.log(user_id);
+			$http.post('/addUser/')
+				.then(function(response){
+					console.log('Added User');
+					window.location.reload();
+				}, function(response){
+					console.log('Error');
+				});
+		}
 
 })();
