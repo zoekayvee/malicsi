@@ -43,7 +43,7 @@
                  </div>
                     <button class="ui button team" ng-click = "team.addTeam(event.eventId)">Enlist Team</button>
              </div>
- 
+
 			
 		</table>
 		 <div class="ui form" ng-repeat = "x in event.allEvents" >
@@ -76,7 +76,11 @@
                 </div>
 	</div>
 
+
 <!--	<table class="ui celled table" ng-controller = "sponsorController as sponsor">
+=======
+	<table class="ui celled table" ng-controller = "sponsorController as sponsor">
+>>>>>>> 35685666bab80e71d58699cf1b4e683e1bcfceba
 			<tr>
 				<th> Sponsorships </th>
 				<th>  </th>
@@ -89,6 +93,7 @@
 				</tr>
 			</tbody>
 		</table>
+
 -->
 <div class = "ui container" ng-controller = "sponsorController as sponsor">
 	<form class = "ui" >
@@ -118,6 +123,7 @@
 
 
 </div>
+
 	<div ng-controller = "teamController as team">
 			<table class="ui celled table" ng-init = "team.viewTeamPerEvent()">
 			<tr>
@@ -128,7 +134,11 @@
 
 			<tbody>
 				<tr ng-repeat = "x in team.allTeams">
+
 					<td>{{x.team_name}}</td>
+
+					<td><button class = "ui teal button" ng-click="team.viewTeam(x.team_id)">{{x.team_name}}</button></</td>
+
 					<td><button class = "ui red button" ng-click = "team.deleteTeam(x.team_id)">Delete</button></td>
 				</tr>
 			</tbody>
