@@ -125,9 +125,9 @@ exports.deleteCompetitor=(req,res)=>{
 }
 
 exports.viewLogs=(req,res)=>{
-	const query_string = "SELECT users.user_id,message,firstname FROM logs RIGHT JOIN users ON logs.user_id = users.user_id";
-
-	connection.query(query_string, null, (err,result) =>{
+	const query_string = 'SELECT DATE_FORMAT(log_timestamp,"%b %e %Y %r") Date,message from logs where user_id = ? ';
+	const req_data = [req.params.user_id]
+	connection.query(query_string, req_data, (err,result) =>{
 		if(!err){
 			res.status(200).send(result);
 			console.log(result);
@@ -138,13 +138,13 @@ exports.viewLogs=(req,res)=>{
 		}
 	});	
 }
-
 exports.viewAllLogs=(req,res)=>{
-	const query_string = "SELECT users.user_id,message,firstname FROM logs RIGHT JOIN users ON logs.user_id = users.user_id";
+	const query_string = 'SELECT DATE_FORMAT(log_timestamp,"%b %e %Y %r") Date,message from logs ';
 
 	connection.query(query_string, null, (err,result) =>{
 		if(!err){
 			res.status(200).send(result);
+			console.log('admin');
 			console.log(result);
 		}
 		else{
@@ -153,3 +153,4 @@ exports.viewAllLogs=(req,res)=>{
 		}
 	});	
 }
+

@@ -1,0 +1,26 @@
+<script type='text/javascript' src='js/user-profile.js'></script>
+<div id="main-wrapper" ng-controller = "adminController as admin">
+	<table class = "ui celled table">
+    <thead>
+        <tr>
+            <th>User ID</th>
+            <th>Username</th>
+            <th>Options</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat = "x in admin.allUsers">
+            <td> {{ x.user_id }}
+            </td>
+            <td> {{ x.username }}
+            	<div class="sub-header">{{ x.firstname + " " + x.lastname }}</div>
+            </td>
+            <td>
+            <button class="ui red button" ng-click="admin.deleteUser(x.user_id)">
+                Delete
+            </button>
+            </td>
+        </tr>
+    </tbody>
+    </table>
+</div>

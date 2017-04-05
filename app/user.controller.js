@@ -10,14 +10,14 @@
 		vm.password="";
 		vm.loginUser=loginUser;
         vm.user = {};
-        vm.allLogs = [];
-
+        vm.allLogs = null;
         vm.firstname = "";
 		vm.lastname = "";
 		vm.newUser = {};
+
+
 		vm.registerUser=registerUser;
 		vm.logOut = logOut;
-		vm.getLogs = getLogs;
 		vm.dropDown = dropDown;
 		vm.openModal = openModal;
 		vm.closeModal= closeModal;
@@ -77,8 +77,34 @@
                 }
             });
 
-
-
+            $http   
+            .get('/user_loggedin') 
+            .then(function(response) {
+	        	$http
+	                .get('/users/'+response.data)
+	                .then(function(response) {
+	                    vm.user = response.data;
+	                    if(vm.user.user_type==='normal'){
+		                	$http
+		                        .get('/logs/'+vm.user.user_id)
+		                        .then(function(response) {
+		                        	console.log('here');
+		                            vm.allLogs = response.data;
+		                            console.log(vm.allLogs);
+		                    });
+	                    }
+	                    else{
+		                	$http
+								.get('/logs')
+								.then(function(response) {
+									if(response.data) {
+										vm.allLogs = response.data;
+										console.log(vm.allLogs);
+									} else console.log('Error');
+							});
+		                }
+	                });                
+            });
 
         function setToastr(){
 		    toastr.options.positionClass = "toast-bottom-right";
@@ -234,16 +260,6 @@
 	     				window.location.href=redirect;
 	     			});
 	     }
-
-		function getLogs(){
-			$http
-			.post('/logs')
-			.then(function(response) {
-				if(response.data) {
-					vm.allLogs = response.data;
-				} else console.log('Error');
-			});
-		}
 		function dropDown(){
 			$('.ui.dropdown')
 			  .dropdown()
