@@ -1,4 +1,4 @@
-'use strict';
+'use strict';	
 
 (function() {
 	angular.module('malicsi')
@@ -13,7 +13,8 @@
 				templateUrl: 'layouts/user-view-teams.html'
 			})
 			.when('/', {
-				templateUrl: 'layouts/login.html'
+				templateUrl: 'layouts/login.html',
+				controller:'userController'
 			})
             .when('/user/home', {
 				templateUrl: 'layouts/user-dashboard.html'
@@ -26,6 +27,11 @@
 			})
 			.when('/user/new-event', {
 				templateUrl: 'layouts/user-create-event.html'
+			})
+			.when('/user/event', {
+				templateUrl: 'layouts/user-event.html',
+				controller: 'eventController',
+				controllerAs: 'event'
 			})
 			.when('/user/events', {
 				templateUrl: 'layouts/user-event.html',
@@ -40,14 +46,25 @@
 				controller: 'eventController',
 				controllerAs: 'event'
 			})
-			.when('/user/game', {
-				templateUrl: 'layouts/user-game-page.html'
+			.when('/user/event/:event_id'	, {
+				templateUrl: 'layouts/user-event-sports.html',
+				controller: 'userEventController',
+				controllerAs: 'event'
 			})
-			.when('/user/game/sched', {
-				templateUrl: 'layouts/user-game-sched.html'
+			.when('/user/event/:event_id/scoreboard', {
+				templateUrl: 'layouts/user-scoreboard-page.html',
+				controller:'userGameSchedController',
+				controllerAs:'UGSC'
 			})
-			.when('/user/scoreboard', {
-				templateUrl: 'layouts/user-scoreboard-page.html'
+			.when('/user/game/:game_id', {
+				templateUrl: 'layouts/user-game-page.html',
+				controller:'gameController',
+				controllerAs:'game'
+			})
+			.when('/user/gameSched', {
+				templateUrl: 'layouts/user-game-sched.html',
+				controller:'userGameSchedController',
+				controllerAs:'UGSC'
 			})
 			.when('/hehe', {
 				templateUrl: 'layouts/user-team-page.html'
