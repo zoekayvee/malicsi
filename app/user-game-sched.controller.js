@@ -11,10 +11,12 @@
 		vm.allSportGames;
 		vm.allGames = [];
 		vm.rankList = [];
+		vm.overallList = [];
 		vm.viewGame = viewGame;
 		vm.viewGames = viewGames;
 		vm.viewSports = viewSports;
 		vm.getRanking = getRanking;
+		vm.getOverallRanking = getOverallRanking;
 		vm.viewGamesLeaderboards = viewGamesLeaderboards;
 
 		viewSports();
@@ -74,6 +76,19 @@
 				.post('/ranking/' + sport.sport_id)
 				.then(function(response){
 					vm.rankList = response.data;
+					console.log('Viewing Rank Successful');
+			},
+			function(response){
+				console.log('Error Viewing Rank');
+			});
+
+		}
+
+		function getOverallRanking(sport){
+			$http
+				.post('/overallranking/' + sport.sport_id)
+				.then(function(response){
+					vm.overallList = response.data;
 					console.log('Viewing Rank Successful');
 			},
 			function(response){
