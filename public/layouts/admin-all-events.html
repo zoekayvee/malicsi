@@ -1,9 +1,20 @@
 <link rel="stylesheet" href="css/admin.css"></link>
+<link rel="stylesheet" type="text/css" href="css/admin_homepage.css"> </link>
 <script type='text/javascript' src='js/admin.js'></script>
 
 <div class="ui container" id="main-wrapper" >
-<div class="ui header">
-    Events</div>
+<div class="ui card" id="main_card">
+<div class="content"> 
+            <div class="ui row">
+            <div class="ui horizontal center aligned segments" id="segment">
+                <a class="ui segment" href="/#!/admin/all-users"> Users </a>
+                <a class="ui segment" href="/#!/admin/all-events"> Events </a>
+                <a class="ui segment" href="/#!/admin/all-games"> Games </a>
+                <a class="ui segment" href="/#!/admin/all-sports"> Sports </a>
+                <a class="ui segment" href="/#!/admin/all-sponsors"> Sponsors </a>
+            </div>
+            </div>
+<br>
 <div class="ui row">
     <table class="ui center aligned table">
         <thead>
@@ -102,5 +113,7 @@
         </tfoot>
     </table>
 
+</div>
+</div>
 </div>
 </div>

@@ -1,15 +1,11 @@
 $(document).ready(function(){
-     $('#edit').click(function(){
+     $('.edit-trigger').click(function(){
         $('#edit-modal').modal('show');    
      });
-});
-$(document).ready(function(){
      $('#cancel').click(function(){
         $('#edit-modal').modal('hide');    
      });
-});
-$(document).ready(function(){
-     $('#delete').click(function(){
+       $('.delete-trigger').click(function(){
         $('#delete-modal').modal('show');    
      });
 });

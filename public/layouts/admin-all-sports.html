@@ -1,9 +1,21 @@
 <link rel="stylesheet" href="css/admin.css"></link>
+<link rel="stylesheet" type="text/css" href="css/admin_homepage.css"> </link>
 <script type='text/javascript' src='js/admin.js'></script>
 
 <div class="ui container" id="main-wrapper" >
-<div class="ui header">
-    Sports</div>
+<div class="ui card" id="main_card"> 
+<div class="content">
+<div class="ui row">
+            <div class="ui horizontal center aligned segments" id="segment">
+                <a class="ui segment" href="/#!/admin/all-users"> Users </a>
+                <a class="ui segment" href="/#!/admin/all-events"> Events </a>
+                <a class="ui segment" href="/#!/admin/all-games"> Games </a>
+                <a class="ui segment" href="/#!/admin/all-sports"> Sports </a>
+                <a class="ui segment" href="/#!/admin/all-sponsors"> Sponsors </a>
+            </div>
+            </div>
+
+
 <div class="ui row">
     <table class="ui center aligned table">
         <thead>
@@ -32,12 +44,12 @@
                     </div>
                 </td>
                 <td>
-                    <div class="ui animated button" id="edit">
+                    <div class="ui animated button edit-trigger">
                         <div class="visible content"><i class="edit icon"> </i></div>
                         <div class="hidden content"> Edit </div>
                     </div>
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <div class="ui animated button" id="delete">
+                    <div class="ui animated button delete-trigger">
                         <div class="visible content"><i class="trash icon"> </i></div>
                         <div class="hidden content"> Delete </div>
                     </div>
@@ -74,5 +86,7 @@
         </tfoot>
     </table>
 
+</div>
+</div>
 </div>
 </div>
