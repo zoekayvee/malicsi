@@ -11,3 +11,7 @@ div {
     border-radius: 100%;
     float: right;
 }
+
+.event-section {
+    border: solid 1px red;
+}
