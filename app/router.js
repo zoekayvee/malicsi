@@ -15,6 +15,9 @@
 			.when('/', {
 				templateUrl: 'layouts/login.html'
 			})
+			.when('/register', {
+				templateUrl: 'layouts/register.html'
+			})
             .when('/user/home', {
 				templateUrl: 'layouts/user-dashboard.html'
 			})
