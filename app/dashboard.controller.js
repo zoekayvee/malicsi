@@ -2,14 +2,14 @@
 	'use strict'
 	angular
 		.module('malicsi')
-		.controller('dashboardController', dashboardController);
+		.controller('profileController', profileController);
 
 	function dashboardController($http){
 		var vm = this
 		var teamAndGame = [];
-		vm.sa = "sa";
+		vm.user = {};
 
-		console.log("FIRED");
+		
 	}	
 
 })();

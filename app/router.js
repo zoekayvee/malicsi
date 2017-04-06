@@ -1,10 +1,13 @@
 'use strict';
 
 (function() {
+	var anasvara = "asd";
+
 	angular.module('malicsi')
-			.config(router);
+			.config(router)
 
 	function router($routeProvider) {
+		console.log(anasvara);	
 		$routeProvider
 			.when('/teams/:team_id',{
 				templateUrl: 'layouts/user-view-team.html'
@@ -22,7 +25,7 @@
 				templateUrl: 'layouts/user-dashboard.html'
 			})
 			.when('/user/profile', {
-				templateUrl: 'layouts/user-profile.html'
+				templateUrl: 'layouts/profile.html'
 			})
 			.when('/user/activity-log', {
 				templateUrl: 'layouts/user-activity-log.html'
