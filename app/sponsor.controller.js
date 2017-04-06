@@ -30,6 +30,7 @@
             .then(function(response){
                     console.log(response.data);
                     console.log('Success! Sponsor Added!')
+                    viewAllSponsor();
                 },
                 function(response){
                     console.log("Error :()");
