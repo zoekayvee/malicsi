@@ -6,6 +6,7 @@ Go to directory where malicsidb.sql is located or enter full path to file then r
 
 */
 
+
 GRANT ALL PRIVILEGES ON malicsiDB.* TO "root"@"localhost" WITH GRANT OPTION;
 
 
@@ -453,6 +454,7 @@ CREATE TRIGGER sponsorEventInsert AFTER INSERT ON sponsor_events
 		BEGIN
 			SELECT * FROM sport where sport_name = sportname;
 		END;
+
 %%
 	CREATE PROCEDURE viewSportByEvent(in eventId int unsigned)
 		BEGIN
@@ -488,7 +490,6 @@ CREATE TRIGGER sponsorEventInsert AFTER INSERT ON sponsor_events
 	CREATE PROCEDURE viewAllGamesInSport(in sportId int unsigned, in eventId int unsigned)
 		BEGIN
 			SELECT * FROM game where sport_id = sportId and event_event_id = eventId;
-
 		END;
 %%
 	CREATE PROCEDURE viewAllGames()
@@ -503,6 +504,9 @@ CREATE TRIGGER sponsorEventInsert AFTER INSERT ON sponsor_events
 
 		END;
 %%
+
+	--Winner ADD--
+
 	CREATE PROCEDURE addWinner(in gameid int unsigned, in winnerid int unsigned)
 		BEGIN
 			UPDATE game SET winner_team_id = winnerid where game_id = gameid;
@@ -520,13 +524,16 @@ CREATE TRIGGER sponsorEventInsert AFTER INSERT ON sponsor_events
 			SELECT A.winner_team_id, B.team_name from game as A JOIN team as B on A.game_id = gameid and (B.team_id = A.winner_team_id);
 		END;
 %%
+
+	--CRUD FOR EVENT
+
 	CREATE PROCEDURE addEvent(in userid int unsigned, in eventName varchar(100), in dateStart date, in dateEnd date)
 		BEGIN
 
 			INSERT INTO event(user_id, event_name, date_start, date_end, duration ) VALUES(userid, eventName, dateStart, dateEnd, datediff(dateEnd, dateStart));
 		END;
 %%
-<<<<<<< HEAD
+
 	CREATE PROCEDURE viewEvent(in eventId int unsigned)
 		BEGIN
 
@@ -554,6 +561,9 @@ CREATE TRIGGER sponsorEventInsert AFTER INSERT ON sponsor_events
 			DELETE FROM event where event_id = eventId;
 		END;
 %%
+
+	--CRUD FOR TEAM
+
 	CREATE PROCEDURE addTeam(in teamName varchar(100))
 		BEGIN
 			INSERT INTO team(team_name) VALUES(teamName);
@@ -606,6 +616,10 @@ CREATE TRIGGER sponsorEventInsert AFTER INSERT ON sponsor_events
 			UPDATE game_score SET score = addScore WHERE game_id = gameId and team_id = teamId;
 		END;
 %%
+
+	--CRUD FOR SPONSORS
+
+
 	CREATE PROCEDURE addSponsor(in sponsorName varchar(100))
 		BEGIN
 			INSERT INTO sponsor(sponsor_name) VALUES(sponsorName);
@@ -641,6 +655,11 @@ CREATE TRIGGER sponsorEventInsert AFTER INSERT ON sponsor_events
 			DELETE FROM sponsor where sponsor_id = sponsorId;
 		END;
 %%
+
+
+	--CRUD FOR VENUE
+
+
 	CREATE PROCEDURE addVenue(in latitude float, in longitude float, address varchar(150), in venuename varchar(100))
 		BEGIN
 			INSERT INTO venue(latitude, longitude, address, venue_name) VALUES(latitude, longitude, address, venuename);
@@ -666,6 +685,11 @@ CREATE TRIGGER sponsorEventInsert AFTER INSERT ON sponsor_events
 			UPDATE venue SET venue_name = nvenuename, latitude = nlatitude, longitude = nlongitude, address = naddress where venue_id = venueId;
 		END;
 %%
+
+
+	--LOGIN Functions--
+
+
 	CREATE PROCEDURE login(in uname varchar(50), in pass varchar(50))
 		BEGIN
 			INSERT INTO logs(user_id, message) VALUES((select user_id from users where username = BINARY uname), concat(uname, " logged in"));
@@ -695,12 +719,20 @@ CREATE TRIGGER sponsorEventInsert AFTER INSERT ON sponsor_events
 			DELETE FROM users WHERE user_id LIKE uid;
 		END;
 %%
+
+
+	--User view Logs--
+
+
 	CREATE PROCEDURE userViewLogs(in userid int unsigned)
 		BEGIN
 			SELECT * FROM logs where user_id = userid;
 			INSERT INTO logs(user_id, message) VALUES(userid, concat((select username from users where user_id = userid), " viewed the logs"));
 		END;
 %%
+
+
+	--DUMMY DATA
 
 	insert into users(username, password, user_type, firstname, lastname, college, contactno, email, weight, height) values("Tester", "test", "admin", "nathaniel", "carvajal", "CAS", 09166994203, "nfcarvajal@up.edu.ph", 59, 177);
 	insert into users(username, password, user_type, firstname, lastname, college, contactno, email, weight, height) values("Tester2", "test", "admin", "nathaniel", "carvajal", "CAS", 09166994203, "nfcarvajal@up.edu.ph", 59, 177);
@@ -720,8 +752,14 @@ CREATE TRIGGER sponsorEventInsert AFTER INSERT ON sponsor_events
 	call attachSportToEvent(2, 2);
 	call attachSportToEvent(4, 2);
 
+
 	call addGame(1, 1, 1,  "2017-12-23", "11:59:59", 1, "Ma'am Kat");
 	call addGame(2, 1, 1, "2017-12-23", "11:59:59", 1, "Ma'am K");
+=======
+
+	call addGame(1, 1, "2017-12-23", "11:59:59", 1, "Ma'am Kat");
+	call addGame(2, 1, "2017-12-23", "11:59:59", 1, "Ma'am K");
+
 
 	call addTeam("team1");
 	call addTeam("team2");
@@ -742,4 +780,6 @@ CREATE TRIGGER sponsorEventInsert AFTER INSERT ON sponsor_events
 	call sponsorEvent(2, 2);
 	call sponsorEvent(3, 1);
 	call sponsorEvent(3, 2);
-	
+
+
+	--call deleteUser(2);
