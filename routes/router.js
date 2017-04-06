@@ -32,11 +32,7 @@ router.get('/user/events/:user_id',      userController.viewUserEvents);
 router.get('/user/sponsored/:user_id',      userController.viewUserEvents);
 router.get('/user/interests/:user_id',      userController.viewUserInterests);
 router.put('/users/updateInterests/:user_id', userController.updateInterests);
-
-router.post('/addUser',          adminController.addUser);
-
-router.put('/updatePass/:user_id',          adminController.updateUserPassword);
-router.put('/approveUser/:user_id',          adminController.approveUser);
+router.put('/users/:user_id',          adminController.updateUser);
 
 router.put('/users/:user_id',          adminController.updateUser);
 router.delete('/users/:user_id',       adminController.removeUser);

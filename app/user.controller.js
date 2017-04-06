@@ -8,6 +8,7 @@
 		var vm = this;
 		vm.username="";
 		vm.password="";
+		vm.user_type="";
 		vm.loginUser=loginUser;
         vm.user = {};
         vm.allLogs = null;
@@ -132,6 +133,7 @@
 			$http.post('/login', credentials)
 				.then(function (response){
 					var redirect = response.data.redirect;
+					
 					console.log(redirect);
 					vm.user = response.data
 					if (redirect === '/#!/user/home'){
@@ -151,7 +153,8 @@
 
 		function registerUser(){
 			setToastr();
-			$http
+			
+				$http
 				.post('/users', vm.newUser)
 				.then(function(response){
 					console.log(response.data);
@@ -171,6 +174,8 @@
 						redirectLocation('no');
 					}, 500);
 				});
+
+			
 		}
 
 		function updateInterest(){

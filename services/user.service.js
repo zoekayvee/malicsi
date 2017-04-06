@@ -28,18 +28,34 @@ exports.login=(req,res)=>{
 	        	console.log('Login session is not yet finished...');
 	            return res.status(404).send({message: 'Login session is not yet finished.'});
 	            //comment if we don't have authentication THIS should work
+	        }
+	        else if (req.session.usertype === 'pending'){
+	        	console.log(req.session.usertype);
+	        	return res.status(404).send({message: 'User not yet approved'});
 	        } 
 	        else{
 	        	var hash = rows[0].password;
 		   		if(bcrypt.compareSync(user.password, hash)){
-		   			console.log('SUCCESSFULLY LOGGED IN!');
-					req.session.userid = rows[0].user_id
+		   			
+		   			 if (rows[0].user_type === 'pending'){
+			        	console.log(req.session.usertype);
+			  
+			        	return res.status(404).send({message: 'User not yet approved'});
+			        	res.json({
+			        		redirect: '/#!/'
+			        	});
+			        }
+			        else{
+			        	req.session.userid = rows[0].user_id
 					req.session.usertype = rows[0].user_type
-					var json =  JSON.parse((JSON.stringify(rows[0])));
-					//console.log(json);
-					res.json({
-					redirect: '/#!/user/home'	
-					});
+			        	console.log('SUCCESSFULLY LOGGED IN!');
+						var json =  JSON.parse((JSON.stringify(rows[0])));
+						//console.log(json);
+						res.json({
+						redirect: '/#!/user/home'	
+						});
+			        }
+		   			
 		   		}
 		   		else{
 		   			res.status(404).send({message: 'Wrong username or password.'}); 
@@ -72,7 +88,7 @@ exports.registerUser=(req,res)=>{
 	const req_data = [
 		req.body.username,
 		hash,
-		"normal",
+		'pending',
 		req.body.firstname,
 		req.body.lastname,
 		req.body.email
