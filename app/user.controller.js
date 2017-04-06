@@ -155,13 +155,13 @@
 					console.log(redirect);
 					vm.user = response.data
 					if (redirect === '/#!/user/home'){
-						toastr.success('Login successful!');
+						toastr.success(response.data.message);
 						setTimeout(function(){
 							redirectLocation(redirect);
 						}, 500);
 					}
 				}, function (response){	
-					toastr.error('Invalid input!');
+					toastr.error(response.data.message);
 					console.log('Error');
 					setTimeout(function(){
 						redirectLocation('no');
@@ -183,7 +183,7 @@
 					toastr.success('Successfully sent account approval to admin!');
 				},
 				function(response){
-					toastr.error('Error on input!');
+					toastr.error('Error in input!');
 					console.log('Error');
 					setTimeout(function(){
 						redirectLocation('no');
