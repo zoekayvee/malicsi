@@ -98,7 +98,9 @@ router.delete('/winner', 					winnerController.deleteAllWinners);
 
 //additional
 router.post('/ranking/:sport_id', 					gameController.getRanking);
-router.post('/bet', 						gameController.bet);
+router.post('/bet/:user_id', 						gameController.bet);
+router.get('/bet/:user_id/:game_id', 						gameController.betStatus);
+router.get('/scores/:game_id/:team_id', 						gameController.getScores);
 router.get('/sport/event/:event_id', 		sportController.viewSportsByEvent);
 router.post('/game/sport/:sport_id', 		gameController.viewGamesBySport);
 router.get('/schedule/:sport_id', 		gameController.viewScheds);

@@ -64,7 +64,7 @@ exports.viewGamesBySport = (req,res) =>{
 
 // VIEWING INDIVIDUAL GAME THROUGH 'game_id' (JOINED WITH TABLES (VENUE, SPORTS, TEAM, TEAM_PLAYS_GAME`))
 exports.viewGame = (req,res) =>{
-	var query = 'SELECT distinct S.sport_name, G.game_id, A.team_name, GS.team_score as score, T1.bet_count, T1.team_id, B.team_name as team_name_2, GS2.team_score as score_2, T2.bet_count as bet_count_2, T2.team_id as team_id_2 FROM team A, team B, game G, venue V, sport S,team_plays_game T1,team_plays_game T2,game_score GS, game_score GS2 WHERE A.team_id IN (SELECT team_id FROM team_plays_game WHERE game_id = ?) AND B.team_id IN (SELECT team_id FROM team_plays_game WHERE game_id = ?) AND A.team_id != B.team_id AND S.sport_id = G.sport_id AND T1.team_id = A.team_id AND T2.team_id = B.team_id AND T1.game_id = T2.game_id AND T1.game_id = ? AND G.game_id = ? and T1.team_id = GS.team_score_id and T2.team_id = GS2.team_score_id LIMIT 1';
+	var query = 'SELECT distinct S.sport_name, G.game_id, A.team_name, A.team_id, T1.bet_count, T1.team_id, B.team_name as team_name_2, B.team_id as team_id_2, T2.bet_count as bet_count_2, T2.team_id as team_id_2 FROM team A, team B, game G, venue V, sport S,team_plays_game T1,team_plays_game T2,game_score GS, game_score GS2 WHERE A.team_id IN (SELECT team_id FROM team_plays_game WHERE game_id = ?) AND B.team_id IN (SELECT team_id FROM team_plays_game WHERE game_id = ?) AND A.team_id != B.team_id AND S.sport_id = G.sport_id AND T1.team_id = A.team_id AND T2.team_id = B.team_id AND T1.game_id = T2.game_id AND T1.game_id = ? AND G.game_id = ? LIMIT 1;';
 	const data = [
 		req.params.game_id,
 		req.params.game_id,
@@ -87,6 +87,28 @@ exports.viewGame = (req,res) =>{
 	})
 }
 
+exports.betStatus = (req,res) =>{
+	var query = 'SELECT * from users where user_id = ? and user_id IN (select b_player_id from bet_status where b_game_id = ?)';
+	const data = [
+		req.params.user_id,
+		req.params.game_id
+	];
+	console.log(data);
+	var id = connection.query(
+		query,
+		data,
+		(err, rows) => {
+			if(!err){
+				console.log("Betting Status:" + rows[0] + " " + rows.length);
+				res.send(rows);
+			}
+			else{
+				console.log(err);
+				res.send('Server Error');
+			}
+	})
+}
+
 exports.bet = (req,res) =>{
 	var query = 'UPDATE team_plays_game set bet_count = bet_count + 1 WHERE game_id = ? and team_id = ?';
 	const data = [
@@ -100,6 +122,14 @@ exports.bet = (req,res) =>{
 		(err, rows) => {
 			if(!err){
 				console.log("Betting Success");
+				const data2 = [
+					req.body.game_id,
+					req.params.user_id
+				];
+				var query2 = 'call betStatus (?,?)';
+				var id = connection.query( query2, data2, (err, rows) => { if(!err){ } })
+
+
 				// res.send(rows[0]);
 			}
 			else{
@@ -157,7 +187,7 @@ exports.viewScheds = (req,res) =>{
 // VIEWING LEADERBOARDS THROUGH 'sport_id' (TABLES (GAME, SPORT, VENUE, TEAM, TEAM_PLAYS_GAME))
 exports.viewLeaderboards = (req,res) =>{
 	// SELECT distinct G.game_id, G.date_start,V.venue_name, A.team_name, T1.score, B.team_name as team_name_2, T2.score as score2 , G.referee FROM team A, team B, game G, venue V, sport S, team_plays_game T1, team_plays_game T2 WHERE A.team_id IN (SELECT team_id FROM team_plays_game WHERE G.sport_id = 1) AND B.team_id IN (SELECT team_id FROM team_plays_game WHERE G.sport_id = 1) AND A.team_id != B.team_id and A.team_id = T1.team_id and B.team_id = T2.team_id and G.game_id = T1.game_id and V.venue_id = G.venue_id and G.sport_id = S.sport_id and G.sport_id = 1
-	var query = 'SELECT distinct G.game_id, G.date_start,V.venue_name, A.team_name, GS.team_score as score, B.team_name as team_name_2, GS2.team_score as score2 , G.referee FROM team A, team B, game G, venue V, sport S, team_plays_game T1, team_plays_game T2, game_score GS, game_score GS2 WHERE A.team_id IN (SELECT team_id FROM team_plays_game WHERE G.sport_id = ?) AND B.team_id IN (SELECT team_id FROM team_plays_game WHERE G.sport_id = ?) AND A.team_id != B.team_id and A.team_id = T1.team_id and B.team_id = T2.team_id and T1.game_id = T2.game_id  and G.game_id = T1.game_id and V.venue_id = G.venue_id and G.sport_id = S.sport_id and G.sport_id = ?;';
+	var query = 'SELECT distinct G.game_id, G.date_start,V.venue_name, A.team_name, A.team_id,  B.team_name as team_name_2, B.team_id as team_id_2, G.referee FROM team A, team B, game G, venue V, sport S, team_plays_game T1, team_plays_game T2 WHERE A.team_id IN (SELECT team_id FROM team_plays_game WHERE G.sport_id = ?) AND B.team_id IN (SELECT team_id FROM team_plays_game WHERE G.sport_id = ?) AND A.team_id != B.team_id and A.team_id = T1.team_id and B.team_id = T2.team_id and T1.game_id = T2.game_id  and G.game_id = T1.game_id and V.venue_id = G.venue_id and G.sport_id = S.sport_id and G.sport_id = ? order by game_id;';
 	const data = [
 		req.params.sport_id,
 		req.params.sport_id,
@@ -176,6 +206,29 @@ exports.viewLeaderboards = (req,res) =>{
 				res.send('Server Error');
 			}
 	})
+}
+
+exports.getScores = (req,res) => {
+	var query = 'select team_score from game_score where game_id in (select game_id from game where game_id=?) and team_score_id = ?;';
+	const data = [
+		req.params.game_id,
+		req.params.team_id
+	];
+	var id = connection.query(
+		query,
+		data,
+		(err, rows) => {
+			if(!err){
+				console.log("Retrieving score Success");
+				res.send(rows);
+			}
+			else{
+				console.log(err);
+				res.send('Server Error');
+			}
+
+	})
+
 }
 
 // VIEWING ALL GAMES 

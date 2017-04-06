@@ -10,11 +10,18 @@
 		vm.game = null;
 		vm.allGames = null;
 		vm.game_id;
+		vm.user_id = 1;
+		vm.score = 0;
+		vm.score2 = 0;
 		vm.addGame = addGame;
 		vm.updateGame = updateGame;
 		vm.deleteGame = deleteGame;
+		vm.getScores = getScores;
+		vm.getScores2 = getScores2;
 		vm.deleteAllGames = deleteAllGames;
 		vm.viewGame = viewGame;
+		vm.canBet = canBet;
+		vm.userCanbet = true;
 		vm.viewAllGames = viewAllGames;
 		vm.bet = bet;
 		vm.addSportId = null;
@@ -53,12 +60,27 @@
 				.get('/game/' + $routeParams.game_id)
 				.then(function(response){
 					vm.game = response.data;
+					vm.getScores(vm.game);
+					vm.getScores2(vm.game);
 					console.log('Viewing Game Successful');
 			},
 			function(response){
 				console.log('Error Viewng Game');
 			});
+		}
 
+		function canBet(){
+			$http
+				.get('/bet/' + vm.user_id + '/' + $routeParams.game_id )
+				.then(function(response){
+					if(response.data.length == 0){
+						vm.userCanbet = true;
+					}
+					else vm.userCanbet = false;
+			},
+			function(response){
+				console.log('Error Viewng Game');
+			});
 		}
 
 		function bet(game_id,team_id){
@@ -67,7 +89,7 @@
 				team_id: team_id
 			}
 			$http
-				.post('/bet',bet)
+				.post('/bet/' + vm.user_id,bet)
 				.then(function(response){
 					// vm.game = response.data;
 					console.log('Betting Successful');
@@ -127,6 +149,29 @@
 			},
 			function(response){
 				console.log('Error Deleting All Games');
+			});
+		}
+
+		function getScores(game){
+			$http
+				.get('/scores/' + game.game_id + '/' + game.team_id)
+				.then(function(response){
+					if(response.data.length!=0) vm.score = response.data[0].team_score;
+			},
+			function(response){
+				console.log('Error Viewing Score');
+			});
+		}
+
+
+		function getScores2(game){
+			$http
+				.get('/scores/' + game.game_id + '/' + game.team_id_2)
+				.then(function(response){
+					if(response.data.length!=0) vm.score2 = response.data[0].team_score;
+			},
+			function(response){
+				console.log('Error Viewing Score');
 			});
 		}
 	}
