@@ -33,7 +33,7 @@
 
 		function addUser(){
 			// console.log(user_id);
-			$http.post('/addUser/')
+			$http.post('/addUser')
 				.then(function(response){
 					console.log('Added User');
 					window.location.reload();
@@ -51,8 +51,6 @@
 					console.log('Cannot update user password');
 				});
 		}
-
-
 	}
 
 })();

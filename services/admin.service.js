@@ -31,8 +31,11 @@ exports.removeUser=(req,res)=>{
 		});
 }
 exports.updateUserPassword= (req,res) =>{
+	const salt = bcrypt.genSaltSync(saltRounds);
+	const hash = bcrypt.hashSync(req.body.password, salt);
+
 	const query_string = 'UPDATE users SET password = ? WHERE user_id = ?';
-	const req_data = [req.body.password,
+	const req_data = [hash,
 					  req.params.user_id];
     connection.query(query_string, req_data, (err,result) => {
     	if (!err) {
@@ -44,7 +47,7 @@ exports.updateUserPassword= (req,res) =>{
     })
 } 
 
-exports.approveUser= (req,res) =>{
+exports.approveUser = (req,res) =>{
 	const query_string = 'UPDATE users SET user_type = ? WHERE user_id = ?';
 	const req_data = [req.body.user_type,
 					  req.params.user_id];
