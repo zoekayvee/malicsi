@@ -1,0 +1,40 @@
+<link rel='stylesheet' href='css/user-view-event.css'/>
+
+<div id="main-wrapper" ng-controller = "eventController as event">
+	<div class="ui grid container">
+
+		<div class="four wide column" ng-init = "event.viewClickedEvent()">
+			<div class="ui card" ng-repeat = "x in event.allEvents">
+				<h2>{{x.event_name}}</h2>
+				Start Date:{{x.date_start}}<br>
+				End Date:{{x.date_end}}<br>
+				<div id="command-panel">
+					<button class="command-btn"><i class="write icon"></i></button>
+					<button class="command-btn"><i class="delete icon"></i></button>
+				</div>
+			</div>
+			<div class="ui card">
+				<button class="ui button" id="join-button">Join</button>
+			</div>
+		</div>
+
+		<div class="eight wide column">
+			<div class="event-section">
+				<h1>Sports</h1>
+				<div class="ui divider"></div>
+				Content.
+			</div>
+
+			<div class="event-section">
+				<h1>Sports</h1>
+				<div class="ui divider"></div>
+				Content.
+			</div>
+
+		</div>
+
+		<div class="four wide column">
+		</div>
+
+	</div>
+</div>

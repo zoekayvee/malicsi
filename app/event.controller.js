@@ -15,7 +15,6 @@
         vm.eventId = "";
         vm.allowReg = "";
         vm.allEvents = [];
-        vm.currEvent = null;
         vm.addEvent = addEvent;
         vm.viewAllEvent = viewAllEvent;
         vm.deleteEvent = deleteEvent;
@@ -55,14 +54,11 @@
         }
 
         function viewEvent(id){
-            console.log(id);
             $location.path('/events/' + id)
             $http
                 .get('/events/' + id)
                 .then(function(response){
                     vm.allEvents = response.data[0];
-                    console.log(response.data[0])
-                    console.log(vm.allEvents[0]);
                     if(vm.allEvents[0] == undefined){
                         $location.path('/user/events');
                     }
@@ -71,6 +67,8 @@
                     console.log("response data" + vm.allEvents[0].event_id);
                     console.log('Viewing event ' + vm.allEvents[0].event_name);
                     console.log(vm.eventId);
+                    //$window.localStorage.setItem("event_id",vm.eventId);
+                    //console.log($window.localStorage);
                     }
                 });
         }
@@ -81,7 +79,7 @@
                 .then(function(response){
                     vm.allEvents = [];
                     vm.eventId = $routeParams.event_id;
-                    vm.allEvents = response.data[0][0];
+                    vm.allEvents = response.data[0];
                     if(vm.allEvents[0] == undefined){
                         vm.allEvents = [];
                         $location.path('/user/events');
