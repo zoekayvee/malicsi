@@ -11,6 +11,9 @@
 		vm.allUsers = [];
 		vm.deleteUser = deleteUser;
 
+		vm.openModal = openModal;
+		vm.closeModal= closeModal;
+
 		$http
 			.get('/users')
 			.then(function(response) {
@@ -50,6 +53,19 @@
 				}, function(response){
 					console.log('Cannot update user password');
 				});
+		}
+
+		function openModal(dmodal){
+			$('#'+dmodal+'.modal')
+		 	.modal('setting', {
+				 closable: false
+			})
+			.modal('show');
+		
+		}
+		function closeModal(dmodal){
+			$('#'+dmodal+'.modal')
+			 	.modal('hide');	
 		}
 	}
 

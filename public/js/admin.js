@@ -1,0 +1,14 @@
+$(document).ready(function(){
+     $('#add-user').click(function(){
+        $('#add-modal').modal('show');    
+     });
+     $('#cancel').click(function(){
+        $('#edit-modal').modal('hide');    
+     });
+     $('#delete').click(function(){
+        $('#delete-modal').modal('show');    
+     });
+     $('.edit-trigger').click(function(){
+        $('#edit-modal').modal('show');    
+     });
+});
