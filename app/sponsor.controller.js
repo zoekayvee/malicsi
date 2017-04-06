@@ -21,6 +21,10 @@
         vm.getSponsorByEvent = getSponsorByEvent;
         vm.setSponsorId = setSponsorId;
         vm.deleteSponsorFromEvent = deleteSponsorFromEvent;
+        vm.viewAllSponsor = viewAllSponsor;
+        vm.setSponsor = setSponsor;
+        vm.updateSponsorName;
+         vm.updateSponsorId; 
         function addSponsor() {    
             var sponsorToBeAdded = {
                  sponsor_name: vm.sponsorName
@@ -104,6 +108,7 @@
             .delete('/sponsors/'+id)
             .then(function(response){
             console.log('Sponsor deleted')
+            viewAllSponsor();
         },
         function(response){
             console.log("error");   
@@ -126,11 +131,17 @@
                 console.log("error");
             })
     }
+    function setSponsor(sponsor_name,sponsor_id){
+        console.log(sponsor_name);
+        vm.updateSponsorName = sponsor_name;
+        vm.updateSponsorId = sponsor_id
+    }
 
     function updateSponsor() {
+        
             var sponsorToBeUpdated = {
-                sponsor_id: vm.newSponsorId,
-                sponsor_name: vm.newSponsorName
+                sponsor_id: vm.updateSponsorId,
+                sponsor_name: vm.updateSponsorName
             };
             $http
                 .put('/sponsors', sponsorToBeUpdated)

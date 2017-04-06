@@ -236,7 +236,7 @@ DELIMITER %%
 				INSERT INTO logs(message) VALUES(concat("Deleted sponsor: ", OLD.sponsor_name));
 			END;
 %%
-	--SPONSOR OF EVENTS
+	-- SPONSOR OF EVENTS
 CREATE TRIGGER sponsorEventInsert AFTER INSERT ON sponsor_events
 		FOR EACH ROW
 			BEGIN
@@ -255,7 +255,7 @@ CREATE TRIGGER sponsorEventInsert AFTER INSERT ON sponsor_events
 				INSERT INTO logs(message) VALUES(concat(name, " stopped sponsoring on event: ",eventname));
 			END;
 %%
-	--COMPETITOR/TEAM
+	-- COMPETITOR/TEAM
 	CREATE TRIGGER competitorInsert AFTER INSERT ON team
 		FOR EACH ROW
 			BEGIN
@@ -505,7 +505,7 @@ CREATE TRIGGER sponsorEventInsert AFTER INSERT ON sponsor_events
 		END;
 %%
 
-	--Winner ADD--
+	-- Winner ADD--
 
 	CREATE PROCEDURE addWinner(in gameid int unsigned, in winnerid int unsigned)
 		BEGIN
@@ -525,7 +525,7 @@ CREATE TRIGGER sponsorEventInsert AFTER INSERT ON sponsor_events
 		END;
 %%
 
-	--CRUD FOR EVENT
+	-- CRUD FOR EVENT
 
 	CREATE PROCEDURE addEvent(in userid int unsigned, in eventName varchar(100), in dateStart date, in dateEnd date)
 		BEGIN
@@ -562,7 +562,7 @@ CREATE TRIGGER sponsorEventInsert AFTER INSERT ON sponsor_events
 		END;
 %%
 
-	--CRUD FOR TEAM
+	-- CRUD FOR TEAM
 
 	CREATE PROCEDURE addTeam(in teamName varchar(100))
 		BEGIN
@@ -617,7 +617,7 @@ CREATE TRIGGER sponsorEventInsert AFTER INSERT ON sponsor_events
 		END;
 %%
 
-	--CRUD FOR SPONSORS
+	-- CRUD FOR SPONSORS
 
 
 	CREATE PROCEDURE addSponsor(in sponsorName varchar(100))
@@ -657,7 +657,7 @@ CREATE TRIGGER sponsorEventInsert AFTER INSERT ON sponsor_events
 %%
 
 
-	--CRUD FOR VENUE
+	-- CRUD FOR VENUE
 
 
 	CREATE PROCEDURE addVenue(in latitude float, in longitude float, address varchar(150), in venuename varchar(100))
@@ -687,7 +687,7 @@ CREATE TRIGGER sponsorEventInsert AFTER INSERT ON sponsor_events
 %%
 
 
-	--LOGIN Functions--
+	-- LOGIN Functions--
 
 
 	CREATE PROCEDURE login(in uname varchar(50), in pass varchar(50))
@@ -721,7 +721,7 @@ CREATE TRIGGER sponsorEventInsert AFTER INSERT ON sponsor_events
 %%
 
 
-	--User view Logs--
+	-- User view Logs--
 
 
 	CREATE PROCEDURE userViewLogs(in userid int unsigned)
@@ -732,7 +732,7 @@ CREATE TRIGGER sponsorEventInsert AFTER INSERT ON sponsor_events
 %%
 
 
-	--DUMMY DATA
+	-- DUMMY DATA
 
 	insert into users(username, password, user_type, firstname, lastname, college, contactno, email, weight, height) values("Tester", "test", "admin", "nathaniel", "carvajal", "CAS", 09166994203, "nfcarvajal@up.edu.ph", 59, 177);
 	insert into users(username, password, user_type, firstname, lastname, college, contactno, email, weight, height) values("Tester2", "test", "admin", "nathaniel", "carvajal", "CAS", 09166994203, "nfcarvajal@up.edu.ph", 59, 177);
@@ -755,11 +755,6 @@ CREATE TRIGGER sponsorEventInsert AFTER INSERT ON sponsor_events
 
 	call addGame(1, 1, 1,  "2017-12-23", "11:59:59", 1, "Ma'am Kat");
 	call addGame(2, 1, 1, "2017-12-23", "11:59:59", 1, "Ma'am K");
-=======
-
-	call addGame(1, 1, "2017-12-23", "11:59:59", 1, "Ma'am Kat");
-	call addGame(2, 1, "2017-12-23", "11:59:59", 1, "Ma'am K");
-
 
 	call addTeam("team1");
 	call addTeam("team2");
@@ -782,4 +777,4 @@ CREATE TRIGGER sponsorEventInsert AFTER INSERT ON sponsor_events
 	call sponsorEvent(3, 2);
 
 
-	--call deleteUser(2);
+	-- call deleteUser(2);
