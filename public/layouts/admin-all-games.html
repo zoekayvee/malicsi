@@ -46,25 +46,27 @@
                                                 <div class="ui calendar" id="start-date-pick">
                                                     <div class="ui input left icon">
                                                         <i class="calendar icon"></i>
-                                                        <input type="text" placeholder="Date" name="start_date">
+                                                        <input type="text" placeholder="Date" name="date_start" ng-model="game.dateStart">
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="field">
                                                 <label> Time Start </label>
-                                                <div class="ui calendar" id="start-date-pick">
-                                                    <div class="ui input left icon">
-                                                        <i class="calendar icon"></i>
-                                                        <input type="text" placeholder="Date" name="start_date">
-                                                    </div>
+                                                <div class="ui input left icon">
+                                                    <i class="wait icon"></i>
+                                                    <input type="text" placeholder="Time" name="time_start" ng-model="game.timeStart">
                                                 </div>
                                             </div>
-                                    </div>
+                                        </div>
+                                        <div class="field">
+                                            <label> Referee </label>
+                                            <input type="text">
+                                        </div>
                                     <br>
                                     <div class="ui button" id="cancel">Cancel</div>
                                     <div class="ui button">Submit</div>
-                            </div>
-                    </div>
+                                    </div>
+                                </div>
                 </td>
                 <td>
                     <div class="ui animated button" id="delete">
@@ -96,7 +98,7 @@
             <tr>
                 <th colspan="100%">
                     <div class="ui right floated small primary labeled icon button">
-                        <i class="add to calendar icon"></i> Add Event
+                        <i class="add square icon"></i> Add Game
                     </div>
                 </th>
             </tr>
