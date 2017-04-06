@@ -92,6 +92,7 @@
 		                        	console.log('here');
 		                            vm.allLogs = response.data;
 		                            console.log(vm.allLogs);
+		                           modifyTime();
 		                    });
 	                    }
 	                    else{
@@ -101,12 +102,29 @@
 									if(response.data) {
 										vm.allLogs = response.data;
 										console.log(vm.allLogs);
+										modifyTime();
 									} else console.log('Error');
+
 							});
 		                }
 	                });                
             });
 
+        function modifyTime(){
+        	 vm.allLogs.forEach(function(e){
+            	if(e.Minutes<60){
+            		e.Time=e.Minutes + "m ago ";		
+            	}
+            	else if(e.Hour<24){
+            		e.Time = e.Hour + "h ago " ;
+            	}
+            	else{
+            		e.Time = e.Date;
+            	}
+            	
+  				
+            });
+        }
         function setToastr(){
 		    toastr.options.positionClass = "toast-bottom-right";
 		    toastr.options.closeButton = true;
@@ -162,10 +180,7 @@
 					vm.username= vm.newUser.username;
 					vm.password= vm.newUser.password; 
 					vm.newUser={};
-					toastr.success('User successfully created!');
-					setTimeout(function(){
-					   loginUser();
-					  }, 1000 );
+					toastr.success('Successfully sent account approval to admin!');
 				},
 				function(response){
 					toastr.error('Error on input!');

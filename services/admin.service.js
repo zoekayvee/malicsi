@@ -151,12 +151,11 @@ exports.deleteCompetitor=(req,res)=>{
 }
 
 exports.viewLogs=(req,res)=>{
-	const query_string = 'SELECT DATE_FORMAT(log_timestamp,"%b %e %Y %r") Date,message from logs where user_id = ? ';
+	const query_string = 'SELECT DATE_FORMAT(log_timestamp,"%b %e %Y %r") Date, timestampdiff(minute,log_timestamp,now())Minutes,timestampdiff(hour,log_timestamp,now())Hour,(now()) Time,message from logs where user_id = ? ';
 	const req_data = [req.params.user_id]
 	connection.query(query_string, req_data, (err,result) =>{
 		if(!err){
 			res.status(200).send(result);
-			console.log(result);
 		}
 		else{
 			console.log(err);
@@ -165,13 +164,11 @@ exports.viewLogs=(req,res)=>{
 	});	
 }
 exports.viewAllLogs=(req,res)=>{
-	const query_string = 'SELECT DATE_FORMAT(log_timestamp,"%b %e %Y %r") Date,message from logs ';
+	const query_string = 'SELECT DATE_FORMAT(log_timestamp,"%b %e %Y %r") Date, timestampdiff(minute,log_timestamp,now())Minutes, timestampdiff(hour,log_timestamp,now())Hour,(now()) Time,message from logs ';
 
 	connection.query(query_string, null, (err,result) =>{
 		if(!err){
 			res.status(200).send(result);
-			console.log('admin');
-			console.log(result);
 		}
 		else{
 			console.log(err);
