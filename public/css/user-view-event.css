@@ -13,5 +13,6 @@ div {
 }
 
 .event-section {
-    border: solid 1px red;
+    /*border: solid 1px red;*/
+    margin-bottom: 20px;
 }
