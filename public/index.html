@@ -23,7 +23,7 @@
                 <div class="alight right ui simple dropdown item" ng-controller= "userController as user">
                    {{user.user.firstname + " " + user.user.lastname}} <i class="dropdown icon"></i>
                     <div class="menu">
-                        <a class="item" href="/#!/user/profile">Profile</a>
+                        <a class="item" href="#!/user/profile">Profile</a>
                         <a class="item" href="/#!/user/activity-log">Activity Log</a>
                         <a class="item" href="#" ng-click="user.logOut()">Logout</a>
                     </div>
@@ -70,7 +70,9 @@
     <script src = "user.controller.js"></script>
     <script src = "admin.controller.js"></script>
     <script src = "profile.controller.js"></script>
+    <script src = "activity-log.controller.js"></script>
     <script src = "logged.user.controller.js"></script>
+    <script src = "dashboard.controller.js"></script>
     <script type="text/javascript" src="router.js"></script>
 
 </html>

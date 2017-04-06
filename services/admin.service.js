@@ -170,8 +170,6 @@ exports.viewAllLogs=(req,res)=>{
 	connection.query(query_string, null, (err,result) =>{
 		if(!err){
 			res.status(200).send(result);
-			console.log('admin');
-			console.log(result);
 		}
 		else{
 			console.log(err);
