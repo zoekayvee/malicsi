@@ -71,6 +71,49 @@
                                         <input type="text" placeholder="{{update.user.lastname}}" ng-model="lastname">
                                     </div>
                                 </div>
+<<<<<<< HEAD
+                            </div>
+                        </div>
+                        <!--LIST OF ABOUTS-->
+                        <div class="ui very relaxed list">
+                            <div class="item">
+                                {{profile.user.firstname + " " + profile.user.lastname}}
+                            </div>
+                            <div class="item">
+                                {{profile.user.college}}
+                            </div>
+                            <div class="item">
+                                {{profile.user.contactno}}
+                            </div>
+                            <div class="item">
+                                {{profile.user.email}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ui form" ng-controller = "eventController as event">
+                    <div class="fields">
+                        <div class="field">
+                            <label>Event name</label>
+                            <input type="text" ng-model = "event.eventName" name="event_name">
+                        </div>
+                        <div class="field">
+                            <label>Start Date</label>
+                            <div class="field " >
+                                <div class="ui input left icon">
+                                    <i class="calendar icon"></i>
+                                    <input type="text" placeholder="Date/Time" name="start_date" ng-model = "event.dateStart">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label>End Date</label>
+                            <div class="field" >
+                                <div class="ui input left icon">
+                                    <i class="calendar icon"></i>
+                                    <input type="text" placeholder="Date/Time" name="end_date" ng-model = "event.dateEnd">
+=======
                                 <div class="ui equal width form">
                                     <div class="fields">
                                         <div class="field">
@@ -89,6 +132,7 @@
                                         <option value="M">Male</option>
                                         <option value="F">Female</option>
                                     </select>
+>>>>>>> 67ba8ccfcdaa93bd006cb70e39408e118a3e7dc2
                                 </div>
                             </div>
                             <div class="ui actions">
@@ -98,6 +142,9 @@
                         </form>
                     </div>
                 </div>
+<<<<<<< HEAD
+            </div>
+=======
 
                 <!--ABOUT-->
                 <table class="ui very basic collapsing celled table">
@@ -130,6 +177,7 @@
                             <td>Height</td>
                             <td>{{user.user.height}}</td>
                         </tr>
+>>>>>>> 67ba8ccfcdaa93bd006cb70e39408e118a3e7dc2
 
                     </tbody>
                 </table>
@@ -197,7 +245,7 @@
             </div>
 
             <!--SPONSORED EVENTS-->
-            <div class="ui segment">
+            <div class="ui segment" ng-controller = "sponsorController as sponsor">
                 <h3 class="ui right floated header" id="header-section">
                     SPONSORED EVENTS
                     <i class="hand rock icon"></i>
@@ -237,9 +285,19 @@
                         </div>
                     </div>
                 </div>
+<<<<<<< HEAD
+                <div class = "ui form">
+                    <div class="field">
+                            <label>Sponsorship</label>
+                            <input type="text" ng-model = "sponsor.sponsorName">
+                    </div>
+                </div>
+                <button class="fluid ui button" ng-click = "sponsor.addSponsor()">ADD SPONSORSHIP</button>
+=======
 
 
 
+>>>>>>> 67ba8ccfcdaa93bd006cb70e39408e118a3e7dc2
             </div>
 
         </div>

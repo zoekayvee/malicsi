@@ -22,6 +22,7 @@
     	vm.viewClickedTeam = viewClickedTeam;
     	vm.userJoinTeam = userJoinTeam;
     	vm.getTeamId = getTeamId;
+    	vm.viewTeamPerEvent = viewTeamPerEvent;
 	    /*---------- view team ---------*/
     
 		function addTeam(event_id) {
@@ -36,6 +37,7 @@
 		        console.log('Success! Team Added!')
 		        console.log("team" + vm.teamName);
 				getTeamId(vm.teamName,event_id)
+				viewTeamPerEvent();
 				
 			},
 			function(response){
@@ -106,6 +108,18 @@
 	    }
 
 
+		function viewTeamPerEvent(){
+			
+			$http
+				.get('/teams_per/'+$routeParams.event_id)
+				.then(function(response){
+					vm.allTeams = response.data;
+					console.log(vm.allTeams);
+				},
+				function(response){
+					console.log("error");
+				})
+		}
 
 
 	    /*-------- delete event ------------*/
@@ -114,8 +128,8 @@
 	    		.delete('/teams/'+id)
 	    		.then(function(response){
 	    			console.log('Team deleted')
-	    			$location.path('/user/team');
-	    			viewAllTeam();
+	    			//$location.path('/user/team');
+	    			//viewAllTeam();
 	    		}, function(response){
 	    			console.log("error");
 	    		});
