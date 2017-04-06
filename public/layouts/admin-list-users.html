@@ -14,6 +14,7 @@
             </td>
             <td> {{ x.username }}
             	<div class="sub-header">{{ x.firstname + " " + x.lastname }}</div>
+                <div class="sub-header"> {{ x.user_type }}</div>
             </td>
             <td>
             <button class="ui red button" ng-click="admin.deleteUser(x.user_id)">

@@ -673,7 +673,7 @@ CREATE TRIGGER sponsorEventInsert AFTER INSERT ON sponsor_events
 			SELECT user_id,username,user_type FROM users WHERE username = BINARY uname and password = BINARY pass;
 		END;
 %%
-	CREATE PROCEDURE createUser(in uname varchar(50), in pass varchar(100), in utype enum('admin', 'normal'), in fname varchar(50), in lname varchar(50), in em varchar(100))
+	CREATE PROCEDURE createUser(in uname varchar(50), in pass varchar(100), in utype enum('admin', 'pending','normal'), in fname varchar(50), in lname varchar(50), in em varchar(100))
 		BEGIN
 			INSERT INTO users (username, password, user_type, firstname, lastname, email) VALUES (uname, pass, utype, fname, lname, em);
 		END;

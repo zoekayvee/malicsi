@@ -30,6 +30,29 @@
 					console.log('Error');
 				});
 		}
+
+		function addUser(){
+			// console.log(user_id);
+			$http.post('/addUser/')
+				.then(function(response){
+					console.log('Added User');
+					window.location.reload();
+				}, function(response){
+					console.log('Error');
+				});
+		}
+
+		function updateUser(user_id){
+			console.log(user_id);
+			$http.put('/updatePass/' + user_id)
+				.then(function(response){
+					console.log('Updated User');
+				}, function(response){
+					console.log('Cannot update user password');
+				});
+		}
+
+
 	}
 
 })();
