@@ -1,6 +1,6 @@
 changes:
-* changed encryption from CryptoJS to bcrypt
-* added simple toastr for error handling
+* added simple encryption of password using CryptoJS (used AES encryption and decryption)
+* fixed register user
 
 bugs:
-* user firstname and lastname does not reflect on navbar when logged in
+* logs in even if non-existent user in database

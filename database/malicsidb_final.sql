@@ -5,8 +5,13 @@ Go to directory where malicsidb.sql is located or enter full path to file then r
 	mysql -u root -p < malicsidb.sql
 
 */
+DROP USER "projectOneTwoEight"@"localhost";
 
-DROP DATABASE `malicsiDB`;
+CREATE USER "projectOneTwoEight"@"localhost" IDENTIFIED BY "password";
+
+GRANT ALL PRIVILEGES ON malicsiDB.* TO "projectOneTwoEight"@"localhost" WITH GRANT OPTION;
+
+DROP DATABASE IF EXISTS `malicsiDB`;
 
 CREATE DATABASE IF NOT EXISTS `malicsiDB`;
 
@@ -668,7 +673,7 @@ CREATE TRIGGER sponsorEventInsert AFTER INSERT ON sponsor_events
 			SELECT user_id,username FROM users WHERE username = BINARY uname and password = BINARY ENCODE(pass, uname);
 		END;
 %%
-	CREATE PROCEDURE createUser(in uname varchar(50), in pass varchar(50), in utype enum('admin','pending' ,'normal'), in fname varchar(50), in lname varchar(50))
+	CREATE PROCEDURE createUser(in uname varchar(50), in pass varchar(50), in utype enum('admin','pending', 'normal'), in fname varchar(50), in lname varchar(50))
 		BEGIN
 			INSERT INTO users (username, password, user_type, firstname, lastname) VALUES (uname, ENCODE(pass, uname), utype, fname, lname);
 			INSERT INTO logs(user_id, message) VALUES((select user_id from users where username = BINARY uname), concat("Created User ", uname));
@@ -698,3 +703,55 @@ CREATE TRIGGER sponsorEventInsert AFTER INSERT ON sponsor_events
 		END;
 %%
 DELIMITER ;	
+
+	call addTeam("TBA");
+	call addTeam(" TBA ");
+
+	insert into users(username, password, user_type, firstname, lastname, college, contactno, email, weight, height) values("Tester1", "test", "admin", "nathaniel", "carvajal", "CAS", 09166994203, "nfcarvajal@up.edu.ph", 59, 177);
+	insert into users(username, password, user_type, firstname, lastname, college, contactno, email, weight, height) values("Tester2", "test", "admin", "nathaniel", "carvajal", "CAS", 09166994203, "nfcarvajal@up.edu.ph", 59, 177);
+
+	insert into venue(latitude, longitude, address, venue_name) values(12.23,32.123, "los banos, laguna", "Copeland Gymasium");
+
+	call addEvent(1, "Malicsihan", "2017-12-23", "2017-12-25");
+	call addEvent(1, "Palicsihan", "2017-12-23", "2017-12-25");
+
+	call addSport("Basketballl");
+	call addSport("Volleyball");
+	call addSport("Badminton");
+	call addSport("Phil. Games");
+	call addSport("Dota");
+	call addSport("Soccer");
+	call addSport("Javelin");
+
+	call attachSportToEvent(1, 1);
+	call attachSportToEvent(4, 1);
+	call attachSportToEvent(5, 1);
+	call attachSportToEvent(6, 1);
+	call attachSportToEvent(7, 1);
+
+	call attachSportToEvent(1, 2);
+	call attachSportToEvent(2, 2);
+	call attachSportToEvent(3, 2);
+
+	call addGame(1, 1, 1,  "2017-12-23", "11:59:59", 1, "Ma'am Kat");
+	call addGame(2, 1, 1, "2017-12-23", "11:59:59", 1, "Ma'am K");
+
+	call addTeam("team1");
+	call addTeam("team2");
+
+	call userJoinsTeam(1, "team1");
+	call userJoinsTeam(1, "team1");
+
+	call teamPlaysGame(1, 1);
+	call teamPlaysGame(2, 1);
+
+	call addSponsor("ArvinSartilloCompany");
+	call addSponsor("Tester");
+	call addSponsor("DanCalixtoCompany");
+
+	call sponsorEvent(1, 1);
+	call sponsorEvent(1, 2);
+	call sponsorEvent(2, 1);
+	call sponsorEvent(2, 2);
+	call sponsorEvent(3, 1);
+	call sponsorEvent(3, 2);

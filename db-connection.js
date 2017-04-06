@@ -6,6 +6,7 @@ var c = new Client({
   password: 'useruser',
   db: 'malicsiDB'
 });
+
 c.on('ready', function(){
 	console.log('Connected to Database');
 })

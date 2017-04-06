@@ -9,7 +9,7 @@
   },
   "author": "Villanueva, Zoe Kirsten T.",
   "license": "ISC",
-  "dependencies": {
+ "dependencies": {
     "angular": "^1.6.3",
     "angular-router": "0.0.2",
     "bcrypt": "^1.0.2",

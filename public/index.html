@@ -20,7 +20,7 @@
                 <a href="/#!/user/home" class="item">Home</a>
                 <a href="/#!/user/events" class="item">Events</a>
 
-                <div class="alight right ui simple dropdown item" ng-controller= "userController as user">
+               <div class="alight right ui simple dropdown item" ng-controller= "userController as user">
                    {{user.user.firstname + " " + user.user.lastname}} <i class="dropdown icon"></i>
                     <div class="menu">
                         <a class="item" href="/#!/user/profile">Profile</a>
@@ -38,7 +38,7 @@
 
 
         <!-- FOOTER SECTION -->
-        <div class="ui inverted vertical footer segment" id="page-footer">
+        <!-- <div class="ui inverted vertical footer segment" id="page-footer">
             <div class="ui center aligned container">
                     <div class="ui horizontal inverted small divided link list">
                     <a class="item" href="#">Site Map</a>
@@ -47,7 +47,7 @@
                     <a class="item" href="#">Privacy Policy</a>
                 </div>
             </div>
-        </div>
+        </div> -->
     </body>
 
     <script type='text/javascript' src='js/jquery-3.1.1.min.js'></script>
@@ -62,15 +62,19 @@
 
     <!-- import angular router -->
     <script type="text/javascript" src="app.module.js"></script>
+    <script type="text/javascript" src="router.js"></script>
 
     <script src="event.controller.js"></script>
     <script src="logged.user.controller.js"></script>
     <script src="team.controller.js"></script>
-    <script src = "event.controller.js"></script>
-    <script src = "user.controller.js"></script>
-    <script src = "admin.controller.js"></script>
-    <script src = "profile.controller.js"></script>
-    <script src = "logged.user.controller.js"></script>
-    <script type="text/javascript" src="router.js"></script>
+    <script src="event.controller.js"></script>
+    <script src="user.controller.js"></script>
+    <script src="admin.controller.js"></script>
+    <script src="profile.controller.js"></script>
+    <script src="logged.user.controller.js"></script>
+    <script src="user-game-sched.controller.js"></script>
+    <script src="user-event.controller.js"></script>
+    <script src="game.controller.js"></script>
+    <script src="sport.controller.js"></script>
 
 </html>

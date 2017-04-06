@@ -10,7 +10,7 @@
 		vm.allLogs = [];
 		vm.allUsers = [];
 		vm.deleteUser = deleteUser;
-
+		
 		$http
 			.get('/users')
 			.then(function(response) {

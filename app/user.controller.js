@@ -162,10 +162,10 @@
 					}
 				}, function (response){	
 					toastr.error('Invalid input!');
-					console.log('Error');
-					setTimeout(function(){
+					console.log(response);
+					/*setTimeout(function(){
 						redirectLocation('no');
-					}, 500);
+					}, 500);*/
 				});
 		}
 
@@ -205,6 +205,7 @@
                         .put('/users/updateInterests/'+response.data, user)
                         .then(function(response) {
                         	console.log("Added interest");
+                        	window.location.reload();
                         });
 				});
 			//window.location.reload();		
