@@ -760,6 +760,7 @@ CREATE TRIGGER sponsorEventInsert AFTER INSERT ON sponsor_events
 %%
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 DELIMITER ;
 =======
 
@@ -768,6 +769,14 @@ DELIMITER ;
 	--DUMMY DATA
 
 	insert into users(username, password, user_type, firstname, lastname, college, contactno, email, weight, height) values("Tester", "test", "admin", "nathaniel", "carvajal", "CAS", 09166994203, "nfcarvajal@up.edu.ph", 59, 177);
+=======
+DELIMITER ;	
+
+	call addTeam("TBA");
+	call addTeam(" TBA ");
+
+	insert into users(username, password, user_type, firstname, lastname, college, contactno, email, weight, height) values("Tester1", "test", "admin", "nathaniel", "carvajal", "CAS", 09166994203, "nfcarvajal@up.edu.ph", 59, 177);
+>>>>>>> f30d4a176b6b77615a698e52439bd325504cbf8e
 	insert into users(username, password, user_type, firstname, lastname, college, contactno, email, weight, height) values("Tester2", "test", "admin", "nathaniel", "carvajal", "CAS", 09166994203, "nfcarvajal@up.edu.ph", 59, 177);
 
 	insert into venue(latitude, longitude, address, venue_name) values(12.23,32.123, "los banos, laguna", "Copeland Gymasium");
@@ -779,6 +788,7 @@ DELIMITER ;
 	call addSport("Volleyball");
 	call addSport("Badminton");
 	call addSport("Phil. Games");
+<<<<<<< HEAD
 
 	call attachSportToEvent(1, 1);
 	call attachSportToEvent(3, 1);
@@ -799,6 +809,30 @@ DELIMITER ;
 	call userJoinsTeam(1, "team1");
 
 	call userJoinsTeam(1, "team1");
+=======
+	call addSport("Dota");
+	call addSport("Soccer");
+	call addSport("Javelin");
+
+	call attachSportToEvent(1, 1);
+	call attachSportToEvent(4, 1);
+	call attachSportToEvent(5, 1);
+	call attachSportToEvent(6, 1);
+	call attachSportToEvent(7, 1);
+
+	call attachSportToEvent(1, 2);
+	call attachSportToEvent(2, 2);
+	call attachSportToEvent(3, 2);
+
+	call addGame(1, 1, 1,  "2017-12-23", "11:59:59", 1, "Ma'am Kat");
+	call addGame(2, 1, 1, "2017-12-23", "11:59:59", 1, "Ma'am K");
+
+	call addTeam("team1");
+	call addTeam("team2");
+
+	call userJoinsTeam(1, "team1");
+	call userJoinsTeam(1, "team1");
+>>>>>>> f30d4a176b6b77615a698e52439bd325504cbf8e
 
 	call teamPlaysGame(1, 1);
 	call teamPlaysGame(2, 1);
@@ -813,6 +847,7 @@ DELIMITER ;
 	call sponsorEvent(2, 2);
 	call sponsorEvent(3, 1);
 	call sponsorEvent(3, 2);
+<<<<<<< HEAD
 
 
 	--call deleteUser(2);
@@ -823,3 +858,8 @@ DELIMITER ;
 >>>>>>> 4ce5b6e291697848b33438db01f91c43a98fffec
 =======
 >>>>>>> c29f7526038233b5e42f7de33c33696e0f71bd49
+=======
+=======
+DELIMITER ;	
+>>>>>>> 4ce5b6e291697848b33438db01f91c43a98fffec
+>>>>>>> f30d4a176b6b77615a698e52439bd325504cbf8e

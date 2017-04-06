@@ -87,6 +87,43 @@ router.post 	('/sponsors_from_event',	sponsorController.deleteSponsorFromEvent)
 //         res.redirect('/login');
 // })
 
+router.post('/addCompetitor',               adminController.addCompetitor);
+router.get('/viewAllCompetitors/:game_id',  userController.viewAllCompetitors);
+router.get('/viewCompetitor/:team_id',      userController.viewCompetitor);
+router.put('/updateCompetitor/:team_id',    adminController.updateCompetitor);
+router.delete('/deleteCompetitor/:team_id', adminController.deleteCompetitor);
+
+router.post('/game', 						gameController.addGame);
+router.get('/game/:game_id',				gameController.viewGame);
+router.get('/game', 						gameController.viewAllGames);
+router.put('/game/:game_id', 				gameController.updateGame);
+router.delete('/game/:game_id', 			gameController.deleteGame);
+router.delete('/game', 						gameController.deleteAllGames);
+
+router.post('/sport/:event_id',				sportController.addSport);
+router.get('/sport/:sport_id',				sportController.viewSports);
+router.get('/sport', 						sportController.viewAllSports);
+router.put('/sport', 						sportController.updateSport);
+router.delete('/sport/:sport_id', 			sportController.deleteSport);
+router.delete('/sport', 					sportController.deleteAllSports);
+
+router.post('/winner', 						winnerController.addWinner);
+router.get('/winner/:game_id',				winnerController.viewWinner);
+router.get('/winner', 						winnerController.viewAllWinners);
+router.put('/winner/:game_id', 				winnerController.updateWinner);
+router.delete('/winner/:game_id', 			winnerController.deleteWinner);
+router.delete('/winner', 					winnerController.deleteAllWinners);
+
+//additional
+router.post('/ranking/:sport_id', 					gameController.getRanking);
+router.post('/bet/:user_id', 						gameController.bet);
+router.get('/bet/:user_id/:game_id', 						gameController.betStatus);
+router.get('/scores/:game_id/:team_id', 						gameController.getScores);
+router.get('/sport/event/:event_id', 		sportController.viewSportsByEvent);
+router.post('/game/sport/:sport_id', 		gameController.viewGamesBySport);
+router.get('/schedule/:sport_id', 		gameController.viewScheds);
+router.get('/leaderboard/:sport_id', 		gameController.viewLeaderboards);
+
 router.post('/competitors',               adminController.addCompetitor);
 router.get('/competitors/:game_id',  userController.viewAllCompetitors);
 router.get('/competitors/:team_id',      userController.viewCompetitor);
