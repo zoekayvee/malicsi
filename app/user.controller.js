@@ -90,7 +90,7 @@
 		}
 		function registerUser(){
 			$http
-				.post('/addUser', vm.newUser)
+				.post('/users', vm.newUser)
 				.then(function(response){
 					console.log(response.data);
 					console.log('User added!');
