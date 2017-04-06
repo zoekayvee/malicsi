@@ -41,9 +41,10 @@
                   	<label>Team name</label>
                     <input type="text" ng-model = "team.teamName" name="team_name">
                  </div>
-                    <button class="ui button team" ng-click = "team.addTeam(event.eventId)">Submit</button>
+                    <button class="ui button team" ng-click = "team.addTeam(event.eventId)">Enlist Team</button>
              </div>
 
+			
 		</table>
 		 <div class="ui form" ng-repeat = "x in event.allEvents" >
                       <div class="fields">
@@ -74,4 +75,78 @@
                     </div>
                 </div>
 	</div>
+
+
+<!--	<table class="ui celled table" ng-controller = "sponsorController as sponsor">
+=======
+	<table class="ui celled table" ng-controller = "sponsorController as sponsor">
+>>>>>>> 35685666bab80e71d58699cf1b4e683e1bcfceba
+			<tr>
+				<th> Sponsorships </th>
+				<th>  </th>
+			</tr>
+
+			<tbody ng-init = "sponsor.getSponsorByEvent(event.eventId)">
+				<tr ng-repeat = "x in sponsor.allSponsors">
+					<td>{{x.sponsor_name}}</td>
+					<td><button class = "ui red button" ng-click = "sponsor.deleteSponsor(x.sponsor_id)">Delete</button></td>
+				</tr>
+			</tbody>
+		</table>
+
+-->
+<div class = "ui container" ng-controller = "sponsorController as sponsor">
+	<form class = "ui" >
+		<select name = "Sponsors" ng-init = "sponsor.viewAllSponsor()">
+			<option ng-click = "sponsor.setSponsorId(undefined)">Sponsors</option>
+			<option ng-repeat = "x in sponsor.allSponsors" value = "x.sponsor_id" ng-model = "sponsor.sponsorId"  ng-click="sponsor.setSponsorId(x.sponsor_id)">{{x.sponsor_name}}</option>
+
+		</select>
+	</form>
+	<button ng-click = "sponsor.sponsorEvent()">ADD SPONSORSHIP</button>
+	
+	<table>
+		<tr>
+			<th>Sponsors</th>
+		</tr>
+		<tbody ng-init = "sponsor.getSponsorByEvent()">
+			<tr ng-repeat = "x in sponsor.allEventSponsors">
+				<td>{{x.sponsor_name}}</td>
+				<td><button class = "ui red button" ng-click = "sponsor.deleteSponsorFromEvent(x.sponsor_id)">Remove Sponsor</button></td>
+			</tr>
+		</tbody>
+
+
+
+
+	</table>
+
+
+</div>
+
+	<div ng-controller = "teamController as team">
+			<table class="ui celled table" ng-init = "team.viewTeamPerEvent()">
+			<tr>
+				<th> Teams </th>
+				<th>  </th>
+				
+			</tr>
+
+			<tbody>
+				<tr ng-repeat = "x in team.allTeams">
+
+					<td>{{x.team_name}}</td>
+
+					<td><button class = "ui teal button" ng-click="team.viewTeam(x.team_id)">{{x.team_name}}</button></</td>
+
+					<td><button class = "ui red button" ng-click = "team.deleteTeam(x.team_id)">Delete</button></td>
+				</tr>
+			</tbody>
+		</table>
+		
+
+
+	</div>
+</div>
+
 </div>

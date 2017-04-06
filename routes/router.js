@@ -1,4 +1,4 @@
-'use strict';
+	'use strict';
 
 const adminController =require('../services/admin.service');
 const userController =require('../services/user.service');
@@ -27,11 +27,11 @@ router.post 	('/users',                  userController.registerUser);
 
 
 //module.exports = (router) => {
-router.post     ('/events',      			eventController.addEvent);
-router.get      ('/events/:event_id', 		eventController.viewEvent);
-router.get      ('/events',   				eventController.viewAllEvent);
-router.put      ('/events',    				eventController.updateEvent);
-router.delete   ('/events/:event_id',   	eventController.deleteEvent);
+router.post     ('/events',      eventController.addEvent);
+router.get      ('/events/:event_id', eventController.viewEvent);
+router.get      ('/events',   eventController.viewAllEvent);
+router.put      ('/events',    eventController.updateEvent);
+router.delete   ('/events/:event_id',    eventController.deleteEvent);
 
 router.post     ('/teams',      teamController.addTeam);
 router.get      ('/teams/:team_id', teamController.viewTeam);
@@ -41,12 +41,16 @@ router.delete   ('/teams/:team_id',    teamController.deleteTeam);
 router.post		('/teams/join',			teamController.userJoinTeam);
 router.get      ('/teams_get_id/:team_name',			teamController.getTeamId);
 router.post		('/teams/event',	teamController.teamJoinEvent);
-
-router.post     ('/sponsors',      			sponsorController.addSponsor);
-router.get      ('/sponsors/:sponsor_id', 	sponsorController.viewSponsor);
-router.get      ('/sponsors',   			sponsorController.viewAllSponsor);
-router.put      ('/sponsors',    			sponsorController.updateSponsor);
-router.delete   ('/sponsors/:sponsor_id',   sponsorController.deleteSponsor);
+router.get       ('/teams_per/:event_id', teamController.viewTeamPerEvent);
+router.get      ('/sponsors_get_id/:sponsor_name',	sponsorController.getSponsorId)
+router.post     ('/sponsors',      sponsorController.addSponsor);
+router.get      ('/sponsors/:sponsor_id', sponsorController.viewSponsor);
+router.get      ('/sponsors',   sponsorController.viewAllSponsor);
+router.put      ('/sponsors',    sponsorController.updateSponsor);
+router.delete   ('/sponsors/:sponsor_id',    sponsorController.deleteSponsor);
+router.post		('/sponsors_event',	sponsorController.sponsorEvent);
+router.get 		('/sponsors_by_event/:event_id', sponsorController.viewSponsorByEvent);
+router.post 	('/sponsors_from_event',	sponsorController.deleteSponsorFromEvent)
 
 router.get 		('/users',                 	adminController.viewAllUsers);
 router.get 		('/users/:user_id',         userController.viewUser);
@@ -61,6 +65,19 @@ router.get 		('/sports', 				sportController.viewAllSports);
 router.put 		('/sport', 					sportController.updateSport);
 router.delete 	('/sport/:sport_id', 		sportController.deleteSport);
 router.delete 	('/sports', 				sportController.deleteAllSports);
+
+router.get      ('/sponsors_get_id/:sponsor_name',	sponsorController.getSponsorId)
+router.post     ('/sponsors',      sponsorController.addSponsor);
+router.get      ('/sponsors/:sponsor_id', sponsorController.viewSponsor);
+router.get      ('/sponsors',   sponsorController.viewAllSponsor);
+router.put      ('/sponsors',    sponsorController.updateSponsor);
+router.delete   ('/sponsors/:sponsor_id',    sponsorController.deleteSponsor);
+router.post		('/sponsors_event',	sponsorController.sponsorEvent);
+router.get 		('/sponsors_by_event/:event_id', sponsorController.viewSponsorByEvent);
+router.post 	('/sponsors_from_event',	sponsorController.deleteSponsorFromEvent)
+// router.post('/login',                       userController.login);
+// router.get('/logout',                       userController.logout);
+// router.post('/createUser',                  userController.registerUser);
 
 // //authentication
 // router.use(function(req, res, next){
