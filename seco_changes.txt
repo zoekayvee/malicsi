@@ -17,3 +17,5 @@ the new routing affects user authentication
 modal of updating user profile: widen the form and make the dropdown chosen visible
 
 no pages/buttons for user interests
+
+still not producing winner logs

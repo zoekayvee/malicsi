@@ -8,6 +8,7 @@
 		var vm = this;
 		vm.username="";
 		vm.password="";
+		vm.user_type="";
 		vm.loginUser=loginUser;
         vm.user = {};
         vm.allLogs = null;
@@ -23,7 +24,6 @@
 		vm.closeModal= closeModal;
 
 		vm.prevPage = "";
-
 
         function setToastr(){
 		    toastr.options.positionClass = "toast-bottom-right";
@@ -51,6 +51,7 @@
 			$http.post('/login', credentials)
 				.then(function (response){
 					var redirect = response.data.redirect;
+					
 					console.log(redirect);
 					vm.user = response.data
 					if (redirect === '/#!/user/home'){
@@ -70,7 +71,8 @@
 
 		function registerUser(){
 			setToastr();
-			$http
+			
+				$http
 				.post('/users', vm.newUser)
 				.then(function(response){
 					console.log(response.data);
@@ -78,10 +80,7 @@
 					vm.username= vm.newUser.username;
 					vm.password= vm.newUser.password; 
 					vm.newUser={};
-					toastr.success('User successfully created!');
-					setTimeout(function(){
-					   loginUser();
-					  }, 1000 );
+					toastr.success('Successfully sent account approval to admin!');
 				},
 				function(response){
 					toastr.error('Error on input!');
@@ -90,6 +89,8 @@
 						redirectLocation('no');
 					}, 500);
 				});
+
+			
 		}
 
 
