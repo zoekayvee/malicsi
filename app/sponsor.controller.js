@@ -119,6 +119,7 @@
             .post('/sponsors_from_event',deleteSponsorEvent)
             .then(function(response){
                 console.log(response.data);
+                getSponsorByEvent($routeParams.event_id);
             },
             function(response){
                 console.log("error");
