@@ -27,7 +27,7 @@ router.post 	('/users',                  userController.registerUser);
 
 
 //module.exports = (router) => {
-<<<<<<< HEAD
+
 router.post     ('/events',      eventController.addEvent);
 router.get      ('/events/:event_id', eventController.viewEvent);
 router.get      ('/events',   eventController.viewAllEvent);
@@ -57,39 +57,7 @@ router.post 	('/sponsors_from_event',	sponsorController.deleteSponsorFromEvent)
 // router.post('/login',                       userController.login);
 // router.get('/logout',                       userController.logout);
 // router.post('/createUser',                  userController.registerUser);
-=======
-router.post     ('/events',      			eventController.addEvent);
-router.get      ('/events/:event_id', 		eventController.viewEvent);
-router.get      ('/events',   				eventController.viewAllEvent);
-router.put      ('/events',    				eventController.updateEvent);
-router.delete   ('/events/:event_id',   	eventController.deleteEvent);
 
-router.post     ('/teams',      			teamController.addTeam);
-router.get      ('/teams/:team_id', 		teamController.viewTeam);
-router.get      ('/teams',   				teamController.viewAllTeam);
-router.put      ('/teams',    				teamController.updateTeam);
-router.delete   ('/teams/:team_id',    		teamController.deleteTeam);
-
-router.post     ('/sponsors',      			sponsorController.addSponsor);
-router.get      ('/sponsors/:sponsor_id', 	sponsorController.viewSponsor);
-router.get      ('/sponsors',   			sponsorController.viewAllSponsor);
-router.put      ('/sponsors',    			sponsorController.updateSponsor);
-router.delete   ('/sponsors/:sponsor_id',   sponsorController.deleteSponsor);
-
-router.get 		('/users',                 	adminController.viewAllUsers);
-router.get 		('/users/:user_id',         userController.viewUser);
-router.put 		('/users/:user_id',         adminController.updateUser);
-router.delete 	('/users/:user_id',       	adminController.removeUser);
-router.post 	('/user_team',              userController.userJoinsTeam);
-router.get 		('/logs',                   adminController.viewLogs);
-
-router.post		('/sports', 				sportController.addSport);
-router.get 		('/sports/:sport_id', 		sportController.viewSports);
-router.get 		('/sports', 				sportController.viewAllSports);
-router.put 		('/sport', 					sportController.updateSport);
-router.delete 	('/sport/:sport_id', 		sportController.deleteSport);
-router.delete 	('/sports', 				sportController.deleteAllSports);
->>>>>>> 4ce5b6e291697848b33438db01f91c43a98fffec
 
 // //authentication
 // router.use(function(req, res, next){
