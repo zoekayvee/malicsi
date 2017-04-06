@@ -13,6 +13,7 @@
 		vm.viewGame = viewGame;
 		vm.viewGamesByEvent = viewGamesByEvent;
 		vm.viewSportByEvent = viewSportByEvent;
+		vm.scoreboard = scoreboard;
 		vm.event_id = $routeParams.event_id;
 
 		viewSportByEvent();
@@ -52,6 +53,10 @@
 
 		function viewGame(game_id){
 			$location.path('/user/game/' + game_id)
+		}
+
+		function scoreboard(){
+			$location.path('/user/event/' + $routeParams.event_id + '/scoreboard')
 		}
 
 	}

@@ -4,7 +4,7 @@ var c = new Client({
   host: '127.0.0.1',
   user: 'root',
   password: 'bossing',
-  db: 'malicsiDB2'
+  db: 'malicsiDB3'
 });
 
 c.on('ready', function(){
