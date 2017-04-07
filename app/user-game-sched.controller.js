@@ -56,9 +56,13 @@
 		}
 
 		function viewGamesLeaderboards(sport){
+			var event_games = {
+				event_id: $routeParams.event_id
+			}
 			$http
-				.get('/leaderboard/'+sport.sport_id)
+				.post('/leaderboard/'+sport.sport_id,event_games)
 				.then(function(response){
+					console.log("HEREEE " + event_games.event_id);
 					vm.games = [];
 					for (var i = 0; i != response.data.length; i++) {
 						if(i%2==0) vm.games.push(response.data[i]); //to remove duplicates

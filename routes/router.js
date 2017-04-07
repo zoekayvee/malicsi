@@ -103,7 +103,7 @@ router.get('/scores/:game_id/:team_id', 						gameController.getScores);
 router.get('/sport/event/:event_id', 		sportController.viewSportsByEvent);
 router.post('/game/sport/:sport_id', 		gameController.viewGamesBySport);
 router.get('/schedule/:sport_id', 		gameController.viewScheds);
-router.get('/leaderboard/:sport_id', 		gameController.viewLeaderboards);
+router.post('/leaderboard/:sport_id', 		gameController.viewLeaderboards);
 
 router.post('/competitors',               adminController.addCompetitor);
 router.get('/competitors/:game_id',  userController.viewAllCompetitors);

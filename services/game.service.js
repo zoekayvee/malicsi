@@ -140,39 +140,11 @@ exports.bet = (req,res) =>{
 }
 
 exports.getRanking = (req,res) =>{
-	//query fixed 04/05/17
-	var query = 'SELECT tp.team_name AS team_name, (SELECT COUNT(*) FROM game WHERE winner_team_id = tp.team_id AND sport_id = ? AND game.event_event_id = ?) AS wins,(SELECT COUNT(*) FROM game NATURAL JOIN team_plays_game AS tpg WHERE tpg.team_id = tp.team_id AND (winner_team_id!=tp.team_id AND sport_id=? AND game.event_event_id = ?)) AS loss FROM (SELECT DISTINCT team_id FROM game NATURAL JOIN team_plays_game WHERE game.sport_id = ? AND game.event_event_id = ?) AS tp ORDER BY (wins - loss) DESC LIMIT 3';
+	var query = 'SELECT @rn:=@rn+1 as rank, z.* FROM(SELECT sport_name,team.team_name as team_name, (SELECT COUNT(*) FROM game WHERE winner_team_id = team.team_id AND sport_id = ?) AS win,(select count(*) FROM game NATURAL JOIN team_plays_game AS tpg WHERE tpg.team_id = team.team_id AND (winner_team_id!=team.team_id AND sport_id=?)) AS loss FROM team,sport where sport_id = ? and team_name != "TBA" and team_name != " TBA")z, (SELECT @rn:=0)y ORDER BY win DESC';
 	const data = [
 		req.params.sport_id,
-		//event_id needed
 		req.params.sport_id,
-		//event_id needed
 		req.params.sport_id
-		//event_id needed
-	];
-	var id = connection.query(
-		query,
-		data,
-		(err, rows) => {
-			if(!err){
-				console.log("Retrieving data Successssss");
-				res.send(rows);
-			}
-			else{
-				console.log(err);
-				res.send('Server Error');
-			}
-	})
-}
-
-//OVERALL RANKING PER EVENT
-exports.getOverallRanking = (req,res) =>{
-	//query fixed 04/05/17
-	var query = 'SELECT tp.team_name AS team_name, (SELECT COUNT(*) FROM game WHERE winner_team_id = tp.team_id AND game.event_event_id = ?) AS wins,(SELECT COUNT(*) FROM game NATURAL JOIN team_plays_game AS tpg WHERE tpg.team_id = tp.team_id AND (winner_team_id!=tp.team_id AND game.event_event_id = ?)) AS loss FROM (SELECT DISTINCT team_id FROM game NATURAL JOIN team_plays_game WHERE event_event_id = ?) as tp ORDER BY wins DESC';
-	const data = [
-		req.params.eventid,
-		req.params.eventid,
-		req.params.eventid
 	];
 	var id = connection.query(
 		query,
@@ -215,12 +187,14 @@ exports.viewScheds = (req,res) =>{
 // VIEWING LEADERBOARDS THROUGH 'sport_id' (TABLES (GAME, SPORT, VENUE, TEAM, TEAM_PLAYS_GAME))
 exports.viewLeaderboards = (req,res) =>{
 	// SELECT distinct G.game_id, G.date_start,V.venue_name, A.team_name, T1.score, B.team_name as team_name_2, T2.score as score2 , G.referee FROM team A, team B, game G, venue V, sport S, team_plays_game T1, team_plays_game T2 WHERE A.team_id IN (SELECT team_id FROM team_plays_game WHERE G.sport_id = 1) AND B.team_id IN (SELECT team_id FROM team_plays_game WHERE G.sport_id = 1) AND A.team_id != B.team_id and A.team_id = T1.team_id and B.team_id = T2.team_id and G.game_id = T1.game_id and V.venue_id = G.venue_id and G.sport_id = S.sport_id and G.sport_id = 1
-	var query = 'SELECT distinct G.game_id, G.date_start,V.venue_name, A.team_name, A.team_id,  B.team_name as team_name_2, B.team_id as team_id_2, G.referee FROM team A, team B, game G, venue V, sport S, team_plays_game T1, team_plays_game T2 WHERE A.team_id IN (SELECT team_id FROM team_plays_game WHERE G.sport_id = ?) AND B.team_id IN (SELECT team_id FROM team_plays_game WHERE G.sport_id = ?) AND A.team_id != B.team_id and A.team_id = T1.team_id and B.team_id = T2.team_id and T1.game_id = T2.game_id  and G.game_id = T1.game_id and V.venue_id = G.venue_id and G.sport_id = S.sport_id and G.sport_id = ? order by game_id;';
+	var query = 'SELECT distinct G.game_id, G.date_start,V.venue_name, A.team_name, A.team_id,  B.team_name as team_name_2, B.team_id as team_id_2, G.referee FROM team A, team B, game G, venue V, sport S, team_plays_game T1, team_plays_game T2 WHERE A.team_id IN (SELECT team_id FROM team_plays_game WHERE G.sport_id = ?) AND B.team_id IN (SELECT team_id FROM team_plays_game WHERE G.sport_id = ?) AND A.team_id != B.team_id and A.team_id = T1.team_id and B.team_id = T2.team_id and T1.game_id = T2.game_id  and G.game_id = T1.game_id and V.venue_id = G.venue_id and G.sport_id = S.sport_id and G.sport_id = ? and G.event_event_id = ? order by game_id;';
 	const data = [
 		req.params.sport_id,
 		req.params.sport_id,
-		req.params.sport_id
+		req.params.sport_id,
+		req.body.event_id
 	];
+					console.log("HEREEE " + data);
 	var id = connection.query(
 		query,
 		data,
