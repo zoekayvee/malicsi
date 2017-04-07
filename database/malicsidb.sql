@@ -176,22 +176,13 @@ DELIMITER %%
 			BEGIN
 				INSERT INTO logs(user_id, message) VALUES(NEW.user_id, concat("Created new user with user name: ", NEW.username));
 			END;
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
->>>>>>> c29f7526038233b5e42f7de33c33696e0f71bd49
 %%
 	CREATE TRIGGER userUpdate AFTER UPDATE ON users
 		FOR EACH ROW
 			BEGIN
 				INSERT INTO logs(user_id, message) VALUES(OLD.user_id, concat("Updated his/her user profile with user name: ", NEW.username));
 			END;
-<<<<<<< HEAD
->>>>>>> 4ce5b6e291697848b33438db01f91c43a98fffec
-=======
 
->>>>>>> c29f7526038233b5e42f7de33c33696e0f71bd49
 %%
 	CREATE TRIGGER userDelete AFTER DELETE ON users
 		FOR EACH ROW
@@ -499,16 +490,8 @@ CREATE TRIGGER sponsorEventInsert AFTER INSERT ON sponsor_events
 	CREATE PROCEDURE viewAllGamesInSport(in sportId int unsigned, in eventId int unsigned)
 		BEGIN
 			SELECT * FROM game where sport_id = sportId and event_event_id = eventId;
-<<<<<<< HEAD
-<<<<<<< HEAD
 		END;
-=======
-			
-		END;	
->>>>>>> 4ce5b6e291697848b33438db01f91c43a98fffec
-=======
-		END;
->>>>>>> c29f7526038233b5e42f7de33c33696e0f71bd49
+
 %%
 	CREATE PROCEDURE viewAllGames()
 		BEGIN
@@ -554,18 +537,7 @@ CREATE TRIGGER sponsorEventInsert AFTER INSERT ON sponsor_events
 
 	CREATE PROCEDURE viewEvent(in eventId int unsigned)
 		BEGIN
-<<<<<<< HEAD
-<<<<<<< HEAD
-
 			SELECT * FROM event where event_id = eventId;
-=======
-			
-			SELECT * FROM event where event_name = eventName;
->>>>>>> 4ce5b6e291697848b33438db01f91c43a98fffec
-=======
-
-			SELECT * FROM event where event_id = eventId;
->>>>>>> c29f7526038233b5e42f7de33c33696e0f71bd49
 		END;
 %%
 	CREATE PROCEDURE viewAllEvents()
@@ -758,28 +730,16 @@ CREATE TRIGGER sponsorEventInsert AFTER INSERT ON sponsor_events
 			INSERT INTO logs(user_id, message) VALUES(userid, concat((select username from users where user_id = userid), " viewed the logs"));
 		END;
 %%
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-DELIMITER ;
-=======
 
->>>>>>> c29f7526038233b5e42f7de33c33696e0f71bd49
-
-	--DUMMY DATA
-
-	insert into users(username, password, user_type, firstname, lastname, college, contactno, email, weight, height) values("Tester", "test", "admin", "nathaniel", "carvajal", "CAS", 09166994203, "nfcarvajal@up.edu.ph", 59, 177);
-=======
 DELIMITER ;	
 
 	call addTeam("TBA");
 	call addTeam(" TBA ");
 
 	insert into users(username, password, user_type, firstname, lastname, college, contactno, email, weight, height) values("Tester1", "test", "admin", "nathaniel", "carvajal", "CAS", 09166994203, "nfcarvajal@up.edu.ph", 59, 177);
->>>>>>> f30d4a176b6b77615a698e52439bd325504cbf8e
 	insert into users(username, password, user_type, firstname, lastname, college, contactno, email, weight, height) values("Tester2", "test", "admin", "nathaniel", "carvajal", "CAS", 09166994203, "nfcarvajal@up.edu.ph", 59, 177);
 
-	insert into venue(latitude, longitude, address, venue_name) values(12.23,32.123, "los banos, laguna", "Copeland Gymasium");
+	insert into venue(latitude, longitude, address, venue_name) values(12.23,32.123, "Los Banos, Laguna", "Copeland Gymnasium");
 
 	call addEvent(1, "Malicsihan", "2017-12-23", "2017-12-25");
 	call addEvent(1, "Palicsihan", "2017-12-23", "2017-12-25");
@@ -788,28 +748,6 @@ DELIMITER ;
 	call addSport("Volleyball");
 	call addSport("Badminton");
 	call addSport("Phil. Games");
-<<<<<<< HEAD
-
-	call attachSportToEvent(1, 1);
-	call attachSportToEvent(3, 1);
-	call attachSportToEvent(2, 2);
-	call attachSportToEvent(4, 2);
-
-
-	call addGame(1, 1, 1,  "2017-12-23", "11:59:59", 1, "Ma'am Kat");
-	call addGame(2, 1, 1, "2017-12-23", "11:59:59", 1, "Ma'am K");
-=======
-
-	call addGame(1, 1, "2017-12-23", "11:59:59", 1, "Ma'am Kat");
-	call addGame(2, 1, "2017-12-23", "11:59:59", 1, "Ma'am K");
-
-
-	call addTeam("team1");
-	call addTeam("team2");
-	call userJoinsTeam(1, "team1");
-
-	call userJoinsTeam(1, "team1");
-=======
 	call addSport("Dota");
 	call addSport("Soccer");
 	call addSport("Javelin");
@@ -832,7 +770,6 @@ DELIMITER ;
 
 	call userJoinsTeam(1, "team1");
 	call userJoinsTeam(1, "team1");
->>>>>>> f30d4a176b6b77615a698e52439bd325504cbf8e
 
 	call teamPlaysGame(1, 1);
 	call teamPlaysGame(2, 1);
@@ -847,19 +784,3 @@ DELIMITER ;
 	call sponsorEvent(2, 2);
 	call sponsorEvent(3, 1);
 	call sponsorEvent(3, 2);
-<<<<<<< HEAD
-
-
-	--call deleteUser(2);
-<<<<<<< HEAD
-	--SELECT A.team_name, B.team_name FROM team A, team B WHERE A.team_id IN (SELECT team_id FROM team_plays_game WHERE game_id = 1) AND B.team_id IN (SELECT team_id FROM team_plays_game WHERE game_id = 1) AND A.team_id != B.team_id;
-=======
-DELIMITER ;	
->>>>>>> 4ce5b6e291697848b33438db01f91c43a98fffec
-=======
->>>>>>> c29f7526038233b5e42f7de33c33696e0f71bd49
-=======
-=======
-DELIMITER ;	
->>>>>>> 4ce5b6e291697848b33438db01f91c43a98fffec
->>>>>>> f30d4a176b6b77615a698e52439bd325504cbf8e
