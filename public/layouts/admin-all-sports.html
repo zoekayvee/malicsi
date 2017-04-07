@@ -29,7 +29,12 @@
             <tr>
                 <td> 1</td>
                 <td> Basketball</td>
-                    <div class="ui modal" id="edit-modal">
+                </td>
+                <td>
+                    <div class="ui animated button edit-trigger">
+                        <div class="visible content"><i class="edit icon"> </i></div>
+                        <div class="hidden content"> Edit </div>
+                        <div class="ui modal" id="edit-modal">
                             <div class="header"> UPDATE SPORTS</div>
                                 <div class="content">
                                     <div class="ui form">
@@ -40,13 +45,9 @@
                                     <br>
                                     <div class="ui button" id="cancel">Cancel</div>
                                     <div class="ui button">Submit</div>
+                                </div>
                             </div>
-                    </div>
-                </td>
-                <td>
-                    <div class="ui animated button edit-trigger">
-                        <div class="visible content"><i class="edit icon"> </i></div>
-                        <div class="hidden content"> Edit </div>
+                        </div>
                     </div>
                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                     <div class="ui animated button delete-trigger">
@@ -77,8 +78,20 @@
         <tfoot class="full-width">
             <tr>
                 <th colspan="100%">
-                    <div class="ui right floated small primary labeled icon button">
+                    <div class="ui right floated small primary labeled icon button add-trigger">
                         <i class="add square icon"></i> Add Sports
+                    </div>
+                    <div class="ui modal" id="add-modal">
+                        <div class="content">
+                            <div class="ui form">
+                                <div class="field">
+                                    <label>Sport Name</label>
+                                    <input type="text">
+                                </div>
+                                <div class="ui button" id="cancel">Cancel</div>
+                                <div class="ui button">Submit</div>
+                            </div>
+                        </div>
                     </div>
                 </th>
             </tr>
