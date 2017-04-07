@@ -106,8 +106,11 @@
 		}
 
 		function getRanking(sport){
+			var event = {
+				event_id: $routeParams.event_id
+			}
 			$http
-				.post('/ranking/' + sport.sport_id)
+				.post('/ranking/' + sport.sport_id,event)
 				.then(function(response){
 					vm.rankList = response.data;
 					console.log('Viewing Rank Successful');

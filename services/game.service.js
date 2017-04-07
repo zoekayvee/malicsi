@@ -140,18 +140,23 @@ exports.bet = (req,res) =>{
 }
 
 exports.getRanking = (req,res) =>{
-	var query = 'SELECT @rn:=@rn+1 as rank, z.* FROM(SELECT sport_name,team.team_name as team_name, (SELECT COUNT(*) FROM game WHERE winner_team_id = team.team_id AND sport_id = ?) AS win,(select count(*) FROM game NATURAL JOIN team_plays_game AS tpg WHERE tpg.team_id = team.team_id AND (winner_team_id!=team.team_id AND sport_id=?)) AS loss FROM team,sport where sport_id = ? and team_name != "TBA" and team_name != " TBA")z, (SELECT @rn:=0)y ORDER BY win DESC';
+	var query = 'SELECT tp.team_id AS team_id,team.team_name as team_name, (SELECT COUNT(*) FROM game WHERE winner_team_id = tp.team_id AND sport_id = ? AND game.event_event_id = ?) AS win,(SELECT COUNT(*) FROM game NATURAL JOIN team_plays_game AS tpg WHERE tpg.team_id = tp.team_id AND (winner_team_id!=tp.team_id AND sport_id=? AND game.event_event_id = ?)) AS loss FROM (SELECT DISTINCT team_id FROM game NATURAL JOIN team_plays_game WHERE game.sport_id = ? AND game.event_event_id = ?) AS tp,team where team.team_id = tp.team_id ORDER BY (win - loss) DESC LIMIT 3;';
+
+	// SELECT tp.team_id AS team_id, (SELECT COUNT(*) FROM game WHERE winner_team_id = tp.team_id AND sport_id = ? AND game.event_event_id = ? ) AS wins,(SELECT COUNT(*) FROM game NATURAL JOIN team_plays_game AS tpg WHERE tpg.team_id = tp.team_id AND (winner_team_id!=tp.team_id AND sport_id=? AND game.event_event_id = ?)) AS loss FROM (SELECT DISTINCT team_id FROM game NATURAL JOIN team_plays_game WHERE game.sport_id = ? AND game.event_event_id = ?) AS tp ORDER BY (wins - loss) DESC LIMIT 3;
 	const data = [
 		req.params.sport_id,
+		req.body.event_id,
 		req.params.sport_id,
-		req.params.sport_id
+		req.body.event_id,
+		req.params.sport_id,
+		req.body.event_id
 	];
 	var id = connection.query(
 		query,
 		data,
 		(err, rows) => {
 			if(!err){
-				console.log("Retrieving data Successssss");
+				console.log("Retrieving data Success");
 				res.send(rows);
 			}
 			else{
