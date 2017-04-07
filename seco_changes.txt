@@ -1,7 +1,0 @@
-Seco changes:
-
-added email variable to user.service, malicsidb_final.sql procedure files
-
-
-some errors in registering user- password and normality of users are not stored properly in DB
-	action: back to simple insertion and login
