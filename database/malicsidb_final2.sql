@@ -11,11 +11,11 @@ CREATE USER "projectOneTwoEight"@"localhost" IDENTIFIED BY "password";
 
 GRANT ALL PRIVILEGES ON malicsiDB.* TO "projectOneTwoEight"@"localhost" WITH GRANT OPTION;
 
-DROP DATABASE IF EXISTS `malicsiDB2`;
+DROP DATABASE IF EXISTS `malicsiDB`;
 
-CREATE DATABASE IF NOT EXISTS `malicsiDB2`;
+CREATE DATABASE IF NOT EXISTS `malicsiDB`;
 
-USE `malicsiDB2`;
+USE `malicsiDB`;
 
 create table users(
 	user_id 		int unsigned auto_increment,
