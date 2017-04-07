@@ -56,9 +56,26 @@
 			.when('/user/search', {
 				templateUrl: 'layouts/user-search-page.html'
 			})
-
-			// .otherwise({
-			// 	redirectTo: '/'
-			// })
+			.when('/admin/all-users', {
+				templateUrl: 'layouts/admin-all-users.html'
+			})
+			.when('/admin/all-events', {
+				templateUrl: 'layouts/admin-all-events.html'
+			})
+			.when('/admin/all-sponsors', {
+				templateUrl: 'layouts/admin-all-sponsors.html'
+			})
+			.when('/admin/all-games', {
+				templateUrl: 'layouts/admin-all-games.html'
+			})
+			.when('/admin/all-sports', {
+				templateUrl: 'layouts/admin-all-sports.html'
+			})
+			.when('/admin', {
+				templateUrl: 'layouts/admin-homepage.html'
+			})
+			.otherwise({
+				templateUrl: 'layouts/error.html'
+			})
 	}
 })();
