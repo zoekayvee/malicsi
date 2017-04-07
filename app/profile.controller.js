@@ -18,7 +18,8 @@
 		vm.openModal = openModal;
 		vm.closeModal= closeModal;
 		vm.updateUser= updateUser;
-		vm.updateInterest= updateInterest;
+        vm.updateInterest= updateInterest;
+		vm.deleteInterest= deleteInterest;
 
 		$http   
             .get('/user_loggedin') 
@@ -130,13 +131,31 @@
 				.get('user_loggedin')
 				.then(function(response){
 					 $http
-                        .put('/users/updateInterests/'+response.data, user)
+                        .put('/users/interests/'+response.data, user)
                         .then(function(response) {
                         	console.log("Added interest");
                         });
 				});
 			//window.location.reload();		
 		}
+
+        function deleteInterest(interest){
+
+            var users = {
+                myInterest:interest
+            }
+            console.log(users.myInterest)
+            $http
+                .get('user_loggedin')
+                .then(function(response){
+                     $http
+                        .delete('/users/interests/' + response.data+"/" + users.myInterest)
+                        .then(function(response){
+
+                        });
+                });
+            //window.location.reload();     
+        }
 
 
 		function openModal(dmodal){

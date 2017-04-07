@@ -97,11 +97,13 @@
                 <div class="ui very relaxed list" >
                     <div class="item" ng-repeat = "interest in profile.userInterests">
                         <div class="content">
-                            <a class="header">{{interest.interests}}</a>
+                            <a class="header">{{interest.interests}} <button class="ui button" ng-click="profile.deleteInterest(interest.interests)">DELETE</button></a>
+
                         </div>
                     </div> 
                     <center>
                         <button class="ui button" ng-click="profile.openModal('interest-modal')">UPDATE</button>
+                        
                     </center>
             </div>
 

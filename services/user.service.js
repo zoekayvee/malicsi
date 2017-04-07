@@ -185,7 +185,21 @@ exports.updateInterests = (req,res) => {
 	})
 }
 
+exports.deleteInterests = (req,res) => {
+	const query_string = "DELETE from user_interests where user_id = ? and interests = ?";
+	const req_data = [req.params.user_id,req.params.users];
 
+	console.log(req.params.users);
+	connection.query(query_string,req_data, (err,result) => {
+		if(!err){
+			res.status(200).send(result);
+		}
+		else{
+			console.log(err);
+			res.status(500).send(err);
+		}
+	})
+}
 
 //userJoinsTeam - use team_players table to add the user
 exports.userJoinsTeam=(req, res)=>{
