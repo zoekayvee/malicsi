@@ -1,35 +1,11 @@
-<link rel='stylesheet' href='css/login.css'/>
-<script type='text/javascript' src='js/login.js'></script>
+<link rel='stylesheet' href='css/register.css'/>
+<script type='text/javascript' src='js/register.js'></script>
 
-<div id="main-wrapper" >
-<div class="ui container section" id="login-div">
-	<div class="ui one column center aligned grid" id="forms">
-		<div class="column six wide form-holder" id="login-panel">
-			<h2 class="center aligned header form-head">Log in to your account</h2>
-			<form class="ui medium form" ng-controller="userController">
-				<div class="field">
-					<div class="ui left icon input">						<i class="user icon"></i>
-						<input id="username" type="text" ng-model="login.username" placeholder="username">
-					</div>
-				</div>
-				<div class="field">
-					<div class="ui left icon input">						<i class="lock icon"></i>
-						<input id="password" type="password" ng-model="login.password" placeholder="password">
-					</div>
-				</div>
-				<div class="field">
-						<button class="ui fluid submit button" id="loginbutton" ng-click="login.loginUser()">SIGN IN</button>
-				</div>
-				<div class="ui error message"></div>
-				<div class="ui message">
-					Don't have an account? <button id="register-trigger">Create an account here!</button>
-				</div>
-			</form>
-		</div>
-	</div>
-</div>
+<link rel='stylesheet' href='css/nav-hack.css'/>
+<script type='text/javascript' src='js/nav-hack.js'></script>
 
-<div class="ui container section" id="register-div">
+<div id="main-wrapper">
+<div class="ui container">
 	<div class="ui one column center aligned grid" id="forms">
 		<div class="column eight wide form-holder" id="register-panel">
 				<h2 class="center aligned header form-head">Create an account here!</h2>
@@ -104,11 +80,10 @@
 				</div>
 				<div class="ui error message"></div>
 				<div class="ui message">
-					Already have an account? <button id="login-trigger">Login here</button>
+					Already have an account? <a href="login.html">Log in here</a>
 				</div>
 			</form>
 		</div>
 	</div>
 </div>
-
 </div>
