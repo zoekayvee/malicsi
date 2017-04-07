@@ -48,7 +48,6 @@
 					}
 					while(vm.allGames.length!=(sport.sport_id-1)) vm.allGames.push(null);
 					vm.allGames.push(vm.games);
-					console.log(response.data[0] + sport.sport_name);
 				},
 				function(response){
 					console.log("Error retrieving data!");
@@ -62,7 +61,6 @@
 			$http
 				.post('/leaderboard/'+sport.sport_id,event_games)
 				.then(function(response){
-					console.log("HEREEE " + event_games.event_id);
 					vm.games = [];
 					for (var i = 0; i != response.data.length; i++) {
 						if(i%2==0) vm.games.push(response.data[i]); //to remove duplicates

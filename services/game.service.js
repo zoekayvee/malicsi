@@ -28,7 +28,6 @@ exports.addGame = (req,res) =>{
 						rows[0].game_id,
 						rows[0].game_id
 					];
-					console.log(data2 + "HERERERE");
 		    		var con2 = connection.query( query2, data2, (err,rows) => {} );
 		    	} );
 			}
@@ -41,12 +40,11 @@ exports.addGame = (req,res) =>{
 
 // VIEWING GAME THROUGH 'sport_id'
 exports.viewGamesBySport = (req,res) =>{
-	var query = 'SELECT * FROM game G, venue V WHERE sport_id = ? and event_event_id = ? order by sport_id and G.venue_id = V.venue_id';
+	var query = 'SELECT * FROM game G, venue V WHERE sport_id = ? and event_event_id = ? and G.venue_id = V.venue_id order by sport_id';
 	const data = [
 		req.params.sport_id,
 		req.body.event_event_id
 	];
-	console.log("eventid" + req.body.event_event_id);
 	var id = connection.query(
 		query,
 		data,
@@ -99,7 +97,6 @@ exports.betStatus = (req,res) =>{
 		data,
 		(err, rows) => {
 			if(!err){
-				console.log("Betting Status:" + rows[0] + " " + rows.length);
 				res.send(rows);
 			}
 			else{
@@ -128,9 +125,6 @@ exports.bet = (req,res) =>{
 				];
 				var query2 = 'call betStatus (?,?)';
 				var id = connection.query( query2, data2, (err, rows) => { if(!err){ } })
-
-
-				// res.send(rows[0]);
 			}
 			else{
 				console.log(err);
@@ -142,7 +136,6 @@ exports.bet = (req,res) =>{
 exports.getRanking = (req,res) =>{
 	var query = 'SELECT tp.team_id AS team_id,team.team_name as team_name, (SELECT COUNT(*) FROM game WHERE winner_team_id = tp.team_id AND sport_id = ? AND game.event_event_id = ?) AS win,(SELECT COUNT(*) FROM game NATURAL JOIN team_plays_game AS tpg WHERE tpg.team_id = tp.team_id AND (winner_team_id!=tp.team_id AND sport_id=? AND game.event_event_id = ?)) AS loss FROM (SELECT DISTINCT team_id FROM game NATURAL JOIN team_plays_game WHERE game.sport_id = ? AND game.event_event_id = ?) AS tp,team where team.team_id = tp.team_id ORDER BY (win - loss) DESC LIMIT 3;';
 
-	// SELECT tp.team_id AS team_id, (SELECT COUNT(*) FROM game WHERE winner_team_id = tp.team_id AND sport_id = ? AND game.event_event_id = ? ) AS wins,(SELECT COUNT(*) FROM game NATURAL JOIN team_plays_game AS tpg WHERE tpg.team_id = tp.team_id AND (winner_team_id!=tp.team_id AND sport_id=? AND game.event_event_id = ?)) AS loss FROM (SELECT DISTINCT team_id FROM game NATURAL JOIN team_plays_game WHERE game.sport_id = ? AND game.event_event_id = ?) AS tp ORDER BY (wins - loss) DESC LIMIT 3;
 	const data = [
 		req.params.sport_id,
 		req.body.event_id,
@@ -191,7 +184,6 @@ exports.viewScheds = (req,res) =>{
 
 // VIEWING LEADERBOARDS THROUGH 'sport_id' (TABLES (GAME, SPORT, VENUE, TEAM, TEAM_PLAYS_GAME))
 exports.viewLeaderboards = (req,res) =>{
-	// SELECT distinct G.game_id, G.date_start,V.venue_name, A.team_name, T1.score, B.team_name as team_name_2, T2.score as score2 , G.referee FROM team A, team B, game G, venue V, sport S, team_plays_game T1, team_plays_game T2 WHERE A.team_id IN (SELECT team_id FROM team_plays_game WHERE G.sport_id = 1) AND B.team_id IN (SELECT team_id FROM team_plays_game WHERE G.sport_id = 1) AND A.team_id != B.team_id and A.team_id = T1.team_id and B.team_id = T2.team_id and G.game_id = T1.game_id and V.venue_id = G.venue_id and G.sport_id = S.sport_id and G.sport_id = 1
 	var query = 'SELECT distinct G.game_id, G.date_start,V.venue_name, A.team_name, A.team_id,  B.team_name as team_name_2, B.team_id as team_id_2, G.referee FROM team A, team B, game G, venue V, sport S, team_plays_game T1, team_plays_game T2 WHERE A.team_id IN (SELECT team_id FROM team_plays_game WHERE G.sport_id = ?) AND B.team_id IN (SELECT team_id FROM team_plays_game WHERE G.sport_id = ?) AND A.team_id != B.team_id and A.team_id = T1.team_id and B.team_id = T2.team_id and T1.game_id = T2.game_id  and G.game_id = T1.game_id and V.venue_id = G.venue_id and G.sport_id = S.sport_id and G.sport_id = ? and G.event_event_id = ? order by game_id;';
 	const data = [
 		req.params.sport_id,
@@ -199,7 +191,6 @@ exports.viewLeaderboards = (req,res) =>{
 		req.params.sport_id,
 		req.body.event_id
 	];
-					console.log("HEREEE " + data);
 	var id = connection.query(
 		query,
 		data,

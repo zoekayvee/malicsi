@@ -91,7 +91,6 @@
 			$http
 				.post('/bet/' + vm.user_id,bet)
 				.then(function(response){
-					// vm.game = response.data;
 					console.log('Betting Successful');
 			},
 			function(response){
