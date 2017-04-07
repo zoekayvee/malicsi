@@ -7,9 +7,13 @@
 	function adminController($http){
 		var vm = this;
 
+		vm.password = "";
+
 		vm.allLogs = [];
 		vm.allUsers = [];
 		vm.deleteUser = deleteUser;
+		vm.updateUser = updateUser;
+		vm.addUser = addUser;
 
 		vm.openModal = openModal;
 		vm.closeModal= closeModal;
@@ -24,6 +28,7 @@
 			});
 
 		function deleteUser(user_id){
+			console.log("!!!!!!!!");
 			console.log(user_id);
 			$http.delete('/users/' + user_id)
 				.then(function(response){
@@ -36,7 +41,8 @@
 
 		function addUser(){
 			// console.log(user_id);
-			$http.post('/addUser')
+
+			$http.post('/user/')
 				.then(function(response){
 					console.log('Added User');
 					window.location.reload();
@@ -46,9 +52,12 @@
 		}
 
 		function updateUser(user_id){
-			console.log(user_id);
-			$http.put('/updatePass/' + user_id)
+			var user = {
+				password : vm.password
+			}
+			$http.put('/user/password/' + user_id,user)
 				.then(function(response){
+					closeModal('edit-modal');
 					console.log('Updated User');
 				}, function(response){
 					console.log('Cannot update user password');

@@ -41,9 +41,24 @@ td,th {
                     <td> {{x.weight}}</td>
                     <td> {{x.height}}</td>
                     <td colspan="">
-                        <div class="ui animated button edit-trigger">
+                        <div class="ui animated button edit-trigger" ng-click="admin.openModal('edit-modal')">
                             <div class="visible content">Edit</div>
                             <div class="hidden content">  </div>
+                        </div>
+                        <div class="ui modal" id="edit-modal">
+                            <form class="ui form">
+                                <h2 class="ui dividing header">UPDATE PASSWORD</h2>
+                                <div class="fields">
+                                    <div class="field">
+                                        <label>Enter new password:</label>
+                                        <input type="text" id="password" ng-model = "admin.password">
+                                    </div>
+                                </div>
+                                    <div class="ui button" id="cancel" ng-click="admin.closeModal('edit-modal')">Cancel</div>
+                                    <div class="ui button" ng-click="admin.updateUser(x.user_id)">Submit</div>
+                            </form>
+                        </div>
+                            
                         </div>
                     </td>
                     <td>
@@ -123,7 +138,7 @@ td,th {
                                     </div>
                                     <br>
                                     <div class="ui button" id="cancel" ng-click="admin.closeModal('edit-modal')">Cancel</div>
-                                    <div class="ui button">Submit</div>
+                                    <div class="ui button" ng-click="admin.addUser()">Submit</div>
                                 </div>
                         </div>
                     </th>

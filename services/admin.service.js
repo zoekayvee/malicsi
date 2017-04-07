@@ -35,10 +35,12 @@ exports.updateUserPassword= (req,res) =>{
 	const hash = bcrypt.hashSync(req.body.password, salt);
 
 	const query_string = 'UPDATE users SET password = ? WHERE user_id = ?';
+	console.log(req.params);
 	const req_data = [hash,
 					  req.params.user_id];
     connection.query(query_string, req_data, (err,result) => {
     	if (!err) {
+    		console.log("@@@@@@@@@@");
 			res.status(200).send(result);
 			} else {
 				console.log(err);

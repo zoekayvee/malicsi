@@ -31,7 +31,9 @@ router.get('/users/:user_id',            userController.viewUser);
 router.get('/user/events/:user_id',      userController.viewUserEvents);
 router.get('/user/sponsored/:user_id',      userController.viewUserEvents);
 router.get('/user/interests/:user_id',      userController.viewUserInterests);
-router.put('/users/interests/:user_id', userController.updateInterests);
+router.put('/user/password/:user_id',      adminController.updateUserPassword);
+router.put('/user/password/:user_id',      adminController.updateUserPassword);
+router.post('/user/', adminController.addUser);
 router.delete('/users/interests/:user_id/:users', userController.deleteInterests);
 router.put('/users/:user_id',          adminController.updateUser);
 
