@@ -22,8 +22,9 @@
     	vm.viewClickedTeam = viewClickedTeam;
     	vm.userJoinTeam = userJoinTeam;
     	vm.getTeamId = getTeamId;
+    	vm.viewTeamPerEvent = viewTeamPerEvent;
 	    /*---------- view team ---------*/
-    
+
 		function addTeam(event_id) {
 			console.log(event_id);
 	   	 	var newTeam = {
@@ -32,17 +33,18 @@
 			$http
 		    .post('/teams', newTeam)
 		    .then(function(response){
-		    
-		        console.log('Success! Team Added!')
+
+		        console.log('Success! Team Added!');
 		        console.log("team" + vm.teamName);
-				getTeamId(vm.teamName,event_id)
-				
+				getTeamId(vm.teamName,event_id);
+				viewTeamPerEvent();
+
 			},
 			function(response){
 		   console.log("Error: Team cannot be added");
 			});
-		}    
-	    
+		}
+
 		function userJoinTeam(user_id) {
 			var joinTeam = {
 				user_id : user_id,
@@ -62,7 +64,7 @@
 
 		}
 
-	    
+
 	    function viewTeam(id){
 	    	$location.path('/teams/'+id)
 	    	$http
@@ -75,7 +77,7 @@
 	    			}
 	    			else{
 						console.log(response.data);
-	    				console.log('Viewing team ' + response.data.event_name);	
+	    				console.log('Viewing team ' + response.data.event_name);
 	    			}
 	    		})
 	    }
@@ -106,6 +108,18 @@
 	    }
 
 
+		function viewTeamPerEvent(){
+			console.log($routeParams.event_id)
+			$http
+				.get('/teams_per/'+$routeParams.event_id)
+				.then(function(response){
+					vm.allTeams = response.data;
+					console.log(vm.allTeams);
+				},
+				function(response){
+					console.log("error");
+				})
+		}
 
 
 	    /*-------- delete event ------------*/
@@ -114,8 +128,8 @@
 	    		.delete('/teams/'+id)
 	    		.then(function(response){
 	    			console.log('Team deleted')
-	    			$location.path('/user/team');
-	    			viewAllTeam();
+	    			//$location.path('/user/team');
+	    			viewTeamPerEvent();
 	    		}, function(response){
 	    			console.log("error");
 	    		});
@@ -130,17 +144,18 @@
 		    	team_id : team_id,
 		      	event_id : event_id
 		    }
-	    
+
 	    	$http
 	    		.post('/teams/event',teamToJointEvent)
 	    		.then(function(response){
 	    			console.log('Team Joined Event')
+					viewTeamPerEvent();
 	    		}, function(response){
 	    			console.log("error");
 	    		});
 
 	    }
-	    
+
 	    function updateTeam(){
 		    var updateData = {
 		        team_id : $routeParams.team_id,
@@ -157,7 +172,7 @@
 		            console.log("error");
 		        });
 		}
-	    
+
 		function getTeamId(team_name,event_id){
 			console.log("ooh"+team_name);
 			$http
@@ -168,23 +183,24 @@
 					console.log("PP" + vm.teamId);
 					console.log(team_name);
 					teamJoinEvent(event_id,vm.teamId);
+					viewTeamPerEvent();
 					//vm.teamId = response;
 					//console.log("Team id" + vm.teamId);
 				},
 				function(response){
 					console.log('error');
 				});
-				return vm.teamId;	
+				return vm.teamId;
 
 		}
 
-	    
+
 	    function teamPlayGame(){
 	        var gameToPlay = {
 	        	team_id : vm.teamId,
 	          	game_id : vm.gameId
 	        }
-	        
+
 		    	$http
 		    		.post('/teams',gameToPlay)
 		    		.then(function(response){

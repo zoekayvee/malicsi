@@ -5,11 +5,10 @@ Go to directory where malicsidb.sql is located or enter full path to file then r
 	mysql -u root -p < malicsidb.sql
 
 */
-DROP USER "projectOneTwoEight"@"localhost";
 
-CREATE USER "projectOneTwoEight"@"localhost" IDENTIFIED BY "password";
 
-GRANT ALL PRIVILEGES ON malicsiDB.* TO "projectOneTwoEight"@"localhost" WITH GRANT OPTION;
+GRANT ALL PRIVILEGES ON malicsiDB.* TO "root"@"localhost" WITH GRANT OPTION;
+
 
 DROP DATABASE IF EXISTS `malicsiDB`;
 
@@ -83,7 +82,6 @@ create table team_joins_event(
 	event_id 		int unsigned,
 	team_id 		int unsigned,
 	status			enum('accepted', 'rejected', 'pending'),
-	
 	constraint 		team_id_joins_event_fk foreign key(team_id) references team(team_id) ON DELETE CASCADE ON UPDATE CASCADE,
 	constraint 		team_joins_event_id_fk foreign key(event_id) references event(event_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
@@ -124,7 +122,7 @@ create table game(
 	date_start		date,
 	time_start 		time,
 	duration		int,
-	winner_team_id	int unsigned default NULL, 
+	winner_team_id	int unsigned default NULL,
 	referee 		varchar(100),
 	constraint 		venue_id foreign key(venue_id) references venue(venue_id) ON DELETE CASCADE ON UPDATE CASCADE,
 	constraint 		event_event_id_fk foreign key(event_event_id) references event(event_id) ON DELETE CASCADE ON UPDATE CASCADE,
@@ -165,9 +163,10 @@ create table sponsor(
 
 create table sponsor_events(
 	sponsor_id 		int unsigned,
-	event_id 		int unsigned,
-	constraint 		sponsor_id_fk foreign key(sponsor_id) references sponsor(sponsor_id) ON DELETE CASCADE ON UPDATE CASCADE,
-	constraint 		event_id_fk foreign key(event_id) references event(event_id) ON DELETE CASCADE ON UPDATE CASCADE	
+	event_id 		int unsigned
+	/*constraint 		sponsor_id_fk foreign key(sponsor_id) references sponsor(sponsor_id) ON DELETE CASCADE ON UPDATE CASCADE,
+	constraint 		event_id_fk foreign key(event_id) references event(event_id) ON DELETE CASCADE ON UPDATE CASCADE
+	*/
 );
 
 DELIMITER %%
@@ -177,12 +176,22 @@ DELIMITER %%
 			BEGIN
 				INSERT INTO logs(user_id, message) VALUES(NEW.user_id, concat("Created new user with user name: ", NEW.username));
 			END;
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> c29f7526038233b5e42f7de33c33696e0f71bd49
 %%
 	CREATE TRIGGER userUpdate AFTER UPDATE ON users
 		FOR EACH ROW
 			BEGIN
 				INSERT INTO logs(user_id, message) VALUES(OLD.user_id, concat("Updated his/her user profile with user name: ", NEW.username));
 			END;
+<<<<<<< HEAD
+>>>>>>> 4ce5b6e291697848b33438db01f91c43a98fffec
+=======
+
+>>>>>>> c29f7526038233b5e42f7de33c33696e0f71bd49
 %%
 	CREATE TRIGGER userDelete AFTER DELETE ON users
 		FOR EACH ROW
@@ -423,7 +432,7 @@ CREATE TRIGGER sponsorEventInsert AFTER INSERT ON sponsor_events
 	/* END OF TRIGGERS */
 	CREATE PROCEDURE addSport(in sportname varchar(100))
 		BEGIN
-			INSERT INTO sport(sport_name) VALUES(sportname);	
+			INSERT INTO sport(sport_name) VALUES(sportname);
 		END;
 %%
 	CREATE PROCEDURE attachSportToEvent(in sportId int unsigned, in eventId int unsigned)
@@ -447,38 +456,38 @@ CREATE TRIGGER sponsorEventInsert AFTER INSERT ON sponsor_events
 	CREATE PROCEDURE viewAllSports()
 		BEGIN
 			SELECT * from sport;
-			
+
 		END;
 %%
 	CREATE PROCEDURE viewSport(in sportname varchar(100))
 		BEGIN
 			SELECT * FROM sport where sport_name = sportname;
-			
 		END;
+
 %%
 	CREATE PROCEDURE viewSportByEvent(in eventId int unsigned)
 		BEGIN
-			
+
 			SELECT A.event_name, B.sport_name from event as A JOIN sport as B JOIN event_has_sport as C on (A.event_id = C.h_event_id) and (B.sport_id = C.h_sport_id) where (A.event_id = eventId);
 		END;
 %%
 	CREATE PROCEDURE addGame(in sportid int unsigned, in venueid int unsigned, in eventId int unsigned, in datestart date, in timestart time, in durationIn int,in ref varchar(100))
 		BEGIN
 			INSERT INTO game(sport_id, venue_id, event_event_id, date_start, time_start, duration, referee) VALUES(sportid, venueid, eventId, datestart,timestart, durationIn, ref);
-			
+
 		END;
 %%
 
 	CREATE PROCEDURE deleteGame(in gameid int unsigned)
 		BEGIN
-			
+
 			DELETE FROM game where game_id = gameid;
 		END;
 %%
-	
+
 	CREATE PROCEDURE updateGame(in gameid int unsigned, in newVenue int unsigned, in newSportId int unsigned, in newDateStart datetime, in newDuration int)
 		BEGIN
-			
+
 			UPDATE game SET sport_id = newSportId, venue_id = newVenue, date_start = newDateStart, duration = newDuration where game_id = gameid;
 		END;
 %%
@@ -490,21 +499,32 @@ CREATE TRIGGER sponsorEventInsert AFTER INSERT ON sponsor_events
 	CREATE PROCEDURE viewAllGamesInSport(in sportId int unsigned, in eventId int unsigned)
 		BEGIN
 			SELECT * FROM game where sport_id = sportId and event_event_id = eventId;
+<<<<<<< HEAD
+<<<<<<< HEAD
+		END;
+=======
 			
 		END;	
+>>>>>>> 4ce5b6e291697848b33438db01f91c43a98fffec
+=======
+		END;
+>>>>>>> c29f7526038233b5e42f7de33c33696e0f71bd49
 %%
 	CREATE PROCEDURE viewAllGames()
 		BEGIN
-		
+
 			SELECT * FROM game;
 		END;
 %%
 	CREATE PROCEDURE viewGame(in gameid int unsigned)
 		BEGIN
 			SELECT A.team_name, B.team_name FROM team A, team B WHERE A.team_id IN (SELECT team_id FROM team_plays_game WHERE game_id = gameid) AND B.team_id IN (SELECT team_id FROM team_plays_game WHERE game_id = gameid) AND A.team_id != B.team_id LIMIT 1;
-			
+
 		END;
 %%
+
+	--Winner ADD--
+
 	CREATE PROCEDURE addWinner(in gameid int unsigned, in winnerid int unsigned)
 		BEGIN
 			UPDATE game SET winner_team_id = winnerid where game_id = gameid;
@@ -513,7 +533,7 @@ CREATE TRIGGER sponsorEventInsert AFTER INSERT ON sponsor_events
 
 	CREATE PROCEDURE viewAllWinners()
 		BEGIN
-			SELECT A.winner_team_id, B.team_name from game as A JOIN team as B on (B.team_id = A.winner_team_id);			
+			SELECT A.winner_team_id, B.team_name from game as A JOIN team as B on (B.team_id = A.winner_team_id);
 		END;
 %%
 
@@ -522,21 +542,35 @@ CREATE TRIGGER sponsorEventInsert AFTER INSERT ON sponsor_events
 			SELECT A.winner_team_id, B.team_name from game as A JOIN team as B on A.game_id = gameid and (B.team_id = A.winner_team_id);
 		END;
 %%
+
+	--CRUD FOR EVENT
+
 	CREATE PROCEDURE addEvent(in userid int unsigned, in eventName varchar(100), in dateStart date, in dateEnd date)
 		BEGIN
-			
+
 			INSERT INTO event(user_id, event_name, date_start, date_end, duration ) VALUES(userid, eventName, dateStart, dateEnd, datediff(dateEnd, dateStart));
 		END;
 %%
-	CREATE PROCEDURE viewEvent(in eventName varchar(100))
+
+	CREATE PROCEDURE viewEvent(in eventId int unsigned)
 		BEGIN
+<<<<<<< HEAD
+<<<<<<< HEAD
+
+			SELECT * FROM event where event_id = eventId;
+=======
 			
 			SELECT * FROM event where event_name = eventName;
+>>>>>>> 4ce5b6e291697848b33438db01f91c43a98fffec
+=======
+
+			SELECT * FROM event where event_id = eventId;
+>>>>>>> c29f7526038233b5e42f7de33c33696e0f71bd49
 		END;
 %%
 	CREATE PROCEDURE viewAllEvents()
 		BEGIN
-			
+
 			SELECT * FROM event;
 		END;
 %%
@@ -547,7 +581,7 @@ CREATE TRIGGER sponsorEventInsert AFTER INSERT ON sponsor_events
 %%
 	CREATE PROCEDURE updateEvent(in eventId int unsigned, in eventName varchar(100), in allowReg boolean, in dateSart date, in dateEnd date)
 		BEGIN
-			UPDATE event SET event_name = eventName, allow_reg = allowReg, date_start = dateStart, date_end = dateEnd, duration = datediff(dateEnd,dateStart) where event_id = eventId; 
+			UPDATE event SET event_name = eventName, allow_reg = allowReg, date_start = dateStart, date_end = dateEnd, duration = datediff(dateEnd,dateStart) where event_id = eventId;
 		END;
 %%
 	CREATE PROCEDURE deleteEvent(in eventId int unsigned)
@@ -555,6 +589,9 @@ CREATE TRIGGER sponsorEventInsert AFTER INSERT ON sponsor_events
 			DELETE FROM event where event_id = eventId;
 		END;
 %%
+
+	--CRUD FOR TEAM
+
 	CREATE PROCEDURE addTeam(in teamName varchar(100))
 		BEGIN
 			INSERT INTO team(team_name) VALUES(teamName);
@@ -577,7 +614,7 @@ CREATE TRIGGER sponsorEventInsert AFTER INSERT ON sponsor_events
 %%
 	CREATE PROCEDURE updateTeam(in teamId int unsigned, in teamName varchar(100))
 		BEGIN
-			UPDATE team SET team_name = teamName where team_id = teamId; 
+			UPDATE team SET team_name = teamName where team_id = teamId;
 		END;
 %%
 	CREATE PROCEDURE deleteTeam(in teamId int unsigned)
@@ -607,6 +644,10 @@ CREATE TRIGGER sponsorEventInsert AFTER INSERT ON sponsor_events
 			UPDATE game_score SET score = addScore WHERE game_id = gameId and team_id = teamId;
 		END;
 %%
+
+	--CRUD FOR SPONSORS
+
+
 	CREATE PROCEDURE addSponsor(in sponsorName varchar(100))
 		BEGIN
 			INSERT INTO sponsor(sponsor_name) VALUES(sponsorName);
@@ -624,24 +665,29 @@ CREATE TRIGGER sponsorEventInsert AFTER INSERT ON sponsor_events
 %%
 	CREATE PROCEDURE viewSponsorByEvent(in eventId int unsigned)
 		BEGIN
-			SELECT A.event_name, B.sponsor_name from event as A JOIN sponsor as B JOIN sponsor_events as C on (A.event_id = eventId) and (A.event_id = C.event_id) and (B.sponsor_id = C.sponsor_id);		
+			SELECT A.event_name, B.sponsor_name, C.sponsor_id from event as A JOIN sponsor as B JOIN sponsor_events as C on (A.event_id = eventId) and (A.event_id = C.event_id) and (B.sponsor_id = C.sponsor_id);
 		END;
 %%
 	CREATE PROCEDURE viewSponsor(in sponsorId int unsigned)
 		BEGIN
 			SELECT A.sponsor_name, B.event_name from sponsor as A JOIN event as B JOIN sponsor_events as C on (A.sponsor_id = sponsorId) and (A.sponsor_id = C.sponsor_id) and (B.event_id = C.event_id);
 		END;
-%%	
+%%
 	CREATE PROCEDURE updateSponsor(in sponsorId int unsigned, in sponsorName varchar(100))
 		BEGIN
 			UPDATE sponsor SET sponsor_name = sponsorName where sponsor_id = sponsorId;
-		END;	
+		END;
 %%
 	CREATE PROCEDURE deleteSponsor(in sponsorId int unsigned)
 		BEGIN
 			DELETE FROM sponsor where sponsor_id = sponsorId;
 		END;
 %%
+
+
+	--CRUD FOR VENUE
+
+
 	CREATE PROCEDURE addVenue(in latitude float, in longitude float, address varchar(150), in venuename varchar(100))
 		BEGIN
 			INSERT INTO venue(latitude, longitude, address, venue_name) VALUES(latitude, longitude, address, venuename);
@@ -667,6 +713,11 @@ CREATE TRIGGER sponsorEventInsert AFTER INSERT ON sponsor_events
 			UPDATE venue SET venue_name = nvenuename, latitude = nlatitude, longitude = nlongitude, address = naddress where venue_id = venueId;
 		END;
 %%
+
+
+	--LOGIN Functions--
+
+
 	CREATE PROCEDURE login(in uname varchar(50), in pass varchar(50))
 		BEGIN
 			INSERT INTO logs(user_id, message) VALUES((select user_id from users where username = BINARY uname), concat(uname, " logged in"));
@@ -696,6 +747,11 @@ CREATE TRIGGER sponsorEventInsert AFTER INSERT ON sponsor_events
 			DELETE FROM users WHERE user_id LIKE uid;
 		END;
 %%
+
+
+	--User view Logs--
+
+
 	CREATE PROCEDURE userViewLogs(in userid int unsigned)
 		BEGIN
 			SELECT * FROM logs where user_id = userid;
@@ -703,12 +759,24 @@ CREATE TRIGGER sponsorEventInsert AFTER INSERT ON sponsor_events
 		END;
 %%
 <<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+DELIMITER ;
+=======
+
+>>>>>>> c29f7526038233b5e42f7de33c33696e0f71bd49
+
+	--DUMMY DATA
+
+	insert into users(username, password, user_type, firstname, lastname, college, contactno, email, weight, height) values("Tester", "test", "admin", "nathaniel", "carvajal", "CAS", 09166994203, "nfcarvajal@up.edu.ph", 59, 177);
+=======
 DELIMITER ;	
 
 	call addTeam("TBA");
 	call addTeam(" TBA ");
 
 	insert into users(username, password, user_type, firstname, lastname, college, contactno, email, weight, height) values("Tester1", "test", "admin", "nathaniel", "carvajal", "CAS", 09166994203, "nfcarvajal@up.edu.ph", 59, 177);
+>>>>>>> f30d4a176b6b77615a698e52439bd325504cbf8e
 	insert into users(username, password, user_type, firstname, lastname, college, contactno, email, weight, height) values("Tester2", "test", "admin", "nathaniel", "carvajal", "CAS", 09166994203, "nfcarvajal@up.edu.ph", 59, 177);
 
 	insert into venue(latitude, longitude, address, venue_name) values(12.23,32.123, "los banos, laguna", "Copeland Gymasium");
@@ -720,6 +788,28 @@ DELIMITER ;
 	call addSport("Volleyball");
 	call addSport("Badminton");
 	call addSport("Phil. Games");
+<<<<<<< HEAD
+
+	call attachSportToEvent(1, 1);
+	call attachSportToEvent(3, 1);
+	call attachSportToEvent(2, 2);
+	call attachSportToEvent(4, 2);
+
+
+	call addGame(1, 1, 1,  "2017-12-23", "11:59:59", 1, "Ma'am Kat");
+	call addGame(2, 1, 1, "2017-12-23", "11:59:59", 1, "Ma'am K");
+=======
+
+	call addGame(1, 1, "2017-12-23", "11:59:59", 1, "Ma'am Kat");
+	call addGame(2, 1, "2017-12-23", "11:59:59", 1, "Ma'am K");
+
+
+	call addTeam("team1");
+	call addTeam("team2");
+	call userJoinsTeam(1, "team1");
+
+	call userJoinsTeam(1, "team1");
+=======
 	call addSport("Dota");
 	call addSport("Soccer");
 	call addSport("Javelin");
@@ -742,6 +832,7 @@ DELIMITER ;
 
 	call userJoinsTeam(1, "team1");
 	call userJoinsTeam(1, "team1");
+>>>>>>> f30d4a176b6b77615a698e52439bd325504cbf8e
 
 	call teamPlaysGame(1, 1);
 	call teamPlaysGame(2, 1);
@@ -756,6 +847,19 @@ DELIMITER ;
 	call sponsorEvent(2, 2);
 	call sponsorEvent(3, 1);
 	call sponsorEvent(3, 2);
+<<<<<<< HEAD
+
+
+	--call deleteUser(2);
+<<<<<<< HEAD
+	--SELECT A.team_name, B.team_name FROM team A, team B WHERE A.team_id IN (SELECT team_id FROM team_plays_game WHERE game_id = 1) AND B.team_id IN (SELECT team_id FROM team_plays_game WHERE game_id = 1) AND A.team_id != B.team_id;
 =======
 DELIMITER ;	
 >>>>>>> 4ce5b6e291697848b33438db01f91c43a98fffec
+=======
+>>>>>>> c29f7526038233b5e42f7de33c33696e0f71bd49
+=======
+=======
+DELIMITER ;	
+>>>>>>> 4ce5b6e291697848b33438db01f91c43a98fffec
+>>>>>>> f30d4a176b6b77615a698e52439bd325504cbf8e

@@ -34,15 +34,16 @@
 				controllerAs: 'event'
 			})
 			.when('/user/events', {
-				templateUrl: 'layouts/user-event.html',
+				templateUrl: 'layouts/user-view-all-events.html',
 				controller: 'eventController',
 				controllerAs: 'event'
 			})
-			.when('/user/events',{
+			.when('/event',{
 				templateUrl:'layouts/user-event.html'
 			})
 			.when('/events/:event_id',{
-				templateUrl: 'layouts/user-view-event.html',
+				templateUrl:'layouts/user-event.html',
+				// templateUrl:'layouts/user-view-event.html',
 				controller: 'eventController',
 				controllerAs: 'event'
 			})
@@ -66,17 +67,15 @@
 				controller:'userGameSchedController',
 				controllerAs:'UGSC'
 			})
-			.when('/hehe', {
-				templateUrl: 'layouts/user-team-page.html'
-			})
-			.when('/user/teams', {
-				templateUrl: 'layouts/user-view-all-teams.html'
+			.when('/user/team', {
+				templateUrl: 'layouts/user-view-teams.html'
 			})
 			.when('/user/search', {
 				templateUrl: 'layouts/user-search-page.html'
 			})
-			.otherwise({
-				templateUrl: 'layouts/error.html'
-			})
+
+			// .otherwise({
+			// 	redirectTo: '/'
+			// })
 	}
 })();

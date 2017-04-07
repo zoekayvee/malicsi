@@ -1,14 +1,9 @@
-div {
-	/*border: solid 1px red;*/
-}
-
 #box {
 	border-style: solid;
 }
 #forbut {
 	margin-left: 2%;
 }
-
 #forbut1 {
 	margin-left: 55%;
 }
@@ -29,9 +24,9 @@ div {
 	margin-top: 0px;
 }
 #card2 {
-	width: 71%;
+	width: 40%;
 	/*margin-top: 0px;*/
-
+	
 
 }
 .action.input{
@@ -41,7 +36,7 @@ div {
 	margin-top: 40px;
 }
 #searchbut, .animated.button, .ui.button  {
-	background-color: #c3073f;
+	background-color: #6a8e9e;
 	color: white;
 }
 th {
@@ -49,7 +44,7 @@ th {
 	color: white;
 }
 tr:hover {
-	background-color: #4e4e50;
+	background-color: #cdcdcd;
 }
 #padcard {
 	padding: 10px;
@@ -62,8 +57,4 @@ tr:hover {
 }
 .table {
 	table-layout: fixed;
-}
-.tiny.image {
-	width: 25px;
-	height: 25px;
 }
