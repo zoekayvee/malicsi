@@ -4,6 +4,8 @@
 	angular.module('malicsi')
 			.config(router);
 
+	
+
 	function router($routeProvider) {
 		$routeProvider
 			.when('/teams/:team_id',{
