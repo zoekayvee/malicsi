@@ -2,4 +2,5 @@
 
 (function() {
 	angular.module('malicsi', ['ngRoute']);
+	
 })();
