@@ -17,7 +17,7 @@
 				templateUrl: 'layouts/user-view-teams.html'
 			})
 			.when('/users', {
-				templateUrl: 'layouts/admin-list-users.html'
+				templateUrl: 'layouts/admin-all-users.html'
 			})
             .when('/user/home', {
 				templateUrl: 'layouts/user-dashboard.html'

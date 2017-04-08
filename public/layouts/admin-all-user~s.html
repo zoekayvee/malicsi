@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <style>
 
 #user-table{
@@ -13,6 +14,26 @@ td,th {
 
 <div class="ui container" id="main-wrapper" ng-controller="adminController as admin">
     <div class="ui header">Users</div>
+=======
+<link rel="stylesheet" href="css/admin.css"></link>
+<link rel="stylesheet" type="text/css" href="css/admin_homepage.css"> </link>
+
+
+
+<div class="ui container" id="main-wrapper" ng-controller="adminController as admin">
+<div class="ui card" id="main_card">
+<div class="content">
+            <div class="ui row">
+            <div class="ui horizontal center aligned segments" id="segment">
+                <a class="ui segment" href="/#!/admin/all-users"> Users </a>
+                <a class="ui segment" href="/#!/admin/all-events"> Events </a>
+                <a class="ui segment" href="/#!/admin/all-games"> Games </a>
+                <a class="ui segment" href="/#!/admin/all-sports"> Sports </a>
+                <a class="ui segment" href="/#!/admin/all-sponsors"> Sponsors </a>
+            </div>
+            </div>
+    <!-- <div class="ui header">Users</div> -->
+>>>>>>> 7543b5786efb4d4173894087fbb83cfe41b06f1d
     <div class="ui row">
         <table class="ui center aligned table" id="user-table">
             <thead>
@@ -41,28 +62,36 @@ td,th {
                     <td> {{x.weight}}</td>
                     <td> {{x.height}}</td>
                     <td colspan="">
-                        <div class="ui animated button edit-trigger" ng-click="admin.openModal('edit-modal')">
-                            <div class="visible content">Edit</div>
+<<<<<<< HEAD
+                        <div class="ui animated button edit-trigger">
+                            <div class="visible content" ng-click="admin.openModal('edit-modal')">Edit</div>
                             <div class="hidden content">  </div>
-                        </div>
-                        <div class="ui modal" id="edit-modal">
-                            <form class="ui form">
-                                <h2 class="ui dividing header">UPDATE PASSWORD</h2>
-                                <div class="fields">
-                                    <div class="field">
-                                        <label>Enter new password:</label>
-                                        <input type="text" id="password" ng-model = "admin.password">
-                                    </div>
-                                </div>
-                                    <div class="ui button" id="cancel" ng-click="admin.closeModal('edit-modal')">Cancel</div>
-                                    <div class="ui button" ng-click="admin.updateUser(x.user_id)">Submit</div>
-                            </form>
-                        </div>
-                            
                         </div>
                     </td>
                     <td>
                         <div class="ui animated button" id="delete" ng-click="admin.deleteUser(x.user_id)">
+=======
+                        <div class="ui animated button edit-trigger" ng-click="admin.openModal('edit-modal')">
+                            <div class="hidden content"><i class="edit icon"> </i></div>
+                            <div class="visible content"> Edit </div>
+                        </div>
+                        <div class="ui modal" id="edit-modal">
+                            <div class="header">UPDATE PASSWORD</div>
+                            <div class="content">
+                                <div class="ui form">
+                                    <div class="field">
+                                        <label>Enter new Password</label>
+                                        <input type="password" id="password" ng-model="admin.password">
+                                    </div>
+                                    <div class="ui button" ng-click="admin.closeModal('edit-modal')">Cancel</div>
+                                    <div class="ui button" ng-click="admin.updateUser(x.user_id)">Submit</div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="ui animated button delete-trigger">
+>>>>>>> 7543b5786efb4d4173894087fbb83cfe41b06f1d
                             <div class="visible content">Delete</div>
                             <div class="hidden content"> <i class="trash icon"> </i> </div>
                         </div>
@@ -72,11 +101,19 @@ td,th {
                                 DELETE
                             </div>
                               <div class="actions">
+<<<<<<< HEAD
                                 <div class="ui red basic cancel inverted button">
                                   <i class="remove icon"></i>
                                   No
                                 </div>
                                 <div class="ui green ok inverted button">
+=======
+                                <div class="ui red basic cancel inverted button" ng-click="admin.closeModal('delete-modal')">
+                                  <i class="remove icon"></i>
+                                  No
+                                </div>
+                                <div class="ui green ok inverted button" ng-click="admin.deleteUser(x.user_id)">
+>>>>>>> 7543b5786efb4d4173894087fbb83cfe41b06f1d
                                   <i class="checkmark icon"></i>
                                   Yes
                                 </div>
@@ -88,13 +125,23 @@ td,th {
             <tfoot class="full-width">
                 <tr>
                     <th colspan="100%">
+<<<<<<< HEAD
                         <div class="ui right floated small primary labeled icon button" id="add-user">
                             <i class="user icon"></i> Add User
                         </div>
                         <div class="ui modal" id="add-modal">
                             <div class="header"> UPDATE USER</div>
                                 <div class="content">
+                                    <div class="ui form" ng-controller = "adminController as update">
+=======
+                        <div class="ui right floated small primary labeled icon button add-trigger" ng-click="admin.openModal('add-modal')">
+                            <i class="user icon"></i> Add User
+                        </div>
+                        <div class="ui modal" id="add-modal">
+                            <div class="header"> EDIT USER</div>
+                                <div class="content">
                                     <div class="ui form">
+>>>>>>> 7543b5786efb4d4173894087fbb83cfe41b06f1d
                                         <div class="fields">
                                             <div class="field">
                                                 <label>Username</label>
@@ -137,8 +184,29 @@ td,th {
                                         </div>
                                     </div>
                                     <br>
+<<<<<<< HEAD
+                                    <div class="ui button" id="cancel" ng-click="admin.closeModal('add-modal')">Cancel</div>
+                                    <div class="ui button">Submit</div>
+                                </div>
+                        </div>
+
+                        <div class="ui modal" id="edit-modal">
+                            <div class="header"> UPDATE USER</div>
+                                <div class="content">
+                                    <div class="ui form">
+                                        <div class="fields">
+                                            <div class="field">
+                                                <label>New Password</label>
+                                                <input type="text" placeholder="{{update.user.password}}" ng-model="password">
+                                            </div>
+                                    </div>
+                                    <br>
                                     <div class="ui button" id="cancel" ng-click="admin.closeModal('edit-modal')">Cancel</div>
+                                    <div class="ui button">Submit</div>
+=======
+                                    <div class="ui button cancel" ng-click="admin.closeModal('edit-modal')">Cancel</div>
                                     <div class="ui button" ng-click="admin.addUser()">Submit</div>
+>>>>>>> 7543b5786efb4d4173894087fbb83cfe41b06f1d
                                 </div>
                         </div>
                     </th>
@@ -148,4 +216,9 @@ td,th {
         </table>
     </div>
 </div>
+<<<<<<< HEAD
+=======
+</div>
+</div>
+>>>>>>> 7543b5786efb4d4173894087fbb83cfe41b06f1d
 
