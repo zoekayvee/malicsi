@@ -1,10 +1,10 @@
 'use strict'
 const connection = require(__dirname + '/../db-connection');
 var path = require('path');
-var logQuery = 'INSERT INTO logs(user_id,log_timestamp,message) VALUES(?,curdate(),?);';
 
+// ADDING WINNER (UPDATES VALUE OF THE ATTRIBUTE 'winner_team_id' from game)
 exports.addWinner = (req,res) =>{
-	var query = 'UPDATE game SET winner_team_id = ? where game_id = ?';
+	var query = 'call addWinner(?,?)';
 	const data = [
 		req.body.winner_team_id,
 		req.body.game_id
@@ -16,8 +16,7 @@ exports.addWinner = (req,res) =>{
 		(err, rows) => {
 			if(!err){
 				console.log("Adding Winner Success");
-		    		res.send('Winner Successfully added');
-		    		connection.query(logQuery, [null,'Added Winner '], (err,rows) => {})
+		    	res.send('Winner Successfully added');
 			}
 			else{
 				console.log(err);
@@ -26,8 +25,9 @@ exports.addWinner = (req,res) =>{
 	})
 }
 
+// VIEWING WINNER 
 exports.viewWinner = (req,res) =>{
-	var query = 'SELECT winner_team_id, game_id from game where game_id = ?';
+	var query = 'call viewWinnerInGame(?)';
 	const data = [
 		req.params.game_id
 	];
@@ -39,7 +39,6 @@ exports.viewWinner = (req,res) =>{
 			if(!err){
 				console.log("Viewing Winner Success");
 				res.send(rows[0]);
-				connection.query(logQuery, [null,'Viewed Winner '], (err,rows) => {})
 			}
 			else{
 				console.log(err);
@@ -48,15 +47,15 @@ exports.viewWinner = (req,res) =>{
 	})
 }
 
+// VIEWING ALL WINNERS
 exports.viewAllWinners = (req,res) =>{
-	var query = 'SELECT winner_team_id,game_id from game';
+	var query = 'call viewAllWinners()';
 	var con = connection.query(
 		query,
 		(err, rows) => {
 			if(!err){
 				console.log("Viewing All Winner Success");
-				res.send(rows);
-				connection.query(logQuery, [null,'Viewed All Winners'], (err,rows) => {})
+				res.send(rows[0]);
 			}
 			else{
 				console.log(err);
@@ -65,8 +64,9 @@ exports.viewAllWinners = (req,res) =>{
 	})
 }
 
+// UPDATING WINNER THROUGH 'game_id'
 exports.updateWinner = (req,res) =>{
-	var query = 'UPDATE game SET winner_team_id = ? where game_id = ?';
+	var query = 'call updateWinner(?,?)';
 	const data = [
 		req.body.winner_team_id,
 		req.params.game_id
@@ -79,7 +79,6 @@ exports.updateWinner = (req,res) =>{
 			if(!err){
 				console.log("Updating Winner Success");
 				res.send("Winner Successfully Updated");
-				connection.query(logQuery, [null,'Winner Updated'], (err,rows) => {})
 			}
 			else{
 				console.log(err);
@@ -88,8 +87,9 @@ exports.updateWinner = (req,res) =>{
 	})
 }
 
+// DELETING WINNER (SETTING VALUE OF 'winner_team_id' to NULL)
 exports.deleteWinner = (req,res) =>{
-	var query = 'UPDATE game SET winner_team_id = NULL where game_id = ?';
+	var query = 'call deleteWinnerInGame(?)';
 	const data = [
 		req.params.game_id
 	];
@@ -101,7 +101,6 @@ exports.deleteWinner = (req,res) =>{
 			if(!err){
 				console.log("Deleting Winner Success");
 				res.send("Winner Successfully Deleted");
-				connection.query(logQuery, [null,'Winner Deleted'], (err,rows) => {})
 			}
 			else{
 				console.log(err);
@@ -110,8 +109,9 @@ exports.deleteWinner = (req,res) =>{
 	})
 }
 
+// DELETING ALL WINNERS (SETTING ALL VALUES OF 'winner_team_id' to NULL)
 exports.deleteAllWinners = (req,res) =>{
-	var query = 'UPDATE game SET winner_team_id = NULL';
+	var query = 'call deleteAllWinners()';
 
 	var con = connection.query(
 		query,
@@ -119,7 +119,6 @@ exports.deleteAllWinners = (req,res) =>{
 			if(!err){
 				console.log("Deleting All Winners Success");
 				res.send("All Winners Successfully Deleted");
-				connection.query(logQuery, [null,'Deleted All Winners'], (err,rows) => {})
 			}
 			else{
 				console.log(err);

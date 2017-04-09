@@ -24,11 +24,17 @@
         vm.deleteSponsorFromEvent = deleteSponsorFromEvent;
         vm.viewAllSponsor = viewAllSponsor;
         vm.setSponsor = setSponsor;
+        vm.openModal = openModal;
+        vm.closeModal = closeModal;
+        vm.newSponsor = "";
+        vm.setSponsorId = setSponsorId;
+        vm.deleteSponsorId = "";
         vm.updateSponsorName;
          vm.updateSponsorId; 
-        function addSponsor() {    
+        function addSponsor() {   
+            vm.newSponsorName = "" 
             var sponsorToBeAdded = {
-                 sponsor_name: vm.sponsorName
+                 sponsor_name: vm.newSponsor
             }
         $http
             .post('/sponsors', sponsorToBeAdded)
@@ -44,7 +50,7 @@
 
 
         function setSponsorId(sponsor_id){
-            vm.sponsorId = sponsor_id;
+            vm.deleteSponsorId = sponsor_id;
         }
 
 
@@ -108,6 +114,7 @@
             .delete('/sponsors/'+id)
             .then(function(response){
             console.log('Sponsor deleted')
+            closeModal('delete-modal');
             viewAllSponsor();
         },
         function(response){
@@ -115,9 +122,9 @@
         });
     }
 
-    function deleteSponsorFromEvent(sponsor_id){
+    function deleteSponsorFromEvent(){
         var deleteSponsorEvent = {
-            sponsor_id: sponsor_id,
+            sponsor_id: vm.deleteSponsorId,
             event_id: $routeParams.event_id
         }
         console.log(deleteSponsorEvent);
@@ -168,5 +175,19 @@
             });
 
     }
+
+    function openModal(dmodal){
+            $('#'+dmodal+'.modal')
+            .modal('setting', {
+                 closable: false
+            })
+            .modal('show');
+    }
+    function closeModal(dmodal){
+       $('#'+dmodal+'.modal')
+                .modal('hide'); 
+        }
+
+
 }
 })();

@@ -18,6 +18,7 @@
 
 <!-- <div class="ui center aligned header"> Sponsors </div>
  --><div class="ui row">
+
     <table class="ui center aligned table" ng-controller = "sponsorController as sponsor">
         <thead>
             <tr>
@@ -29,29 +30,33 @@
             <tr ng-repeat = "spon in sponsor.allSponsors">
                 <td>{{spon.sponsor_name}}</td>
                 <td>
-                    <div class="ui animated button edit-trigger" id="edit"  ng-click = "sponsor.setSponsor(spon.sponsor_name,spon.sponsor_id)">
+                <div  ng-click = "sponsor.setSponsor(spon.sponsor_name,spon.sponsor_id)">
+                    <div class="ui animated button edit-trigger" id="edit"  ng-click = "sponsor.openModal('edit-modal')">
                         <div class="visible content"> <i class="edit icon"> </i> </div>
                         <div class="hidden content"> Edit </div>
                     </div>
+                </div>                    
                     <div class="ui modal" id="edit-modal">
                             <div class="header"> UPDATE SPONSOR</div>
                                 <div class="content">
                                     <div class="ui form">
                                         <div class="field">
                                             <label>Sponsor Name</label>
-                                            <input type="text" ng-model="sponsor.updateSponsorName" ng-init="sponsor.updateSponsorName">
+                                            <input type="text" ng-model="sponsor.updateSponsorName" ng-init="sponsor.updateSponsorName = spon.sponsor_name">
                                         </div>
                                     </div>
                                     <br>
-                                    <div class="ui button" id="cancel">Cancel</div>
+                                    <div class="ui button" id="cancel" ng-click = "sponsor.closeModal('edit-modal')">Cancel</div>
                                     <div class="ui button" ng-click="sponsor.updateSponsor()">Submit</div>
                             </div>
                     </div>
                 </td>
                 <td>
-                    <div class="ui animated button delete-trigger" id="delete">
+                    <div ng-click = "sponsor.setSponsorId(spon.sponsor_id)">
+                    <div class="ui animated button delete-trigger" id="delete" ng-click = "sponsor.openModal('delete-modal')">
                         <div class="visible content"><i class="trash icon"> </i></div>
                         <div class="hidden content"> Delete </div>
+                    </div>
                     </div>
                     <div class="ui basic modal" id="delete-modal">
                             <div class="ui icon header">
@@ -59,25 +64,48 @@
                                 DELETE
                             </div>
                               <div class="actions">
-                                <div class="ui red basic cancel inverted button">
+                                <div class="ui red basic cancel inverted button" ng-click = "sponsor.closeModal('delete-modal')">
                                   <i class="remove icon"></i>
                                   No
                                 </div>
+
                                 <div ng-click = "sponsor.deleteSponsor(spon.sponsor_id)" class="ui green ok inverted button">
                                   <i class="checkmark icon"></i>
                                   Yes
                                 </div>
                               </div>
-                        </div>
+                    </div>
+
+                    <div class="ui basic modal" id="add-modal">
+                            <div class="ui icon header">
+                                Add Sponsor
+                            </div>
+                             <div class="ui form">
+                                        <div class="field">
+                                            <label>Sponsor Name</label>
+                                            <input type="text" ng-model="sponsor.newSponsor">
+                                        </div>
+                                    </div>
+                              <div class="actions">
+                                <div class="ui red basic cancel inverted button" ng-click = "sponsor.closeModal('add-modal')">
+                                  Cancel
+                                </div>
+                                <div ng-click = "sponsor.addSponsor()" class="ui green ok inverted button">
+                                  <i class="checkmark icon"></i>
+                                  Yes
+                                </div>
+                              </div>
+                    </div>
                 </td>
 
             </tr>
 
         </tbody>
         <tfoot class="full-width">
-            <tr>
+            <tr> 
                 <th colspan="100%">
-                    <div class="ui right floated small primary labeled icon button">
+                    <div class="ui right floated small primary labeled icon button" ng-click = "sponsor.openModal('add-modal')">
+
                         <i class="add to calendar icon"></i> Add Sponsor
                     </div>
                 </th>

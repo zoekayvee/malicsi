@@ -44,6 +44,27 @@
 				controller: 'eventController',
 				controllerAs: 'event'
 			})
+
+			
+
+			.when('/user/event/:event_id/scoreboard', {
+				templateUrl: 'layouts/user-scoreboard-page.html',
+				controller:'userGameSchedController',
+				controllerAs:'UGSC'
+			})
+			.when('/user/game/:game_id', {
+				templateUrl: 'layouts/user-game-page.html',
+				controller:'gameController',
+				controllerAs:'game'
+			})
+			.when('/user/gameSched', {
+				templateUrl: 'layouts/user-game-sched.html',
+				controller:'userGameSchedController',
+				controllerAs:'UGSC'
+			})
+
+
+
 			.when('/user/game', {
 				templateUrl: 'layouts/user-game-page.html'
 			})
