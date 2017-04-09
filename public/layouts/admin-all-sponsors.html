@@ -1,22 +1,23 @@
 <link rel="stylesheet" href="css/admin.css"></link>
+<link rel="stylesheet" type="text/css" href="css/admin_homepage.css"> </link>
 <script type='text/javascript' src='js/admin.js'></script>
 
-<div class="ui container" id="main-wrapper" ng-controller="sponsorController as sponsor">
-    <div class="ui header">
-        Sponsors</div>
-    <div class="ui row">
-        <div class="ui form">
-            <div class="field">
-                <label>Sponsorship</label>
-                <input type="text" ng-model="sponsor.sponsorName">
+<div class="ui container" id="main-wrapper" >
+<div class="ui card" id="main_card">
+<div class="content"> 
+            <div class="ui row">
+            <div class="ui horizontal center aligned segments" id="segment">
+                <a class="ui segment" href="/#!/admin/all-users"> Users </a>
+                <a class="ui segment" href="/#!/admin/all-events"> Events </a>
+                <a class="ui segment" href="/#!/admin/all-games"> Games </a>
+                <a class="ui segment" href="/#!/admin/all-sports"> Sports </a>
+                <a class="ui segment" href="/#!/admin/all-sponsors"> Sponsors </a>
             </div>
-        </div>
-        <button class="fluid ui button" >ADD SPONSORSHIP</button>
-        <div class="ui basic modal" id="add-modal">
-                            <div class="ui icon header">
-                                Add Sponsor
-                            </div>
-                             <div class="ui form">
+            </div>
+
+<div class="ui row"  ng-controller="sponsorController as sponsor">
+               <div class="ui basic modal" id="add-modal">
+                        <div class="ui form">
                                         <div class="field">
                                             <label>Sponsor Name</label>
                                             <input type="text" ng-model="sponsor.newSponsor">
@@ -69,7 +70,7 @@
                         </div>
                         <div class="ui basic modal" id="delete-modal">
                             <div class="ui icon header">
-                                <i class="trash icon"></i> {{sponsor.updateSponsorId}}
+                                <i class="trash icon"></i> Delete
                             </div>
                             <div class="actions">
                                 <div class="ui red basic cancel inverted button">
@@ -98,4 +99,7 @@
         </table>
 
     </div>
+
+</div>
+</div>
 </div>
