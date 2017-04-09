@@ -1,4 +1,4 @@
-'use strict';	
+'use strict';
 
 (function() {
 	angular.module('malicsi')
@@ -48,8 +48,7 @@
 				templateUrl:'layouts/user-event.html'
 			})
 			.when('/events/:event_id',{
-				templateUrl:'layouts/user-event.html',
-				// templateUrl:'layouts/user-view-event.html',
+				templateUrl:'layouts/user-view-event.html',
 				controller: 'eventController',
 				controllerAs: 'event'
 			})

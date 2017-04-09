@@ -182,10 +182,6 @@ DELIMITER %%
 			BEGIN
 				INSERT INTO logs(user_id, message) VALUES(OLD.user_id, concat("Updated his/her user profile with user name: ", NEW.username));
 			END;
-<<<<<<< HEAD
-=======
-
->>>>>>> ee757fecd8e4cb9bd90e79891846a3f56d1d8dc4
 %%
 	CREATE TRIGGER userDelete AFTER DELETE ON users
 		FOR EACH ROW
@@ -494,10 +490,6 @@ CREATE TRIGGER sponsorEventInsert AFTER INSERT ON sponsor_events
 		BEGIN
 			SELECT * FROM game where sport_id = sportId and event_event_id = eventId;
 		END;
-<<<<<<< HEAD
-=======
-
->>>>>>> ee757fecd8e4cb9bd90e79891846a3f56d1d8dc4
 %%
 	CREATE PROCEDURE viewAllGames()
 		BEGIN
