@@ -14,7 +14,7 @@
                 <a class="ui segment" href="/#!/admin/all-sponsors"> Sponsors </a>
             </div>
             </div>
-<div class="ui row">
+<div class="ui row" ng-controller="gameController as game">
     <table class="ui center aligned table">
         <thead>
             <tr>
@@ -31,18 +31,18 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td> 1</td>
-                <td> 1</td>
-                <td> 1</td>
-                <td> 1</td>
-                <td> 04-07-2017</td>
-                <td> 3:00 pm</td>
-                <td> Referee Name</td>
-                <td> 1</td>
-                <td>5 hours</td>
+            <tr ng-repeat="x in game.allGames">
+                <td> {{x.game_id}} </td>
+                <td> {{x.sport_id}} </td>
+                <td> {{x.venue_id}} </td>
+                <td> {{x.event_event_id}} </td>
+                <td> {{x.date_start}} </td>
+                <td> {{x.time_start}} </td>
+                <td> {{x.referee}} </td>
+                <td> {{x.winner_team_id}} </td>
+                <td> {{x.duration}} </td>
                 <td>
-                    <div class="ui animated button" id="edit">
+                    <div class="ui animated button edit-trigger" ng-click = "game.setCurrentId(x.game_id,'edit-modal')" id="edit">
                         <div class="visible content"><i class="edit icon"> </i></div>
                         <div class="hidden content"> Edit </div>
                     </div>
@@ -50,13 +50,71 @@
                             <div class="header"> UPDATE GAME</div>
                                 <div class="content">
                                     <div class="ui form">
+                                        <div class="fields">
+                                            <div class="field">
+
+                                                <label> Sport Id </label>
+                                                <div class="ui calendar" id="start-date-pick">
+                                                    <div class="ui input left icon">
+                                                        <i class="calendar icon"></i>
+                                                        <input type="text" placeholder="{{x.sport_id}}" name="sport " ng-model="game.updateSportId">
+                                                    </div>
+                                                </div>
+
+                                               <!--  <div ng-controller="sportController as sport">
+                                                    <label> Sport </label>
+                                                    <form class = "ui" >
+                                                        <select name = "Sports">
+                                                            <option ng-repeat = "x in sport.allSports" value = "x.sport_id" ng-model = "sport.sportId"  ng-click="sport.setSportId(x.sport_id)">{{x.sport_name}}</option>
+                                                        </select>
+                                                    </form>
+                                                </div> -->
+                                            </div>
+                                            <div class="field">
+                                                <!-- <div ng-controller="venueController as venue"> -->
+                                                   
+
+                                                    <label> Venue Id </label>
+                                                    <div class="ui calendar" id="start-date-pick">
+                                                        <div class="ui input left icon">
+                                                            <i class="calendar icon"></i>
+                                                            <input type="text" placeholder="{{x.venue_id}}" name="venue" ng-model="game.updateVenueId">
+                                                        </div>
+                                                    </div>
+                                                    <!-- <label> Venue </label>
+                                                    <form class = "ui" >
+                                                        <select name = "Venue">
+                                                            <option ng-repeat = "x in venue.allVenues" value = "x.venue_id" ng-model = "venue.venueId"  ng-click="venue.setVenueId(x.venue_id)">{{x.venue_name}}</option>
+                                                        </select>
+                                                    </form> -->
+                                                <!-- </div> -->
+                                            </div>
+                                            <div class="field">
+                                                <label> Event Id </label>
+                                                <div class="ui calendar" id="start-date-pick">
+                                                    <div class="ui input left icon">
+                                                        <i class="calendar icon"></i>
+                                                        <input type="text" placeholder="{{x.event_id}}" name="event" ng-model="game.updateEventId">
+                                                    </div>
+                                                </div>
+
+                                                <!-- <div ng-controller="eventController as event" ng-init="event.viewAllEvent()">
+                                                    <label> Event </label>
+                                                    <form class = "ui" >
+                                                        <select name = "Event">
+                                                            <option ng-repeat = "x in event.allEvents" value = "x.event_id" ng-model = "event.eventId"  ng-click="event.setEventId(x.event_id)">{{x.event_name}}</option>
+                                                        </select>
+                                                    </form>
+                                                </div> -->
+                                            </div>
+                                        </div>
                                        <div class="fields">
                                             <div class="field">
                                                 <label> Date Start </label>
                                                 <div class="ui calendar" id="start-date-pick">
                                                     <div class="ui input left icon">
                                                         <i class="calendar icon"></i>
-                                                        <input type="text" placeholder="Date" name="date_start" ng-model="game.dateStart">
+                                                        <input type="text" placeholder="{{x.date_start}}" name="date_start" ng-model="game.updateDateStart">
                                                     </div>
                                                 </div>
                                             </div>
@@ -64,22 +122,29 @@
                                                 <label> Time Start </label>
                                                 <div class="ui input left icon">
                                                     <i class="wait icon"></i>
-                                                    <input type="text" placeholder="Time" name="time_start" ng-model="game.timeStart">
+                                                    <input type="text" placeholder="{{x.time_start}}" name="time_start" ng-model="game.updateTimeStart">
+                                                </div>
+                                            </div>
+                                            <div class="field">
+                                                <label> Duration </label>
+                                                <div class="ui input left icon">
+                                                    <i class="wait icon"></i>
+                                                    <input type="text" placeholder="{{x.duration}}" name="duration" ng-model="game.updateDuration">
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="field">
+                                        <div class="field" >
                                             <label> Referee </label>
-                                            <input type="text">
+                                            <input type="text" placeholder="{{x.referee}}"  ng-model="game.updateReferee">
                                         </div>
                                     <br>
-                                    <div class="ui button" id="cancel">Cancel</div>
-                                    <div class="ui button">Submit</div>
+                                    <div class="ui button" id="cancel" ng-click = "game.closeModal('edit-modal')">Cancel</div>
+                                    <div class="ui button" ng-click="game.updateGame(game.currentId);game.closeModal('edit-modal')">Submit</div>
                                     </div>
                                 </div>
                 </td>
                 <td>
-                    <div class="ui animated button" id="delete">
+                    <div class="ui animated button edit-trigger" ng-click = "game.setCurrentId(x.game_id,'delete-modal')" id="delete">
                         <div class="visible content"><i class="trash icon"> </i></div>
                         <div class="hidden content"> Delete </div>
                     </div>
@@ -89,11 +154,11 @@
                                 DELETE
                             </div>
                               <div class="actions">
-                                <div class="ui red basic cancel inverted button">
+                                <div class="ui red basic cancel inverted button" ng-click = "game.closeModal('delete-modal')">
                                   <i class="remove icon"></i>
                                   No
                                 </div>
-                                <div class="ui green ok inverted button">
+                                <div class="ui green ok inverted button" ng-click = "game.deleteGame(x.game_id);game.closeModal('delete-modal')">
                                   <i class="checkmark icon"></i>
                                   Yes
                                 </div>
@@ -107,13 +172,74 @@
         <tfoot class="full-width">
             <tr>
                 <th colspan="100%">
-                    <div class="ui right floated small primary labeled icon button">
+                    <div class="ui right floated small primary labeled icon button"  ng-click = "game.openModal('add-modal')">
                         <i class="add square icon"></i> Add Game
                     </div>
                 </th>
             </tr>
 
         </tfoot>
+        <div class="ui basic modal" id="add-modal">
+            <div class="ui icon header">
+                Add Game
+            </div>
+            <div class="ui form">
+                <div class="field">
+                    <!-- <label>Sport Id</label> -->
+                    <input type="text" placeholder="Sport Id"  ng-model="game.addSportId">
+                    <!-- <div ng-controller="sportController as sport">
+                        <label> Sport </label>
+                        <form class = "ui" >
+                            <select name = "Sports">
+                                <option ng-repeat = "x in sport.allSports" value = "x.sport_id" ng-click="sport.setSportId(x.sport_id)">{{x.sport_name}}</option>
+                            </select>
+                        </form>
+                    </div> -->
+                </div>
+                <div class="field">
+                    <!-- <label>Venue Id</label> -->
+                    <input type="text" placeholder="Venue Id"  ng-model="game.addVenueId">
+                </div>
+                <div class="field">
+                    <!-- <label>Event Id</label> -->
+                    <input type="text" placeholder="Event Id"  ng-model="game.addEventId">
+                  <!--   <div ng-controller="eventController as event" ng-init="event.viewAllEvent()">
+                        <label> Event </label>
+                        <form class = "ui" >
+                            <select name = "Event">
+                                <option ng-repeat = "x in event.allEvents" value = "x.event_id" ng-model = "event.eventId" ng-click="event.setEventId(x.event_id)">{{x.event_name}}</option>
+                            </select>
+                        </form>
+                    </div> -->
+                </div>
+                <div class="field">
+                    <!-- <label>Date Start</label> -->
+                    <input type="text" placeholder="Date Start"  ng-model="game.addDate">
+                </div>
+                <div class="field">
+                    <!-- <label>Time Start</label> -->
+                    <input type="text" placeholder="Time Start"  ng-model="game.addTime">
+                </div>
+                <div class="field">
+                    <!-- <label>Referee</label> -->
+                    <input type="text" placeholder="Referee"  ng-model="game.addReferee">
+                </div>
+                <div class="field">
+                    <!-- <label>Duration</label> -->
+                    <input type="text" placeholder="Duration"  ng-model="game.addDuration">
+                </div>
+            </div>
+            <div class="actions">
+                <div class="ui red basic cancel inverted button" ng-click = "game.closeModal('add-modal')">
+                  Cancel
+                </div>
+                <div ng-click = "game.addGame()" class="ui green ok inverted button">
+                  <i class="checkmark icon"></i>
+                  Yes
+                </div>
+            </div>
+         </div>
+
     </table>
     </div>
 

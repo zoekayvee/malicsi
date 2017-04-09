@@ -27,14 +27,6 @@ router.post     ('/user_team',              userController.userJoinsTeam);
 router.get      ('/logs',                   adminController.viewAllLogs);
 router.get      ('/logs/:user_id',          adminController.viewLogs);
 
-
-router.post('/game',                        gameController.addGame);
-router.get('/game/:game_id',                gameController.viewGame);
-router.get('/game',                         gameController.viewAllGames);
-router.put('/game/:game_id',                gameController.updateGame);
-router.delete('/game/:game_id',             gameController.deleteGame);
-router.delete('/game',                      gameController.deleteAllGames);
-
 router.get('/user/events/:user_id',         userController.viewUserEvents);
 router.get('/user/sponsored/:user_id',      userController.viewSponsoredEvents);
 router.get('/user/interests/:user_id',      userController.viewUserInterests);
@@ -82,13 +74,9 @@ router.post		('/teams/join',	    teamController.userJoinTeam);
 router.get      ('/teams_get_id/:team_name',			teamController.getTeamId);
 router.post		('/teams/event',	teamController.teamJoinEvent);
 router.get       ('/teams_per/:event_id', teamController.viewTeamPerEvent);
+
 router.post 	('/teams_from_event',teamController.deleteTeamFromEvent);
-router.post		('/sports', 				sportController.addSport);
-router.get 		('/sports/:sport_id', 		sportController.viewSports);
-router.get 		('/sports', 				sportController.viewAllSports);
-router.put 		('/sport', 					sportController.updateSport);
-router.delete 	('/sport/:sport_id', 		sportController.deleteSport);
-router.delete 	('/sports', 				sportController.deleteAllSports);
+
 
 router.get      ('/sponsors_get_id/:sponsor_name',	sponsorController.getSponsorId)
 router.post     ('/sponsors',      sponsorController.addSponsor);
@@ -113,7 +101,9 @@ router.put('/game/:game_id', 				gameController.updateGame);
 router.delete('/game/:game_id', 			gameController.deleteGame);
 router.delete('/game', 						gameController.deleteAllGames);
 
-router.post('/sport/:event_id',				sportController.addSport);
+
+router.post('/sport',					sportController.addSport);
+router.post('/sport/:event_id',				sportController.attachSportToEvent);
 router.get('/sport/:sport_id',				sportController.viewSports);
 router.get('/sport', 						sportController.viewAllSports);
 router.put('/sport', 						sportController.updateSport);
@@ -129,13 +119,14 @@ router.delete('/winner', 					winnerController.deleteAllWinners);
 
 //additional
 router.post('/ranking/:sport_id', 					gameController.getRanking);
+router.get('/overallranking/:event_id', 					gameController.getOverallRanking);
 router.post('/bet/:user_id', 						gameController.bet);
 router.get('/bet/:user_id/:game_id', 						gameController.betStatus);
 router.get('/scores/:game_id/:team_id', 						gameController.getScores);
 router.get('/sport/event/:event_id', 		sportController.viewSportsByEvent);
 router.post('/game/sport/:sport_id', 		gameController.viewGamesBySport);
 router.get('/schedule/:sport_id', 		gameController.viewScheds);
-router.get('/leaderboard/:sport_id', 		gameController.viewLeaderboards);
+router.post('/leaderboard/:sport_id', 		gameController.viewLeaderboards);
 
 
 

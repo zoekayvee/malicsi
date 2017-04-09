@@ -58,7 +58,28 @@
 			<div class="event-section">
 				<h1>Sports</h1>
 				<div class="ui divider"></div>
-				Content.
+				
+
+					<div ng-controller="userEventController as UEC">
+						<table id="sports" class="ui celled table">
+
+							<tbody>
+								<tr ng-repeat="x in UEC.allSports" ng-init="a=x.sport_id"> 
+									<td ng-click="showGame[$index]=!showGame[$index]">
+									{{x.sport_name}} 
+									</td>
+								</tr>
+							</tbody>
+						</table>
+						<br>ADD SPORT<br>
+					        Sport Name: <input type="text" ng-model="UEC.addSportName"><br>
+					        <button ng-click="UEC.attachSportToEvent()">ADD</button><br>
+						<button ng-click="UEC.scoreboard()">SCOREBOARD</button>
+					</div>
+
+
+					
+				
 			</div>
 
 			<div  class="event-section" ng-controller="teamController as team">
@@ -92,13 +113,13 @@
 				<h1>Sponsors</h1>
 				<div class="ui divider"></div>
 					<div class = "ui container" ng-controller = "sponsorController as sponsor">
-					<form class = "ui" ng-show = "logged.userId == event.currentUserId">
-						<select name = "Sponsors" ng-init = "sponsor.viewAllSponsor()">
-							<option ng-click = "sponsor.setSponsorId(undefined)">Sponsors</option>
-							<option ng-repeat = "x in sponsor.allSponsors" value = "x.sponsor_id" ng-model = "sponsor.sponsorId"  ng-click="sponsor.setSponsorId(x.sponsor_id)">{{x.sponsor_name}}</option>
-						</select>
-					</form>
-				<button ng-click = "sponsor.sponsorEvent()" ng-show = "logged.userId == event.currentUserId">ADD SPONSORSHIP</button>
+						<form class = "ui" ng-show = "logged.userId == event.currentUserId">
+							<select name = "Sponsors" ng-init = "sponsor.viewAllSponsor()">
+								<option ng-click = "sponsor.setSponsorId(undefined)">Sponsors</option>
+								<option ng-repeat = "x in sponsor.allSponsors" value = "x.sponsor_id" ng-model = "sponsor.sponsorId"  ng-click="sponsor.setSponsorId(x.sponsor_id)">{{x.sponsor_name}}</option>
+							</select>
+						</form>
+					<button ng-click = "sponsor.sponsorEvent()" ng-show = "logged.userId == event.currentUserId">ADD SPONSORSHIP</button>
 				<div ng-init = "sponsor.getSponsorByEvent()">
 					<div class="ui card" ng-repeat="x in sponsor.allEventSponsors">
 						{{x.sponsor_name}}
