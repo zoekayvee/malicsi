@@ -35,7 +35,7 @@
                 .post('/events', newEvent)
                 .then(function(response){
                     console.log(response.data);
-                    console.log('Success! Event Added!')
+                    console.log('DADA');
                 }, function(response){
                     console.log("Error: Cannot Create Event");
                 });
