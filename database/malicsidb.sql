@@ -537,10 +537,6 @@ CREATE TRIGGER sponsorEventInsert AFTER INSERT ON sponsor_events
 		BEGIN
 
 			SELECT * FROM event where event_id = eventId;
-
-			SELECT * FROM event where event_name = eventName;
-
-			SELECT * FROM event where event_id = eventId;
 		END;
 %%
 	CREATE PROCEDURE viewAllEvents()
@@ -554,7 +550,7 @@ CREATE TRIGGER sponsorEventInsert AFTER INSERT ON sponsor_events
 			SELECT A.sport_name, B.event_name from sport as A JOIN event as B JOIN event_has_sport as C on (A.sport_id = C.h_sport_id) and (B.event_id = C.h_event_id) where (A.sport_id = sportId);
 		END;
 %%
-	CREATE PROCEDURE updateEvent(in eventId int unsigned, in eventName varchar(100), in allowReg boolean, in dateSart date, in dateEnd date)
+	CREATE PROCEDURE updateEvent(in eventId int unsigned, in eventName varchar(100), in allowReg boolean, in dateStart date, in dateEnd date)
 		BEGIN
 			UPDATE event SET event_name = eventName, allow_reg = allowReg, date_start = dateStart, date_end = dateEnd, duration = datediff(dateEnd,dateStart) where event_id = eventId;
 		END;
@@ -572,14 +568,14 @@ CREATE TRIGGER sponsorEventInsert AFTER INSERT ON sponsor_events
 			INSERT INTO team(team_name) VALUES(teamName);
 		END;
 %%
-	CREATE PROCEDURE userJoinsTeam(in userid int unsigned, in teamName varchar(100))
+	CREATE PROCEDURE userJoinsTeam(in userid int unsigned, in teamId varchar(100))
 		BEGIN
 			INSERT INTO team_players(team_id, user_id) values((select team_id from team where team_name = teamName), userid);
 		END;
 %%
-	CREATE PROCEDURE viewTeam(in teamName varchar(100))
+	CREATE PROCEDURE viewTeam(in teamId int unsigned)
 		BEGIN
-			SELECT A.team_name, B.username from team as A JOIN users as B JOIN team_players as C on (A.team_name = teamName) and (C.team_id = A.team_id) and (C.user_id = B.user_id);
+			SELECT A.team_name, B.username from team as A JOIN users as B JOIN team_players as C on (A.team_id = teamId) and (C.team_id = A.team_id) and (C.user_id = B.user_id);
 		END;
 %%
 	CREATE PROCEDURE viewAllTeams()
