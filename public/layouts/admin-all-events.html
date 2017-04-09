@@ -15,8 +15,8 @@
             </div>
             </div>
 <br>
-<div class="ui row">
-    <table class="ui center aligned table">
+<div class="ui row" ng-controller = "eventController as event">
+    <table class="ui center aligned table" ng-init = "event.viewAllEvent()">
         <thead>
             <tr>
                 <th>Event ID</th>
@@ -29,13 +29,13 @@
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td> 1</td>
-                <td> Palicsihan</td>
-                <td> Yes</td>
-                <td> 03-12-2017</td>
-                <td>05-12-2017</td>
-                <td>10 hours</td>
+            <tr ng-repeat = "x in event.allEvents">
+                <td> {{x.event_id}}</td>
+                <td> {{x.event_name}}</td>
+                <td> {{x.allow_reg == '1' ? 'Yes' : 'No'}}</td>
+                <td> {{x.date_start}}</td>
+                <td>{{x.date_end}}</td>
+                <td>{{x.duration}} days</td>
                 <td>
                     <div class="ui animated button" id="edit">
                         <div class="visible content"><i class="edit icon"> </i></div>

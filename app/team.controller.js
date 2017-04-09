@@ -23,6 +23,7 @@
     	vm.userJoinTeam = userJoinTeam;
     	vm.getTeamId = getTeamId;
     	vm.viewTeamPerEvent = viewTeamPerEvent;
+    	vm.deleteTeamFromEvent = deleteTeamFromEvent;
 	    /*---------- view team ---------*/
 
 		function addTeam(event_id) {
@@ -70,15 +71,18 @@
 	    	$http
 	    		.get('/teams/'+id)
 	    		.then(function(response){
+	    			
 	    			vm.allTeams = response.data[0];
-	    			console.log(vm.allTeams);
 	    			if(vm.allTeams[0] = undefined){
 	    				$location.path('/user/team');
 	    			}
 	    			else{
 						console.log(response.data);
-	    				console.log('Viewing team ' + response.data.event_name);
+	    				console.log('Viewing team ' + response.data.team_name);
 	    			}
+	    		},
+	    		function(response){
+	    			console.log("error");
 	    		})
 	    }
 
@@ -96,11 +100,13 @@
 	    }
 
 	    function viewClickedTeam(){
+	    	console.log("view clicked team" + $routeParams.team_id);
 	    	$http
 	    		.get('/teams/' + $routeParams.team_id)
 	    		.then(function(response){
-	    			vm.allTeams = response.data[0];
-	    			console.log('Viewing team ' + vm.allTeams[0].team_name);
+	    			console.log(response);
+	    			vm.allTeams = [];
+	    			vm.allTeams = response.data;
 	    		},
 	    		function(response){
 	    			console.log('Team does not exist');
@@ -120,6 +126,28 @@
 					console.log("error");
 				})
 		}
+
+
+
+		function deleteTeamFromEvent(team_id){
+			var deleteFromEvent = {
+				team_id: team_id,
+				event_id: $routeParams.event_id
+			}
+			console.log(deleteFromEvent)
+			$http
+				.post('/teams_from_event',deleteFromEvent)
+				.then(function(response){
+					console.log("removed team from event");
+				},
+				function(response){
+					console.log("error");
+				})
+
+
+
+		}
+
 
 
 	    /*-------- delete event ------------*/

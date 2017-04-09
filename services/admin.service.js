@@ -1,8 +1,9 @@
 'use strict'
 const connection = require(__dirname + '/../db-connection');
 var path = require('path');
+var bcrypt = require('bcrypt');
+const saltRounds = 10;
 
-// viewAllUsers - views all users
 exports.viewAllUsers=(req,res)=>{
 	const query_string = 'SELECT * FROM users;';
 
@@ -15,7 +16,6 @@ exports.viewAllUsers=(req,res)=>{
 			}
 	});
 }
-
 // removeUser - removes all instances of user in database (uses user_id)
 exports.removeUser=(req,res)=>{
 	
@@ -30,23 +30,61 @@ exports.removeUser=(req,res)=>{
 			}
 		});
 }
+exports.updateUserPassword= (req,res) =>{
+	const salt = bcrypt.genSaltSync(saltRounds);
+	const hash = bcrypt.hashSync(req.body.password, salt);
 
-// updateUser - updates user information (uses user_id)
+	const query_string = 'UPDATE users SET password = ? WHERE user_id = ?';
+	const req_data = [hash,
+					  req.params.user_id];
+    connection.query(query_string, req_data, (err,result) => {
+    	if (!err) {
+			res.status(200).send(result);
+			} else {
+				console.log(err);
+				res.status(500).send(err);
+			}
+    })
+} 
+
+exports.approveUser = (req,res) =>{
+	const query_string = 'UPDATE users SET user_type = "normal" WHERE user_id = ?';
+	const req_data = [req.params.user_id];
+    connection.query(query_string, req_data, (err,result) => {
+    	if (!err) {
+			res.status(200).send(result);
+			} else {
+				console.log(err);
+				res.status(500).send(err);
+			}
+    })
+} 
+/*// updateUser - updates user information (uses user_id)
 exports.updateUser=(req,res)=>{
-
-		const query_string = 'call updateUser(?,?,?,?,?,?,?,?,?,?)';
+		if(req.body.flag === "false"){
+			//password not yet encrypted
+			const salt = bcrypt.genSaltSync(saltRounds);
+			const hash = bcrypt.hashSync(req.body.password, salt);
+			req.body.password=hash;
+		}
+		const query_string = 'call updateUser(?,?,?,?,?,?,?,?,?,?,?,?,?)';
+>>>>>>> 7543b5786efb4d4173894087fbb83cfe41b06f1d
 		const req_data = [
 			req.params.user_id,
 			req.body.username,
 			req.body.password,
 			req.body.firstname,
 			req.body.lastname,
+			req.body.gender,
 			req.body.college,
 			req.body.contactno,
 			req.body.email,
+			req.body.location,
 			req.body.weight,
-			req.body.height
+			req.body.height,
+			req.body.age
 		];
+
 		connection.query(query_string, req_data,(err,result) => {
 			if (!err) {
     		res.status(200).send(result);
@@ -55,7 +93,7 @@ exports.updateUser=(req,res)=>{
 				res.status(500).send(err);
 			}
 		});
-}
+}*/
 
 // addCompetitor - adds teams into game (makes use of tables: team, team_plays_game, game)
 exports.addCompetitor = (req,res)=>{
@@ -115,11 +153,21 @@ exports.deleteCompetitor=(req,res)=>{
 	});
 }
 
-
-
 exports.viewLogs=(req,res)=>{
-	const query_string = "SELECT users.user_id,message,firstname FROM logs RIGHT JOIN users ON logs.user_id = users.user_id";
-
+	const query_string = 'SELECT DATE_FORMAT(log_timestamp,"%b %e %Y %r") Date, timestampdiff(minute,log_timestamp,now())Minutes,timestampdiff(hour,log_timestamp,now())Hour,(now()) Time,message from logs where user_id = ? ';
+	const req_data = [req.params.user_id]
+	connection.query(query_string, req_data, (err,result) =>{
+		if(!err){
+			res.status(200).send(result);
+		}
+		else{
+			console.log(err);
+			res.status(500).send(err);
+		}
+	});	
+}
+exports.viewAllLogs=(req,res)=>{
+	const query_string = 'SELECT DATE_FORMAT(log_timestamp,"%b %e %Y %r") Date, timestampdiff(minute,log_timestamp,now())Minutes, timestampdiff(hour,log_timestamp,now())Hour,(now()) Time,message from logs ';
 	connection.query(query_string, null, (err,result) =>{
 		if(!err){
 			res.status(200).send(result);
@@ -131,3 +179,32 @@ exports.viewLogs=(req,res)=>{
 		}
 	});	
 }
+
+
+exports.addUser=(req,res)=>{
+	const salt = bcrypt.genSaltSync(saltRounds);
+	const hash = bcrypt.hashSync(req.body.password, salt);
+
+	//automatic normal user
+	const query_string = 'call createUser(?,?,?,?,?,?)';
+	const req_data = [
+		req.body.username,
+		hash,
+		'normal',
+		req.body.firstname,
+		req.body.lastname,
+		req.body.email
+	];
+	
+	connection.query(query_string, req_data, (err,rows)=>{
+		if(!err){
+			res.status(200).send(rows);
+		}
+		else{
+			console.log(err);
+			res.status(500).send(err);
+		}
+	});
+}
+
+
