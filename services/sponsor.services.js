@@ -169,6 +169,7 @@ exports.viewSponsorByEvent = (req, res, next) => {
 exports.deleteSponsor = (req, res, next) => {
 	console.log(1);
 	var query = 'call deleteSponsor(?)';
+	console.log(req.params.sponsor_id);
 	const data = [
 		req.params.sponsor_id
 	];
@@ -179,7 +180,7 @@ exports.deleteSponsor = (req, res, next) => {
 		(err, row, fields) => {
 			if(!err){
 				console.log(row);
-
+				console.log(req.params.sponsor_id);
 				console.log("Delete Team Success");
 				res.status(200).send("Delete Team Success");
 				return row
