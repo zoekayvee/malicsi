@@ -32,7 +32,6 @@
         vm.updateSponsorName;
          vm.updateSponsorId; 
         function addSponsor() {   
-            vm.newSponsorName = "" 
             var sponsorToBeAdded = {
                  sponsor_name: vm.newSponsor
             }
@@ -46,11 +45,14 @@
                 function(response){
                     console.log("Error :()");
                 });
+            vm.newSponsor = "";
         }
 
 
         function setSponsorId(sponsor_id){
-            vm.deleteSponsorId = sponsor_id;
+
+            vm.sponsorId = sponsor_id;
+            //console.log(vm.deleteSponsorId);
         }
 
 
@@ -108,12 +110,14 @@
     }
 
 
-    function deleteSponsor(id) {
-        
+    function deleteSponsor(sponsor_id) {
+        console.log(sponsor_id);
         $http
-            .delete('/sponsors/'+id)
+            .delete('/sponsors/'+sponsor_id)
             .then(function(response){
+            console.log(vm.deleteSponsorId);
             console.log('Sponsor deleted')
+            console.log(response.data);
             closeModal('delete-modal');
             viewAllSponsor();
         },
@@ -122,7 +126,8 @@
         });
     }
 
-    function deleteSponsorFromEvent(){
+    function deleteSponsorFromEvent(sponsor_id){
+        console.log(sponsor_id);
         var deleteSponsorEvent = {
             sponsor_id: vm.deleteSponsorId,
             event_id: $routeParams.event_id
@@ -138,10 +143,12 @@
                 console.log("error");
             })
     }
-    function setSponsor(sponsor_name,sponsor_id){
+    function setSponsor(sponsor_name,sponsor_id,dmodal){
+        openModal(dmodal);
         console.log(sponsor_name);
         vm.updateSponsorName = sponsor_name;
-        vm.updateSponsorId = sponsor_id
+        vm.updateSponsorId = sponsor_id;
+        console.log(vm.updateSponsorId);
     }
 
     function updateSponsor() {

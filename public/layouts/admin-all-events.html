@@ -55,7 +55,7 @@
                                                 <div class="ui calendar" id="start-date-pick">
                                                     <div class="ui input left icon">
                                                         <i class="calendar icon"></i>
-                                                        <input type="text" placeholder="Date" name="start_date" ng-model = "event.dateStart">
+                                                        <input type="text" placeholder="Date" name="start_date" ng-model = "event.dateStart = x.date_start">
                                                     </div>
                                                 </div>
                                             </div>
@@ -64,11 +64,20 @@
                                                 <div class="ui calendar" id="end-date-pick">
                                                     <div class="ui input left icon">
                                                         <i class="calendar icon"></i>
-                                                        <input type="text" placeholder="Date" name="end_date" ng-model = "event.dateEnd">
+                                                        <input type="text" placeholder="Date" name="end_date" ng-model = "event.dateEnd = x.date_end">
                                                     </div>
                                                 </div>
                                             </div>
                                     </div>
+                                <div class="fields">
+                                    <div class="field">
+                                    <label>Open for registration?</label>
+                                    <form>
+                                        <input type="radio" name="register" ng-model = "event.allowReg" value="1" checked> Yes<br>
+                                        <input type="radio" name="register" ng-model = "event.allowReg" value="0"> No<br>
+                                  </form>
+                    </div>
+                </div>
                                     <br>
                                     <div class="ui button" id="cancel">Cancel</div>
                                     <div class="ui button">Submit</div>
