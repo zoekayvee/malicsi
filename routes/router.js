@@ -97,6 +97,7 @@ router.delete('/winner', 					winnerController.deleteAllWinners);
 
 //additional
 router.post('/ranking/:sport_id', 					gameController.getRanking);
+router.get('/overallranking/:event_id', 					gameController.getOverallRanking);
 router.post('/bet/:user_id', 						gameController.bet);
 router.get('/bet/:user_id/:game_id', 						gameController.betStatus);
 router.get('/scores/:game_id/:team_id', 						gameController.getScores);

@@ -41,7 +41,7 @@
 			$http
 				.get('/schedule/'+sport.sport_id)
 				.then(function(response){
-
+					if(response.data.length == 0) return;
 					vm.games = [];
 					for (var i = 0; i != response.data.length; i++) {
 						if(i%2 == 0) vm.games.push(response.data[i]); //to remove duplicates
@@ -61,6 +61,7 @@
 			$http
 				.post('/leaderboard/'+sport.sport_id,event_games)
 				.then(function(response){
+					if(response.data.length == 0) return;
 					vm.games = [];
 					for (var i = 0; i != response.data.length; i++) {
 						if(i%2==0) vm.games.push(response.data[i]); //to remove duplicates
@@ -119,12 +120,12 @@
 
 		}
 
-		function getOverallRanking(sport){
+		function getOverallRanking(event){
 			$http
-				.post('/overallranking/' + sport.sport_id)
+				.get('/overallranking/' + event.event_id)
 				.then(function(response){
 					vm.overallList = response.data;
-					console.log('Viewing Rank Successful');
+					console.log('Viewing Overall Rank Successful');
 			},
 			function(response){
 				console.log('Error Viewing Rank');
