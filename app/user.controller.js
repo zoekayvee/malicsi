@@ -8,37 +8,49 @@
 		var vm = this;
 		vm.username="";
 		vm.password="";
+
+		vm.user_type="";
 		vm.loginUser=loginUser;
-        vm.currentUser = {};
-        vm.user = [];
-        
+        vm.user = {};
+        vm.allLogs = null;
         vm.firstname = "";
 		vm.lastname = "";
 		vm.newUser = {};
+
+
 		vm.registerUser=registerUser;
-		vm.openModal = openModal;
-		vm.closeModal = closeModal;
 		vm.logOut = logOut;
+		vm.dropDown = dropDown;
+		vm.openModal = openModal;
+		vm.closeModal= closeModal;
+
+        vm.currentUser = {};
+        
 
 		//FOR DASHBOARD
 		vm.teamGames = [];
 		vm.currentGames = [];
 		vm.upcomingGames = [];
 		
-        $http   
-            .get('/loggedIn') 
-            .then(function(response) {
-                if (response.data) {
-                    $http
-                        .get('/viewUser/'+response.data)
-                        .then(function(response) {
-                            vm.currentUser = response.data;
-                            vm.user = response.data;
-                            console.log(vm.currentUser);
-                        });
-                }
-            });
 
+
+        function setToastr(){
+		    toastr.options.positionClass = "toast-bottom-right";
+		    toastr.options.closeButton = true;
+		    toastr.options.showMethod = 'slideDown';
+		    toastr.options.hideMethod = 'slideUp';
+		    toastr.options.positionClass = "toast-bottom-full-width";
+		    toastr.options.timeOut = 2000;
+		    toastr.options.newestOnTop = false;
+    	}
+
+    	function redirectLocation(redirect){
+			if(redirect === '/#!/user/home')
+				window.location.href=redirect;
+			else
+				window.location.reload();
+		}
+		
         // $http   
         //     .get('/viewTeamPlayGame') 
         //     .then(function(response) {
@@ -82,21 +94,40 @@
 				.then(function (response){
 					var redirect = response.data.redirect;
 					console.log(redirect);
-					if (redirect === '/'){
-						window.location.href=redirect;
-					}	
+					vm.user = response.data
+					if (redirect === '/#!/user/home'){
+						toastr.success(response.data.message);
+						setTimeout(function(){
+							redirectLocation(redirect);
+						}, 500);
+					}
 				}, function (response){	
+					toastr.error(response.data.message);
+					console.log('Error');
+					setTimeout(function(){
+						redirectLocation('no');
+					}, 500);
 				});
 		}
+
 		function registerUser(){
+			setToastr();
 			$http
 				.post('/users', vm.newUser)
 				.then(function(response){
 					console.log(response.data);
 					console.log('User added!');
+					vm.username= vm.newUser.username;
+					vm.password= vm.newUser.password; 
+					vm.newUser={};
+					toastr.success('Successfully sent account approval to admin!');
 				},
 				function(response){
+					toastr.error('Error in input!');
 					console.log('Error');
+					setTimeout(function(){
+						redirectLocation('no');
+					}, 500);
 				});
 		}
 
@@ -104,23 +135,28 @@
 	     	$http.get('/logout')
 	     			.then(function(response) {
 	     				var redirect = response.data.redirect;
+	     				toastr.success('Logged out.');
 	     				window.location.href=redirect;
 	     			});
 	     }
 
-	     function openModal() {
-			 $('.ui.modal')
-			 	.modal('setting', {
-					 closable: false
-				})
-				.modal('show');
-		 }
-		 
-		 function closeModal() {
-			 $('.ui.modal')
-			 	.modal('hide');
-			vm.newUser = {};	
-		 }
-	}
+		function dropDown(){
+			$('.ui.dropdown')
+			  .dropdown()
+			;
+		}
+		function openModal(dmodal){
+			$('#'+dmodal+'.modal')
+		 	.modal('setting', {
+				 closable: false
+			})
+			.modal('show');
+		
+		}
+		function closeModal(dmodal){
+			$('#'+dmodal+'.modal')
+			 	.modal('hide');	
+		}
+		}
 
 })();

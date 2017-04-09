@@ -1,54 +1,99 @@
 (function(){
-'use strict'
-    angular
-        .module('malicsi')
-        .controller('sportController', sportController);
+	'use strict'
+	angular
+	.module('malicsi')
+	.controller('sportController',sportController);
 
-        function sportController($http){
-            var vm = this;
-            
-            vm.newSport = "";
-            vm.addSport = addSport;
-            vm.allSports = [];
-            vm.viewAllSport = viewAllSport;
+	function sportController($http,$routeParams){
+		var vm = this;
+		
+		vm.allSports = null;
+		vm.sport_id;
+		vm.addSport = addSport;
+		vm.updateSport = updateSport;
+		vm.deleteSport = deleteSport;
+		vm.deleteAllSports = deleteAllSports;
+		vm.viewSport = viewSport;
+		vm.viewAllSports = viewAllSports;
+		vm.addSportName = null;
+		vm.updateSportId = null;
+		vm.updateSportName = null;
 
-            function addSport() {
-                var sportToBeAdded = {
-                    sport_name: vm.newSport
-                }
-                $http
-                    .post('/addSport', sportToBeAdded)
-                    .then(function(response){
-                        console.log(response.data);
-                        console.log('Success! Sport Added!')
-                    }, function(response){
-                        console.log("Error: Cannot add sport");
-                    });
-            }
+		viewAllSports();
 
-            function viewAllSport() {
-                $http
-                    .get('/viewAllSports')
-                    .then(function(response){
-                    	vm.allSports = response.data;
-                        console.log(response.data);
-                        console.log('Viewing Sports!')
-                }, function(response){
-                	console.log("Error: Cannot get sports");	
-                });
-            }
+		function addSport(){
+			var sportToBeAdded = {
+				sport_name: vm.addSportName,
+			}
+			$http
+				.post('/sport/' + $routeParams.event_id, sportToBeAdded)
+				.then(function(response){
+					console.log('Adding Sport Successful!')
+			},
+			function(response){
+				console.log('Error Adding Sport');
+			});
+		}
+		
+		function viewSport(id){
+			$http
+				.get('/sport' + id)
+				.then(function(response){
+					vm.allSports = response.data;
+					console.log('Viewing Sport Successful');
+			},
+			function(response){
+				console.log('Error Viewing Sport');
+			});
 
-            function deleteSport(id) {
-               $http
-                  .delete('/deleteSport'+id)
-                  .then(function(response){
-                    vm.allSports = response.data;
-                      console.log(response.data);
-                      console.log('Sport deleted')
-              }, function(response){
-                console.log("Error: Cannot Delete Sport");	
-              });
-            }
-        }	
-    }
-)();
+		}
+		function viewAllSports(){
+			$http
+				.get('/sport')
+				.then(function(response){
+					vm.allSports = response.data;
+					console.log('Viewing All Sports Successful!');
+			},
+			function(response){
+				console.log('Error Viewing All Sports');
+			});
+
+		}
+		function updateSport(){
+			var updatedSports = {
+				sport_name: vm.updateSportName,
+				sport_id: vm.updateSportId
+			}
+			$http
+				.put('/sport', updatedSports)
+				.then(function(response){
+					console.log('Updating Sport Successful!');
+			},
+			function(response){
+				console.log('Error Updating Sport');
+			});
+
+		}
+		function deleteSport(id){
+			$http
+				.delete('/sport/' + id)
+				.then(function(response){
+					vm.allSports = response.data;
+					console.log('Deleting Sport Successful!');
+			},
+			function(response){
+				console.log('Error Deleting Sport');
+			});
+		}
+		function deleteAllSports(){
+			$http
+				.delete('/sport')
+				.then(function(response){
+					console.log('Deleting All Sports Successful');
+			},
+			function(response){
+				console.log('Error Deleting All Sports');
+			});
+		}
+	}
+})();

@@ -35,7 +35,7 @@
                 .post('/events', newEvent)
                 .then(function(response){
                     console.log(response.data);
-                    console.log('Success! Event Added!')
+                    console.log('DADA');
                 }, function(response){
                     console.log("Error: Cannot Create Event");
                 });
@@ -45,8 +45,8 @@
             $http
                 .get('/events')
                 .then(function(response){
-                    vm.allEvents = response.data[0];
-                    console.log(response.data[0]);
+                    vm.allEvents = response.data;
+                    console.log(response.data);
                     console.log('Viewing All Events!')
                 }, function(response){
                     console.log("Error: Cannot Get All Events");   
@@ -54,23 +54,23 @@
         }
 
         function viewEvent(id){
-            $location.path('/events/' + id)
-            $http
-                .get('/events/' + id)
-                .then(function(response){
-                    vm.allEvents = response.data[0];
-                    if(vm.allEvents[0] == undefined){
-                        $location.path('/user/events');
-                    }
-                    else{
-                    vm.eventId = vm.allEvents[0].event_id;
-                    console.log("response data" + vm.allEvents[0].event_id);
-                    console.log('Viewing event ' + vm.allEvents[0].event_name);
-                    console.log(vm.eventId);
-                    //$window.localStorage.setItem("event_id",vm.eventId);
-                    //console.log($window.localStorage);
-                    }
-                });
+            $location.path('/user/event/' + id)
+            // $http
+            //     .get('/events/' + id)
+            //     .then(function(response){
+            //         vm.allEvents = response.data[0];
+            //         if(vm.allEvents[0] == undefined){
+            //             $location.path('/user/events');
+            //         }
+            //         else{
+            //         vm.eventId = vm.allEvents[0].event_id;
+            //         console.log("response data" + vm.allEvents[0].event_id);
+            //         console.log('Viewing event ' + vm.allEvents[0].event_name);
+            //         console.log(vm.eventId);
+            //         //$window.localStorage.setItem("event_id",vm.eventId);
+            //         //console.log($window.localStorage);
+            //         }
+            //     });
         }
 
         function viewClickedEvent(){
