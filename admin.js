@@ -1,11 +1,11 @@
 $(document).ready(function(){
      $('.edit-trigger').click(function(){
-        $('#edit-modal').modal('show');    
+        $('#edit-modal').modal('show');
      });
      $('#cancel').click(function(){
-        $('#edit-modal').modal('hide');    
+        $('#edit-modal').modal('hide');
      });
        $('.delete-trigger').click(function(){
-        $('#delete-modal').modal('show');    
+        $('#delete-modal').modal('show');
      });
 });

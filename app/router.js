@@ -1,4 +1,4 @@
-'use strict';	
+'use strict';
 
 (function() {
 	angular.module('malicsi')
@@ -18,6 +18,9 @@
 			})
 			.when('/users', {
 				templateUrl: 'layouts/admin-all-users.html'
+			})
+			.when('/register', {
+				templateUrl: 'layouts/register.html'
 			})
             .when('/user/home', {
 				templateUrl: 'layouts/user-dashboard.html'
@@ -45,8 +48,7 @@
 				templateUrl:'layouts/user-event.html'
 			})
 			.when('/events/:event_id',{
-				templateUrl:'layouts/user-event.html',
-				// templateUrl:'layouts/user-view-event.html',
+				templateUrl:'layouts/user-view-event.html',
 				controller: 'eventController',
 				controllerAs: 'event'
 			})
