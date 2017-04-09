@@ -50,8 +50,9 @@ exports.viewTeam = (req, res, next) => {
 }
 
 exports.viewAllTeam = (req, res, next) => {
-	var query = 'call viewAllTeams()';
-	
+	var query = 'call viewAllTeam()';
+	// var query = 'call viewAllTeams()';
+
 		var id = connection.query(
 		query,
 		(err, row, fields) => {

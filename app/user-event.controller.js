@@ -16,6 +16,9 @@
 		vm.viewGamesByEvent = viewGamesByEvent;
 		vm.viewSportByEvent = viewSportByEvent;
 		vm.attachSportToEvent = attachSportToEvent;
+		vm.viewGame = viewGame;
+		vm.viewGamesByEvent = viewGamesByEvent;
+		vm.viewSportByEvent = viewSportByEvent;
 		vm.scoreboard = scoreboard;
 		vm.event_id = $routeParams.event_id;
 
@@ -46,6 +49,13 @@
 					for (var i = 0; i != response.data.length; i++) vm.games.push(response.data[i]);
 					while(vm.allGames.length!=(sport.sport_id-1)) vm.allGames.push(null);
 					vm.allGames.push(vm.games);
+					vm.games = [];
+					for (var i = 0; i != response.data.length; i++) {
+						vm.games.push(response.data[i]);
+					}
+					while(vm.allGames.length!=(sport.sport_id-1)) vm.allGames.push(null);
+					vm.allGames.push(vm.games);
+					console.log(vm.allGames);
 				},
 				function(response){
 					console.log("Error retrieving data!");

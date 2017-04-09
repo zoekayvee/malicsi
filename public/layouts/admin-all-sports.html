@@ -25,7 +25,7 @@
                 <th colspan="4"> Commands </th>
             </tr>
         </thead>
-        <tbody ng-repeat="x in sport.allSports">
+        <tbody ng-repeat="x in sport.allSports" ng-init = "a = x.sport_id">
             <tr>
                 <td> {{x.sport_id}} </td>
                 <td> {{x.sport_name}} </td> 
@@ -63,7 +63,7 @@
                                   <i class="remove icon"></i>
                                   No
                                 </div>
-                                <div class="ui green ok inverted button" ng-click="sport.deleteSport(x.sport_id);sport.closeModal('delete-modal')">
+                                <div class="ui green ok inverted button" ng-click="sport.deleteSport(sport.currentId);sport.closeModal('delete-modal')">
                                   <i class="checkmark icon"></i>
                                   Yes
                                 </div>

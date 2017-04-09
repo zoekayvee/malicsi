@@ -1,135 +1,137 @@
-<link rel='stylesheet' href='css/user-view-event.css'/>
+<link rel='stylesheet' href='css/user-view-event.css' />
 
-<div id="main-wrapper" ng-controller = "eventController as event">
+<div id="main-wrapper" ng-controller="eventController as event">
 
-	<div class="ui grid container">
-		<div class="four wide column" ng-init = "event.viewClickedEvent()">
-			<div class="ui card" ng-repeat = "x in event.allEvents">
-				<h2>{{x.event_name}}</h2>
-				Start Date:{{x.date_start}}<br>
-				End Date:{{x.date_end}}<br>
-				Open for registration? : {{x.allow_reg == '1' ? 'Yes' : 'No'}}<br>
-				<div id="command-panel" ng-show = "logged.userId == event.currentUserId">
-					<button class="command-btn" ng-click = "event.updateEvent()"><i class="write icon"></i></button>
-					<button class="command-btn" ng-click = "event.deleteEvent(x.event_id)"><i class="delete icon"></i></button>
-				</div>
-			</div>
-			<div class="ui card">
-				<button class="ui button" id="join-button">Join</button>
-			</div>
-		 <div class="ui form" ng-repeat = "x in event.allEvents" >
-            <div ng-show = "logged.userId == event.currentUserId">
-                      <div class="fields">
-                        <div class="field">
-                          <label>Event name</label>
-                          <input type="text" ng-model = "event.eventName" ng-init = "event.eventName = x.event_name" name="event_name">
-                        </div>
+    <div class="ui grid container">
+        <div class="four wide column" ng-init="event.viewClickedEvent()">
+            <div class="ui card" ng-repeat="x in event.allEvents">
+                <h2>{{x.event_name}}</h2> Start Date:{{x.date_start}}
+                <br> End Date:{{x.date_end}}
+                <br> Open for registration? : {{x.allow_reg == '1' ? 'Yes' : 'No'}}
+                <br>
+                <div id="command-panel" ng-show="logged.userId == event.currentUserId">
+                    <button class="command-btn" ng-click="event.updateEvent()"><i class="write icon"></i>
+                    </button>
+                    <button class="command-btn" ng-click="event.deleteEvent(x.event_id)"><i class="delete icon"></i>
+                    </button>
                 </div>
-                <div class="fields">
+            </div>
+            <div class="ui card">
+                <button class="ui button" id="join-button">Join</button>
+            </div>
+            <div class="ui form" ng-repeat="x in event.allEvents">
+                <div ng-show="logged.userId == event.currentUserId">
+                    <div class="fields">
                         <div class="field">
-                          <label>Date Start</label>
-                        	 <input type="text" ng-model = "event.dateStart" ng-init = "event.dateStart = x.date_start" name="event_name">
+                            <label>Event name</label>
+                            <input type="text" ng-model="event.eventName" ng-init="event.eventName = x.event_name" name="event_name">
                         </div>
-                </div>
-                <div class="fields">
+                    </div>
+                    <div class="fields">
                         <div class="field">
-                          <label>Date End</label>
-                          <input type="text" ng-model = "event.dateEnd" ng-init = "event.dateEnd = x.date_end" name="event_name">
+                            <label>Date Start</label>
+                            <input type="text" ng-model="event.dateStart" ng-init="event.dateStart = x.date_start" name="event_name">
                         </div>
-                </div>
-                <div class="fields">
-                    <div class="field">
-                       <label>Open for registration?</label>
-                       <form>
-  							<input type="radio" name="register" ng-model = "event.allowReg" value="1" checked> Yes<br>
- 							<input type="radio" name="register" ng-model = "event.allowReg" value="0"> No<br>
-					  </form>
+                    </div>
+                    <div class="fields">
+                        <div class="field">
+                            <label>Date End</label>
+                            <input type="text" ng-model="event.dateEnd" ng-init="event.dateEnd = x.date_end" name="event_name">
+                        </div>
+                    </div>
+                    <div class="fields">
+                        <div class="field">
+                            <label>Open for registration?</label>
+                            <form>
+                                <input type="radio" name="register" ng-model="event.allowReg" value="1" checked> Yes
+                                <br>
+                                <input type="radio" name="register" ng-model="event.allowReg" value="0"> No
+                                <br>
+                            </form>
+                        </div>
                     </div>
                 </div>
-	</div>
-</div>
+            </div>
 
 
 
 
-		</div>
+        </div>
 
-		<div class="twelve wide column">
-			<div class="event-section">
-				<h1>Sports</h1>
-				<div class="ui divider"></div>
-				
-
-					<div ng-controller="userEventController as UEC">
-						<table id="sports" class="ui celled table">
-
-							<tbody>
-								<tr ng-repeat="x in UEC.allSports" ng-init="a=x.sport_id"> 
-									<td ng-click="showGame[$index]=!showGame[$index]">
-									{{x.sport_name}} 
-									</td>
-								</tr>
-							</tbody>
-						</table>
-						<br>ADD SPORT<br>
-					        Sport Name: <input type="text" ng-model="UEC.addSportName"><br>
-					        <button ng-click="UEC.attachSportToEvent()">ADD</button><br>
-						<button ng-click="UEC.scoreboard()">SCOREBOARD</button>
-					</div>
+        <div class="twelve wide column">
+            <div class="event-section">
+                <h1>Sports</h1>
+                <div class="ui divider"></div>
 
 
-					
-				
-			</div>
+                <div ng-controller="userEventController as UEC">
+                    <table id="sports" class="ui celled table">
 
-			<div  class="event-section" ng-controller="teamController as team">
-				<h1>Team</h1>
+                        <tbody>
+                            <tr ng-repeat="x in UEC.allSports" ng-init="a=x.sport_id">
+                                <td ng-click="showGame[$index]=!showGame[$index]">
+                                    {{x.sport_name}}
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <br>ADD SPORT
+                    <br> Sport Name:
+                    <input type="text" ng-model="UEC.addSportName">
+                    <br>
+                    <button ng-click="UEC.attachSportToEvent()">ADD</button>
+                    <br>
+                    <button ng-click="UEC.scoreboard()">SCOREBOARD</button>
+                </div>
+            </div>
 
-				<div class="ui form" ng-show = "logged.userId == event.currentUserId">
-					<div class="field">
-						<label>Team name</label>
-						<input type="text" ng-model = "team.teamName" name="team_name">
-					</div>
-					<div ng-click = "team.addTeam(event.eventId)">
-						<button class="ui button team" ng-click ="event.viewTeamPerEvent()">Submit</button>
-					</div>
-				</div>
+            <div class="event-section" ng-controller="teamController as team">
+                <h1>Team</h1>
 
-				<br>
-				<!-- <div class="ui divider"></div> -->
+                <div class="ui form" ng-show="logged.userId == event.currentUserId">
+                    <div class="field">
+                        <label>Team name</label>
+                        <input type="text" ng-model="team.teamName" name="team_name">
+                    </div>
+                    <div ng-click="team.addTeam(event.eventId)">
+                        <button class="ui button team" ng-click="event.viewTeamPerEvent()">Submit</button>
+                    </div>
+                </div>
 
-				<div
-					 ng-init = "team.viewTeamPerEvent()">
-					<div class="ui card" ng-repeat="x in team.allTeams">
-						{{x.team_name}}
-						<button class = "ui teal button" ng-click="team.viewTeam(x.team_id)">{{x.team_name}}</button>
-						<button class = "ui red button" ng-show = "logged.userId == event.currentUserId" ng-click = "team.deleteTeamFromEvent(x.team_id)">Remove</button>
-					</div>
-				</div>
+                <br>
+                <!-- <div class="ui divider"></div> -->
 
-			</div>
+                <div ng-init="team.viewTeamPerEvent()">
+                    <div class="ui card" ng-repeat="x in team.allTeams">
+                        {{x.team_name}}
+                        <button class="ui teal button" ng-click="team.viewTeam(x.team_id)">{{x.team_name}}</button>
+                        <button class="ui red button" ng-show="logged.userId == event.currentUserId" ng-click="team.deleteTeamFromEvent(x.team_id)">Remove</button>
+                    </div>
+                </div>
 
-			<div class="event-section">
-				<h1>Sponsors</h1>
-				<div class="ui divider"></div>
-					<div class = "ui container" ng-controller = "sponsorController as sponsor">
-						<form class = "ui" ng-show = "logged.userId == event.currentUserId">
-							<select name = "Sponsors" ng-init = "sponsor.viewAllSponsor()">
-								<option ng-click = "sponsor.setSponsorId(undefined)">Sponsors</option>
-								<option ng-repeat = "x in sponsor.allSponsors" value = "x.sponsor_id" ng-model = "sponsor.sponsorId"  ng-click="sponsor.setSponsorId(x.sponsor_id)">{{x.sponsor_name}}</option>
-							</select>
-						</form>
-					<button ng-click = "sponsor.sponsorEvent()" ng-show = "logged.userId == event.currentUserId">ADD SPONSORSHIP</button>
-				<div ng-init = "sponsor.getSponsorByEvent()">
-					<div class="ui card" ng-repeat="x in sponsor.allEventSponsors">
-						{{x.sponsor_name}}
-						<button class = "ui red button" ng-click = "sponsor.deleteSponsorFromEvent(x.sponsor_id)" ng-show = "logged.userId == event.currentUserId">Remove Sponsorhip</button>
-					</div>
-				</div>
-			</div>
-		</div>
+            </div>
 
-		</div>
+            <div class="event-section">
+                <h1>Sponsors</h1>
+                <div class="ui divider"></div>
+                <div class="ui container" ng-controller="sponsorController as sponsor">
+                    <form class="ui" ng-show="logged.userId == event.currentUserId">
+                        <select name="Sponsors" ng-init="sponsor.viewAllSponsor()">
+                            <option ng-click="sponsor.setSponsorId(undefined)">Sponsors</option>
+                            <option ng-repeat="x in sponsor.allSponsors" ng-click="sponsor.setSponsorId(x.sponsor_id)" value="x.sponsor_id" ng-model="sponsor.sponsorId" >{{x.sponsor_name}}</option>
+                        </select>
+                    </form>
+                    <button ng-click="sponsor.sponsorEvent()" ng-show="logged.userId == event.currentUserId">ADD SPONSORSHIP</button>
+                    <div ng-init="sponsor.getSponsorByEvent()">
+                        <div class="ui card" ng-repeat="x in sponsor.allEventSponsors">
+                            {{x.sponsor_name}}
+                            <button class="ui red button" ng-click="sponsor.deleteSponsorFromEvent(x.sponsor_id)" ng-show="logged.userId == event.currentUserId">Remove Sponsorhip</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-	</div>
+        </div>
+
+    </div>
 </div>

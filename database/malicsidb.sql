@@ -527,7 +527,14 @@ CREATE TRIGGER sponsorEventInsert AFTER INSERT ON sponsor_events
 %%
 	CREATE PROCEDURE viewEvent(in eventId int unsigned)
 		BEGIN
+<<<<<<< HEAD
 			
+=======
+<<<<<<< HEAD
+
+=======
+>>>>>>> ee757fecd8e4cb9bd90e79891846a3f56d1d8dc4
+>>>>>>> 85d4bd094aaa9e0285551385ffed11bddddc8edf
 			SELECT * FROM event where event_id = eventId;
 		END;
 %%
@@ -695,15 +702,25 @@ CREATE TRIGGER sponsorEventInsert AFTER INSERT ON sponsor_events
 			INSERT INTO logs(user_id, message) VALUES(userid, concat((select username from users where user_id = userid), " viewed the logs"));
 		END;
 %%
+<<<<<<< HEAD
 DELIMITER ;	
 
+=======
+<<<<<<< HEAD
+DELIMITER ;
+=======
+
+DELIMITER ;
+>>>>>>> ee757fecd8e4cb9bd90e79891846a3f56d1d8dc4
+
+>>>>>>> 85d4bd094aaa9e0285551385ffed11bddddc8edf
 	call addTeam("TBA");
 	call addTeam(" TBA ");
 
 	insert into users(username, password, user_type, firstname, lastname, college, contactno, email, weight, height) values("Tester1", "test", "admin", "nathaniel", "carvajal", "CAS", 09166994203, "nfcarvajal@up.edu.ph", 59, 177);
 	insert into users(username, password, user_type, firstname, lastname, college, contactno, email, weight, height) values("Tester2", "test", "admin", "nathaniel", "carvajal", "CAS", 09166994203, "nfcarvajal@up.edu.ph", 59, 177);
 
-	insert into venue(latitude, longitude, address, venue_name) values(12.23,32.123, "los banos, laguna", "Copeland Gymasium");
+	insert into venue(latitude, longitude, address, venue_name) values(12.23,32.123, "Los Banos, Laguna", "Copeland Gymnasium");
 
 	call addEvent(1, "Malicsihan", "2017-12-23", "2017-12-25");
 	call addEvent(1, "Palicsihan", "2017-12-23", "2017-12-25");
@@ -728,7 +745,17 @@ DELIMITER ;
 
 	call addGame(1, 1, 1,  "2017-12-23", "11:59:59", 1, "Ma'am Kat");
 	call addGame(2, 1, 1, "2017-12-23", "11:59:59", 1, "Ma'am K");
+<<<<<<< HEAD
 
+<<<<<<< HEAD
+=======
+	-- call addGame(1, 1, "2017-12-23", "11:59:59", 1, "Ma'am Kat");
+	-- call addGame(2, 1, "2017-12-23", "11:59:59", 1, "Ma'am K");
+
+=======
+>>>>>>> ee757fecd8e4cb9bd90e79891846a3f56d1d8dc4
+
+>>>>>>> 85d4bd094aaa9e0285551385ffed11bddddc8edf
 	call addTeam("team1");
 	call addTeam("team2");
 
@@ -747,4 +774,14 @@ DELIMITER ;
 	call sponsorEvent(2, 1);
 	call sponsorEvent(2, 2);
 	call sponsorEvent(3, 1);
+<<<<<<< HEAD
 	call sponsorEvent(3, 2);
+=======
+	call sponsorEvent(3, 2);
+<<<<<<< HEAD
+
+
+	--call deleteUser(2);
+=======
+>>>>>>> ee757fecd8e4cb9bd90e79891846a3f56d1d8dc4
+>>>>>>> 85d4bd094aaa9e0285551385ffed11bddddc8edf

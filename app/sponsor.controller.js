@@ -27,7 +27,7 @@
         vm.openModal = openModal;
         vm.closeModal = closeModal;
         vm.newSponsor = "";
-        vm.setSponsorId = setSponsorId;
+
         vm.deleteSponsorId = "";
         vm.updateSponsorName;
          vm.updateSponsorId; 
@@ -130,7 +130,7 @@
     function deleteSponsorFromEvent(sponsor_id){
         console.log(sponsor_id);
         var deleteSponsorEvent = {
-            sponsor_id: vm.deleteSponsorId,
+            sponsor_id: sponsor_id,
             event_id: $routeParams.event_id
         }
         console.log(deleteSponsorEvent);

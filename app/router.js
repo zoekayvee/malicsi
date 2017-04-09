@@ -2,18 +2,22 @@
 
 (function() {
 	angular.module('malicsi')
-			.config(router);
+			.config(router)
 
 	function router($routeProvider) {
 		$routeProvider
+			.when('/', {
+					templateUrl: 'layouts/login.html',
+					controller:'userController'
+			})
 			.when('/teams/:team_id',{
 				templateUrl: 'layouts/user-view-team.html'
 			})
 			.when('/user/teams', {
 				templateUrl: 'layouts/user-view-teams.html'
 			})
-			.when('/', {
-				templateUrl: 'layouts/login.html'
+			.when('/users', {
+				templateUrl: 'layouts/admin-all-users.html'
 			})
 			.when('/register', {
 				templateUrl: 'layouts/register.html'
@@ -30,6 +34,11 @@
 			.when('/user/new-event', {
 				templateUrl: 'layouts/user-create-event.html'
 			})
+			.when('/user/event', {
+				templateUrl: 'layouts/user-event.html',
+				controller: 'eventController',
+				controllerAs: 'event'
+			})
 			.when('/user/events', {
 				templateUrl: 'layouts/user-view-all-events.html',
 				controller: 'eventController',
@@ -40,7 +49,6 @@
 			})
 			.when('/events/:event_id',{
 				templateUrl:'layouts/user-event.html',
-				// templateUrl:'layouts/user-view-event.html',
 				controller: 'eventController',
 				controllerAs: 'event'
 			})
@@ -66,13 +74,29 @@
 
 
 			.when('/user/game', {
-				templateUrl: 'layouts/user-game-page.html'
+				templateUrl: 'layouts/user-game-page.html',
+				controller:'gameController',
+				controllerAs:'game'
 			})
-			.when('/user/game/sched', {
-				templateUrl: 'layouts/user-game-sched.html'
+			.when('/user/event/:event_id'	, {
+				templateUrl: 'layouts/user-event-sports.html',
+				controller: 'userEventController',
+				controllerAs: 'event'
 			})
-			.when('/user/scoreboard', {
-				templateUrl: 'layouts/user-scoreboard-page.html'
+			.when('/user/event/:event_id/scoreboard', {
+				templateUrl: 'layouts/user-scoreboard-page.html',
+				controller:'userGameSchedController',
+				controllerAs:'UGSC'
+			})
+			.when('/user/game/:game_id', {
+				templateUrl: 'layouts/user-game-page.html',
+				controller:'gameController',
+				controllerAs:'game'
+			})
+			.when('/user/gameSched', {
+				templateUrl: 'layouts/user-game-sched.html',
+				controller:'userGameSchedController',
+				controllerAs:'UGSC'
 			})
 			.when('/user/team', {
 				templateUrl: 'layouts/user-view-teams.html'

@@ -27,6 +27,8 @@ router.post     ('/user_team',              userController.userJoinsTeam);
 router.get      ('/logs',                   adminController.viewAllLogs);
 router.get      ('/logs/:user_id',          adminController.viewLogs);
 
+
+
 router.get('/user/events/:user_id',         userController.viewUserEvents);
 router.get('/user/sponsored/:user_id',      userController.viewSponsoredEvents);
 router.get('/user/interests/:user_id',      userController.viewUserInterests);
@@ -102,8 +104,10 @@ router.delete('/game/:game_id', 			gameController.deleteGame);
 router.delete('/game', 						gameController.deleteAllGames);
 
 
+
 router.post('/sport',					sportController.addSport);
 router.post('/sport/:event_id',				sportController.attachSportToEvent);
+
 router.get('/sport/:sport_id',				sportController.viewSports);
 router.get('/sport', 						sportController.viewAllSports);
 router.put('/sport', 						sportController.updateSport);
@@ -119,14 +123,19 @@ router.delete('/winner', 					winnerController.deleteAllWinners);
 
 //additional
 router.post('/ranking/:sport_id', 					gameController.getRanking);
+
 router.get('/overallranking/:event_id', 					gameController.getOverallRanking);
+
 router.post('/bet/:user_id', 						gameController.bet);
 router.get('/bet/:user_id/:game_id', 						gameController.betStatus);
 router.get('/scores/:game_id/:team_id', 						gameController.getScores);
 router.get('/sport/event/:event_id', 		sportController.viewSportsByEvent);
 router.post('/game/sport/:sport_id', 		gameController.viewGamesBySport);
 router.get('/schedule/:sport_id', 		gameController.viewScheds);
+
 router.post('/leaderboard/:sport_id', 		gameController.viewLeaderboards);
+
+router.get('/leaderboard/:sport_id', 		gameController.viewLeaderboards);
 
 
 

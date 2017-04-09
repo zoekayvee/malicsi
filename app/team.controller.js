@@ -181,7 +181,7 @@
 	    			console.log('Team Joined Event')
 					viewTeamPerEvent();
 	    		}, function(response){
-	    			console.log("error");
+	    			console.log("Team cannot join event");
 	    		});
 
 	    }

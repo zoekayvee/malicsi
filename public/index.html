@@ -13,23 +13,22 @@
     <!-- NAVIGATION SECTION -->
     <div class="ui fixed inverted menu" id="page-navigation">
         <div class="ui container">
-            <a href="#" class="header item">
+            <a href="/#!/user/home" class="header item">
                 <img class="logo" src="images/malicsi.png">
                 &nbsp;&nbsp;MALICSI
             </a>
             <a href="/#!/user/home" class="item">Home</a>
             <a href="/#!/user/events" class="item">Events</a>
 
-                <div class="alight right ui simple dropdown item" ng-controller= "userController as user">
-                   {{user.user.firstname + " " + user.user.lastname}} <i class="dropdown icon"></i>
-                    <div class="menu">
-                        <a class="item" href="#!/user/profile">Profile</a>
-                        <a class="item" href="/#!/user/activity-log">Activity Log</a>
-                        <a class="item" href="#" ng-click="user.logOut()">Logout</a>
-                    </div>
-                </div>
+        <div class="alight right ui simple dropdown item" ng-controller= "userController as user">
+           {{user.user.firstname + " " + user.user.lastname}} <i class="dropdown icon"></i>
+            <div class="menu">
+                <a class="item" href="#!/user/profile">Profile</a>
+                <a class="item" href="/#!/user/activity-log">Activity Log</a>
+                <a class="item" href="#" ng-click="user.logOut()">Logout</a>
             </div>
         </div>
+    </div>
     </div>
 
     <div id="overlay"></div>
@@ -37,18 +36,6 @@
     <!-- CONTENT SECTION -->
     <div ng-view></div>
 
-
-    <!-- FOOTER SECTION -->
-    <!-- <div class="ui inverted vertical footer segment" id="page-footer">
-    <div class="ui center aligned container">
-    <div class="ui horizontal inverted small divided link list">
-    <a class="item" href="#">Site Map</a>
-    <a class="item" href="#">Contact Us</a>
-    <a class="item" href="#">Terms and Conditions</a>
-    <a class="item" href="#">Privacy Policy</a>
-</div>
-</div>
-</div> -->
 </body>
 
 <script type='text/javascript' src='js/jquery-3.1.1.min.js'></script>

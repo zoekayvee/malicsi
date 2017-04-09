@@ -158,6 +158,7 @@ exports.getOverallRanking = (req,res) =>{
 		(err, rows) => {
 			if(!err){
 				console.log("Retrieving Overall Ranking Success");
+
 				res.send(rows);
 			}
 			else{
