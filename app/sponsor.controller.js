@@ -58,6 +58,7 @@
 
 
     function sponsorEvent() {
+        var i = 0;
         if(vm.sponsorId == undefined){
             console.log("Select a legitimate sponsor");
         } 
@@ -151,6 +152,7 @@
         console.log(vm.updateSponsorId);
     }
 
+
     function updateSponsor() {
         
             var sponsorToBeUpdated = {
@@ -171,7 +173,7 @@
 
     function viewAllSponsor() {
         $http
-            .get('/sponsors')
+            .get('/sponsors/')
             .then(function(response){
             vm.allSponsors = response.data[0];
             console.log(response.data);

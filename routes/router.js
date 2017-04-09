@@ -82,7 +82,7 @@ router.post		('/teams/join',	    teamController.userJoinTeam);
 router.get      ('/teams_get_id/:team_name',			teamController.getTeamId);
 router.post		('/teams/event',	teamController.teamJoinEvent);
 router.get       ('/teams_per/:event_id', teamController.viewTeamPerEvent);
-
+router.post 	('/teams_from_event',teamController.deleteTeamFromEvent);
 router.post		('/sports', 				sportController.addSport);
 router.get 		('/sports/:sport_id', 		sportController.viewSports);
 router.get 		('/sports', 				sportController.viewAllSports);

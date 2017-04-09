@@ -130,6 +130,7 @@
 
 
 		function deleteTeamFromEvent(team_id){
+
 			var deleteFromEvent = {
 				team_id: team_id,
 				event_id: $routeParams.event_id
@@ -139,6 +140,7 @@
 				.post('/teams_from_event',deleteFromEvent)
 				.then(function(response){
 					console.log("removed team from event");
+					viewTeamPerEvent();
 				},
 				function(response){
 					console.log("error");

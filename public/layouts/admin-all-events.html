@@ -16,6 +16,48 @@
             </div>
 <br>
 <div class="ui row" ng-controller = "eventController as event">
+
+    <div class="ui modal" id="add-modal">
+        <form class="ui form" ng-controller = "eventController as event">
+                    <h2 class="ui dividing header">CREATE EVENT</h2>
+                    <div class="field">
+                        <label>Event Name</label>
+                        <input type="text" ng-model = "event.eventName" name="event_name">
+                    </div>
+                    <div class="fields">
+                        <div class="field">
+                            <label>Start Date</label>
+                            <div class="ui calendar" id="start-date-pick">
+                                <div class="ui input left icon">
+                                    <i class="calendar icon"></i>
+                                    <input type="text" placeholder="Date" name="start_date" ng-model = "event.dateStart">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label>End Date</label>
+                            <div class="ui calendar" id="end-date-pick">
+                                <div class="ui input left icon">
+                                    <i class="calendar icon"></i>
+                                    <input type="text" placeholder="Date" name="end_date" ng-model = "event.dateEnd">
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <button class="ui green ok inverted button event" id ="submit-create" ng-click = "event.addEventModal(logged.userId,'add-modal')">
+                            Submit
+                        </button>
+                    </div>
+                </form>
+        <div class="actions">
+        <div class="ui red basic cancel inverted button" ng-click = "event.closeModal('add-modal')">Cancel</div>
+
+    </div>
+    </div>
+
+
+
+
     <table class="ui center aligned table" ng-init = "event.viewAllEvent()">
         <thead>
             <tr>
@@ -37,9 +79,11 @@
                 <td>{{x.date_end}}</td>
                 <td>{{x.duration}} days</td>
                 <td>
-                    <div class="ui animated button" id="edit">
-                        <div class="visible content"><i class="edit icon"> </i></div>
-                        <div class="hidden content"> Edit </div>
+                    <div ng-click = "event.setEvent(x.event_id,x.event_name,x.date_start,x.date_end,x.allow_reg)">                
+                        <div class="ui animated button" id="edit" ng-click = "event.openModal('edit-modal')">
+                            <div class="visible content"><i class="edit icon"> </i></div>
+                            <div class="hidden content"> Edit </div>
+                        </div>
                     </div>
                     <div class="ui modal" id="edit-modal">
                             <div class="header"> UPDATE EVENT</div>
@@ -47,7 +91,7 @@
                                     <div class="ui form">
                                         <div class="field">
                                             <label>Sponsor Name</label>
-                                            <input type="text">
+                                            <input type="text" ng-model = "event.updateEventName" >
                                         </div>
                                        <div class="fields">
                                             <div class="field">
@@ -55,7 +99,7 @@
                                                 <div class="ui calendar" id="start-date-pick">
                                                     <div class="ui input left icon">
                                                         <i class="calendar icon"></i>
-                                                        <input type="text" placeholder="Date" name="start_date" ng-model = "event.dateStart = x.date_start">
+                                                        <input type="text" placeholder="Date" name="start_date" ng-model = "event.updateDateStart" >
                                                     </div>
                                                 </div>
                                             </div>
@@ -64,42 +108,47 @@
                                                 <div class="ui calendar" id="end-date-pick">
                                                     <div class="ui input left icon">
                                                         <i class="calendar icon"></i>
-                                                        <input type="text" placeholder="Date" name="end_date" ng-model = "event.dateEnd = x.date_end">
+                                                        <input type="text" placeholder="Date" name="end_date" ng-model = "event.updateDateEnd">
                                                     </div>
                                                 </div>
                                             </div>
-                                    </div>
                                 <div class="fields">
                                     <div class="field">
-                                    <label>Open for registration?</label>
-                                    <form>
-                                        <input type="radio" name="register" ng-model = "event.allowReg" value="1" checked> Yes<br>
-                                        <input type="radio" name="register" ng-model = "event.allowReg" value="0"> No<br>
-                                  </form>
-                    </div>
-                </div>
+                                        <label>Open for registration?</label>
+                                            <form>
+                                                <input type="radio" name="register" ng-model = "event.updateAllowReg" value="1" checked> Yes<br>
+                                                <input type="radio" name="register" ng-model = "event.updateAllowReg" value="0"> No<br>
+                                          </form>
+                                    </div>
+                                </div>
+                                </div>
                                     <br>
-                                    <div class="ui button" id="cancel">Cancel</div>
-                                    <div class="ui button">Submit</div>
+                                    <div class="ui button" id="cancel" ng-click = "event.closeModal('edit-modal')">Cancel</div>
+                                    <div class="ui button" ng-click = "event.updateEventModal('edit-modal')">Submit</div>
+                                    
+                                    
                             </div>
                     </div>
+                </div>
                 </td>
                 <td>
-                    <div class="ui animated button" id="delete">
+                <div ng-click = "event.setDeleteEventId(x.event_id)">
+                    <div class="ui animated button" id="delete" ng-click = "event.openModal('delete-modal')">
                         <div class="visible content"><i class="trash icon"> </i></div>
                         <div class="hidden content"> Delete </div>
                     </div>
+                </div>    
                     <div class="ui basic modal" id="delete-modal">
                             <div class="ui icon header">
                                 <i class="trash icon"></i>
                                 DELETE
                             </div>
                               <div class="actions">
-                                <div class="ui red basic cancel inverted button">
+                                <div class="ui red basic cancel inverted button" ng-click = "event.closeModal('delete-modal')">
                                   <i class="remove icon"></i>
                                   No
                                 </div>
-                                <div class="ui green ok inverted button">
+                                <div class="ui green ok inverted button" ng-click = "event.deleteEventModal('delete-modal')">
                                   <i class="checkmark icon"></i>
                                   Yes
                                 </div>
@@ -113,7 +162,7 @@
         <tfoot class="full-width">
             <tr>
                 <th colspan="100%">
-                    <div class="ui right floated small primary labeled icon button">
+                    <div class="ui right floated small primary labeled icon button" ng-click = "event.openModal('add-modal')">
                         <i class="add to calendar icon"></i> Add Event
                     </div>
                 </th>

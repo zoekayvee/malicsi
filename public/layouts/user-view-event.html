@@ -24,10 +24,10 @@
 					<td>{{x.allow_reg == '1' ? 'Yes' : 'No'}}</td>
 
 					<td>
-					<button class = "ui button green" ng-click = "event.updateEvent()">Update</button>
+					<button class = "ui button green" ng-click = "event.updateEvent()" ng-show = "x.user_id == logged.userId">Update</button>
 					</td>
 					<td>
-					<button class = "ui button red" ng-click = "event.deleteEvent(x.event_id)">Delete</button>
+					<button class = "ui button red" ng-click = "event.deleteEvent(x.event_id)" ng-show = "x.user_id == logged.userId">Delete</button>
 					</td>
 
 
@@ -36,7 +36,7 @@
 
 			</tbody>
 
-	         <div class="ui form" ng-controller = "teamController as team">
+	         <div class="ui form" ng-controller = "teamController as team" ng-show = "logged.userId == event.currentUserId">
                 <div class="field">
                   	<label>Team name</label>
                     <input type="text" ng-model = "team.teamName" name="team_name">
@@ -46,7 +46,9 @@
 
 			
 		</table>
+		
 		 <div class="ui form" ng-repeat = "x in event.allEvents" >
+            <div ng-show = "x.user_id == logged.userId">
                       <div class="fields">
                         <div class="field">
                           <label>Event name</label>
@@ -75,7 +77,7 @@
                     </div>
                 </div>
 	</div>
-
+</div>
 
 <!--	<table class="ui celled table" ng-controller = "sponsorController as sponsor">
 =======
@@ -96,14 +98,14 @@
 
 -->
 <div class = "ui container" ng-controller = "sponsorController as sponsor">
-	<form class = "ui" >
+	<form class = "ui" ng-show = "logged.userId == event.currentUserId">
 		<select name = "Sponsors" ng-init = "sponsor.viewAllSponsor()">
 			<option ng-click = "sponsor.setSponsorId(undefined)">Sponsors</option>
 			<option ng-repeat = "x in sponsor.allSponsors" value = "x.sponsor_id" ng-model = "sponsor.sponsorId"  ng-click="sponsor.setSponsorId(x.sponsor_id)">{{x.sponsor_name}}</option>
 
 		</select>
 	</form>
-	<button ng-click = "sponsor.sponsorEvent()">ADD SPONSORSHIP</button>
+	<button ng-click = "sponsor.sponsorEvent()" ng-show = "logged.userId == event.currentUserId">ADD SPONSORSHIP</button>
 	
 	<table>
 		<tr>
@@ -112,7 +114,7 @@
 		<tbody ng-init = "sponsor.getSponsorByEvent()">
 			<tr ng-repeat = "x in sponsor.allEventSponsors">
 				<td>{{x.sponsor_name}}</td>
-				<td><button class = "ui red button" ng-click = "sponsor.deleteSponsorFromEvent(x.sponsor_id)">Remove Sponsor</button></td>
+				<td><button class = "ui red button" ng-click = "sponsor.deleteSponsorFromEvent(x.sponsor_id)" ng-show = "logged.userId == event.currentUserId">Remove Sponsor</button></td>
 			</tr>
 		</tbody>
 
@@ -139,7 +141,7 @@
 
 					<td><button class = "ui teal button" ng-click="team.viewTeam(x.team_id)">{{x.team_name}}</button></</td>
 
-					<td><button class = "ui red button" ng-click = "team.deleteTeamFromEvent(x.team_id)">Delete</button></td>
+					<td><button class = "ui red button" ng-click = "team.deleteTeamFromEvent(x.team_id)" ng-show = "logged.userId == event.currentUserId">Delete</button></td>
 				</tr>
 			</tbody>
 		</table>
