@@ -39,6 +39,7 @@ router.get('/user/events/:user_id',         userController.viewUserEvents);
 router.get('/user/sponsored/:user_id',      userController.viewSponsoredEvents);
 router.get('/user/interests/:user_id',      userController.viewUserInterests);
 router.put('/users/interests/:user_id',     userController.updateInterests);
+router.put('/users/approval/:user_id',      adminController.approveUser);
 router.put('/users/passwords/:user_id',     adminController.updateUserPassword);
 router.delete('/users/interests/:user_id/:users', userController.deleteInterests);
 

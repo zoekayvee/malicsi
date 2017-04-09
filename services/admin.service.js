@@ -48,9 +48,8 @@ exports.updateUserPassword= (req,res) =>{
 } 
 
 exports.approveUser = (req,res) =>{
-	const query_string = 'UPDATE users SET user_type = ? WHERE user_id = ?';
-	const req_data = [req.body.user_type,
-					  req.params.user_id];
+	const query_string = 'UPDATE users SET user_type = "normal" WHERE user_id = ?';
+	const req_data = [req.params.user_id];
     connection.query(query_string, req_data, (err,result) => {
     	if (!err) {
 			res.status(200).send(result);
