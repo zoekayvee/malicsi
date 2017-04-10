@@ -18,6 +18,7 @@
 		vm.currentUserId = null;
 		vm.user_type = null;
 		vm.approveUser = approveUser;
+		vm.newUser = {};
 
 		$http   
             .get('/user_type_loggedin') 
@@ -52,12 +53,27 @@
 
 		function addUser(){
 			// console.log(user_id);
-			$http.post('/addUser')
+			// $http.post('/addUser')
+			// 	.then(function(response){
+			// 		console.log('Added User');
+			// 		window.location.reload();
+			// 	}, function(response){
+			// 		console.log('Error');
+			// 	});
+			$http
+				.post('/addUser', vm.newUser)
 				.then(function(response){
-					console.log('Added User');
-					window.location.reload();
-				}, function(response){
+					console.log(response.data);
+					console.log('User added!');
+					vm.newUser={};
+					console.log('Successfully sent account approval to admin!');toastr.success('Successfully sent account approval to admin!');
+				},
+				function(response){
+					toastr.error('Error in input!');
 					console.log('Error');
+					setTimeout(function(){
+						redirectLocation('no');
+					}, 500);
 				});
 		}
 

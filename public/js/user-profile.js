@@ -20,7 +20,7 @@ $(document).ready(function(){
         $('#event-modal').modal('hide');    
      });
 });
-<<<<<<< HEAD
+
 $(document).ready(function(){
      $('#cancel-create').click(function(){
         $('#event-modal').modal('hide');    
@@ -31,6 +31,3 @@ $(document).ready(function(){
         $('#interest-modal').modal('show');    
      });
 });
-=======
->>>>>>> d9d11b50dbe1a3f1594194079c757c8e4b0759d7
-
