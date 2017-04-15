@@ -36,7 +36,6 @@ exports.viewGamesBySport = (req,res) =>{
 		req.params.sport_id,
 		req.body.event_event_id
 	];
-	console.log("eventid" + req.body.event_event_id);
 	var id = connection.query(
 		query,
 		data,
@@ -234,6 +233,44 @@ exports.getScores = (req,res) => {
 
 	})
 
+}
+
+exports.updateScores = (req,res) =>{
+	var query = 'UPDATE game_score SET team_score = ? WHERE game_id = ? and team_score_id = ?;';
+	const data = [
+		req.body.score1,
+		req.params.game_id,
+		req.body.team_id
+	];
+	const data2 = [
+		req.body.score2,
+		req.params.game_id,
+		req.body.team_id_2
+	];
+	var id = connection.query(
+		query,
+		data,
+		(err, rows) => {
+			if(!err){
+			var id = connection.query(
+				query,
+				data2,
+				(err, rows) => {
+					if(!err){
+						console.log("Updating Game Success");
+						res.send("Game Successfully Updated");
+					}
+					else{
+						console.log(err);
+						res.status(500).send('Server Error');
+					}
+			})
+			}
+			else{
+				console.log(err);
+				res.status(500).send('Server Error');
+			}
+	})
 }
 
 // VIEWING ALL GAMES 

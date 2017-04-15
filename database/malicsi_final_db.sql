@@ -646,9 +646,10 @@ CREATE TRIGGER sponsorEventInsert AFTER INSERT ON sponsor_events
 			UPDATE team_joins_event SET status = nstatus where team_id = teamId and event_id = eventId;
 		END;
 %%
-	CREATE PROCEDURE teamPlaysGame(in teamId int unsigned, in gameId int unsigned)
+	CREATE PROCEDURE teamPlaysGame(in teamId int unsigned, in gameId int unsigned, in defaultTeamId int unsigned)
 		BEGIN
-			INSERT INTO team_plays_game(game_id,team_id,bet_count) values(gameId,teamId,0);
+			-- INSERT INTO team_plays_game(game_id,team_id,bet_count) values(gameId,teamId,0);
+			UPDATE team_plays_game set team_id = teamId where game_id = gameId and team_id = defaultTeamId;
 			INSERT INTO game_score(game_id, team_score_id, team_score) values(gameId, teamId, 0);
 		END;
 %%
@@ -788,8 +789,8 @@ DELIMITER ;
 	call userJoinsTeam(1, "team1");
 	call userJoinsTeam(1, "team1");
 
-	call teamPlaysGame(1, 1);
-	call teamPlaysGame(2, 1);
+	call teamPlaysGame(1, 1, 1);
+	call teamPlaysGame(2, 1, 2);
 
 	call addSponsor("ArvinSartilloCompany");
 	call addSponsor("Tester");

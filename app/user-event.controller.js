@@ -15,12 +15,13 @@
 		vm.viewGame = viewGame;
 		vm.viewGamesByEvent = viewGamesByEvent;
 		vm.viewSportByEvent = viewSportByEvent;
+		vm.viewAvailableSports = viewAvailableSports;
 		vm.attachSportToEvent = attachSportToEvent;
-		vm.viewGame = viewGame;
-		vm.viewGamesByEvent = viewGamesByEvent;
-		vm.viewSportByEvent = viewSportByEvent;
 		vm.scoreboard = scoreboard;
 		vm.event_id = $routeParams.event_id;
+		vm.sportId = null;
+		vm.setSportId = setSportId;
+		vm.allAvailableSports = null;
 
 		viewSportByEvent();
 
@@ -35,12 +36,23 @@
 				});
 		}
 
+		function viewAvailableSports(){
+			$http
+				.get('/sport/event/view/' + $routeParams.event_id)
+				.then(function(response){
+					vm.allAvailableSports = response.data;
+				},
+				function(response){
+					console.log("Error retrieving data!");
+				});
+		}
+
 
 		function viewGamesByEvent(sport){
 			var event = {
 				event_event_id: $routeParams.event_id
 			}
-			console.log(event);
+			console.log("event");
 			$http
 				.post('/game/sport/'+sport.sport_id,event)
 				.then(function(response){
@@ -64,17 +76,22 @@
 
 		function attachSportToEvent(){
             var sportToBeAdded = {
-                sport_id: vm.addSportName,
+                sport_id: vm.sportId,
             }
             $http
                 .post('/sport/' + $routeParams.event_id, sportToBeAdded)
                 .then(function(response){
-                    window.location.reload();
-                    console.log('Adding Sport To Event Successful!')
+                    console.log('Adding Sport To Event Successful!');
+                    // window.location.reload();
             },
             function(response){
                 console.log('Error Adding Sport');
             });
+        }
+
+        function setSportId(sport_id){
+            vm.sportId = sport_id;
+            //console.log(vm.deleteSponsorId);
         }
 		
 		function addSport(){

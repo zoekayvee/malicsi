@@ -66,20 +66,44 @@
 
                 <div ng-controller="userEventController as UEC">
                     <table id="sports" class="ui celled table">
-
                         <tbody>
-                            <tr ng-repeat="x in UEC.allSports" ng-init="a=x.sport_id">
+                            <tr ng-repeat="x in UEC.allSports" ng-init="a=x.sport_id"> 
                                 <td ng-click="showGame[$index]=!showGame[$index]">
-                                    {{x.sport_name}}
+                                {{x.sport_name}} 
+                                  <!--   <div>
+                                        <table class="ui single line table" ng-show="showGame[$index]">
+                                            <thead>
+                                                <tr>
+                                                    <th> Game ID </th>
+                                                    <th> Date </th>
+                                                    <th> Time </th>
+                                                    <th> Venue </th>
+                                                </tr>
+                                            </thead>
+                                            <tbody ng-init="UEC.viewGamesByEvent(x)">
+                                                <tr ng-repeat="y in UEC.allGames[a-1]" ng-click="UEC.viewGame(y.game_id)">
+                                                    <td id="game"> {{y.game_id}} </td>  
+                                                    <td id="date"> {{y.date_start}} </td>
+                                                    <td id="time"> {{y.time_start}} </td>
+                                                    <td id="venue"> {{y.venue_name}} </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div> -->
                                 </td>
                             </tr>
                         </tbody>
                     </table>
-                    <br>ADD SPORT
-                    <br> Sport Name:
-                    <input type="text" ng-model="UEC.addSportName">
-                    <br>
-                    <button ng-click="UEC.attachSportToEvent()">ADD</button>
+
+                    <form class="ui" ng-show="logged.userId == event.currentUserId">
+                        <select name="Sponsors" ng-init="UEC.viewAvailableSports()">
+                            <option ng-click="UEC.setSportId(undefined)">Sport</option>
+                            <option ng-repeat="x in UEC.allAvailableSports" ng-click="UEC.setSportId(x.sport_id)" value="x.sport_id" ng-model="UEC.sportId" >{{x.sport_name}}</option>
+                        </select>
+                    </form>
+                    <button ng-click="UEC.attachSportToEvent()" ng-show="logged.userId == event.currentUserId">ADD SPORT</button>
+
+
                     <br>
                     <button ng-click="UEC.scoreboard()">SCOREBOARD</button>
                 </div>

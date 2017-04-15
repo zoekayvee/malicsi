@@ -44,6 +44,7 @@
         vm.setCurrentId = setCurrentId;
         vm.setVenueId = setVenueId;
         vm.setEventId = setEventId;
+        vm.updateScores = updateScores;
 
 		viewAllGames();
 
@@ -205,6 +206,25 @@
 				console.log('Error Viewing Score');
 			});
 		}
+
+		function updateScores(team1,team2){
+			var scoreDetails = {
+				score1: vm.score,
+				score2: vm.score2,
+				team_id: team1,
+				team_id_2: team2
+			}
+			$http
+				.post('/scores/update/' + vm.game.game_id,scoreDetails)
+				.then(function(response){
+					console.log("Updated Scores!");
+			},
+			function(response){
+				console.log('Error Updating Score');
+			});
+			closeModal('addscore-modal');
+		}
+
         function openModal(dmodal){
             $('#'+dmodal+'.modal')
             .modal('setting', {

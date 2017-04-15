@@ -31,7 +31,6 @@ exports.attachSportToEvent = (req,res) =>{
 		req.body.sport_id,
 		req.params.event_id
 	];
-
 	var con = connection.query(
 		query,
 		data,
@@ -100,6 +99,27 @@ exports.viewSportsByEvent = (req,res) =>{
 			if(!err){
 				console.log("Viewing Sport Success");
 				res.send(rows[0]);
+			}
+			else{
+				console.log(err)
+				res.status(500).send("Server Error")
+			}
+	}) 
+}
+
+// VIEWING SPORT THROUGH 'event_event_id'
+exports.viewAvailableSports = (req,res) =>{
+	var query = 'select * from sport where sport_id  not in (SELECT sport_id FROM sport WHERE sport_id IN (select h_sport_id from event_has_sport where h_event_id = ?) ORDER BY sport_id);';
+	const data = [
+		req.params.event_id
+	];
+	var con = connection.query(
+		query,
+		data,
+		(err, rows) =>{
+			if(!err){
+				console.log("Viewing Avaiable Sports Success");
+				res.send(rows);
 			}
 			else{
 				console.log(err)
