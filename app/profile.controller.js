@@ -34,7 +34,7 @@
                         });
 
                     $http
-                        .get('/user/events/'+response.data)
+                        .get('/events/'+response.data)
                         .then(function(response) {
                             vm.userEvents = response.data;
 
