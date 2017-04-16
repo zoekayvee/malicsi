@@ -33,6 +33,8 @@
         vm.setCurrentId = setCurrentId;
         vm.openModal = openModal;
         vm.closeModal = closeModal;	
+
+        vm.samp = null;
 	    /*---------- view team ---------*/
 
 		function addTeam(event_id) {
@@ -261,11 +263,11 @@
 	    }
 
 
-	    function team2PlayGame(gameid,currentTeamId,dmodal){
-	        if(vm.teamId.team_id == vm.teamId2.team_id){
-	        	console.log("Failed to add team. Team already has joined the game");
-	        	return;
-	        }
+	    function team2PlayGame(gameid,currentTeamId){
+	        // if(vm.teamId.team_id == vm.teamId2.team_id){
+	        // 	console.log("Failed to add team. Team already has joined the game");
+	        // 	return;
+	        // }
 	        var gameToPlay = {
 	        	team_id : vm.teamId2.team_id,
 	          	game_id : gameid,

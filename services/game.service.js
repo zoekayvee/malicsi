@@ -19,6 +19,12 @@ exports.addGame = (req,res) =>{
 		data,
 		(err, rows) => {
 			if(!err){
+				var query2 = 'select last_insert_id() as game_id';
+				var id2 = connection.query(query2,(err, rows) => { 
+					var query3 = 'call insertTeamPlaysGame(?)';
+					var id3 = connection.query(query3,[rows[0].game_id],(err, rows) => { });
+				});
+
 				console.log("Adding Game Success");
 		    	res.send('Game Successfully added');
 			}
@@ -252,7 +258,7 @@ exports.updateScores = (req,res) =>{
 		data,
 		(err, rows) => {
 			if(!err){
-			var id = connection.query(
+			var id2 = connection.query(
 				query,
 				data2,
 				(err, rows) => {

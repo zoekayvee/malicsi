@@ -85,8 +85,6 @@
                 .get('/events')
                 .then(function(response){
                     vm.allEvents = response.data;
-                    console.log(response.data[0].user_id);
-                    console.log(response.data);
                     console.log('Viewing All Events!')
                 }, function(response){
                     console.log("Error: Cannot Get All Events");

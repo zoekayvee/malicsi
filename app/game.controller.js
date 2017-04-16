@@ -64,9 +64,9 @@
 		
 		function addGame(){
 			var gameToBeAdded = {
-				sport_id: vm.addSportId,
-				venue_id: vm.addVenueId,
-				event_id: vm.addEventId,
+				sport_id: vm.addSportId.sport_id,
+				venue_id: vm.addVenueId.venue_id,
+				event_id: vm.addEventId.event_id,
 				date_start: vm.addDate,
 				time_start: vm.addTime,
 				duration: vm.addDuration,
@@ -126,7 +126,6 @@
 			});
 
 		}
-	
 		function viewAllGames(){
 			$http
 				.get('/game')
@@ -139,12 +138,24 @@
 			});
 
 		}
+		function viewAllVenues(){
+			$http
+				.get('/game')
+				.then(function(response){
+					console.log('Viewing All Venues Successful');
+					vm.allGames = response.data;
+			},
+			function(response){
+				console.log('Error Viewing All Games');
+			});
+
+		}
 		function updateGame(id){
 			var updatedGames = {
 
-				sport_id: vm.updateSportId,
-				venue_id: vm.updateVenueId,
-				event_id: vm.updateEventId,
+				sport_id: vm.updateSportId.sport_id,
+				venue_id: vm.updateVenueId.venue_id,
+				event_id: vm.updateEventId.event_id,
 				date_start: vm.updateDateStart,
 				time_start: vm.updateTimeStart,
 				duration: vm.updateDuration,
@@ -153,6 +164,7 @@
 			$http
 				.put('/game/' + id, updatedGames)
 				.then(function(response){
+					viewAllGames();
 					console.log('Updating Game Successful!');
 			},
 			function(response){

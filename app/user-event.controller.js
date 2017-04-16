@@ -17,11 +17,16 @@
 		vm.viewSportByEvent = viewSportByEvent;
 		vm.viewAvailableSports = viewAvailableSports;
 		vm.attachSportToEvent = attachSportToEvent;
+		vm.deleteSportFromEvent = deleteSportFromEvent;
 		vm.scoreboard = scoreboard;
 		vm.event_id = $routeParams.event_id;
 		vm.sportId = null;
+		vm.currentId = null;
 		vm.setSportId = setSportId;
 		vm.allAvailableSports = null;
+		vm.openModal = openModal;
+		vm.closeModal = closeModal;
+		vm.setCurrentId =setCurrentId;
 
 		viewSportByEvent();
 
@@ -52,7 +57,6 @@
 			var event = {
 				event_event_id: $routeParams.event_id
 			}
-			console.log("event");
 			$http
 				.post('/game/sport/'+sport.sport_id,event)
 				.then(function(response){
@@ -76,16 +80,34 @@
 
 		function attachSportToEvent(){
             var sportToBeAdded = {
-                sport_id: vm.sportId,
+                sport_id: vm.sportId.sport_id,
             }
             $http
                 .post('/sport/' + $routeParams.event_id, sportToBeAdded)
                 .then(function(response){
                     console.log('Adding Sport To Event Successful!');
                     // window.location.reload();
+                    viewSportByEvent();
+                    viewAvailableSports();
             },
             function(response){
                 console.log('Error Adding Sport');
+            });
+        }
+
+		function deleteSportFromEvent(){
+            var sportToBeDeleted = {
+                sport_id: vm.currentId,
+            }
+            $http
+                .post('/sport/' + $routeParams.event_id + '/delete', sportToBeDeleted)
+                .then(function(response){
+                    console.log('Deleting Sport To Event Successful!');
+                    viewSportByEvent();
+                    viewAvailableSports();
+            },
+            function(response){
+                console.log('Error Deleting Sport');
             });
         }
 
@@ -115,6 +137,22 @@
 		function scoreboard(){
 			$location.path('/user/event/' + $routeParams.event_id + '/scoreboard')
 		}
+
+        function setCurrentId(id,dmodal){
+            openModal(dmodal)
+            vm.currentId = id;
+        }
+        function openModal(dmodal){
+            $('#'+dmodal+'.modal')
+            .modal('setting', {
+                 closable: false
+            })
+            .modal('show');
+        }
+        function closeModal(dmodal){
+           $('#'+dmodal+'.modal')
+                    .modal('hide'); 
+            }
 
 	}
 

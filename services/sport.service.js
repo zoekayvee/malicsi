@@ -47,6 +47,28 @@ exports.attachSportToEvent = (req,res) =>{
 	)   
 }
 
+exports.deleteSportFromEvent = (req,res) =>{
+	var query = 'delete from event_has_sport where h_event_id = ? and h_sport_id = ?;';
+	const data = [
+		req.params.event_id,
+		req.body.sport_id,
+	];
+	var con = connection.query(
+		query,
+		data,
+		(err, rows) => {
+			if(!err){
+				console.log("Deleting Sport Success");
+		    	res.send('Sport Successfully deleted');
+			}
+			else{
+				console.log(err);
+				res.status(500).send("Server Error");
+			}
+		}
+	)   
+}
+
 // VIEWING SPORT THROUGH 'sport_id'
 exports.viewSports = (req,res) =>{
 	var query = 'call viewSportById(?)';

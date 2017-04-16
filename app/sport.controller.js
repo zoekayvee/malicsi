@@ -29,14 +29,12 @@
             viewAllSports();
 
         function setCurrentId(id,dmodal){
-            console.log(id);
             openModal(dmodal)
             vm.currentId = id;
         }
 
         function setSportId(id){
             vm.addSportId = id;
-            console.log("here");
         }
 
         function addSport(){

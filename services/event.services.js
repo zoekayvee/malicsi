@@ -69,8 +69,6 @@ exports.viewAllEvent = (req, res, next) => {
 		query,
 		(err, row, fields) => {
 			if(!err){
-				console.log(row);
-
 				console.log("Success");
 				res.status(200).send(row);
 				//return row

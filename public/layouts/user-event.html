@@ -58,13 +58,13 @@
 
         </div>
 
-        <div class="twelve wide column">
+        <div class="twelve wide column" ng-controller="userEventController as UEC">
+            <button style="float:right" class="ui button" ng-click="UEC.scoreboard()" ng-show="logged.userId == event.currentUserId">VIEW SCOREBOARD</button>
             <div class="event-section">
                 <h1>Sports</h1>
                 <div class="ui divider"></div>
 
-
-                <div ng-controller="userEventController as UEC">
+                <div>
                     <table id="sports" class="ui celled table">
                         <tbody>
                             <tr ng-repeat="x in UEC.allSports" ng-init="a=x.sport_id"> 
@@ -90,22 +90,39 @@
                                             </tbody>
                                         </table>
                                     </div> -->
+
+                                    <button style="float:right" class="ui red button" ng-click="UEC.setCurrentId(x.sport_id,'delete-modal')" ng-show="logged.userId == event.currentUserId">X</button>
+
+                                    <div class="ui basic modal" id="delete-modal">
+                                            <div class="ui icon header">
+                                                <i class="trash icon"></i>
+                                                DELETE
+                                            </div>
+                                              <div class="actions">
+                                                <div class="ui red basic cancel inverted button" ng-click = "UEC.closeModal('delete-modal')">
+                                                  <i class="remove icon"></i>
+                                                  No
+                                                </div>
+                                                <div class="ui green ok inverted button" ng-click="UEC.deleteSportFromEvent();UEC.closeModal('delete-modal')">
+                                                  <i class="checkmark icon"></i>
+                                                  Yes
+                                                </div>
+                                              </div>
+                                    </div>
                                 </td>
+
                             </tr>
                         </tbody>
                     </table>
-
-                    <form class="ui" ng-show="logged.userId == event.currentUserId">
-                        <select name="Sponsors" ng-init="UEC.viewAvailableSports()">
-                            <option ng-click="UEC.setSportId(undefined)">Sport</option>
-                            <option ng-repeat="x in UEC.allAvailableSports" ng-click="UEC.setSportId(x.sport_id)" value="x.sport_id" ng-model="UEC.sportId" >{{x.sport_name}}</option>
+                    <form  class="ui" ng-show="logged.userId == event.currentUserId">
+                        <select ng-init="UEC.viewAvailableSports()" ng-model="UEC.sportId" ng-options="x.sport_name for x in UEC.allAvailableSports">
                         </select>
                     </form>
+
                     <button ng-click="UEC.attachSportToEvent()" ng-show="logged.userId == event.currentUserId">ADD SPORT</button>
 
 
                     <br>
-                    <button ng-click="UEC.scoreboard()">SCOREBOARD</button>
                 </div>
             </div>
 

@@ -191,24 +191,20 @@ exports.teamJoinEvent = (req, res, next) => {
 }
 
 exports.teamPlayGame = (req, res, next) => {
-	var query = 'call teamPlaysGame(?,?,?)';
+	var query = 'call updateTeamPlaysGame(?,?,?)';
 	const data = [
 		req.body.team_id,
 		req.body.game_id,
 		req.body.default_team_id
 	];
-	console.log("here");
-	console.log(data);
 	var id = connection.query(
 		query,
 		data,
 		(err, row, fields) => {
 			if(!err){
 				console.log(row);
-
 				console.log("Update Team Play Game Success");
 				res.status(200).send("Update Team Play Game Success");
-				return row
 			}
 			else{
 				console.log(err);
