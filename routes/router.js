@@ -35,7 +35,7 @@ router.put('/game/:game_id',                gameController.updateGame);
 router.delete('/game/:game_id',             gameController.deleteGame);
 router.delete('/game',                      gameController.deleteAllGames);
 
-router.get('/user/events/:user_id',         userController.viewUserEvents);
+router.get('/events/:user_id',         userController.viewUserEvents);
 router.get('/user/sponsored/:user_id',      userController.viewSponsoredEvents);
 router.get('/user/interests/:user_id',      userController.viewUserInterests);
 router.put('/users/interests/:user_id',     userController.updateInterests);
@@ -101,7 +101,7 @@ router.get 		('/sponsors_by_event/:event_id', sponsorController.viewSponsorByEve
 router.post 	('/sponsors_from_event',	sponsorController.deleteSponsorFromEvent)
 
 router.post('/competitors',               adminController.addCompetitor);
-router.get('/competitors/:game_id',  userController.viewAllCompetitors); 
+router.get('/competitors/:game_id',  userController.viewAllCompetitors);
 router.get('/competitors/:team_id',      userController.viewCompetitor);
 router.put('/competitors/:team_id',    adminController.updateCompetitor);
 router.delete('/competitors/:team_id', adminController.deleteCompetitor);
@@ -158,7 +158,7 @@ router.get('/', (req,res)=>{
 });
 
 router.get('/403', (req,res)=>{
-    res.sendFile('public/layouts/forbidden.html',{root:__dirname+'/..'});
+    res.sendFile('public/layouts/error-403.html',{root:__dirname+'/..'});
 });
 
 router.all('*', (req, res) => {

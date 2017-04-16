@@ -60,7 +60,7 @@
             //     .then(function(response){
             //         vm.allEvents = response.data[0];
             //         if(vm.allEvents[0] == undefined){
-            //             $location.path('/user/events');
+            //             $location.path('/events');
             //         }
             //         else{
             //         vm.eventId = vm.allEvents[0].event_id;
@@ -82,7 +82,7 @@
                     vm.allEvents = response.data[0];
                     if(vm.allEvents[0] == undefined){
                         vm.allEvents = [];
-                        $location.path('/user/events');
+                        $location.path('/events');
                         viewAllEvent();
                     }
                     else{

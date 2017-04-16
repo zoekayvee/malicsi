@@ -10,19 +10,9 @@
 					templateUrl: 'layouts/login.html',
 					controller:'userController'
 			})
-			.when('/teams/:team_id',{
-				templateUrl: 'layouts/user-view-team.html'
-			})
-			.when('/user/teams', {
-				templateUrl: 'layouts/user-view-teams.html'
-			})
-			.when('/users', {
-				templateUrl: 'layouts/admin-all-users.html'
-			})
-			.when('/register', {
-				templateUrl: 'layouts/register.html'
-			})
-            .when('/user/home', {
+
+			//User Account Routers
+			.when('/user/home', {
 				templateUrl: 'layouts/user-dashboard.html'
 			})
 			.when('/user/profile', {
@@ -31,58 +21,50 @@
 			.when('/user/activity-log', {
 				templateUrl: 'layouts/user-activity-log.html'
 			})
-			.when('/user/new-event', {
-				templateUrl: 'layouts/user-create-event.html'
-			})
-			.when('/user/event', {
-				templateUrl: 'layouts/user-event.html',
-				controller: 'eventController',
-				controllerAs: 'event'
-			})
-			.when('/user/events', {
+
+			//Events Routers
+			.when('/events', {
 				templateUrl: 'layouts/user-view-all-events.html',
 				controller: 'eventController',
 				controllerAs: 'event'
-			})
-			.when('/event',{
-				templateUrl:'layouts/user-event.html'
 			})
 			.when('/events/:event_id',{
 				templateUrl:'layouts/user-view-event.html',
 				controller: 'eventController',
 				controllerAs: 'event'
 			})
-			.when('/user/game', {
-				templateUrl: 'layouts/user-game-page.html',
-				controller:'gameController',
-				controllerAs:'game'
-			})
-			.when('/user/event/:event_id'	, {
-				templateUrl: 'layouts/user-event-sports.html',
-				controller: 'userEventController',
-				controllerAs: 'event'
-			})
-			.when('/user/event/:event_id/scoreboard', {
+			.when('/event/:event_id/scoreboard', {
 				templateUrl: 'layouts/user-scoreboard-page.html',
 				controller:'userGameSchedController',
 				controllerAs:'UGSC'
 			})
-			.when('/user/game/:game_id', {
-				templateUrl: 'layouts/user-game-page.html',
-				controller:'gameController',
-				controllerAs:'game'
-			})
-			.when('/user/gameSched', {
+			.when('/event/game-schedule', {
 				templateUrl: 'layouts/user-game-sched.html',
 				controller:'userGameSchedController',
 				controllerAs:'UGSC'
 			})
-			.when('/user/team', {
-				templateUrl: 'layouts/user-view-teams.html'
+
+			//Game Routers
+			.when('/game/:game_id', {
+				templateUrl: 'layouts/user-game-page.html',
+				controller:'gameController',
+				controllerAs:'game'
 			})
-			.when('/user/search', {
+
+			//Teams Routers
+			.when('teams', {
+				templateUrl: 'layouts/user-view-all-teams.html'
+			})
+			.when('/teams/:team_id',{
+				templateUrl: 'layouts/user-view-team.html'
+			})
+
+			//Search Routers
+			.when('/search', {
 				templateUrl: 'layouts/user-search-page.html'
 			})
+
+			//Admin Routers
 			.when('/admin/all-users', {
 				templateUrl: 'layouts/admin-all-users.html'
 			})
@@ -101,8 +83,10 @@
 			.when('/admin', {
 				templateUrl: 'layouts/admin-homepage.html'
 			})
+
+			//Catch Case
 			.otherwise({
-				templateUrl: 'layouts/error.html'
+				templateUrl: 'layouts/error-404.html'
 			})
 	}
 })();
