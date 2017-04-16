@@ -1,6 +1,3 @@
-<<<<<<< HEAD
- 		
-=======
 $(document).ready(function(){
 <<<<<<< HEAD
      $('.edit-trigger').click(function(){
@@ -26,4 +23,3 @@ $(document).ready(function(){
      });
 >>>>>>> ee757fecd8e4cb9bd90e79891846a3f56d1d8dc4
 });
->>>>>>> 85d4bd094aaa9e0285551385ffed11bddddc8edf
