@@ -23,12 +23,12 @@
 			})
 
 			//Events Routers
-			.when('/events', {
+			.when('/event', {
 				templateUrl: 'layouts/user-view-all-events.html',
 				controller: 'eventController',
 				controllerAs: 'event'
 			})
-			.when('/events/:event_id',{
+			.when('/event/:event_id',{
 				templateUrl:'layouts/user-view-event.html',
 				controller: 'eventController',
 				controllerAs: 'event'
@@ -52,10 +52,10 @@
 			})
 
 			//Teams Routers
-			.when('teams', {
+			.when('team', {
 				templateUrl: 'layouts/user-view-all-teams.html'
 			})
-			.when('/teams/:team_id',{
+			.when('/team/:team_id',{
 				templateUrl: 'layouts/user-view-team.html'
 			})
 
@@ -65,23 +65,23 @@
 			})
 
 			//Admin Routers
-			.when('/admin/all-users', {
-				templateUrl: 'layouts/admin-all-users.html'
-			})
-			.when('/admin/all-events', {
-				templateUrl: 'layouts/admin-all-events.html'
-			})
-			.when('/admin/all-sponsors', {
-				templateUrl: 'layouts/admin-all-sponsors.html'
-			})
-			.when('/admin/all-games', {
-				templateUrl: 'layouts/admin-all-games.html'
-			})
-			.when('/admin/all-sports', {
-				templateUrl: 'layouts/admin-all-sports.html'
-			})
 			.when('/admin', {
 				templateUrl: 'layouts/admin-homepage.html'
+			})
+			.when('/admin/users', {
+				templateUrl: 'layouts/admin-all-users.html'
+			})
+			.when('/admin/events', {
+				templateUrl: 'layouts/admin-all-events.html'
+			})
+			.when('/admin/sponsors', {
+				templateUrl: 'layouts/admin-all-sponsors.html'
+			})
+			.when('/admin/games', {
+				templateUrl: 'layouts/admin-all-games.html'
+			})
+			.when('/admin/sports', {
+				templateUrl: 'layouts/admin-all-sports.html'
 			})
 
 			//Catch Case
