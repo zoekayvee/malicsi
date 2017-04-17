@@ -32,11 +32,11 @@
                             <th colspan="4">Commands </th>
                         </tr>
                     </thead>
-                    <tbody ng-controller="otherUsersController as other">
+                    <tbody>
                         <tr ng-repeat = "x in admin.allUsers">
                             <td> {{x.user_id}}</td>
-                            <td>
-                                 <a ng-click = "other.relocate(x.user_id)">{{x.username}}</a>
+                            <td ng-controller = "otherUsersController as others">
+                                 <a ng-click = "others.clicked(x.user_id)">{{x.username}}</a>
                                  <div class="sub-header"> {{ x.user_type }}</div>
                             </td>
                             <td> {{x.firstname}}</td>

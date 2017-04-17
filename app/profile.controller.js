@@ -13,6 +13,7 @@
 		vm.userEvents = {};
 		vm.userInterests = {};
 		vm.sponsoredEvents = {};
+        vm.userTeams = {};
 
 
 		vm.openModal = openModal;
@@ -51,7 +52,11 @@
                         .get('/user/interests/'+response.data)
                         .then(function(response) {
                             vm.userInterests = response.data;
-                            console.log(vm.userInterests);
+                        });
+                     $http
+                        .get('/user/teams/'+response.data)
+                        .then(function(response) {
+                            vm.userTeams = response.data;
                         });
                 }
                 else{

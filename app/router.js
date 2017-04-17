@@ -10,7 +10,6 @@
 					templateUrl: 'layouts/login.html',
 					controller:'userController'
 			})
-			
 			//User Account Routers
 			.when('/user/home', {
 				templateUrl: 'layouts/user-dashboard.html'
@@ -21,8 +20,8 @@
 			.when('/user/activity-log', {
 				templateUrl: 'layouts/user-activity-log.html'
 			})
-			.when('/user/visit-profile', {
-				//added for visiting other profile
+			.when('/users/:username', {
+				//new routes for visiting other profile
 				templateUrl: 'layouts/user-visit-profile.html'
 			})
 

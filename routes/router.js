@@ -36,6 +36,7 @@ router.put('/game/:game_id',                gameController.updateGame);
 router.delete('/game/:game_id',             gameController.deleteGame);
 router.delete('/game',                      gameController.deleteAllGames);
 
+router.get('/user/teams/:user_id',         userController.viewUserTeams); //added router for a user's teams
 router.get('/user/events/:user_id',         userController.viewUserEvents);
 router.get('/user/sponsored/:user_id',      userController.viewSponsoredEvents);
 router.get('/user/interests/:user_id',      userController.viewUserInterests);
@@ -159,7 +160,7 @@ router.get('/', (req,res)=>{
 });
 
 router.get('/403', (req,res)=>{
-    res.sendFile('public/layouts/forbidden.html',{root:__dirname+'/..'});
+    res.sendFile('public/layouts/error-403.html',{root:__dirname+'/..'});
 });
 
 router.all('*', (req, res) => {

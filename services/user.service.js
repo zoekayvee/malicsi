@@ -199,6 +199,22 @@ exports.viewUserEvents = (req,res) => {
 		}
 	});
 }
+exports.viewUserTeams = (req,res) => {
+	const query_string =  "SELECT * from team natural join (select team_id from team_players where user_id= ? )a";
+	const req_data = [req.params.user_id]
+
+	connection.query(query_string, req_data, (err,result)=>{
+		if(!err){
+			res.status(200).send(result);
+			//console.log(result[0]);
+		}
+		else{
+			console.log(err);
+			res.status(500).send(err);
+		}
+	});
+}
+
 
 exports.updateInterests = (req,res) => {
 	const query_string = "INSERT INTO user_interests VALUES (?,?)";
