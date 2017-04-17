@@ -49,7 +49,7 @@
 					toastr.success(response.data.message);
 					window.location.href=redirect;
 				}, function (response){	
-					//toastr.error(response.data.message);
+					toastr.error(response.data.message);
 					console.log('Error');
 					window.location.reload();
 				});

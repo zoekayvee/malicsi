@@ -24,6 +24,7 @@
 		vm.user_type = null;
 		vm.approveUser = approveUser;
 		vm.initialize= initialize;
+		vm.allPending=[];
 
 		$http   
             .get('/user_type_loggedin') 
@@ -43,7 +44,6 @@
                 	window.location.href ='/403';
                 }
             });
-		
 
 		function deleteUser(user_id){
 			console.log(user_id);

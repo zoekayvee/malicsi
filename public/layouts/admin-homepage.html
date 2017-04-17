@@ -1,6 +1,6 @@
 <link rel="stylesheet" type="text/css" href="css/admin_homepage.css"> </link>
 
-<div class="ui container" id="main-wrapper">
+<div class="ui container" id="main-wrapper"  ng-controller="adminController as home">
     <div class="ui card" id="main_card">
             <div class="content">
             <div class="ui row">
@@ -12,16 +12,16 @@
                 <a class="ui segment" href="/#!/admin/sponsors"> Sponsors </a>
             </div>
             </div>
-            <div class="ui row">
+            <div class="ui row" ng-repeat="x in home.allUsers | filter: {user_type: 'pending'}">
             <div class="ui card" id="card">
-            <div class=" center aligned content">
-            <h3 class="ui header"> Elektra </h3>
-            <i class="massive user icon"></i>
-            </div>
-            <div class="center aligned extra">
-                <button class ="ui button" id="accept">ACCEPT</button>
-                <button class ="ui button" id="decline">DECLINE</button>
-            </div>
+                <div class=" center aligned content">
+                <h3 class="ui header"> {{x.username}}</h3>
+                <i class="massive user icon"></i>
+                </div>
+                <div class="center aligned extra">
+                    <button class ="ui button" id="accept" ng-click="home.approveUser(x.user_id)">ACCEPT</button>
+                    <button class ="ui button" id="decline" ng-click="home.deleteUser(x.user_id)">DECLINE</button>
+                </div>
             </div>
             </div>
 

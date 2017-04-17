@@ -50,17 +50,17 @@ exports.login=(req,res)=>{
 						req.session.usertype = rows[0].user_type
 			        	console.log('SUCCESSFULLY LOGGED IN!');
 						var json =  JSON.parse((JSON.stringify(rows[0])));
+						var redirect="";
 						//console.log(json);
 						if(rows[0].user_type === 'admin'){
-							res.json({
-							redirect: '/#!/admin'	
-							});	
+							redirect = '/#!/admin'
 						}
-						else{
-							res.json({
-							redirect: '/#!/user/home'	
-							});
+						if(rows[0].user_type === 'normal'){
+							redirect = '/#!/user/home'	
 						}
+						res.json({
+							redirect: redirect	
+						});	
 			        }
 		   			
 		   		}
