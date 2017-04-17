@@ -1,67 +1,106 @@
-<link rel='stylesheet' href='loginregister.css'/>
-<link rel="stylesheet" href="toastr.css" />
-<script src="toastr.js"></script>
+<link rel='stylesheet' href='css/login.css'/>
+<script type='text/javascript' src='js/login.js'></script>
 
-<div class="ui container">
-	<div class="ui two column grid basic segment" id="forms">
-		<div class="column" id="login-panel">
-			<h2 class="ui image header">
-				<div class="content">
-					Log-in to your account
-				</div>
-			</h2>
-			<form class="ui form" ng-controller="userController as login">
-				<div class="required field">
-					<label> Username </label>
-					<div class="ui left labeled icon input">
-						<input id="username" type="text" ng-model="login.username">
-						<i class="user icon"></i>
+<div id="main-wrapper" >
+<div class="ui container section" id="login-div">
+	<div class="ui one column center aligned grid" id="forms">
+		<div class="column six wide form-holder" id="login-panel">
+			<h2 class="center aligned header form-head">Log in to your account</h2>
+			<form class="ui medium form" ng-controller="userController as login">
+				<div class="field">
+					<div class="ui left icon input">						<i class="user icon"></i>
+						<input id="username" type="text" ng-model="login.username" placeholder="username">
 					</div>
 				</div>
-				<div class="required field">
-					<label> Password </label>
-					<div class="ui left labeled icon input">
-						<input id="password" type="password" ng-model="login.password">
-						<i class="lock icon"></i>
+				<div class="field">
+					<div class="ui left icon input">						<i class="lock icon"></i>
+						<input id="password" type="password" ng-model="login.password" placeholder="password">
 					</div>
 				</div>
-				<button class="ui submit button" id="submitbutton" ng-click="login.loginUser()">SIGN IN</button>
+				<div class="field">
+						<button class="ui fluid submit button" id="loginbutton" ng-click="login.loginUser()">SIGN IN</button>
+				</div>
 				<div class="ui error message"></div>
-			</form>
-		</div>
-
-		<!-- <div class="ui vertical divider"> OR </div> -->
-
-		<div class="column center align" id="register-panel">
-			<h2 class="ui image header">
-				<div class="content">
-					Create an account here!
+				<div class="ui message">
+					Don't have an account? <button id="register-trigger">Create an account here!</button>
 				</div>
-			</h2>
-			<form class="ui form" ng-controller="userController as signUp">
-				<div class="required field">
-					<label> Username </label>
-					<input id="username" type="text" placeholder="Username" ng-model="signUp.newUser.username">
-				</div>
-				<div class="required field">
-					<label>Password</label>
-					<input type="password" id="password" placeholder="Password" ng-model="signUp.newUser.password">
-				</div>
-				<div class="required field">
-					<label>First Name</label>
-					<input type="text" id="firstName" placeholder="First Name" ng-model="signUp.newUser.firstname">
-				</div>
-				<div class="required field">
-					<label>Last Name</label>
-					<input type="text" id="lastName" placeholder="Last Name " ng-model="signUp.newUser.lastname">
-				</div>
-				<div class="required field">
-					<label>Email Address</label>
-					<input type="email" id="email" placeholder="Email Address" ng-model="signUp.newUser.email">
-				</div>
-				<button class="ui submit button" id="submitbutton" ng-click="signUp.registerUser()">SIGN UP</button>
-				<div class="ui error message"></div>
 			</form>
 		</div>
 	</div>
+</div>
+
+<div class="ui container section" id="register-div">
+	<div class="ui one column center aligned grid" id="forms">
+		<div class="column eight wide form-holder" id="register-panel">
+				<h2 class="center aligned header form-head">Create an account here!</h2>
+				<form class="ui medium form" ng-controller="userController as signUp">
+					<div class="field">
+						<label> Username </label>
+						<input id="username" type="text" placeholder="Username" ng-model="signUp.newUser.username">
+					</div>
+					<div class="field">
+						<label>Password</label>
+						<input type="password" id="password" placeholder="Password" ng-model="signUp.newUser.password">
+					</div>
+					<div class="two fields">
+						<div class="field">
+							<label>First Name</label>
+							<input type="text" id="firstname" placeholder="First Name" ng-model="signUp.newUser.firstname">
+						</div>
+						<div class="field">
+							<label>Last Name</label>
+							<input type="text" id="lastname" placeholder="Last Name " ng-model="signUp.newUser.lastname">
+						</div>
+					</div>
+				<div class="two fields">
+					<div class="field">
+						<label>Gender</label>
+						<select class="ui dropdown" name="gender" ng-model="signUp.newUser.gender">
+							<option value="" id="lastname" >Gender</option>
+							<option value="M">Male</option>
+							<option value="F">Female</option>
+						</select>
+					</div>
+				</div>
+				<div class="three fields">
+					<div class="field">
+						<label>Height (ft)</label>
+						<input type="text" name="height" placeholder="Height (ft)" ng-model="signUp.newUser.height">
+					</div>
+					<div class="field">
+						<label>Weight (Kg)</label>
+						<input type="text" name="weight" placeholder="Weight (Kg)"  ng-model="signUp.newUser.weight">
+					</div>
+
+					<div class="field">
+						<label>College</label>
+						<input type="text" name="college" placeholder="College"  ng-model="signUp.newUser.college">
+					</div>
+				</div>
+				<div class="two fields">
+					<div class="field">
+						<label>Age</label>
+						<input type="integer" name="age" placeholder="Age"  ng-model="signUp.newUser.age">
+					</div>
+					<div class="field">
+						<label>Contact No.</label>
+						<input type="integer" name="contactno" placeholder="Contact No."  ng-model="signUp.newUser.contactno">
+					</div>
+				</div>
+				<div class="field">
+					<label>Email Address</label>
+					<input type="email" id="email" placeholder="Email Address" ng-model="signUp.newUser.email">
+				</div>
+				<div class="field">
+					<button class="ui fluid submit button" id="submitbutton" ng-click="signUp.registerUser()">SIGN UP</button>
+				</div>
+				<div class="ui error message"></div>
+				<div class="ui message">
+					Already have an account? <button id="login-trigger">Login here</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+
 </div>

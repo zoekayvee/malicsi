@@ -47,13 +47,20 @@ exports.login=(req,res)=>{
 			        }
 			        else{
 			        	req.session.userid = rows[0].user_id
-					req.session.usertype = rows[0].user_type
+						req.session.usertype = rows[0].user_type
 			        	console.log('SUCCESSFULLY LOGGED IN!');
 						var json =  JSON.parse((JSON.stringify(rows[0])));
 						//console.log(json);
-						res.json({
-						redirect: '/#!/user/home'	
-						});
+						if(rows[0].user_type === 'admin'){
+							res.json({
+							redirect: '/#!/admin'	
+							});	
+						}
+						else{
+							res.json({
+							redirect: '/#!/user/home'	
+							});
+						}
 			        }
 		   			
 		   		}
@@ -84,19 +91,42 @@ exports.registerUser=(req,res)=>{
 	const hash = bcrypt.hashSync(req.body.password, salt);
 
 	//automatic normal user
-	const query_string = 'call createUser(?,?,?,?,?,?)';
+	const query_string = 'INSERT INTO users (username, password, user_type, firstname, lastname, email,gender,height,weight,college,age,contactno) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)';
 	const req_data = [
 		req.body.username,
 		hash,
 		'pending',
 		req.body.firstname,
 		req.body.lastname,
-		req.body.email
+		req.body.email,
+		req.body.gender,
+		req.body.height,
+		req.body.weight,
+		req.body.college,
+		req.body.age,
+		req.body.contactno
 	];
 	
 	connection.query(query_string, req_data, (err,rows)=>{
 		if(!err){
 			res.status(200).send(rows);
+		}
+		else{
+			console.log(err);
+			res.status(500).send(err);
+		}
+	});
+}
+
+exports.viewProfile = (req,res) =>{
+	const query_string = 'SELECT * FROM users WHERE user_id = ?';
+	const req_data = [req.session.userid]
+
+	connection.query(query_string, req_data, (err,result)=>{
+		if(!err){
+			res.status(200).send(result[0]);
+			console.log(result[0]);
+			console.log(req.session.userid);
 		}
 		else{
 			console.log(err);
@@ -185,7 +215,21 @@ exports.updateInterests = (req,res) => {
 	})
 }
 
+exports.deleteInterests = (req,res) => {
+	const query_string = "DELETE from user_interests where user_id = ? and interests = ?";
+	const req_data = [req.params.user_id,req.params.users];
 
+	console.log(req.params.users);
+	connection.query(query_string,req_data, (err,result) => {
+		if(!err){
+			res.status(200).send(result);
+		}
+		else{
+			console.log(err);
+			res.status(500).send(err);
+		}
+	})
+}
 
 //userJoinsTeam - use team_players table to add the user
 exports.userJoinsTeam=(req, res)=>{
@@ -238,4 +282,39 @@ exports.viewCompetitor=(req, res)=>{
 			res.status(500).send(err);
 		}
 	});
+}
+
+// updateUser - updates user information (uses user_id)
+exports.updateUser=(req,res)=>{
+		if(req.body.flag === "false"){
+			//password not yet encrypted
+			const salt = bcrypt.genSaltSync(saltRounds);
+			const hash = bcrypt.hashSync(req.body.password, salt);
+			req.body.password=hash;
+		}
+		const query_string = 'call updateUser(?,?,?,?,?,?,?,?,?,?,?,?,?)';
+		const req_data = [
+			req.params.user_id,
+			req.body.username,
+			req.body.password,
+			req.body.firstname,
+			req.body.lastname,
+			req.body.gender,
+			req.body.college,
+			req.body.contactno,
+			req.body.email,
+			req.body.location,
+			req.body.weight,
+			req.body.height,
+			req.body.age
+		];
+
+		connection.query(query_string, req_data,(err,result) => {
+			if (!err) {
+    		res.status(200).send(result);
+			} else {
+				console.log(err);
+				res.status(500).send(err);
+			}
+		});
 }

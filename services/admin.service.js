@@ -31,8 +31,11 @@ exports.removeUser=(req,res)=>{
 		});
 }
 exports.updateUserPassword= (req,res) =>{
+	const salt = bcrypt.genSaltSync(saltRounds);
+	const hash = bcrypt.hashSync(req.body.password, salt);
+
 	const query_string = 'UPDATE users SET password = ? WHERE user_id = ?';
-	const req_data = [req.body.password,
+	const req_data = [hash,
 					  req.params.user_id];
     connection.query(query_string, req_data, (err,result) => {
     	if (!err) {
@@ -44,10 +47,9 @@ exports.updateUserPassword= (req,res) =>{
     })
 } 
 
-exports.approveUser= (req,res) =>{
-	const query_string = 'UPDATE users SET user_type = ? WHERE user_id = ?';
-	const req_data = [req.body.user_type,
-					  req.params.user_id];
+exports.approveUser = (req,res) =>{
+	const query_string = 'UPDATE users SET user_type = "normal" WHERE user_id = ?';
+	const req_data = [req.params.user_id];
     connection.query(query_string, req_data, (err,result) => {
     	if (!err) {
 			res.status(200).send(result);
@@ -57,40 +59,6 @@ exports.approveUser= (req,res) =>{
 			}
     })
 } 
-// updateUser - updates user information (uses user_id)
-exports.updateUser=(req,res)=>{
-		if(req.body.flag === "false"){
-			//password not yet encrypted
-			const salt = bcrypt.genSaltSync(saltRounds);
-			const hash = bcrypt.hashSync(req.body.password, salt);
-			req.body.password=hash;
-		}
-		const query_string = 'call updateUser(?,?,?,?,?,?,?,?,?,?,?,?,?)';
-		const req_data = [
-			req.params.user_id,
-			req.body.username,
-			req.body.password,
-			req.body.firstname,
-			req.body.lastname,
-			req.body.gender,
-			req.body.college,
-			req.body.contactno,
-			req.body.email,
-			req.body.location,
-			req.body.weight,
-			req.body.height,
-			req.body.age
-		];
-
-		connection.query(query_string, req_data,(err,result) => {
-			if (!err) {
-    		res.status(200).send(result);
-			} else {
-				console.log(err);
-				res.status(500).send(err);
-			}
-		});
-}
 
 // addCompetitor - adds teams into game (makes use of tables: team, team_plays_game, game)
 exports.addCompetitor = (req,res)=>{
@@ -151,7 +119,7 @@ exports.deleteCompetitor=(req,res)=>{
 }
 
 exports.viewLogs=(req,res)=>{
-	const query_string = 'SELECT DATE_FORMAT(log_timestamp,"%b %e %Y %r") Date, timestampdiff(minute,log_timestamp,now())Minutes,timestampdiff(hour,log_timestamp,now())Hour,(now()) Time,message from logs where user_id = ? ';
+	const query_string = 'SELECT DATE_FORMAT(log_timestamp,"%b %e %Y %r") Date, timestampdiff(minute,log_timestamp,now())Minutes,timestampdiff(hour,log_timestamp,now())Hour,TIME_TO_SEC(TIMEDIFF(now(),log_timestamp)) Seconds,message from logs where user_id = ? order by log_timestamp desc';
 	const req_data = [req.params.user_id]
 	connection.query(query_string, req_data, (err,result) =>{
 		if(!err){
@@ -164,8 +132,7 @@ exports.viewLogs=(req,res)=>{
 	});	
 }
 exports.viewAllLogs=(req,res)=>{
-	const query_string = 'SELECT DATE_FORMAT(log_timestamp,"%b %e %Y %r") Date, timestampdiff(minute,log_timestamp,now())Minutes, timestampdiff(hour,log_timestamp,now())Hour,(now()) Time,message from logs ';
-
+	const query_string = 'SELECT DATE_FORMAT(log_timestamp,"%b %e %Y %r") Date, timestampdiff(minute,log_timestamp,now())Minutes, timestampdiff(hour,log_timestamp,now())Hour,TIME_TO_SEC(TIMEDIFF(now(),log_timestamp)) Seconds,message from logs order by log_timestamp desc';
 	connection.query(query_string, null, (err,result) =>{
 		if(!err){
 			res.status(200).send(result);
@@ -177,10 +144,11 @@ exports.viewAllLogs=(req,res)=>{
 	});	
 }
 
+
 exports.addUser=(req,res)=>{
 	const salt = bcrypt.genSaltSync(saltRounds);
 	const hash = bcrypt.hashSync(req.body.password, salt);
-
+	
 	//automatic normal user
 	const query_string = 'call createUser(?,?,?,?,?,?)';
 	const req_data = [
@@ -202,4 +170,3 @@ exports.addUser=(req,res)=>{
 		}
 	});
 }
-

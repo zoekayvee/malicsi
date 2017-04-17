@@ -52,7 +52,7 @@ exports.viewTeam = (req, res, next) => {
 exports.viewAllTeam = (req, res, next) => {
 	var query = 'call viewAllTeam()';
 	// var query = 'call viewAllTeams()';
-	
+
 		var id = connection.query(
 		query,
 		(err, row, fields) => {
@@ -216,4 +216,30 @@ exports.getTeamId = (req, res, next) => {
 					res.status(500).send('server error');
 				}
 			})
+}
+
+exports.viewTeamPerEvent = (req,res,next) => {
+	var query = 'select distinct  A.*, B.* from event as A join team as B JOIN team_joins_event as C where A.event_id = ? and A.event_id = C.event_id and B.team_id = C.team_id';
+	const data = [
+		req.params.event_id
+	];
+	var id = connection.query(
+		query,
+		data,
+		(err, row, fields) => {
+			if(!err){
+				console.log(row);
+
+				console.log("Success");
+				res.status(200).send(row);
+				//return row
+			}
+			else{
+				console.log(err);
+				res.status(500).send('Server error');
+			}
+	});
+
+
+
 }

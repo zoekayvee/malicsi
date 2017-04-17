@@ -23,7 +23,7 @@
         vm.viewClickedEvent = viewClickedEvent;
 
         function addEvent(user_id) {
-            
+
             var newEvent = {
                 user_id : user_id,
                 event_name : vm.eventName,
@@ -35,7 +35,7 @@
                 .post('/events', newEvent)
                 .then(function(response){
                     console.log(response.data);
-                    console.log('Success! Event Added!')
+                    console.log('DADA');
                 }, function(response){
                     console.log("Error: Cannot Create Event");
                 });
@@ -49,12 +49,12 @@
                     console.log(response.data);
                     console.log('Viewing All Events!')
                 }, function(response){
-                    console.log("Error: Cannot Get All Events");   
+                    console.log("Error: Cannot Get All Events");
                 });
         }
 
         function viewEvent(id){
-            $location.path('/user/event/' + id)
+            $location.path('/events/' + id)
             // $http
             //     .get('/events/' + id)
             //     .then(function(response){
@@ -85,8 +85,8 @@
                         $location.path('/user/events');
                         viewAllEvent();
                     }
-                    else{ 
-                    console.log(response.data[0][0]);   
+                    else{
+                    console.log(response.data[0][0]);
                     }
                 })
         }
@@ -99,7 +99,7 @@
                     console.log('Event deleted')
                     viewEvent($routeParams.event_id)
             }, function(response){
-                console.log("error");   
+                console.log("error");
             });
         }
 
@@ -124,6 +124,6 @@
                 function(response){
                     console.log("Error :(");
                 });
-        }            
-    }   
+        }
+    }
 })();
