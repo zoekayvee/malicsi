@@ -1,4 +1,7 @@
 <link rel='stylesheet' href='css/game-page.css'/>
+<link rel="stylesheet" href="css/admin.css"></link>
+<link rel="stylesheet" type="text/css" href="css/admin_homepage.css"> </link>
+<script type='text/javascript' src='js/admin.js'></script>
 
 <br><br><br><br>
 
@@ -6,13 +9,73 @@
     <h1> {{game.game.sport_name}} Game {{game.game.game_id}}</h1>
     <p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. </p>
 
-    <div class="ui two column middle aligned very relaxed stackable grid" id="game-wrapper">
+    <div ng-controller="teamController as team">
+        <div class="ui modal" id="add-modal">
+            <div class="header"> ADD TEAMS</div>
+            <div class="content">
+                <div class="ui form">
+                    <div class="field">
+                        <label>Team 1</label>
+                        <form  class="ui">
+                            <select ng-init="team.viewAllTeam()" ng-model="team.teamId" ng-options="x.team_name for x in team.allTeams">
+                            </select>
+                        </form>
+                    </div>
+                    <div class="field">
+                        <label>Team 2</label>
+                        <form  class="ui">
+                            <select ng-init="team.viewAllTeam()" ng-model="team.teamId2" ng-options="x.team_name for x in team.allTeams">
+                            </select>
+                        </form>
+                    </div>
+                    <br>
+                    <div class="ui button" id="cancel" ng-click = "team.closeModal('add-modal')">Cancel</div>
+                    <div class="ui button" ng-click="team.teamPlayGame(game.game.game_id,game.game.team_id);team.team2PlayGame(game.game.game_id,game.game.team_id_2);game.viewGame()">Add</div>
+                </div>
+            </div>
+        </div>
+        <div class="ui animated button add-trigger" style="float:right"  ng-click = "team.setCurrentId(1,'add-modal')">
+            <div class="visible content"><i class="add icon"> </i></div>
+            <div class="hidden content"> Team </div>
+        </div>
+    </div>
+
+    <div class="ui modal" id="addscore-modal">
+        <div class="header"> ADD SCORES</div>
+        <div class="content">
+            <div class="ui form">
+                <div class="field">
+                    <label>Team 1</label>
+                    <input type="number" ng-model="game.score">
+                </div>
+                <div class="field">
+                    <label>Team 2</label>
+                    <input type="number" ng-model="game.score2">
+                </div>
+                <br>
+                <div class="ui button" id="cancel" ng-click = "game.closeModal('addscore-modal')">Cancel</div>
+                <div class="ui button" ng-click="game.updateScores(game.game.team_id,game.game.team_id_2);game.viewGame()">Add</div>
+            </div>
+        </div>
+    </div>
+    <div class="ui animated button add-trigger" style="float:right" ng-click = "game.setCurrentId(1,'addscore-modal')">
+        <div class="visible content"><i class="add icon"> </i></div>
+        <div class="hidden content"> Score </div>
+    </div>
+
+    <div class="ui two column middle aligned very relaxed stackable grid" id="game-wrapper" >
         <div class="column game-panel">
+           
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+
+
+
             <div class="image">
                 <img class="ui huge rounded image" src="images/star.jpg">
             </div>
             <div class="content">
                 <br>
+
                 <h3 class="ui block header"> {{game.game.team_name}} </h3>
                 <div class="ui grid">
                     <div class="ten wide column">
@@ -42,8 +105,9 @@
             <div class="image">
                 <img class="ui huge rounded image" src="images/star.jpg">
             </div>
-            <div class="content">
+            <div class="content" ng-controller="teamController as team">
                 <br>
+
                 <h3 class="ui block header"> {{game.game.team_name_2}} </h3>
                 <div class="ui grid">
                     <div class="ten wide column">

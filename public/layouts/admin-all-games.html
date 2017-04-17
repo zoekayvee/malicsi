@@ -52,60 +52,31 @@
                                     <div class="ui form">
                                         <div class="fields">
                                             <div class="field">
-
-                                                <label> Sport Id </label>
-                                                <div class="ui calendar" id="start-date-pick">
-                                                    <div class="ui input left icon">
-                                                        <i class="calendar icon"></i>
-                                                        <input type="text" placeholder="{{x.sport_id}}" name="sport " ng-model="game.updateSportId">
-                                                    </div>
-                                                </div>
-
-                                               <!--  <div ng-controller="sportController as sport">
+                                                <div ng-controller="sportController as sport">
                                                     <label> Sport </label>
                                                     <form class = "ui" >
-                                                        <select name = "Sports">
-                                                            <option ng-repeat = "x in sport.allSports" value = "x.sport_id" ng-model = "sport.sportId"  ng-click="sport.setSportId(x.sport_id)">{{x.sport_name}}</option>
+                                                        <select ng-model="game.updateSportId" ng-options="x.sport_name for x in sport.allSports">
                                                         </select>
                                                     </form>
-                                                </div> -->
-                                            </div>
-                                            <div class="field">
-                                                <!-- <div ng-controller="venueController as venue"> -->
-                                                   
-
-                                                    <label> Venue Id </label>
-                                                    <div class="ui calendar" id="start-date-pick">
-                                                        <div class="ui input left icon">
-                                                            <i class="calendar icon"></i>
-                                                            <input type="text" placeholder="{{x.venue_id}}" name="venue" ng-model="game.updateVenueId">
-                                                        </div>
-                                                    </div>
-                                                    <!-- <label> Venue </label>
-                                                    <form class = "ui" >
-                                                        <select name = "Venue">
-                                                            <option ng-repeat = "x in venue.allVenues" value = "x.venue_id" ng-model = "venue.venueId"  ng-click="venue.setVenueId(x.venue_id)">{{x.venue_name}}</option>
-                                                        </select>
-                                                    </form> -->
-                                                <!-- </div> -->
-                                            </div>
-                                            <div class="field">
-                                                <label> Event Id </label>
-                                                <div class="ui calendar" id="start-date-pick">
-                                                    <div class="ui input left icon">
-                                                        <i class="calendar icon"></i>
-                                                        <input type="text" placeholder="{{x.event_id}}" name="event" ng-model="game.updateEventId">
-                                                    </div>
                                                 </div>
-
-                                                <!-- <div ng-controller="eventController as event" ng-init="event.viewAllEvent()">
+                                            </div>
+                                            <div class="field">
+                                                <div ng-controller="venueController as venue">
+                                                    <label> Venue </label>
+                                                    <form class = "ui" >
+                                                        <select ng-model="game.updateVenueId" ng-options="x.venue_name for x in venue.allVenues">
+                                                        </select>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                            <div class="field">
+                                                <div ng-controller="eventController as event" ng-init="event.viewAllEvent()">
                                                     <label> Event </label>
                                                     <form class = "ui" >
-                                                        <select name = "Event">
-                                                            <option ng-repeat = "x in event.allEvents" value = "x.event_id" ng-model = "event.eventId"  ng-click="event.setEventId(x.event_id)">{{x.event_name}}</option>
+                                                        <select ng-model="game.updateEventId" ng-options="x.event_name for x in event.allEvents">
                                                         </select>
                                                     </form>
-                                                </div> -->
+                                                </div>
                                             </div>
                                         </div>
                                        <div class="fields">
@@ -114,7 +85,7 @@
                                                 <div class="ui calendar" id="start-date-pick">
                                                     <div class="ui input left icon">
                                                         <i class="calendar icon"></i>
-                                                        <input type="text" placeholder="{{x.date_start}}" name="date_start" ng-model="game.updateDateStart">
+                                                        <input type="text" placeholder="{{x.date_start}}" name="date_start" ng-model="game.updateDateStart"  ng-init="game.updateDateStart = x.date_start">
                                                     </div>
                                                 </div>
                                             </div>
@@ -122,20 +93,20 @@
                                                 <label> Time Start </label>
                                                 <div class="ui input left icon">
                                                     <i class="wait icon"></i>
-                                                    <input type="text" placeholder="{{x.time_start}}" name="time_start" ng-model="game.updateTimeStart">
+                                                    <input type="text" placeholder="{{x.time_start}}" name="time_start" ng-model="game.updateTimeStart" ng-init="game.updateTimeStart = x.time_start">
                                                 </div>
                                             </div>
                                             <div class="field">
                                                 <label> Duration </label>
                                                 <div class="ui input left icon">
                                                     <i class="wait icon"></i>
-                                                    <input type="text" placeholder="{{x.duration}}" name="duration" ng-model="game.updateDuration">
+                                                    <input type="text" placeholder="{{x.duration}}" name="duration" ng-model="game.updateDuration" ng-init="game.updateDuration = x.duration">
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="field" >
                                             <label> Referee </label>
-                                            <input type="text" placeholder="{{x.referee}}"  ng-model="game.updateReferee">
+                                            <input type="text" placeholder="{{x.referee}}"  ng-model="game.updateReferee"  ng-init="game.updateReferee = x.referee">
                                         </div>
                                     <br>
                                     <div class="ui button" id="cancel" ng-click = "game.closeModal('edit-modal')">Cancel</div>
@@ -185,47 +156,46 @@
             </div>
             <div class="ui form">
                 <div class="field">
-                    <!-- <label>Sport Id</label> -->
-                    <input type="text" placeholder="Sport Id"  ng-model="game.addSportId">
-                    <!-- <div ng-controller="sportController as sport">
+                    <div ng-controller="sportController as sport">
                         <label> Sport </label>
                         <form class = "ui" >
-                            <select name = "Sports">
-                                <option ng-repeat = "x in sport.allSports" value = "x.sport_id" ng-click="sport.setSportId(x.sport_id)">{{x.sport_name}}</option>
+                            <select ng-model="game.addSportId" ng-options="x.sport_name for x in sport.allSports">
                             </select>
                         </form>
-                    </div> -->
+                    </div>
                 </div>
                 <div class="field">
-                    <!-- <label>Venue Id</label> -->
-                    <input type="text" placeholder="Venue Id"  ng-model="game.addVenueId">
+                    <div ng-controller="venueController as venue">
+                        <label> Venue </label>
+                        <form class = "ui" >
+                            <select ng-model="game.addVenueId" ng-options="x.venue_name for x in venue.allVenues">
+                            </select>
+                        </form>
+                    </div>
                 </div>
                 <div class="field">
-                    <!-- <label>Event Id</label> -->
-                    <input type="text" placeholder="Event Id"  ng-model="game.addEventId">
-                  <!--   <div ng-controller="eventController as event" ng-init="event.viewAllEvent()">
+                    <div ng-controller="eventController as event" ng-init="event.viewAllEvent()">
                         <label> Event </label>
                         <form class = "ui" >
-                            <select name = "Event">
-                                <option ng-repeat = "x in event.allEvents" value = "x.event_id" ng-model = "event.eventId" ng-click="event.setEventId(x.event_id)">{{x.event_name}}</option>
+                            <select ng-model="game.addEventId" ng-options="x.event_name for x in event.allEvents">
                             </select>
                         </form>
-                    </div> -->
+                    </div>
                 </div>
-                <div class="field">
-                    <!-- <label>Date Start</label> -->
-                    <input type="text" placeholder="Date Start"  ng-model="game.addDate">
+                <div class="_field">
+                    <label>Date Start</label>
+                    <input type="text" placeholder="Date Start" ng-model="game.addDate">
                 </div>
-                <div class="field">
-                    <!-- <label>Time Start</label> -->
+                <div class="_field">
+                    <label>Time Start</label>
                     <input type="text" placeholder="Time Start"  ng-model="game.addTime">
                 </div>
-                <div class="field">
-                    <!-- <label>Referee</label> -->
+                <div class="_field">
+                    <label>Referee</label>
                     <input type="text" placeholder="Referee"  ng-model="game.addReferee">
                 </div>
-                <div class="field">
-                    <!-- <label>Duration</label> -->
+                <div class="_field">
+                    <label>Duration</label>
                     <input type="text" placeholder="Duration"  ng-model="game.addDuration">
                 </div>
             </div>

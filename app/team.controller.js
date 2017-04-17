@@ -10,6 +10,9 @@
 		vm.userId = "";
 	    vm.teamName = "";
     	vm.teamId = "";
+    	vm.teamId2 = "";
+    	vm.teamIdX = "";
+    	vm.teamId2X = "";
     	vm.eventId = "";
 	    vm.addTeam = addTeam;
 	    vm.allTeams = [];
@@ -19,11 +22,19 @@
     	vm.teamJointEvent = teamJoinEvent;
     	vm.updateTeam = updateTeam;
     	vm.teamPlayGame = teamPlayGame;
+    	vm.team2PlayGame = team2PlayGame;
     	vm.viewClickedTeam = viewClickedTeam;
     	vm.userJoinTeam = userJoinTeam;
     	vm.getTeamId = getTeamId;
     	vm.viewTeamPerEvent = viewTeamPerEvent;
     	vm.deleteTeamFromEvent = deleteTeamFromEvent;
+    	vm.viewAvailableTeams = viewAvailableTeams;
+    	vm.currentId = null;
+        vm.setCurrentId = setCurrentId;
+        vm.openModal = openModal;
+        vm.closeModal = closeModal;	
+
+        vm.samp = null;
 	    /*---------- view team ---------*/
 
 		function addTeam(event_id) {
@@ -61,8 +72,6 @@
 			function(response){
 				console.log("Error");
 			})
-
-
 		}
 
 
@@ -92,6 +101,18 @@
 	    		.get('/teams')
 	    		.then(function(response){
 	    			vm.allTeams = response.data[0];
+	    			console.log(response.data);
+	    			console.log('Viewing All Teams')
+	    		}, function(response){
+	    			console.log("Error: Cannot retrieve teams");
+	    		});
+	    }
+
+	    function viewAvailableTeams(){
+	    	$http
+	    		.get('/teams/game/' + 1)
+	    		.then(function(response){
+	    			vm.allTeams = response.data;
 	    			console.log(response.data);
 	    			console.log('Viewing All Teams')
 	    		}, function(response){
@@ -225,20 +246,61 @@
 		}
 
 
-	    function teamPlayGame(){
+	    function teamPlayGame(gameid,currentTeamId){
 	        var gameToPlay = {
-	        	team_id : vm.teamId,
-	          	game_id : vm.gameId
+	        	team_id : vm.teamId.team_id,
+	          	game_id : gameid,
+	          	default_team_id : currentTeamId
 	        }
+	        console.log(gameid);
+	    	$http
+	    		.post('/teams/join/game',gameToPlay)
+	    		.then(function(response){
+	    			console.log('Team Joined Event')
+	    		}, function(response){
+	    			console.log("error");
+	    		});
+	    }
 
-		    	$http
-		    		.post('/teams',gameToPlay)
-		    		.then(function(response){
-		    			console.log('Team Joined Event')
-		    		}, function(response){
-		    			console.log("error");
-		    		});
-		    }
-		}
+
+	    function team2PlayGame(gameid,currentTeamId){
+	        // if(vm.teamId.team_id == vm.teamId2.team_id){
+	        // 	console.log("Failed to add team. Team already has joined the game");
+	        // 	return;
+	        // }
+	        var gameToPlay = {
+	        	team_id : vm.teamId2.team_id,
+	          	game_id : gameid,
+	          	default_team_id : currentTeamId
+	        }
+	    	$http
+	    		.post('/teams/join/game',gameToPlay)
+	    		.then(function(response){
+	    			console.log('Team2 Joined Event')
+	    		}, function(response){
+	    			console.log("error");
+	    		});
+	    	closeModal('add-modal');
+	    }
+
+
+        function setCurrentId(id,dmodal){
+            console.log(id);
+            openModal(dmodal)
+            vm.currentId = id;
+        }
+
+        function openModal(dmodal){
+            $('#'+dmodal+'.modal')
+            .modal('setting', {
+                 closable: false
+            })
+            .modal('show');
+        }
+        function closeModal(dmodal){
+           $('#'+dmodal+'.modal')
+            .modal('hide'); 
+        }
+
 	}
-)();
+})();
