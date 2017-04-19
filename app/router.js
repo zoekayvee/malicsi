@@ -83,16 +83,16 @@
 			.when('/admin/all-users', { //changed, this is the route in htmls
 				templateUrl: 'layouts/admin-all-users.html'
 			})
-			.when('/admin/all-events', {
+			.when('/admin/events', {
 				templateUrl: 'layouts/admin-all-events.html'
 			})
-			.when('/admin/all-sponsors', {
+			.when('/admin/sponsors', {
 				templateUrl: 'layouts/admin-all-sponsors.html'
 			})
-			.when('/admin/all-games', {
+			.when('/admin/games', {
 				templateUrl: 'layouts/admin-all-games.html'
 			})
-			.when('/admin/all-sports', {
+			.when('/admin/sports', {
 				templateUrl: 'layouts/admin-all-sports.html'
 			})
 
