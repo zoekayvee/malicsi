@@ -31,22 +31,22 @@
 			})
 
 			//Events Routers
-			.when('/event', {
+			.when('/events', {
 				templateUrl: 'layouts/user-view-all-events.html',
 				controller: 'eventController',
 				controllerAs: 'event'
 			})
-			.when('/event/:event_id',{
+			.when('/events/:event_id',{
 				templateUrl:'layouts/user-view-event.html',
 				controller: 'eventController',
 				controllerAs: 'event'
 			})
-			.when('/event/:event_id/scoreboard', {
+			.when('/events/:event_id/scoreboard', {
 				templateUrl: 'layouts/user-scoreboard-page.html',
 				controller:'userGameSchedController',
 				controllerAs:'UGSC'
 			})
-			.when('/event/game-schedule', {
+			.when('/events/game-schedule', {
 				templateUrl: 'layouts/user-game-sched.html',
 				controller:'userGameSchedController',
 				controllerAs:'UGSC'
