@@ -36,6 +36,13 @@
 		    toastr.options.newestOnTop = false;
     	}
 
+    	function redirectLocation(redirect){
+			if(redirect === 'no')
+				window.location.reload();
+			else
+				window.location.href = redirect;
+		}
+
 		function loginUser(){
 			var credentials={
 				username: vm.username,
@@ -47,11 +54,16 @@
 					console.log(redirect);
 					vm.user = response.data
 					toastr.success(response.data.message);
-					window.location.href=redirect;
+					setTimeout(function(){
+						redirectLocation(redirect);
+					}, 500);
+					//window.location.href=redirect;
 				}, function (response){	
 					toastr.error(response.data.message);
 					console.log('Error');
-					window.location.reload();
+					setTimeout(function(){
+						redirectLocation('no');
+					}, 500);
 				});
 		}
 

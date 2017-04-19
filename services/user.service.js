@@ -23,7 +23,7 @@ exports.login=(req,res)=>{
 		if(!err){
 	        if(!rows.length) {
 				console.log('Wrong username or password...');
-	            res.status(404).send({message: 'Wrong username'});
+	            return res.status(404).send({message: 'Invalid Input!'});
 	        }else if (req.session.usertype != undefined && req.session.userid != undefined && req.session.userid != rows[0].user_id){
 	        	console.log('Login session is not yet finished...');
 	            return res.status(404).send({message: 'Login session is not yet finished.'});
@@ -40,9 +40,10 @@ exports.login=(req,res)=>{
 		   			 if (rows[0].user_type === 'pending'){
 			        	console.log(req.session.usertype);
 			  
-			        	return res.status(404).send({message: 'User not yet approved'});
+			        	//return res.send({message: 'User not yet approved'});
 			        	res.json({
-			        		redirect: '/#!/'
+			        		redirect: '/#!/',
+			        		message: 'User not yet approved'
 			        	});
 			        }
 			        else{
@@ -56,16 +57,17 @@ exports.login=(req,res)=>{
 							redirect = '/#!/admin'
 						}
 						if(rows[0].user_type === 'normal'){
-							redirect = '/#!/user/home'	
+							redirect = '/#!/user/home'
 						}
 						res.json({
-							redirect: redirect	
+							redirect: redirect,
+							message: 'Successfully Logged In!'
 						});	
 			        }
 		   			
 		   		}
 		   		else{
-		   			res.status(404).send({message: 'Wrong username or password.'}); 
+		   			return res.status(404).send({message: 'Wrong username or password.'}); 
 		   		}
 	        }    
 		}
