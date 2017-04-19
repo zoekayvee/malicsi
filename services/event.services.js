@@ -38,7 +38,8 @@ exports.addEvent = (req, res, next) => {
 
 
 exports.viewEvent = (req, res, next) => {
-	var query = 'call viewEvent(?)';
+	var query = 'select * from event where event_id = ?';
+	// var query = 'call viewEvent(?)';
 	const data = [
 		req.params.event_id
 	];
@@ -61,14 +62,13 @@ exports.viewEvent = (req, res, next) => {
 }
 
 exports.viewAllEvent = (req, res, next) => {
-	var query = 'call viewAllEvents()';
+	var query = 'select * from event;';
+	// var query = 'call viewAllEvents()';
 	
 		var id = connection.query(
 		query,
 		(err, row, fields) => {
 			if(!err){
-				console.log(row);
-
 				console.log("Success");
 				res.status(200).send(row);
 				//return row

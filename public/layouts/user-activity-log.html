@@ -1,70 +1,24 @@
-<link rel='stylesheet' href='css/activity-log.css'/>
+<link rel='stylesheet' href='css/activity-log.css' />
 
-<div id="main-wrapper">
+<div id="main-wrapper" ng-controller="activityLogController as logs">
     <div class="ui container ">
 
         <h2>Activity Log</h2>
 
-        <div class="ui feed vertical segment">
+        <div class="ui feed vertical segment" ng-repeat="log in logs.allLogs">
             <div class="event">
                 <div class="label">
                     <img src="images/id.jpg">
                 </div>
                 <div class="content">
                     <div class="date">
-                        3 days ago
+                        {{log.Time}}
                     </div>
                     <div class="summary">
-                        You added <a>Jenny Hess</a> to your <a>coworker</a> group.
+                        {{log.message}}
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="ui feed vertical segment">
-            <div class="event">
-                <div class="label">
-                    <img src="images/id.jpg">
-                </div>
-                <div class="content">
-                    <div class="date">
-                        3 days ago
-                    </div>
-                    <div class="summary">
-                        At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga.                                 </div>
-                    </div>
-                </div>
-            </div>
-            <div class="ui feed vertical segment">
-                <div class="event">
-                    <div class="label">
-                        <img src="images/id.jpg">
-                    </div>
-                    <div class="content">
-                        <div class="date">
-                            3 days ago
-                        </div>
-                        <div class="summary">
-                            You added <a>Jenny Hess</a> to your <a>coworker</a> group.
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="ui feed vertical segment">
-                <div class="event">
-                    <div class="label">
-                        <img src="images/id.jpg">
-                    </div>
-                    <div class="content">
-                        <div class="date">
-                            3 days ago
-                        </div>
-                        <div class="summary">
-                            Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.
-                        </div>
-                    </div>
-                </div>
-            </div>
-
         </div>
 
     </div>

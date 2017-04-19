@@ -2,112 +2,108 @@
 <link rel="stylesheet" type="text/css" href="css/admin_homepage.css"> </link>
 <script type='text/javascript' src='js/admin.js'></script>
 
-<div class="ui container" id="main-wrapper" >
-<div class="ui card" id="main_card"> 
-<div class="content">
-<div class="ui row">
-            <div class="ui horizontal center aligned segments" id="segment">
-                <a class="ui segment" href="/#!/admin/all-users"> Users </a>
-                <a class="ui segment" href="/#!/admin/all-events"> Events </a>
-                <a class="ui segment" href="/#!/admin/all-games"> Games </a>
-                <a class="ui segment" href="/#!/admin/all-sports"> Sports </a>
-                <a class="ui segment" href="/#!/admin/all-sponsors"> Sponsors </a>
-            </div>
+<div class="ui container" id="main-wrapper">
+    <div class="ui card" id="main_card">
+        <div class="content">
+            <div class="ui row">
+                <div class="ui horizontal center aligned segments" id="segment">
+                    <a class="ui segment" href="/#!/admin/all-users"> Users </a>
+                    <a class="ui segment" href="/#!/admin/all-events"> Events </a>
+                    <a class="ui segment" href="/#!/admin/all-games"> Games </a>
+                    <a class="ui segment" href="/#!/admin/all-sports"> Sports </a>
+                    <a class="ui segment" href="/#!/admin/all-sponsors"> Sponsors </a>
+                </div>
             </div>
 
 
-<div class="ui row" ng-controller="sportController as sport">   
-    <table class="ui center aligned table" >
-        <thead>
-            <tr>
-                <th>Sport ID</th>
-                <th>Sport Name</th>
-                <th colspan="4"> Commands </th>
-            </tr>
-        </thead>
-        <tbody ng-repeat="x in sport.allSports">
-            <tr>
-                <td> {{x.sport_id}} </td>
-                <td> {{x.sport_name}} </td> 
-                <td>
-                    <div class="ui modal" id="edit-modal">
-                        <div class="header"> UPDATE SPORT</div>
-                        <div class="content">
-                            <div class="ui form">
-                                <div class="field">
-                                    <label>Sports Name</label>
-                                    <input type="text" ng-model="sport.updateSportName">
+            <div class="ui row" ng-controller="sportController as sport">
+                <table class="ui center aligned table">
+                    <thead>
+                        <tr>
+                            <th>Sport ID</th>
+                            <th>Sport Name</th>
+                            <th colspan="4"> Commands </th>
+                        </tr>
+                    </thead>
+                    <tbody ng-repeat="x in sport.allSports" ng-init="a = x.sport_id">
+                        <tr>
+                            <td> {{x.sport_id}} </td>
+                            <td> {{x.sport_name}} </td>
+                            <td>
+                                <div class="ui modal" id="edit-modal">
+                                    <div class="header"> UPDATE SPORT</div>
+                                    <div class="content">
+                                        <div class="ui form">
+                                            <div class="field">
+                                                <label>Sports Name</label>
+                                                <input type="text" ng-model="sport.updateSportName">
+                                            </div>
+                                            <br>
+                                            <div class="ui button" id="cancel" ng-click="sport.closeModal('edit-modal')">Cancel</div>
+                                            <div class="ui button" ng-click="sport.updateSport(sport.currentId)">Submit</div>
+                                        </div>
+                                    </div>
                                 </div>
-                                <br>
-                                <div class="ui button" id="cancel" ng-click = "sport.closeModal('edit-modal')">Cancel</div>
-                                <div class="ui button" ng-click="sport.updateSport(sport.currentId)">Submit</div>
-                            </div>
+                                <div class="ui animated button edit-trigger" ng-click="sport.setCurrentId(x.sport_id,'edit-modal')">
+                                    <div class="visible content"><i class="edit icon"> </i></div>
+                                    <div class="hidden content"> Edit </div>
+                                </div>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <div class="ui animated button delete-trigger" ng-click="sport.setCurrentId(x.sport_id,'delete-modal')">
+                                    <div class="visible content"><i class="trash icon"> </i></div>
+                                    <div class="hidden content"> Delete </div>
+                                </div>
+                                <div class="ui basic modal" id="delete-modal">
+                                    <div class="ui icon header">
+                                        <i class="trash icon"></i> DELETE
+                                    </div>
+                                    <div class="actions">
+                                        <div class="ui red basic cancel inverted button" ng-click="sport.closeModal('delete-modal')">
+                                            <i class="remove icon"></i> No
+                                        </div>
+                                        <div class="ui green ok inverted button" ng-click="sport.deleteSport(sport.currentId);sport.closeModal('delete-modal')">
+                                            <i class="checkmark icon"></i> Yes
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+
+                        </tr>
+
+                    </tbody>
+                    <tfoot class="full-width">
+                        <tr>
+                            <th colspan="100%">
+                                <div class="ui right floated small primary labeled icon button" ng-click="sport.openModal('add-modal')">
+                                    <i class="add square icon"></i> Add Sports
+                                </div>
+                            </th>
+                        </tr>
+
+                    </tfoot>
+                </table>
+
+                <div class="ui basic modal" id="add-modal">
+                    <div class="ui icon header">
+                        Add Sport
+                    </div>
+                    <div class="ui form">
+                        <div class="field">
+                            <label>Sport Name</label>
+                            <input type="text" ng-model="sport.addSportName">
                         </div>
                     </div>
-                    <div class="ui animated button edit-trigger" ng-click = "sport.setCurrentId(x.sport_id,'edit-modal')">
-                        <div class="visible content"><i class="edit icon"> </i></div>
-                        <div class="hidden content"> Edit </div>
-                    </div>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <div class="ui animated button delete-trigger" ng-click = "sport.setCurrentId(x.sport_id,'delete-modal')">
-                        <div class="visible content"><i class="trash icon"> </i></div>
-                        <div class="hidden content" > Delete </div>
-                    </div>
-                    <div class="ui basic modal" id="delete-modal">
-                            <div class="ui icon header">
-                                <i class="trash icon"></i>
-                                DELETE
-                            </div>
-                              <div class="actions">
-                                <div class="ui red basic cancel inverted button" ng-click = "sport.closeModal('delete-modal')">
-                                  <i class="remove icon"></i>
-                                  No
-                                </div>
-                                <div class="ui green ok inverted button" ng-click="sport.deleteSport(x.sport_id);sport.closeModal('delete-modal')">
-                                  <i class="checkmark icon"></i>
-                                  Yes
-                                </div>
-                              </div>
-                    </div>
-                </td>
-
-            </tr>
-
-        </tbody>
-        <tfoot class="full-width">
-            <tr>
-                <th colspan="100%">
-                    <div class="ui right floated small primary labeled icon button" ng-click = "sport.openModal('add-modal')">
-                        <i class="add square icon"></i> Add Sports
-                    </div>
-                </th>
-            </tr>
-
-        </tfoot>
-    </table>
-
-     <div class="ui basic modal" id="add-modal">
-        <div class="ui icon header">
-            Add Sport
-        </div>
-         <div class="ui form">
-                    <div class="field">
-                        <label>Sport Name</label>
-                        <input type="text" ng-model="sport.addSportName">
+                    <div class="actions">
+                        <div class="ui red basic cancel inverted button" ng-click="sport.closeModal('add-modal')">
+                            Cancel
+                        </div>
+                        <div ng-click="sport.addSport()" class="ui green ok inverted button">
+                            <i class="checkmark icon"></i> Yes
+                        </div>
                     </div>
                 </div>
-          <div class="actions">
-            <div class="ui red basic cancel inverted button" ng-click = "sport.closeModal('add-modal')">
-              Cancel
-            </div>
-            <div ng-click = "sport.addSport()" class="ui green ok inverted button">
-              <i class="checkmark icon"></i>
-              Yes
-            </div>
-          </div>
-    </div>
 
-</div>
-</div>
-</div>
+            </div>
+        </div>
+    </div>
 </div>

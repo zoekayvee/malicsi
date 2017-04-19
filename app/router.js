@@ -2,23 +2,25 @@
 
 (function() {
 	angular.module('malicsi')
-			.config(router);
+			.config(router)
 
 	function router($routeProvider) {
 		$routeProvider
-			.when('/teams/:team_id',{
-				templateUrl: 'layouts/user-view-team.html'
-			})
-			.when('/user/teams', {
-				templateUrl: 'layouts/user-view-teams.html'
-			})
 			.when('/', {
-				templateUrl: 'layouts/login.html'
+					templateUrl: 'layouts/account-guest.html',
+					controller:'userController'
+			})
+			.when('/login', {
+					templateUrl: 'layouts/account-login.html',
+					controller:'userController'
 			})
 			.when('/register', {
-				templateUrl: 'layouts/register.html'
+					templateUrl: 'layouts/account-register.html',
+					controller:'userController'
 			})
-            .when('/user/home', {
+
+			//User Account Routers
+			.when('/user/home', {
 				templateUrl: 'layouts/user-dashboard.html'
 			})
 			.when('/user/profile', {
@@ -27,60 +29,58 @@
 			.when('/user/activity-log', {
 				templateUrl: 'layouts/user-activity-log.html'
 			})
-			.when('/user/new-event', {
-				templateUrl: 'layouts/user-create-event.html'
+			.when('/users/:username', {
+				//new route for visiting other profile
+				templateUrl: 'layouts/user-visit-profile.html'
 			})
-			.when('/user/events', {
+
+			//Events Routers
+			.when('/events', {
 				templateUrl: 'layouts/user-view-all-events.html',
 				controller: 'eventController',
 				controllerAs: 'event'
 			})
-			.when('/event',{
-				templateUrl:'layouts/user-event.html'
-			})
 			.when('/events/:event_id',{
-				templateUrl:'layouts/user-event.html',
-				// templateUrl:'layouts/user-view-event.html',
+				templateUrl:'layouts/user-view-event.html',
 				controller: 'eventController',
 				controllerAs: 'event'
 			})
-
-			
-
-			.when('/user/event/:event_id/scoreboard', {
+			.when('/events/:event_id/scoreboard', {
 				templateUrl: 'layouts/user-scoreboard-page.html',
 				controller:'userGameSchedController',
 				controllerAs:'UGSC'
 			})
-			.when('/user/game/:game_id', {
-				templateUrl: 'layouts/user-game-page.html',
-				controller:'gameController',
-				controllerAs:'game'
-			})
-			.when('/user/gameSched', {
+			.when('/events/game-schedule', {
 				templateUrl: 'layouts/user-game-sched.html',
 				controller:'userGameSchedController',
 				controllerAs:'UGSC'
 			})
 
+			//Game Routers
+			.when('/game/:game_id', {
+				templateUrl: 'layouts/user-game-page.html',
+				controller:'gameController',
+				controllerAs:'game'
+			})
 
+			//Teams Routers
+			.when('team', {
+				templateUrl: 'layouts/user-view-all-teams.html'
+			})
+			.when('/team/:team_id',{
+				templateUrl: 'layouts/user-view-team.html'
+			})
 
-			.when('/user/game', {
-				templateUrl: 'layouts/user-game-page.html'
-			})
-			.when('/user/game/sched', {
-				templateUrl: 'layouts/user-game-sched.html'
-			})
-			.when('/user/scoreboard', {
-				templateUrl: 'layouts/user-scoreboard-page.html'
-			})
-			.when('/user/team', {
-				templateUrl: 'layouts/user-view-teams.html'
-			})
-			.when('/user/search', {
+			//Search Routers
+			.when('/search', {
 				templateUrl: 'layouts/user-search-page.html'
 			})
-			.when('/admin/all-users', {
+
+			//Admin Routers
+			.when('/admin', {
+				templateUrl: 'layouts/admin-homepage.html'
+			})
+			.when('/admin/all-users', { //changed, this is the route in htmls
 				templateUrl: 'layouts/admin-all-users.html'
 			})
 			.when('/admin/all-events', {
@@ -95,11 +95,10 @@
 			.when('/admin/all-sports', {
 				templateUrl: 'layouts/admin-all-sports.html'
 			})
-			.when('/admin', {
-				templateUrl: 'layouts/admin-homepage.html'
-			})
+
+			//Catch Case
 			.otherwise({
-				templateUrl: 'layouts/error.html'
+				templateUrl: 'layouts/error-404.html'
 			})
 	}
 })();

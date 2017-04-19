@@ -16,6 +16,10 @@ $(document).ready(function(){
             scrollTop: $("#feeds-panel").offset().top - offset
         }, 500);
     });
+
+    $("#page-navigation").show();
+    $("#page-footer").show();
+
 });
 
 var ctx = document.getElementById("leadchart");

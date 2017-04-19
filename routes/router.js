@@ -8,6 +8,7 @@ const sportController =require('../services/sport.service');
 const eventController =require('../services/event.services');
 const teamController = require('../services/team.services');
 const sponsorController = require('../services/sponsor.services');
+const venueController = require('../services/venue.service');
 
 // const dashboardController =require('../services/dashboard.service');
 const dashboardController =require('../services/dashboard.service');
@@ -26,6 +27,10 @@ router.delete   ('/users/:user_id',         adminController.removeUser);
 router.post     ('/user_team',              userController.userJoinsTeam);
 router.get      ('/logs',                   adminController.viewAllLogs);
 router.get      ('/logs/:user_id',          adminController.viewLogs);
+
+router.put      ('/user/:user_id',			userController.updateUser); //added
+router.get 		('/user/teams/:user_id',    userController.viewUserTeams); //added
+router.post  	('/user',                	adminController.addUser); //added
 
 router.get('/user/events/:user_id',         userController.viewUserEvents);
 router.get('/user/sponsored/:user_id',      userController.viewSponsoredEvents);
@@ -89,7 +94,7 @@ router.get 		('/sponsors_by_event/:event_id', sponsorController.viewSponsorByEve
 router.post 	('/sponsors_from_event',	sponsorController.deleteSponsorFromEvent)
 
 router.post('/competitors',               adminController.addCompetitor);
-router.get('/competitors/:game_id',  userController.viewAllCompetitors); 
+router.get('/competitors/:game_id',  userController.viewAllCompetitors);
 router.get('/competitors/:team_id',      userController.viewCompetitor);
 router.put('/competitors/:team_id',    adminController.updateCompetitor);
 router.delete('/competitors/:team_id', adminController.deleteCompetitor);
@@ -102,8 +107,11 @@ router.delete('/game/:game_id', 			gameController.deleteGame);
 router.delete('/game', 						gameController.deleteAllGames);
 
 
-router.post('/sport',					sportController.addSport);
+
+router.post('/sport',						sportController.addSport);
 router.post('/sport/:event_id',				sportController.attachSportToEvent);
+router.post('/sport/:event_id/delete',	sportController.deleteSportFromEvent)
+
 router.get('/sport/:sport_id',				sportController.viewSports);
 router.get('/sport', 						sportController.viewAllSports);
 router.put('/sport', 						sportController.updateSport);
@@ -118,17 +126,22 @@ router.delete('/winner/:game_id', 			winnerController.deleteWinner);
 router.delete('/winner', 					winnerController.deleteAllWinners);
 
 //additional
-router.post('/ranking/:sport_id', 					gameController.getRanking);
-router.get('/overallranking/:event_id', 					gameController.getOverallRanking);
-router.post('/bet/:user_id', 						gameController.bet);
-router.get('/bet/:user_id/:game_id', 						gameController.betStatus);
-router.get('/scores/:game_id/:team_id', 						gameController.getScores);
+
+router.post('/teams/join/game',	    		teamController.teamPlayGame);
+router.get('/teams/game/:team_id',			teamController.viewAvailableTeams)
+router.post('/ranking/:sport_id', 			gameController.getRanking);
+router.get('/overallranking/:event_id', 	gameController.getOverallRanking);
+router.post('/bet/:user_id', 				gameController.bet);
+router.get('/bet/:user_id/:game_id', 		gameController.betStatus);
+router.get('/scores/:game_id/:team_id', 	gameController.getScores);
+router.post('/scores/update/:game_id', 	    gameController.updateScores);
 router.get('/sport/event/:event_id', 		sportController.viewSportsByEvent);
+router.get('/sport/event/view/:event_id', 	sportController.viewAvailableSports);
 router.post('/game/sport/:sport_id', 		gameController.viewGamesBySport);
-router.get('/schedule/:sport_id', 		gameController.viewScheds);
+router.get('/schedule/:sport_id', 			gameController.viewScheds);
 router.post('/leaderboard/:sport_id', 		gameController.viewLeaderboards);
-
-
+router.get('/leaderboard/:sport_id', 		gameController.viewLeaderboards);
+router.get('/venues', 						venueController.viewAllVenues);
 
 router.get('/user_loggedin', (req, res) => {
 	if (req.session)
@@ -149,7 +162,7 @@ router.get('/', (req,res)=>{
 });
 
 router.get('/403', (req,res)=>{
-    res.sendFile('public/layouts/forbidden.html',{root:__dirname+'/..'});
+    res.sendFile('public/layouts/error-404.html',{root:__dirname+'/..'});
 });
 
 router.all('*', (req, res) => {

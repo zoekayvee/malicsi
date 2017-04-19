@@ -154,7 +154,7 @@ exports.deleteCompetitor=(req,res)=>{
 }
 
 exports.viewLogs=(req,res)=>{
-	const query_string = 'SELECT DATE_FORMAT(log_timestamp,"%b %e %Y %r") Date, timestampdiff(minute,log_timestamp,now())Minutes,timestampdiff(hour,log_timestamp,now())Hour,(now()) Time,message from logs where user_id = ? ';
+	const query_string = 'SELECT DATE_FORMAT(log_timestamp,"%b %e %Y %r") Date, timestampdiff(minute,log_timestamp,now())Minutes,timestampdiff(hour,log_timestamp,now())Hour,TIME_TO_SEC(TIMEDIFF(now(),log_timestamp)) Seconds,message from logs where user_id = ? order by log_timestamp desc';
 	const req_data = [req.params.user_id]
 	connection.query(query_string, req_data, (err,result) =>{
 		if(!err){
@@ -167,7 +167,7 @@ exports.viewLogs=(req,res)=>{
 	});	
 }
 exports.viewAllLogs=(req,res)=>{
-	const query_string = 'SELECT DATE_FORMAT(log_timestamp,"%b %e %Y %r") Date, timestampdiff(minute,log_timestamp,now())Minutes, timestampdiff(hour,log_timestamp,now())Hour,(now()) Time,message from logs ';
+	const query_string = 'SELECT DATE_FORMAT(log_timestamp,"%b %e %Y %r") Date, timestampdiff(minute,log_timestamp,now())Minutes, timestampdiff(hour,log_timestamp,now())Hour,TIME_TO_SEC(TIMEDIFF(now(),log_timestamp)) Seconds,message from logs order by log_timestamp desc';
 	connection.query(query_string, null, (err,result) =>{
 		if(!err){
 			res.status(200).send(result);
@@ -186,14 +186,18 @@ exports.addUser=(req,res)=>{
 	const hash = bcrypt.hashSync(req.body.password, salt);
 
 	//automatic normal user
-	const query_string = 'call createUser(?,?,?,?,?,?)';
+	const query_string = 'INSERT INTO users (username, password, user_type, firstname, lastname, email,height,weight,college,contactno) VALUES (?,?,?,?,?,?,?,?,?,?)';
 	const req_data = [
 		req.body.username,
 		hash,
 		'normal',
 		req.body.firstname,
 		req.body.lastname,
-		req.body.email
+		req.body.email,
+		req.body.height,
+		req.body.weight,
+		req.body.college,
+		req.body.contactno
 	];
 	
 	connection.query(query_string, req_data, (err,rows)=>{
@@ -206,5 +210,3 @@ exports.addUser=(req,res)=>{
 		}
 	});
 }
-
-

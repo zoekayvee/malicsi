@@ -36,8 +36,9 @@
         vm.setDeleteEventId = setDeleteEventId;
         vm.deleteEventModal = deleteEventModal;
         vm.addEventModal = addEventModal;
+        
         function addEvent(user_id) {
-            
+
             var newEvent = {
                 user_id : user_id,
                 event_name : vm.eventName,
@@ -49,7 +50,7 @@
                 .post('/events', newEvent)
                 .then(function(response){
                     console.log(response.data);
-                    console.log('Success! Event Added!')
+                    console.log('DADA');
                 }, function(response){
                     console.log("Error: Cannot Create Event");
                 });
@@ -83,11 +84,10 @@
             $http
                 .get('/events')
                 .then(function(response){
-                    vm.allEvents = response.data[0];
-                    console.log(response.data[0].user_id);
+                    vm.allEvents = response.data;
                     console.log('Viewing All Events!')
                 }, function(response){
-                    console.log("Error: Cannot Get All Events");   
+                    console.log("Error: Cannot Get All Events");
                 });
         }
 
@@ -113,22 +113,22 @@
 
         function viewEvent(id){
             $location.path('/events/' + id)
-            $http
-                .get('/events/' + id)
-                .then(function(response){
-                    vm.allEvents = response.data[0];
-                    if(vm.allEvents[0] == undefined){
-                        $location.path('/user/events');
-                    }
-                    else{
-                    vm.eventId = vm.allEvents[0].event_id;
-                    console.log("response data" + vm.allEvents[0].event_id);
-                    console.log('Viewing event ' + vm.allEvents[0].event_name);
-                    console.log(vm.eventId);
-                    //$window.localStorage.setItem("event_id",vm.eventId);
-                    //console.log($window.localStorage);
-                    }
-                });
+            // $http
+            //     .get('/events/' + id)
+            //     .then(function(response){
+            //         vm.allEvents = response.data[0];
+            //         if(vm.allEvents[0] == undefined){
+            //             $location.path('/user/events');
+            //         }
+            //         else{
+            //         vm.eventId = vm.allEvents[0].event_id;
+            //         console.log("response data" + vm.allEvents[0].event_id);
+            //         console.log('Viewing event ' + vm.allEvents[0].event_name);
+            //         console.log(vm.eventId);
+            //         //$window.localStorage.setItem("event_id",vm.eventId);
+            //         //console.log($window.localStorage);
+            //         }
+            //     });
         }
 
         function getUserIdOfEvent(){
@@ -141,10 +141,6 @@
                 function(response){
                     console.log("Cannot get user Id of event");
                 })
-
-
-
-
         }
 
         function viewClickedEvent(){
@@ -154,15 +150,17 @@
                 .then(function(response){
                     vm.allEvents = [];
                     vm.eventId = $routeParams.event_id;
-                    vm.allEvents = response.data[0];
-                    if(vm.allEvents[0] == undefined){
+                    vm.allEvents = response.data;
+                    console.log(vm.allEvents);
+                    if(vm.allEvents == undefined){
                         vm.allEvents = [];
                         $location.path('/user/events');
                         viewAllEvent();
                     }
                     else{ 
-                        vm.currentUserId = response.data[0][0].user_id;   
+                        vm.currentUserId = response.data[0].user_id;   
                         console.log(vm.currentUserId);
+
                     }
                 })
         }
@@ -175,7 +173,7 @@
                     console.log('Event deleted')
                     viewEvent($routeParams.event_id)
             }, function(response){
-                console.log("error");   
+                console.log("error");
             });
         }
 
@@ -217,6 +215,7 @@
                 function(response){
                     console.log("Error :(");
                 });
+
         }     
 
 
@@ -241,4 +240,5 @@
                 });
         }         
     }   
+
 })();

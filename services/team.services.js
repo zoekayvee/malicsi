@@ -51,7 +51,7 @@ exports.viewTeam = (req, res, next) => {
 
 exports.viewAllTeam = (req, res, next) => {
 	var query = 'call viewAllTeams()';
-	
+
 		var id = connection.query(
 		query,
 		(err, row, fields) => {
@@ -61,6 +61,25 @@ exports.viewAllTeam = (req, res, next) => {
 				console.log("Success");
 				res.status(200).send(row);
 				//return row
+			}
+			else{
+				console.log(err);
+				res.status(500).send('Server error');
+			}
+	});
+}
+
+exports.viewAvailableTeams = (req, res, next) => {
+	var query = 'select * from team where team_id != 1 and team_id != 2 and team_id != ?';
+
+		var id = connection.query(
+		query,
+		[req.params.team_id],
+		(err, row, fields) => {
+			if(!err){
+				console.log("Success viewing available teams");
+				console.log(req.params.team_id);
+				res.status(200).send(row);
 			}
 			else{
 				console.log(err);
@@ -174,22 +193,20 @@ exports.teamJoinEvent = (req, res, next) => {
 }
 
 exports.teamPlayGame = (req, res, next) => {
-	var query = 'call teamPlayGame(?,?)';
+	var query = 'call updateTeamPlaysGame(?,?,?)';
 	const data = [
 		req.body.team_id,
-		req.body.game_id
+		req.body.game_id,
+		req.body.default_team_id
 	];
-	console.log(data);
 	var id = connection.query(
 		query,
 		data,
 		(err, row, fields) => {
 			if(!err){
 				console.log(row);
-
 				console.log("Update Team Play Game Success");
 				res.status(200).send("Update Team Play Game Success");
-				return row
 			}
 			else{
 				console.log(err);

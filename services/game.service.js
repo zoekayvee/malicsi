@@ -19,6 +19,12 @@ exports.addGame = (req,res) =>{
 		data,
 		(err, rows) => {
 			if(!err){
+				var query2 = 'select last_insert_id() as game_id';
+				var id2 = connection.query(query2,(err, rows) => { 
+					var query3 = 'call insertTeamPlaysGame(?)';
+					var id3 = connection.query(query3,[rows[0].game_id],(err, rows) => { });
+				});
+
 				console.log("Adding Game Success");
 		    	res.send('Game Successfully added');
 			}
@@ -36,14 +42,12 @@ exports.viewGamesBySport = (req,res) =>{
 		req.params.sport_id,
 		req.body.event_event_id
 	];
-	console.log("eventid" + req.body.event_event_id);
 	var id = connection.query(
 		query,
 		data,
 		(err, rows) => {
 			if(!err){
 				console.log("Viewing Game Successs");
-				console.log(rows[0]);
 				res.send(rows[0]);
 			}
 			else{
@@ -59,7 +63,6 @@ exports.viewGame = (req,res) =>{
 	const data = [
 		req.params.game_id
 	];
-	console.log(data);
 	var id = connection.query(
 		query,
 		data,
@@ -81,13 +84,11 @@ exports.betStatus = (req,res) =>{
 		req.params.user_id,
 		req.params.game_id
 	];
-	console.log(data);
 	var id = connection.query(
 		query,
 		data,
 		(err, rows) => {
 			if(!err){
-				console.log("Betting Status:" + rows[0] + " " + rows.length);
 				res.send(rows[0]);
 			}
 			else{
@@ -104,15 +105,12 @@ exports.bet = (req,res) =>{
 		req.body.team_id,
 		req.params.user_id
 	];
-	console.log(data);
 	var id = connection.query(
 		query,
 		data,
 		(err, rows) => {
 			if(!err){
 				console.log("Betting Success");
-
-				// res.send(rows[0]);
 			}
 			else{
 				console.log(err);
@@ -158,6 +156,7 @@ exports.getOverallRanking = (req,res) =>{
 		(err, rows) => {
 			if(!err){
 				console.log("Retrieving Overall Ranking Success");
+
 				res.send(rows);
 			}
 			else{
@@ -233,6 +232,44 @@ exports.getScores = (req,res) => {
 
 	})
 
+}
+
+exports.updateScores = (req,res) =>{
+	var query = 'UPDATE game_score SET team_score = ? WHERE game_id = ? and team_score_id = ?;';
+	const data = [
+		req.body.score1,
+		req.params.game_id,
+		req.body.team_id
+	];
+	const data2 = [
+		req.body.score2,
+		req.params.game_id,
+		req.body.team_id_2
+	];
+	var id = connection.query(
+		query,
+		data,
+		(err, rows) => {
+			if(!err){
+			var id2 = connection.query(
+				query,
+				data2,
+				(err, rows) => {
+					if(!err){
+						console.log("Updating Game Success");
+						res.send("Game Successfully Updated");
+					}
+					else{
+						console.log(err);
+						res.status(500).send('Server Error');
+					}
+			})
+			}
+			else{
+				console.log(err);
+				res.status(500).send('Server Error');
+			}
+	})
 }
 
 // VIEWING ALL GAMES 
