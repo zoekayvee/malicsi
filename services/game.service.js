@@ -48,7 +48,6 @@ exports.viewGamesBySport = (req,res) =>{
 		(err, rows) => {
 			if(!err){
 				console.log("Viewing Game Successs");
-				console.log(rows[0]);
 				res.send(rows[0]);
 			}
 			else{
@@ -64,7 +63,6 @@ exports.viewGame = (req,res) =>{
 	const data = [
 		req.params.game_id
 	];
-	console.log(data);
 	var id = connection.query(
 		query,
 		data,
@@ -86,13 +84,11 @@ exports.betStatus = (req,res) =>{
 		req.params.user_id,
 		req.params.game_id
 	];
-	console.log(data);
 	var id = connection.query(
 		query,
 		data,
 		(err, rows) => {
 			if(!err){
-				console.log("Betting Status:" + rows[0] + " " + rows.length);
 				res.send(rows[0]);
 			}
 			else{
@@ -109,15 +105,12 @@ exports.bet = (req,res) =>{
 		req.body.team_id,
 		req.params.user_id
 	];
-	console.log(data);
 	var id = connection.query(
 		query,
 		data,
 		(err, rows) => {
 			if(!err){
 				console.log("Betting Success");
-
-				// res.send(rows[0]);
 			}
 			else{
 				console.log(err);

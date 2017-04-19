@@ -5,8 +5,7 @@
 
     <div class="ui row card">
 
-    <div class="ui centered grid" ng-controller="userGameSchedController as UGSC" ng-repeat="x in UGSC.allSports" ng-init="a=x.sport_id">
-       
+    <div class="ui centered grid" ng-controller="userGameSchedController as UGSC" ng-repeat="x in UGSC.allSports" ng-init="a=x.sport_id;UGSC.viewGamesLeaderboards(x)">
         <div class="center aligned twelve wide column">
             <h1 class="centered" class="sportsname"> {{x.sport_name}} </h1>
 
@@ -24,7 +23,7 @@
                     </tr>
                 </thead>
 
-                <tbody ng-init="UGSC.viewGamesLeaderboards(x)">
+                <tbody>
 
                     <a href="">
                         <tr ng-repeat="y in UGSC.allGames[a-1] track by $index" ng-click="UGSC.viewGame(y.game_id)">
@@ -39,12 +38,16 @@
                         </tr>
                     </a>
                 </tbody>
-
             </table>
 
+
+                <div ng-if="UGSC.allGames[a-1]==undefined">
+                    THERE ARE CURRENTLY NO GAMES
+                </div>
         </div>
 
         <div class="center aligned four wide column" ng-init="UGSC.getRanking(x)">
+                
             <table class="ui very basic collapsing celled fluid table">
                 <thead>
                     <h4 class="centered">Standings</h4>
