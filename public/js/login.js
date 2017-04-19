@@ -29,15 +29,15 @@ $(document).ready(function() {
     $("#page-navigation").hide();
     $("#page-footer").hide();
 
-    $("#register-trigger").click(function(){
-        $("#login-div").slideUp("fast");
-        $("#register-div").slideDown("fast");
-    });
-
-    $("#login-trigger").click(function(){
-        $("#login-div").slideDown("fast");
-        $("#register-div").slideUp("fast");
-    });
+    // $("#register-trigger").click(function(){
+    //     $("#login-div").slideUp("fast");
+    //     $("#register-div").slideDown("fast");
+    // });
+    //
+    // $("#login-trigger").click(function(){
+    //     $("#login-div").slideDown("fast");
+    //     $("#register-div").slideUp("fast");
+    // });
 
 
 });

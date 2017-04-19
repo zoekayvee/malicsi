@@ -1,5 +1,5 @@
-<link rel='stylesheet prefetch' href='css/components/icon.min.css'>
-<link rel='stylesheet' href='css/landing-page.css' />
+<!-- <link rel='stylesheet prefetch' href='css/components/icon.min.css'> -->
+<!-- <link rel='stylesheet' href='css/landing-page.css' /> -->
 <!-- <script type='text/javascript' src='js/landin-page.js'></script> -->
 
 <div id="main-wrapper">
@@ -10,25 +10,26 @@
                 <img class="logo" src="images/icon.ico"> &nbsp;&nbsp;MALICSI
             </a>
 
-            <div class="right menu">
+            <div class="right menu" ng-controller="userController as login">
                 <form class="ui mini form">
                     <div class="item">
                         <div class="fields">
                             <div class="field">
                                 <div class="ui left icon input">
                                     <i class="user icon"></i>
-                                    <input type="text" name="username" placeholder="username">
+                                    <input type="text" name="username" placeholder="username" ng-model="login.username">
                                 </div>
                             </div>
                             <div class="field">
                                 <div class="ui left icon input">
                                     <i class="lock icon"></i>
-                                    <input type="password" name="password" placeholder="password">
+                                    <input type="password" name="password" placeholder="password" ng-model="login.password">
                                 </div>
                             </div>
                             <div class="field">
-                                <div class="ui mini submit button" id="loginbutton" href="/#/login">Login</div>
+                                <div class="ui mini submit button" id="loginbutton" ng-click="login.loginUser()" href="/#/login">Login</div>
                             </div>
+                            <a href="/#!/register">register here</a>
                         </div>
                     </div>
 
@@ -39,7 +40,7 @@
 
 
     <!-- CONTENT SECTION -->
-    <div class="ui main" id="main-panel">
+    <!-- <div class="ui main" id="main-panel">
         <div class="ui container">
 
             <div ng-view>
@@ -155,5 +156,6 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> -->
+
 </div>

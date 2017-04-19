@@ -7,7 +7,15 @@
 	function router($routeProvider) {
 		$routeProvider
 			.when('/', {
-					templateUrl: 'layouts/login.html',
+					templateUrl: 'layouts/account-guest.html',
+					controller:'userController'
+			})
+			.when('/login', {
+					templateUrl: 'layouts/account-login.html',
+					controller:'userController'
+			})
+			.when('/register', {
+					templateUrl: 'layouts/account-register.html',
 					controller:'userController'
 			})
 

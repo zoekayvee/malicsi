@@ -1,0 +1,49 @@
+<link rel='stylesheet' href='css/login.css' />
+<script type='text/javascript' src='js/login.js'></script>
+
+<div id="main-wrapper">
+
+    <a href="/#!/"><button class="ui button" id="back"><i class="arrow left icon"></i> back</button></a>
+
+    <div class="ui container section" id="login-div">
+
+        <div class="ui one column centere aligned" id="image-header">
+            <image src="images/malicsi-text.png"></image>
+        </div>
+
+        <div class="ui one column center aligned grid" id="forms">
+
+            <div class="column six wide ui card" id="login-panel">
+
+                <h2 class="center aligned header form-head">Log in to your account</h2>
+                <form class="ui medium form" ng-controller="userController as login">
+                    <div class="field">
+                        <div class="ui left icon input">
+                            <i class="user icon"></i>
+                            <input id="username" type="text" ng-model="login.username" placeholder="username">
+                        </div>
+                    </div>
+                    <div class="field">
+                        <div class="ui left icon input">
+                            <i class="lock icon"></i>
+                            <input id="password" type="password" ng-model="login.password" placeholder="password">
+                        </div>
+                    </div>
+                    <div class="field">
+                        <button class="ui fluid submit button" id="loginbutton" ng-click="login.loginUser()">SIGN IN</button>
+                    </div>
+                    
+                    <div class="ui error message"></div>
+                    <div class="ui message">
+                        Don't have an account? <a href="/#!/register"><button>Create and account here!</button></a>
+                    </div>
+
+                </form>
+            </div>
+
+        </div>
+
+    </div>
+
+
+</div>
