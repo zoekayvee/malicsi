@@ -1,32 +1,52 @@
 $(document).ready(function(){
-    $('.slider').glide();
+    $(this).scroll(function() {
+        var scroll = $(this).scrollTop();
+        console.log(scroll);
+        if (scroll > 0 ) {
+            $('#page-navigation').addClass('nav-scrolled');
+        }
+        else {
+            $('#page-navigation').removeClass('nav-scrolled');
+        }
+    });
+
+    $('#feeds-trigger').click(function(){
+        var offset = 65; //Offset of 20px
+        $('html, body').animate({
+            scrollTop: $("#feeds-panel").offset().top - offset
+        }, 500);
+    });
+
+    $("#page-navigation").show();
+    $("#page-footer").show();
+
 });
 
-google.charts.load('current', {packages: ['corechart', 'bar']});
-google.charts.setOnLoadCallback(drawBarColors);
-
-function drawBarColors() {
-      var data = google.visualization.arrayToDataTable([
-        ['Teams', 'Score'],
-        ['CAS', 34],
-        ['CAFS', 30],
-        ['CDC', 24],
-        ['CEAT', 14],
-        ['CVM', 17],
-      ]);
-
-      var options = {
-        title: 'Palarong UPLB',
-        chartArea: {width: '70%'},
-        colors: ['#fac8c1'],
-        hAxis: {
-          title: 'Total Score',
-          minValue: 0
-        },
-        vAxis: {
-          title: 'Teams'
+var ctx = document.getElementById("leadchart");
+var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: ["CAS", "CAFS", "CFNR", "CEAT", "CHE", "CVM"],
+        datasets: [{
+            label: 'Scores',
+            data: [1,2,8,4,10,6,7],
+            backgroundColor: [
+                'rgba(222, 27, 27, 1)',
+                'rgba(233, 229, 129, 1)',
+                'rgba(222, 27, 27, 1)',
+                'rgba(233, 229, 129, 1)',
+                'rgba(222, 27, 27, 0.7)',
+                'rgba(233, 229, 129, 1)',
+            ],
+        }]
+    },
+    options: {
+        scales: {
+            yAxes: [{
+                ticks: {
+                    beginAtZero:true
+                }
+            }]
         }
-      };
-      var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
-      chart.draw(data, options);
     }
+});
