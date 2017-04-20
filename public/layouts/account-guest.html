@@ -1,49 +1,49 @@
-<!-- <link rel='stylesheet prefetch' href='css/components/icon.min.css'> -->
-<!-- <link rel='stylesheet' href='css/landing-page.css' /> -->
-<!-- <script type='text/javascript' src='js/landin-page.js'></script> -->
+<link rel='stylesheet prefetch' href='css/components/icon.min.css' />
+<link rel='stylesheet' href='css/account-guest.css' />
+<script type='text/javascript' src='js/account-guest.js'></script>
+
+<!-- NAVIGATION SECTION -->
+<div class="ui fixed inverted menu" id="page-navigation-2">
+    <div class="ui container">
+        <a href="#" class="header item">
+            <img id="logo" src="images/malicsi-text.png">
+        </a>
+
+        <div class="right menu" ng-controller="userController as login">
+            <form class="ui mini form">
+                <div class="item">
+                    <div class="fields">
+                        <div class="field">
+                            <div class="ui left icon input">
+                                <i class="user icon"></i>
+                                <input type="text" name="username" placeholder="username" ng-model="login.username">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="ui left icon input">
+                                <i class="lock icon"></i>
+                                <input type="password" name="password" placeholder="password" ng-model="login.password">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="ui submit button" id="login-button" ng-click="login.loginUser()">Login</div>
+                        </div>
+                        <a href="/#!/register"><div class="ui button">Register</div></a>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</div>
 
 <div id="main-wrapper">
-    <!-- NAVIGATION SECTION -->
-    <div class="ui fixed inverted menu" id="page-navigation">
-        <div class="ui container">
-            <a href="#" class="header item">
-                <img class="logo" src="images/icon.ico"> &nbsp;&nbsp;MALICSI
-            </a>
-
-            <div class="right menu" ng-controller="userController as login">
-                <form class="ui mini form">
-                    <div class="item">
-                        <div class="fields">
-                            <div class="field">
-                                <div class="ui left icon input">
-                                    <i class="user icon"></i>
-                                    <input type="text" name="username" placeholder="username" ng-model="login.username">
-                                </div>
-                            </div>
-                            <div class="field">
-                                <div class="ui left icon input">
-                                    <i class="lock icon"></i>
-                                    <input type="password" name="password" placeholder="password" ng-model="login.password">
-                                </div>
-                            </div>
-                            <div class="field">
-                                <div class="ui mini submit button" id="loginbutton" ng-click="login.loginUser()" href="/#/login">Login</div>
-                            </div>
-                            <a href="/#!/register">register here</a>
-                        </div>
-                    </div>
-
-                </form>
-            </div>
-        </div>
-    </div>
-
 
     <!-- CONTENT SECTION -->
-    <!-- <div class="ui main" id="main-panel">
+    <div class="ui main" id="main-panel">
         <div class="ui container">
 
-            <div ng-view>
+            <div>
                 <div class="pusher">
                     <div class="ui vertical stripe segment">
                         <div class="ui middle aligned stackable grid container">
@@ -67,7 +67,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="seven wide column">
-                                        <div class="ui black floating message" id="gameSched">
+                                        <div class="ui black floating message data-panel">
                                             <h2>Leader Board</h2>
                                             <table class="ui inverted very basic celled table">
                                                 <thead>
@@ -107,9 +107,9 @@
                                             </table>
                                         </div>
                                     </div>
-
+                                    <br>
                                     <div class="seven wide column">
-                                        <div class="ui black floating message" id="gameSched">
+                                        <div class="ui black floating message data-panel">
                                             <h2>Game Schedule</h2>
                                             <table class="ui inverted very basic celled table">
                                                 <thead>
@@ -156,6 +156,6 @@
                 </div>
             </div>
         </div>
-    </div> -->
+    </div>
 
 </div>

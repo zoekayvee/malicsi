@@ -3,7 +3,7 @@
 <link rel="stylesheets" type='text/javascript' src='js/admin.js'></link>
 
 
-<div class="ui container" id="main-wrapper">
+<div class="ui container" id="main-wrapper" ng-controller = "adminController as admin">
     <div class="ui card" id="main_card">
         <div class="content">
             <div class="ui row">
@@ -35,7 +35,10 @@
                     <tbody>
                         <tr ng-repeat = "x in admin.allUsers">
                             <td> {{x.user_id}}</td>
-                            <td> {{x.username}}</td>
+                            <td ng-controller = "otherUsersController as others"> 
+                            <a ng-click = "others.clicked(x.user_id)">{{x.username}}</a>
+                            <div class="sub-header"> {{ x.user_type }}</div>
+                            </td>
                             <td> {{x.firstname}}</td>
                             <td> {{x.lastname}}</td>
                             <td> {{x.college}}</td>
@@ -44,7 +47,7 @@
                             <td> {{x.weight}}</td>
                             <td> {{x.height}}</td>
                             <td colspan="">
-                                <div class="ui animated button edit-trigger" ng-click="admin.openModal('edit-modal')">
+                                <div class="ui animated button edit-trigger" ng-click="admin.initialize(x.user_id);admin.openModal('edit-modal',user_id)">
                                     <div class="visible content">Edit</div>
                                     <div class="hidden content">  <i class="write icon"> </i></div>
                                 </div>
@@ -54,11 +57,11 @@
                                         <div class="fields">
                                             <div class="field">
                                                 <label>Enter new password:</label>
-                                                <input type="text" id="password" ng-model = "admin.password">
+                                                <input type="password" id="password" ng-model = "admin.password">
                                             </div>
                                         </div>
                                         <div class="ui button" id="cancel" ng-click="admin.closeModal('edit-modal')">Cancel</div>
-                                        <div class="ui button" ng-click="admin.updateUser(x.user_id)">Submit</div>
+                                        <div class="ui button" ng-click="admin.updateUser()">Submit</div>
                                     </form>
                                 </div>
 
@@ -103,46 +106,50 @@
                                 Add User
                             </div>
                             <div class="ui modal" id="add-modal">
-                                <div class="header"> UPDATE USER</div>
+                                <div class="header"> ADD USER</div>
                                 <div class="content">
                                     <div class="ui form">
                                         <div class="fields">
                                             <div class="field">
                                                 <label>Username</label>
-                                                <input type="text" placeholder="{{admin.user.username}}" ng-model="username">
+                                                <input type="text" ng-model="admin.newUser.username">
                                             </div>
                                             <div class="field">
+                                                <label>Password</label>
+                                                <input type="password" ng-model="admin.newUser.password">
+                                            </div> <!-- added field password -->
+                                            <div class="field">
                                                 <label>College</label>
-                                                <input type="text" placeholder="{{admin.user.college}}" ng-model="college">
+                                                <input type="text" ng-model="admin.newUser.college">
                                             </div>
                                             <div class="field">
                                                 <label>Height</label>
-                                                <input type="text" placeholder="{{admin.user.height}}" ng-model="height">
+                                                <input type="text" ng-model="admin.newUser.height">
                                             </div>
                                             <div class="field">
                                                 <label>Weight</label>
-                                                <input type="text" placeholder="{{admin.user.weight}}" ng-model="weight">
+                                                <input type="text" ng-model="admin.newUser.weight">
                                             </div>
                                         </div>
                                         <div class="equal width fields">
                                             <div class="field">
                                                 <label>First name</label>
-                                                <input type="text" placeholder="{{admin.user.firstname}}" ng-model="firstname">
+                                                <input type="text" ng-model="admin.newUser.firstname">
                                             </div>
                                             <div class="field">
                                                 <label>Last name</label>
-                                                <input type="text" placeholder="{{admin.user.lastname}}" ng-model="lastname">
+                                                <input type="text" ng-model="admin.newUser.lastname">
                                             </div>
                                         </div>
                                         <div class="ui equal width form">
                                             <div class="fields">
                                                 <div class="field">
                                                     <label>E-mail</label>
-                                                    <input type="email" placeholder="{{admin.user.email}}" ng-model="email">
+                                                    <input type="email" ng-model="admin.newUser.email">
                                                 </div>
                                                 <div class="field">
                                                     <label>Contact Number</label>
-                                                    <input type="text" placeholder="{{admin.user.contactno}}" ng-model="contactno">
+                                                    <input type="text" ng-model="admin.newUser.contactno">
                                                 </div>
                                             </div>
                                         </div>
