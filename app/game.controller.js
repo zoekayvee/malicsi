@@ -13,6 +13,8 @@
 		vm.user_id = 1;
 		vm.score = 0;
 		vm.score2 = 0;
+		vm.updateScore = 0;
+		vm.updateScore2 = 0;
 		vm.addGame = addGame;
 		vm.updateGame = updateGame;
 		vm.deleteGame = deleteGame;
@@ -44,6 +46,8 @@
         vm.setCurrentId = setCurrentId;
         vm.setVenueId = setVenueId;
         vm.setEventId = setEventId;
+        vm.setWinner = setWinner;
+        vm.winnerTeamId = null;
         vm.updateScores = updateScores;
 
 		viewAllGames();
@@ -88,6 +92,7 @@
 				.get('/game/' + $routeParams.game_id)
 				.then(function(response){
 					vm.game = response.data;
+					vm.winnerTeamId = vm.game.winner_team_id;
 					vm.getScores(vm.game);
 					vm.getScores2(vm.game);
 					console.log('Viewing Game Successful');
@@ -221,8 +226,8 @@
 
 		function updateScores(team1,team2){
 			var scoreDetails = {
-				score1: vm.score,
-				score2: vm.score2,
+				score1: vm.updateScore,
+				score2: vm.updateScore2,
 				team_id: team1,
 				team_id_2: team2
 			}
@@ -237,6 +242,27 @@
 			closeModal('addscore-modal');
 		}
 
+		function setWinner(){
+			console.log(vm.game.team_id);
+			console.log(vm.game.team_id_2);
+			console.log(vm.score);
+			console.log(vm.score2);
+			if(vm.score > vm.score2) vm.winnerTeamId = vm.game.team_id;
+			else vm.winnerTeamId = vm.game.team_id_2;
+			
+			var winnerToBeAdded = {
+				winner_team_id: vm.winnerTeamId,
+				game_id: $routeParams.game_id
+			}
+			$http
+				.post('/winner',winnerToBeAdded)
+				.then(function(response){
+					console.log("Updating Winner Successful! ");
+				},
+				function(response){
+					console.log("Error adding winner!");
+				});
+		}
         function openModal(dmodal){
             $('#'+dmodal+'.modal')
             .modal('setting', {

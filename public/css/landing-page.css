@@ -15,21 +15,10 @@ body {
 
   }
 
- /* .form-holder {
-    background: rgba(255,255,255,0.2);
-    margin-top: 10%;
-    border-radius: 3px;
-  }
-
-  .form-head {
-    font-size: 30px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: #fff;
-    text-shadow: 0 0 30px #000;
-    margin: 15px auto 30px auto;
-  }
-*/
+#overlay{
+  margin-top: 40px;
+  padding-top: 10px;  
+}
 
 #loginbutton{
 	background-color: #2B2B2B;
