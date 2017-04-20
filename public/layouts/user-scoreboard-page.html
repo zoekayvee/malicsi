@@ -5,7 +5,7 @@
 
     <div class="ui row card">
 
-    <div class="ui one column stackable center aligned page grid" ng-controller="userGameSchedController as UGSC" ng-repeat="x in UGSC.allSports" ng-init="a=x.sport_id;UGSC.viewGamesLeaderboards(x)">
+    <div class="ui column stackable center page grid" ng-controller="userGameSchedController as UGSC" ng-repeat="x in UGSC.allSports" ng-init="a=x.sport_id;UGSC.viewGamesLeaderboards(x)">
         <div class="center aligned twelve wide column">
             <h1 class="centered" class="sportsname"> {{x.sport_name}} </h1>
 
