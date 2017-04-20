@@ -8,7 +8,7 @@
 		var vm = this;
 		vm.username="";
 		vm.password="";
-		vm.hasUser="";
+		vm.hasUser=null;
 		vm.user_type="";
 		vm.loginUser=loginUser;
         vm.user = {};
@@ -37,10 +37,15 @@
             .get('/user_loggedin') 
             .then(function(response) {
             	if (response.data){
-            		vm.hasUser="true";
+            		vm.hasUser=true;
+            		$http
+                        .get('/users/'+response.data)
+                        .then(function(response) {
+                            vm.user = response.data;
+                        });
             	}
             	else{
-            		vm.hasUser="false";
+            		vm.hasUser=false;
             	}
             });
 
@@ -115,7 +120,7 @@
 					toastr.error(response.data.message);
 					console.log('Error');
 					setTimeout(function(){
-						redirectLocation('no');
+						redirectLocation(redirect);
 					}, 500);
 				});
 		}

@@ -30,7 +30,6 @@
                         .get('/users/'+response.data)
                         .then(function(response) {
                             vm.user = response.data;
-
                         });
 
                     $http

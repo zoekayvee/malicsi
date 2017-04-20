@@ -13,7 +13,7 @@
             <div class="right menu" ng-controller="userController as login">
                 <form class="ui mini form">
                     <div class="item">
-                        <div class="fields">
+                        <div class="fields" ng-hide="login.hasUser">
                             <div class="field">
                                 <div class="ui left icon input">
                                     <i class="user icon"></i>
@@ -30,6 +30,14 @@
                                 <div class="ui mini submit button" id="loginbutton" ng-click="login.loginUser()" href="/#/login">Login</div>
                             </div>
                             <a href="/#!/register">register here</a>
+                        </div>
+                        <div class="alight right ui simple dropdown item" ng-show="login.hasUser">
+                            {{login.user.firstname + " " + login.user.lastname}} <i class="dropdown icon"></i>
+                            <div class="menu">
+                                <a class="item" href="#!/user/profile">Profile</a>
+                                <a class="item" href="/#!/user/activity-log">Activity Log</a>
+                                <a class="item" href="#" ng-click="user.logOut()">Logout</a>
+                            </div>
                         </div>
                     </div>
 
