@@ -118,9 +118,8 @@
 					}, 500);
 				}, function (response){	
 					toastr.error(response.data.message);
-					console.log('Error');
 					setTimeout(function(){
-						redirectLocation(redirect);
+						redirectLocation(response.data.redirect);
 					}, 500);
 				});
 		}

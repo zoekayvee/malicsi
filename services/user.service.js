@@ -67,11 +67,7 @@ exports.login=(req,res)=>{
 		   			
 		   		}
 		   		else{
-		   			res.json({
-			        	redirect: '/#!/login',
-			        	message: 'Wrong username or password.'
-			       	});
-		   			res.status(404); 
+		   			res.status(404).send({message: 'Wrong username or password.', redirect: '/#!/login'}); 
 		   		}
 	        }    
 		}
