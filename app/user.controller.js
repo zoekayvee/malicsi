@@ -8,7 +8,7 @@
 		var vm = this;
 		vm.username="";
 		vm.password="";
-
+		vm.hasUser="";
 		vm.user_type="";
 		vm.loginUser=loginUser;
         vm.user = {};
@@ -33,7 +33,18 @@
 		vm.upcomingGames = [];
 		
 
+		$http   
+            .get('/user_loggedin') 
+            .then(function(response) {
+            	if (response.data){
+            		vm.hasUser="true";
+            	}
+            	else{
+            		vm.hasUser="false";
+            	}
+            });
 
+        
         function setToastr(){
 		    toastr.options.positionClass = "toast-bottom-right";
 		    toastr.options.closeButton = true;
