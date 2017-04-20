@@ -10,3 +10,15 @@
 #maintable tr:hover {
 	background-color: #E9E581;
 }
+
+a {
+        color: black;
+}
+#main_card {
+    width: 100%;
+}
+#segment {
+    margin-top: -35px; 
+    margin-right: -35px; 
+    margin-left: -35px;
+}
