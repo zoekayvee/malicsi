@@ -6,7 +6,7 @@
     <div class="ui row card">
 
     <div class="ui centered grid" ng-controller="userGameSchedController as UGSC" ng-repeat="x in UGSC.allSports" ng-init="a=x.sport_id;UGSC.viewGamesLeaderboards(x)">
-        <div class="center aligned two wide column">
+        <div class="center aligned one wide column">
             
         </div>
         <div class="center aligned ten wide column">
@@ -47,6 +47,10 @@
                 <div ng-if="UGSC.allGames[a-1]==undefined">
                     THERE ARE CURRENTLY NO GAMES
                 </div>
+        </div>
+
+        <div class="center aligned one wide column">
+            
         </div>
 
         <div class="center aligned four wide column" ng-init="UGSC.getRanking(x)">
