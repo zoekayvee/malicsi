@@ -18,6 +18,7 @@
 	    vm.addTeam = addTeam;
 	    vm.allTeams = [];
 	    vm.viewAllTeam = viewAllTeam;
+	    vm.viewTeamInGame = viewTeamInGame;
 	    vm.deleteTeam = deleteTeam;
     	vm.viewTeam = viewTeam;
     	vm.teamJointEvent = teamJoinEvent;
@@ -110,9 +111,23 @@
 	    		});
 	    }
 
+	    function viewTeamInGame(){
+	    	console.log($routeParams.game_id);
+	    	$http
+	    		.get('/teams/in_game/' + $routeParams.game_id)
+	    		.then(function(response){
+		    			vm.allTeams = response.data;
+		    			console.log(response.data.team_name);
+		    			console.log('Viewing All Available Teams')
+		    		}, function(response){
+		    			console.log("Error: Cannot retrieve teams");
+	    		});
+
+	    }
+
 	    function viewAvailableTeams(){
 	    	$http
-	    		.get('/teams/game/' + $routeParams.game_id)
+	    		.get('/teams/game/' + $routeParams.game_id)	
 	    		.then(function(response){
 	    			vm.allTeams = response.data;
 	    			console.log(response.data);
@@ -259,6 +274,7 @@
 	    		.post('/teams/join/game',gameToPlay)
 	    		.then(function(response){
 	    			console.log('Team Joined Event')
+	    			viewTeamInGame();
 	    		}, function(response){
 	    			console.log("error");
 	    		});

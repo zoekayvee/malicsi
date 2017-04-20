@@ -1,16 +1,17 @@
 <link rel='stylesheet' href='css/team-page.css' />
-<script type='text/javascript' src='js/user.js'></script>
 <div class="ui grid" ng-controller="teamController as team" ng-init="team.viewClickedTeam()" id = "main-wrapper">
     <div class="row"  ng-repeat="x in team.allTeams">
-        <div class="ui cards" >
-            <div class="ui card center aligned" id="card1">
+        <div class="ui cards">
+            <div class="ui card center aligned">
+
                 <div class="center aligned image">
                     <img id="im" src="images/team_icon.png">
                 </div>
                 <div class="content">
-                    <h2 style="text-align: center;">{{x.team_name}}</h2>
-                    <button class="fluid ui negative animated button">
-                    <div class="visible content"> Join here
+
+                    <div class="center aligned header">
+                         {{x.team_name}}
+
                     </div>
                     <div class="hidden content"> <i class="sign in icon"></i>
                     </div>

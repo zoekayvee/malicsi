@@ -7,8 +7,6 @@ Go to directory where malicsidb.sql is located or enter full path to file then r
 */
  -- DROP USER "b"@"localhost";
 
-
-
 DROP DATABASE IF EXISTS `malicsiDB`;
 
 CREATE DATABASE IF NOT EXISTS `malicsiDB`;

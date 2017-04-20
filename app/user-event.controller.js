@@ -131,11 +131,11 @@
         }
 
 		function viewGame(game_id){
-			$location.path('/user/game/' + game_id)
+			$location.path('/game/' + game_id)
 		}
 
 		function scoreboard(){
-			$location.path('/user/event/' + $routeParams.event_id + '/scoreboard')
+			$location.path('/events/' + $routeParams.event_id + '/scoreboard')
 		}
 
         function setCurrentId(id,dmodal){
