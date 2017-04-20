@@ -135,7 +135,7 @@
 		}
 
 		function scoreboard(){
-			$location.path('/user/event/' + $routeParams.event_id + '/scoreboard')
+			$location.path('/events/' + $routeParams.event_id + '/scoreboard')
 		}
 
         function setCurrentId(id,dmodal){
