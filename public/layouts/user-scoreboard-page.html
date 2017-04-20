@@ -6,7 +6,10 @@
     <div class="ui row card">
 
     <div class="ui centered grid" ng-controller="userGameSchedController as UGSC" ng-repeat="x in UGSC.allSports" ng-init="a=x.sport_id;UGSC.viewGamesLeaderboards(x)">
-        <div class="center aligned twelve wide column">
+        <div class="center aligned two wide column">
+            
+        </div>
+        <div class="center aligned ten wide column">
             <h1 class="centered" class="sportsname"> {{x.sport_name}} </h1>
 
             <table id="maintable" class="ui selectable celled table">
