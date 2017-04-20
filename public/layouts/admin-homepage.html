@@ -1,18 +1,18 @@
 <link rel="stylesheet" type="text/css" href="css/admin_homepage.css"> </link>
 
-<div class="ui container" id="main-wrapper"  ng-controller="adminController as home">
-    <div class="ui card" id="main_card">
+<div class="ui container" id="main-wrapper" ng-controller="adminController as home">
+    <div class="ui card" id="main_card"> 
             <div class="content">
             <div class="ui row">
             <div class="ui horizontal center aligned segments" id="segment">
-                <a class="ui segment" href="/#!/admin/users"> Users </a>
-                <a class="ui segment" href="/#!/admin/events"> Events </a>
-                <a class="ui segment" href="/#!/admin/games"> Games </a>
-                <a class="ui segment" href="/#!/admin/sports"> Sports </a>
-                <a class="ui segment" href="/#!/admin/sponsors"> Sponsors </a>
+                <a class="ui segment" href="/#!/admin/all-users"> Users </a>
+                <a class="ui segment" href="/#!/admin/all-events"> Events </a>
+                <a class="ui segment" href="/#!/admin/all-games"> Games </a>
+                <a class="ui segment" href="/#!/admin/all-sports"> Sports </a>
+                <a class="ui segment" href="/#!/admin/all-sponsors"> Sponsors </a>
             </div>
             </div>
-            <div class="ui row" ng-repeat="x in home.allUsers | filter: {user_type: 'pending'}">
+             <div class="ui row" ng-repeat="x in home.allUsers | filter: {user_type: 'pending'}">
             <div class="ui card" id="card">
                 <div class=" center aligned content">
                 <h3 class="ui header"> {{x.username}}</h3>

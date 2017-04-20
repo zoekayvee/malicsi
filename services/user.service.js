@@ -23,7 +23,7 @@ exports.login=(req,res)=>{
 		if(!err){
 	        if(!rows.length) {
 				console.log('Wrong username or password...');
-	            return res.status(404).send({message: 'Invalid Input!'});
+	            res.status(404).send({message: 'Wrong username'});
 	        }else if (req.session.usertype != undefined && req.session.userid != undefined && req.session.userid != rows[0].user_id){
 	        	console.log('Login session is not yet finished...');
 	            return res.status(404).send({message: 'Login session is not yet finished.'});
@@ -40,7 +40,7 @@ exports.login=(req,res)=>{
 		   			 if (rows[0].user_type === 'pending'){
 			        	console.log(req.session.usertype);
 			  
-			        	//return res.send({message: 'User not yet approved'});
+			        	return res.status(404).send({message: 'User not yet approved'});
 			        	res.json({
 			        		redirect: '/#!/',
 			        		message: 'User not yet approved'
@@ -67,7 +67,7 @@ exports.login=(req,res)=>{
 		   			
 		   		}
 		   		else{
-		   			return res.status(404).send({message: 'Wrong username or password.'}); 
+		   			res.status(404).send({message: 'Wrong username or password.'}); 
 		   		}
 	        }    
 		}
@@ -201,22 +201,6 @@ exports.viewUserEvents = (req,res) => {
 		}
 	});
 }
-exports.viewUserTeams = (req,res) => {
-	const query_string =  "SELECT * from team natural join (select team_id from team_players where user_id= ? )a";
-	const req_data = [req.params.user_id]
-
-	connection.query(query_string, req_data, (err,result)=>{
-		if(!err){
-			res.status(200).send(result);
-			//console.log(result[0]);
-		}
-		else{
-			console.log(err);
-			res.status(500).send(err);
-		}
-	});
-}
-
 
 exports.updateInterests = (req,res) => {
 	const query_string = "INSERT INTO user_interests VALUES (?,?)";
@@ -302,37 +286,53 @@ exports.viewCompetitor=(req, res)=>{
 	});
 }
 
+exports.viewUserTeams = (req,res) => {
+	const query_string =  "SELECT DISTINCT * from team natural join (select team_id from team_players where user_id= ? )a";
+	const req_data = [req.params.user_id]
+
+	connection.query(query_string, req_data, (err,result)=>{
+		if(!err){
+			res.status(200).send(result);
+			//console.log(result[0]);
+		}
+		else{
+			console.log(err);
+			res.status(500).send(err);
+		}
+	});
+}
+
 // updateUser - updates user information (uses user_id)
 exports.updateUser=(req,res)=>{
-		if(req.body.flag === "false"){
-			//password not yet encrypted
-			const salt = bcrypt.genSaltSync(saltRounds);
-			const hash = bcrypt.hashSync(req.body.password, salt);
-			req.body.password=hash;
-		}
-		const query_string = 'call updateUser(?,?,?,?,?,?,?,?,?,?,?,?,?)';
-		const req_data = [
-			req.params.user_id,
-			req.body.username,
-			req.body.password,
-			req.body.firstname,
-			req.body.lastname,
-			req.body.gender,
-			req.body.college,
-			req.body.contactno,
-			req.body.email,
-			req.body.location,
-			req.body.weight,
-			req.body.height,
-			req.body.age
-		];
+	if(req.body.flag === "false"){
+		//password not yet encrypted
+		const salt = bcrypt.genSaltSync(saltRounds);
+		const hash = bcrypt.hashSync(req.body.password, salt);
+		req.body.password=hash;
+	}
+	const query_string = 'call updateUser(?,?,?,?,?,?,?,?,?,?,?,?,?)';
+	const req_data = [
+		req.params.user_id,
+		req.body.username,
+		req.body.password,
+		req.body.firstname,
+		req.body.lastname,
+		req.body.gender,
+		req.body.college,
+		req.body.contactno,
+		req.body.email,
+		req.body.location,
+		req.body.weight,
+		req.body.height,
+		req.body.age
+	];
 
-		connection.query(query_string, req_data,(err,result) => {
-			if (!err) {
-    		res.status(200).send(result);
-			} else {
-				console.log(err);
-				res.status(500).send(err);
-			}
-		});
+	connection.query(query_string, req_data,(err,result) => {
+		if (!err) {
+		res.status(200).send(result);
+		} else {
+			console.log(err);
+			res.status(500).send(err);
+		}
+	});
 }

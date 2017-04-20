@@ -35,9 +35,9 @@
                     <tbody>
                         <tr ng-repeat = "x in admin.allUsers">
                             <td> {{x.user_id}}</td>
-                            <td ng-controller = "otherUsersController as others">
-                                 <a ng-click = "others.clicked(x.user_id)">{{x.username}}</a>
-                                 <div class="sub-header"> {{ x.user_type }}</div>
+                            <td ng-controller = "otherUsersController as others"> 
+                            <a ng-click = "others.clicked(x.user_id)">{{x.username}}</a>
+                            <div class="sub-header"> {{ x.user_type }}</div>
                             </td>
                             <td> {{x.firstname}}</td>
                             <td> {{x.lastname}}</td>
@@ -47,7 +47,7 @@
                             <td> {{x.weight}}</td>
                             <td> {{x.height}}</td>
                             <td colspan="">
-                                <div class="ui animated button edit-trigger" ng-click="admin.initialize(x.user_id);admin.openModal('edit-modal',user_id)" >
+                                <div class="ui animated button edit-trigger" ng-click="admin.initialize(x.user_id);admin.openModal('edit-modal',user_id)">
                                     <div class="visible content">Edit</div>
                                     <div class="hidden content">  <i class="write icon"> </i></div>
                                 </div>
@@ -57,7 +57,7 @@
                                         <div class="fields">
                                             <div class="field">
                                                 <label>Enter new password:</label>
-                                                <input type="text" id="password" ng-model = "admin.password">
+                                                <input type="password" id="password" ng-model = "admin.password">
                                             </div>
                                         </div>
                                         <div class="ui button" id="cancel" ng-click="admin.closeModal('edit-modal')">Cancel</div>
@@ -114,10 +114,10 @@
                                                 <label>Username</label>
                                                 <input type="text" ng-model="admin.newUser.username">
                                             </div>
-                                             <div class="field">
+                                            <div class="field">
                                                 <label>Password</label>
                                                 <input type="password" ng-model="admin.newUser.password">
-                                            </div>
+                                            </div> <!-- added field password -->
                                             <div class="field">
                                                 <label>College</label>
                                                 <input type="text" ng-model="admin.newUser.college">

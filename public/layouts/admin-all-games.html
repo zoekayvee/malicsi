@@ -2,7 +2,7 @@
 <link rel="stylesheet" type="text/css" href="css/admin_homepage.css"> </link>
 <script type='text/javascript' src='js/admin.js'></script>
 
-<div class="ui container" id="main-wrapper" >
+<div class="ui container" id="main-wrapper">
     <div class="ui card" id="main_card">
         <div class="content">
             <div class="ui row">
@@ -14,7 +14,7 @@
                     <a class="ui segment" href="/#!/admin/all-sponsors"> Sponsors </a>
                 </div>
             </div>
-            <div class="ui row">
+            <div class="ui row" ng-controller="gameController as game">
                 <table class="ui center aligned table">
                     <thead>
                         <tr>
@@ -31,18 +31,18 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td> 1</td>
-                            <td> 1</td>
-                            <td> 1</td>
-                            <td> 1</td>
-                            <td> 04-07-2017</td>
-                            <td> 3:00 pm</td>
-                            <td> Referee Name</td>
-                            <td> 1</td>
-                            <td>5 hours</td>
+                        <tr ng-repeat="x in game.allGames">
+                            <td> {{x.game_id}} </td>
+                            <td> {{x.sport_id}} </td>
+                            <td> {{x.venue_id}} </td>
+                            <td> {{x.event_event_id}} </td>
+                            <td> {{x.date_start}} </td>
+                            <td> {{x.time_start}} </td>
+                            <td> {{x.referee}} </td>
+                            <td> {{x.winner_team_id}} </td>
+                            <td> {{x.duration}} </td>
                             <td>
-                                <div class="ui animated button edit-trigger">
+                                <div class="ui animated button edit-trigger" ng-click="game.setCurrentId(x.game_id,'edit-modal')" id="edit">
                                     <div class="visible content"><i class="edit icon"> </i></div>
                                     <div class="hidden content"> Edit </div>
                                 </div>
@@ -52,11 +52,40 @@
                                         <div class="ui form">
                                             <div class="fields">
                                                 <div class="field">
+                                                    <div ng-controller="sportController as sport">
+                                                        <label> Sport </label>
+                                                        <form class="ui">
+                                                            <select ng-model="game.updateSportId" ng-options="x.sport_name for x in sport.allSports">
+                                                        </select>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                                <div class="field">
+                                                    <div ng-controller="venueController as venue">
+                                                        <label> Venue </label>
+                                                        <form class="ui">
+                                                            <select ng-model="game.updateVenueId" ng-options="x.venue_name for x in venue.allVenues">
+                                                        </select>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                                <div class="field">
+                                                    <div ng-controller="eventController as event" ng-init="event.viewAllEvent()">
+                                                        <label> Event </label>
+                                                        <form class="ui">
+                                                            <select ng-model="game.updateEventId" ng-options="x.event_name for x in event.allEvents">
+                                                        </select>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="fields">
+                                                <div class="field">
                                                     <label> Date Start </label>
                                                     <div class="ui calendar" id="start-date-pick">
                                                         <div class="ui input left icon">
                                                             <i class="calendar icon"></i>
-                                                            <input type="text" placeholder="Date" name="date_start" ng-model="game.dateStart">
+                                                            <input type="text" placeholder="{{x.date_start}}" name="date_start" ng-model="game.updateDateStart" ng-init="game.updateDateStart = x.date_start">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -64,92 +93,122 @@
                                                     <label> Time Start </label>
                                                     <div class="ui input left icon">
                                                         <i class="wait icon"></i>
-                                                        <input type="text" placeholder="Time" name="time_start" ng-model="game.timeStart">
+                                                        <input type="text" placeholder="{{x.time_start}}" name="time_start" ng-model="game.updateTimeStart" ng-init="game.updateTimeStart = x.time_start">
+                                                    </div>
+                                                </div>
+                                                <div class="field">
+                                                    <label> Duration </label>
+                                                    <div class="ui input left icon">
+                                                        <i class="wait icon"></i>
+                                                        <input type="text" placeholder="{{x.duration}}" name="duration" ng-model="game.updateDuration" ng-init="game.updateDuration = x.duration">
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="field">
                                                 <label> Referee </label>
-                                                <input type="text">
+                                                <input type="text" placeholder="{{x.referee}}" ng-model="game.updateReferee" ng-init="game.updateReferee = x.referee">
                                             </div>
                                             <br>
-                                            <div class="ui button" id="cancel">Cancel</div>
-                                            <div class="ui button">Submit</div>
+                                            <div class="ui button" id="cancel" ng-click="game.closeModal('edit-modal')">Cancel</div>
+                                            <div class="ui button" ng-click="game.updateGame(game.currentId);game.closeModal('edit-modal')">Submit</div>
                                         </div>
                                     </div>
-                                </td>
-                                <td>
-                                    <div class="ui animated button delete-trigger">
-                                        <div class="visible content"><i class="trash icon"> </i></div>
-                                        <div class="hidden content"> Delete </div>
+                            </td>
+                            <td>
+                                <div class="ui animated button edit-trigger" ng-click="game.setCurrentId(x.game_id,'delete-modal')" id="delete">
+                                    <div class="visible content"><i class="trash icon"> </i></div>
+                                    <div class="hidden content"> Delete </div>
+                                </div>
+                                <div class="ui basic modal" id="delete-modal">
+                                    <div class="ui icon header">
+                                        <i class="trash icon"></i> DELETE
                                     </div>
-                                    <div class="ui basic modal" id="delete-modal">
-                                        <div class="ui icon header">
-                                            <i class="trash icon"></i>
-                                            DELETE
+                                    <div class="actions">
+                                        <div class="ui red basic cancel inverted button" ng-click="game.closeModal('delete-modal')">
+                                            <i class="remove icon"></i> No
                                         </div>
-                                        <div class="actions">
-                                            <div class="ui red basic cancel inverted button">
-                                                <i class="remove icon"></i>
-                                                No
-                                            </div>
-                                            <div class="ui green ok inverted button">
-                                                <i class="checkmark icon"></i>
-                                                Yes
-                                            </div>
+                                        <div class="ui green ok inverted button" ng-click="game.deleteGame(x.game_id);game.closeModal('delete-modal')">
+                                            <i class="checkmark icon"></i> Yes
                                         </div>
                                     </div>
-                                </td>
+                                </div>
+                            </td>
 
-                            </tr>
+                        </tr>
 
-                        </tbody>
-                        <tfoot class="full-width">
-                            <tr>
-                                <th colspan="100%">
-                                    <div class="ui right floated small primary labeled icon button add-trigger">
-                                        <i class="add square icon"></i> Add Game
-                                    </div>
-                                    <div class="ui modal" id="add-modal">
-                                        <div class="header">ADD GAME</div>
-                                        <div class="content">
-                                            <div class="ui form">
-                                                <div class="fields">
-                                                    <div class="field">
-                                                        <label> Date Start </label>
-                                                        <div class="ui calendar" id="start-date-pick">
-                                                            <div class="ui input left icon">
-                                                                <i class="calendar icon"></i>
-                                                                <input type="text" placeholder="Date" name="date_start" ng-model="game.dateStart">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="field">
-                                                        <label> Time Start </label>
-                                                        <div class="ui input left icon">
-                                                            <i class="wait icon"></i>
-                                                            <input type="text" placeholder="Time" name="time_start" ng-model="game.timeStart">
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="field">
-                                                    <label> Referee </label>
-                                                    <input type="text">
-                                                </div>
-                                                <br>
-                                                <div class="ui button" id="cancel">Cancel</div>
-                                                <div class="ui button">Submit</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </th>
-                            </tr>
+                    </tbody>
+                    <tfoot class="full-width">
+                        <tr>
+                            <th colspan="100%">
+                                <div class="ui right floated small primary labeled icon button" ng-click="game.openModal('add-modal')">
+                                    <i class="add square icon"></i> Add Game
+                                </div>
+                            </th>
+                        </tr>
 
-                        </tfoot>
-                    </table>
+                    </tfoot>
+                    <div class="ui basic modal" id="add-modal">
+                        <div class="ui icon header">
+                            Add Game
+                        </div>
+                        <div class="ui form">
+                            <div class="field">
+                                <div ng-controller="sportController as sport">
+                                    <label> Sport </label>
+                                    <form class="ui">
+                                        <select ng-model="game.addSportId" ng-options="x.sport_name for x in sport.allSports">
+                            </select>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <div ng-controller="venueController as venue">
+                                    <label> Venue </label>
+                                    <form class="ui">
+                                        <select ng-model="game.addVenueId" ng-options="x.venue_name for x in venue.allVenues">
+                            </select>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <div ng-controller="eventController as event" ng-init="event.viewAllEvent()">
+                                    <label> Event </label>
+                                    <form class="ui">
+                                        <select ng-model="game.addEventId" ng-options="x.event_name for x in event.allEvents">
+                            </select>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="_field">
+                                <label>Date Start</label>
+                                <input type="text" placeholder="Date Start" ng-model="game.addDate">
+                            </div>
+                            <div class="_field">
+                                <label>Time Start</label>
+                                <input type="text" placeholder="Time Start" ng-model="game.addTime">
+                            </div>
+                            <div class="_field">
+                                <label>Referee</label>
+                                <input type="text" placeholder="Referee" ng-model="game.addReferee">
+                            </div>
+                            <div class="_field">
+                                <label>Duration</label>
+                                <input type="text" placeholder="Duration" ng-model="game.addDuration">
+                            </div>
+                        </div>
+                        <div class="actions">
+                            <div class="ui red basic cancel inverted button" ng-click="game.closeModal('add-modal')">
+                                Cancel
+                            </div>
+                            <div ng-click="game.addGame()" class="ui green ok inverted button">
+                                <i class="checkmark icon"></i> Yes
+                            </div>
+                        </div>
+                    </div>
+
+                </table>
                 </div>
 
             </div>
         </div>
     </div>
-</div>

@@ -7,24 +7,23 @@
 	function adminController($http){
 		var vm = this;
 
-		vm.password = "";		
+		/*ADDED*/	
 		vm.newUser={};
 		vm.user_id = ""; //for user_id initialization
-
+		vm.addUser = addUser;
+		vm.initialize= initialize;
+		vm.allPending=[];
 
 		vm.allLogs = [];
 		vm.allUsers = [];
 		vm.deleteUser = deleteUser;
-		vm.addUser = addUser;
 		vm.updateUser = updateUser;
-		
+		vm.password = "";
 		vm.openModal = openModal;
 		vm.closeModal= closeModal;
 		vm.currentUserId = null;
 		vm.user_type = null;
 		vm.approveUser = approveUser;
-		vm.initialize= initialize;
-		vm.allPending=[];
 
 		$http   
             .get('/user_type_loggedin') 
@@ -44,6 +43,7 @@
                 	window.location.href ='/403';
                 }
             });
+		
 
 		function deleteUser(user_id){
 			console.log(user_id);
@@ -57,6 +57,7 @@
 		}
 
 		function addUser(){
+			// console.log(user_id);
 			$http.post('/user',vm.newUser)
 				.then(function(response){
 					console.log('Added User');
@@ -67,7 +68,6 @@
 		}
 
 		function approveUser(user_id){
-			console.log(user_id);
 			$http.put('/users/approval/'+user_id)
 				.then(function(response){
 					console.log('Approved User');
@@ -77,19 +77,14 @@
 				});
 		}
 
-		function initialize(user_id){
-			vm.user_id=user_id;
-		}
-
 		function updateUser(){
 			var user = {
 				password : vm.password
 			}
 			$http.put('/users/passwords/' + vm.user_id, user)
 				.then(function(response){
+					closeModal('edit-modal');
 					console.log('Updated User');
-					console.log(vm.user_id);
-					window.location.reload();
 				}, function(response){
 					console.log('Cannot update user password');
 				});
@@ -107,6 +102,11 @@
 		function closeModal(dmodal){
 			$('#'+dmodal+'.modal')
 			 	.modal('hide');	
+		}
+
+		//added, the user_id should not be passed when there's modal
+		function initialize(user_id){
+			vm.user_id=user_id;
 		}
 	}
 })();

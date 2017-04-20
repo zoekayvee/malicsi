@@ -45,11 +45,10 @@
     	}
 
     	function redirectLocation(redirect){
-    		//changed
-			if(redirect === 'no')
-				window.location.reload();
+			if(redirect === '/#!/user/home')
+				window.location.href=redirect;
 			else
-				window.location.href = redirect;
+				window.location.reload();
 		}
 		
         // $http   
@@ -96,10 +95,12 @@
 					var redirect = response.data.redirect;
 					console.log(redirect);
 					vm.user = response.data
-					toastr.success(response.data.message); //added
-					setTimeout(function(){
-						redirectLocation(redirect);
-					}, 500);
+					if (redirect === '/#!/user/home'){
+						toastr.success(response.data.message);
+						setTimeout(function(){
+							redirectLocation(redirect);
+						}, 500);
+					}
 				}, function (response){	
 					toastr.error(response.data.message);
 					console.log('Error');

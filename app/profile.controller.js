@@ -8,13 +8,13 @@
 		var vm = this;
 		
 		vm.interests = "";
+        vm.kiw = "DADA";
 
 		vm.user = {};
 		vm.userEvents = {};
 		vm.userInterests = {};
 		vm.sponsoredEvents = {};
-        vm.userTeams = {};
-
+        vm.userTeams = {};//added
 
 		vm.openModal = openModal;
 		vm.closeModal= closeModal;
@@ -52,7 +52,9 @@
                         .get('/user/interests/'+response.data)
                         .then(function(response) {
                             vm.userInterests = response.data;
+                            console.log(vm.userInterests);
                         });
+                    //added
                      $http
                         .get('/user/teams/'+response.data)
                         .then(function(response) {
@@ -118,7 +120,7 @@
             editUser.gender=gender;
             editUser.flag=flag;
           	$http
-                .put('/users/'+editUser.user_id, editUser)
+                .put('/user/'+editUser.user_id, editUser)
                 .then(function(response) {
                 	delete editUser.flag;
                 	vm.user=editUser;
@@ -139,9 +141,10 @@
                         .put('/users/interests/'+response.data, user)
                         .then(function(response) {
                         	console.log("Added interest");
-                            window.location.reload();   
+                            window.location.reload();  //added
                         });
 				});
+			//window.location.reload();		
 		}
 
         function deleteInterest(interest){
@@ -156,13 +159,15 @@
                      $http
                         .delete('/users/interests/' + response.data+"/" + users.myInterest)
                         .then(function(response){
-                            window.location.reload(); 
+                            window.location.reload();//added
                         });
                 });
+            //window.location.reload();     
         }
 
 
 		function openModal(dmodal){
+			console.log("I WAS CLICKED");
 			$('#'+dmodal+'.modal')
 		 	.modal('setting', {
 				 closable: false

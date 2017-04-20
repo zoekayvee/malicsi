@@ -59,6 +59,41 @@ exports.approveUser = (req,res) =>{
 			}
     })
 } 
+/*// updateUser - updates user information (uses user_id)
+exports.updateUser=(req,res)=>{
+		if(req.body.flag === "false"){
+			//password not yet encrypted
+			const salt = bcrypt.genSaltSync(saltRounds);
+			const hash = bcrypt.hashSync(req.body.password, salt);
+			req.body.password=hash;
+		}
+		const query_string = 'call updateUser(?,?,?,?,?,?,?,?,?,?,?,?,?)';
+>>>>>>> 7543b5786efb4d4173894087fbb83cfe41b06f1d
+		const req_data = [
+			req.params.user_id,
+			req.body.username,
+			req.body.password,
+			req.body.firstname,
+			req.body.lastname,
+			req.body.gender,
+			req.body.college,
+			req.body.contactno,
+			req.body.email,
+			req.body.location,
+			req.body.weight,
+			req.body.height,
+			req.body.age
+		];
+
+		connection.query(query_string, req_data,(err,result) => {
+			if (!err) {
+    		res.status(200).send(result);
+			} else {
+				console.log(err);
+				res.status(500).send(err);
+			}
+		});
+}*/
 
 // addCompetitor - adds teams into game (makes use of tables: team, team_plays_game, game)
 exports.addCompetitor = (req,res)=>{
@@ -136,6 +171,7 @@ exports.viewAllLogs=(req,res)=>{
 	connection.query(query_string, null, (err,result) =>{
 		if(!err){
 			res.status(200).send(result);
+			console.log(result);
 		}
 		else{
 			console.log(err);
@@ -148,16 +184,20 @@ exports.viewAllLogs=(req,res)=>{
 exports.addUser=(req,res)=>{
 	const salt = bcrypt.genSaltSync(saltRounds);
 	const hash = bcrypt.hashSync(req.body.password, salt);
-	
+
 	//automatic normal user
-	const query_string = 'call createUser(?,?,?,?,?,?)';
+	const query_string = 'INSERT INTO users (username, password, user_type, firstname, lastname, email,height,weight,college,contactno) VALUES (?,?,?,?,?,?,?,?,?,?)';
 	const req_data = [
 		req.body.username,
 		hash,
 		'normal',
 		req.body.firstname,
 		req.body.lastname,
-		req.body.email
+		req.body.email,
+		req.body.height,
+		req.body.weight,
+		req.body.college,
+		req.body.contactno
 	];
 	
 	connection.query(query_string, req_data, (err,rows)=>{

@@ -47,8 +47,10 @@
             });
 
         function modifyTime(){
+        	console.log("MODIFIRD");
         	 vm.allLogs.forEach(function(e){
             	if(e.Seconds<60){
+            		//added
             		e.Time= e.Seconds+ "s ago ";
             	}
             	else if(e.Minutes<60){

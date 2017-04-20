@@ -27,7 +27,7 @@ exports.addTeam = (req, res, next) => {
 }
 
 exports.viewTeam = (req, res, next) => {
-	var query = 'call viewTeam(?)';
+	var query = 'select * from team where team_id = ?';
 	const data = [
 		req.params.team_id
 	];
@@ -50,8 +50,7 @@ exports.viewTeam = (req, res, next) => {
 }
 
 exports.viewAllTeam = (req, res, next) => {
-	var query = 'call viewAllTeam()';
-	// var query = 'call viewAllTeams()';
+	var query = 'call viewAllTeams()';
 
 		var id = connection.query(
 		query,
@@ -62,6 +61,25 @@ exports.viewAllTeam = (req, res, next) => {
 				console.log("Success");
 				res.status(200).send(row);
 				//return row
+			}
+			else{
+				console.log(err);
+				res.status(500).send('Server error');
+			}
+	});
+}
+
+exports.viewAvailableTeams = (req, res, next) => {
+	var query = 'select * from team where team_id != 1 and team_id != 2 and team_id != ?';
+
+		var id = connection.query(
+		query,
+		[req.params.team_id],
+		(err, row, fields) => {
+			if(!err){
+				console.log("Success viewing available teams");
+				console.log(req.params.team_id);
+				res.status(200).send(row);
 			}
 			else{
 				console.log(err);
@@ -120,9 +138,37 @@ exports.deleteTeam = (req, res, next) => {
 	});
 }
 
+exports.deleteTeamFromEvent = (req, res, next) => {
+	console.log(1);
+	var query = 'delete from team_joins_event where team_id = ? and event_id = ?';
+	const data = [
+		req.body.team_id,
+		req.body.event_id
+	];
+	console.log(data);
+	var id = connection.query(
+		query,
+		data,
+		(err, row, fields) => {
+			if(!err){
+				console.log(row);
+
+				console.log("Delete Team Success");
+				res.status(200).send("Delete Team Success");
+				return row
+			}
+			else{
+				console.log(err);
+				res.status(500).send('Server error');
+			}
+	});
+}
+
+
+
+
 exports.teamJoinEvent = (req, res, next) => {
-	var query = 'call teamJoinEvent(?,?)';
-	// var query = 'call teamJoinsEvent(?,?)';
+	var query = 'call teamJoinsEvent(?,?)';
 	const data = [
 		req.body.team_id,
 		req.body.event_id
@@ -147,22 +193,20 @@ exports.teamJoinEvent = (req, res, next) => {
 }
 
 exports.teamPlayGame = (req, res, next) => {
-	var query = 'call teamPlayGame(?,?)';
+	var query = 'call updateTeamPlaysGame(?,?,?)';
 	const data = [
 		req.body.team_id,
-		req.body.game_id
+		req.body.game_id,
+		req.body.default_team_id
 	];
-	console.log(data);
 	var id = connection.query(
 		query,
 		data,
 		(err, row, fields) => {
 			if(!err){
 				console.log(row);
-
 				console.log("Update Team Play Game Success");
 				res.status(200).send("Update Team Play Game Success");
-				return row
 			}
 			else{
 				console.log(err);
