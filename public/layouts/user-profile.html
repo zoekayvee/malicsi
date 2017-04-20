@@ -29,7 +29,7 @@ $('#end-date-pick').calendar();
                 <div class="ui modal " id="update-modal">
                     <div class="header">Update Profile</div>
                         <div class="content">
-                            <form ng-controller="userController as update">
+                            <form ng-controller="profileController as update">
                                 <div class="ui form">
                                     <div class="fields">
                                         <div class="field">
@@ -187,7 +187,11 @@ $('#end-date-pick').calendar();
                     TEAMS
                     </h3>
                     <div class="ui clearing divider"></div>
+<<<<<<< HEAD
                     <div class="ui tiny images" ng-repeat="team in user.userTeams">
+=======
+                     <div class="ui tiny images" ng-repeat="team in user.userTeams">
+>>>>>>> 47d9c5989b4146f8ea915a232e6826e709427bc4
                       <a class="ui image" href="">  
                       <img src="/images/tnt.jpg">
                       {{team.team_name}}
@@ -274,7 +278,6 @@ $('#end-date-pick').calendar();
             {{profile.user.email}}
         </div>
     </div>
-
 
 </div>
 </div>
