@@ -3,11 +3,20 @@
 <div id="main-wrapper">
     <div class="ui container" id="sport-wrapper">
 
-        <div class="ui top attached tabular menu" ng-controller="userGameSchedController as UGSC" ng-repeat="x in UGSC.allSports" ng-init="a=x.sport_id;UGSC.viewGamesLeaderboards(x)">
-            <div class="ui bottom attached tab segment" data-tab="sportsname">
-           
-                <a class="item" class="sportsname" data-tab="sportsname"> {{x.sport_name}} </a>
-                 <div class="center aligned twelve wide column">
+    <div class="content">
+        <div class="ui row">
+            <div class="ui horizontal center aligned segments" id="segment">
+                    <a class="ui segment" href="#maintable"> Basketball </a>
+                    <a class="ui segment" href="/#!/admin/all-events"> Volleyball </a>
+                    <a class="ui segment" href="/#!/admin/all-games">  </a>
+            </div>
+        </div>
+
+        <div class="ui row">
+        <div class="ui centered grid" ng-controller="userGameSchedController as UGSC" ng-repeat="x in UGSC.allSports" ng-init="a=x.sport_id;UGSC.viewGamesLeaderboards(x)">
+            <div class="center aligned twelve wide column">
+                <h1 class="centered" class="sportsname"> {{x.sport_name}} </h1>
+
                 <table id="maintable" class="ui selectable celled table">
                     <thead>
                         <tr>
@@ -72,7 +81,8 @@
                     </tbody>
                 </table>
             </div>
-            </div>
         </div>
         </div>
+    </div>
+    </div>
 </div>
