@@ -31,6 +31,7 @@ router.get      ('/logs/:user_id',          adminController.viewLogs);
 router.put      ('/user/:user_id',			userController.updateUser); //added
 router.get 		('/user/teams/:user_id',    userController.viewUserTeams); //added
 router.post  	('/user',                	adminController.addUser); //added
+router.get      ('/users/joined_events/:user_id',dashboardController.viewLatestEvent); //added for dashboard
 
 router.get('/user/events/:user_id',         userController.viewUserEvents);
 router.get('/user/sponsored/:user_id',      userController.viewSponsoredEvents);
