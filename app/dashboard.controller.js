@@ -24,12 +24,14 @@
                        .then(function(response) {
                            vm.user = response.data;
                            if(vm.user.user_type==='normal'){
-                               $http
+                              /* $http
                                    .get('/users/joined_events/'+vm.user.user_id)
                                    .then(function(response) {
                                        vm.recentEvent = response.data;
                                        vm.currentEventId = vm.recentEvent.event_id;
                                     });
+                              //uncomment this if the change in db is confirmed (user_event table)
+                              */
                            }
                            else{
                                window.location.href ='/403';
