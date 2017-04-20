@@ -19,17 +19,42 @@ $(document).ready(function(){
 
     $("#page-navigation").show();
     $("#page-footer").show();
+    
+    $.get('/user_loggedin', function(user_id){
+ 
+         $.get('/users/joined_events/' + user_id, function(data){
+             $.get('/overallranking/' + data.event_id, function(data){
+                 console.log(data);
+                 teams = data;
+                 loadGraph(teams);
+             });
+         });
 
 });
+    
+function loadGraph(teams) {
+
+var ctx = document.getElementById("leadchart");
+
+var teams_label = [];
+var teams_data = []
+
+console.log(teams);
+
+for(var i=0; i<teams.length; i++) {
+    teams_label[i] = teams[i].team_name;
+    teams_data[i] = teams[i].wins;
+    console.log(teams_data[i]);
+}
 
 var ctx = document.getElementById("leadchart");
 var myChart = new Chart(ctx, {
     type: 'bar',
     data: {
-        labels: ["CAS", "CAFS", "CFNR", "CEAT", "CHE", "CVM"],
+        labels: teams_label,
         datasets: [{
             label: 'Scores',
-            data: [1,2,8,4,10,6,7],
+            data: teams_data    ,
             backgroundColor: [
                 'rgba(222, 27, 27, 1)',
                 'rgba(233, 229, 129, 1)',

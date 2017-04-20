@@ -38,10 +38,10 @@
                 <div class="two fields">
                     <div class="field">
                         <label>Gender</label>
-                        <select class="ui dropdown" name="gender">
+                        <select class="ui dropdown" name="gender" ng-model="signUp.newUser.gender">
                             <option value="" id="lastname" >Gender</option>
-                            <option value="1">Male</option>
-                            <option value="0">Female</option>
+                            <option value="M">Male</option>
+                            <option value="F">Female</option>
                         </select>
                     </div>
                     <div class="field">
@@ -56,26 +56,26 @@
                 <div class="three fields">
                     <div class="field">
                         <label>Height (ft)</label>
-                        <input type="text" name="height" placeholder="Height (ft)">
+                        <input type="text" name="height" placeholder="Height (ft)" ng-model="signUp.newUser.height">
                     </div>
                     <div class="field">
                         <label>Weight (Kg)</label>
-                        <input type="text" name="weight" placeholder="Weight (Kg)">
+                        <input type="text" name="weight" placeholder="Weight (Kg)" ng-model="signUp.newUser.weight">
                     </div>
 
                     <div class="field">
                         <label>College</label>
-                        <input type="text" name="college" placeholder="College">
+                        <input type="text" name="college" placeholder="College" ng-model="signUp.newUser.college">
                     </div>
                 </div>
                 <div class="two fields">
                     <div class="field">
                         <label>Age</label>
-                        <input type="integer" name="age" placeholder="Age">
+                        <input type="integer" name="age" placeholder="Age" ng-model="signUp.newUser.age">
                     </div>
                     <div class="field">
                         <label>Contact No.</label>
-                        <input type="integer" name="contactno" placeholder="Contact No.">
+                        <input type="integer" name="contactno" placeholder="Contact No." ng-model="signUp.newUser.contactno">
                     </div>
                 </div>
                 <div class="field">

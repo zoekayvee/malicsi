@@ -7,12 +7,6 @@ Go to directory where malicsidb.sql is located or enter full path to file then r
 */
  -- DROP USER "b"@"localhost";
 
-DROP USER "projectOneTwoEight"@"localhost";
-
-CREATE USER "projectOneTwoEight"@"localhost" IDENTIFIED BY "password";
-
-GRANT ALL PRIVILEGES ON malicsiDB.* TO "projectOneTwoEight"@"localhost" WITH GRANT OPTION;
-
 DROP DATABASE IF EXISTS `malicsiDB`;
 
 CREATE DATABASE IF NOT EXISTS `malicsiDB`;

@@ -29,6 +29,10 @@
 			.when('/user/activity-log', {
 				templateUrl: 'layouts/user-activity-log.html'
 			})
+			.when('/users/:username', {
+				//new route for visiting other profile
+				templateUrl: 'layouts/user-visit-profile.html'
+			})
 
 			//Events Routers
 			.when('/events', {
@@ -60,12 +64,14 @@
 			})
 
 			//Teams Routers
-			.when('team', {
+			.when('/team', {
 				templateUrl: 'layouts/user-view-all-teams.html'
 			})
 			.when('/team/:team_id',{
 				templateUrl: 'layouts/user-team-page.html'
+
 			})
+
 
 			//Search Routers
 			.when('/search', {
@@ -76,7 +82,7 @@
 			.when('/admin', {
 				templateUrl: 'layouts/admin-homepage.html'
 			})
-			.when('/admin/users', {
+			.when('/admin/all-users', { //changed, this is the route in htmls
 				templateUrl: 'layouts/admin-all-users.html'
 			})
 			.when('/admin/events', {
