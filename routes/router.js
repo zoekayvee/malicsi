@@ -77,7 +77,7 @@ router.post		('/teams/join',	    teamController.userJoinTeam);
 router.get      ('/teams_get_id/:team_name',			teamController.getTeamId);
 router.post		('/teams/event',	teamController.teamJoinEvent);
 router.get       ('/teams_per/:event_id', teamController.viewTeamPerEvent);
-
+router.get 		('/teams/in_game/:game_id' 		,teamController.viewTeamsInGame); 
 router.post 	('/teams_from_event',teamController.deleteTeamFromEvent);
 
 
@@ -92,7 +92,7 @@ router.get 		('/sponsors_by_event/:event_id', sponsorController.viewSponsorByEve
 router.post 	('/sponsors_from_event',	sponsorController.deleteSponsorFromEvent)
 
 router.post('/competitors',               adminController.addCompetitor);
-router.get('/competitors/:game_id',  userController.viewAllCompetitors); 
+router.get('/competitors/:game_id',  userController.viewAllCompetitors);
 router.get('/competitors/:team_id',      userController.viewCompetitor);
 router.put('/competitors/:team_id',    adminController.updateCompetitor);
 router.delete('/competitors/:team_id', adminController.deleteCompetitor);
@@ -160,7 +160,7 @@ router.get('/', (req,res)=>{
 });
 
 router.get('/403', (req,res)=>{
-    res.sendFile('public/layouts/forbidden.html',{root:__dirname+'/..'});
+    res.sendFile('public/layouts/error-404.html',{root:__dirname+'/..'});
 });
 
 router.all('*', (req, res) => {

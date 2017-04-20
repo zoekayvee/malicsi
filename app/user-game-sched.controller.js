@@ -134,7 +134,7 @@
 		}
 
 		function viewGame(game_id){
-			$location.path('/user/game/' + game_id)
+			$location.path('/game/' + game_id)
 		}
 	}
 

@@ -12,11 +12,13 @@
     	vm.teamId = "";
     	vm.teamId2 = "";
     	vm.teamIdX = "";
+    	vm.tm2 = "";
     	vm.teamId2X = "";
     	vm.eventId = "";
 	    vm.addTeam = addTeam;
 	    vm.allTeams = [];
 	    vm.viewAllTeam = viewAllTeam;
+	    vm.viewTeamInGame = viewTeamInGame;
 	    vm.deleteTeam = deleteTeam;
     	vm.viewTeam = viewTeam;
     	vm.teamJointEvent = teamJoinEvent;
@@ -76,9 +78,9 @@
 
 
 	    function viewTeam(id){
-	    	$location.path('/teams/'+id)
+	    	$location.path('/team/'+id)
 	    	$http
-	    		.get('/teams/'+id)
+	    		.get('/team/'+id)
 	    		.then(function(response){
 	    			
 	    			vm.allTeams = response.data[0];
@@ -97,6 +99,7 @@
 
 		    /*--------- view all teams --------*/
 	    function viewAllTeam(){
+	    	console.log(vm.tm2);
 	    	$http
 	    		.get('/teams')
 	    		.then(function(response){
@@ -108,9 +111,23 @@
 	    		});
 	    }
 
+	    function viewTeamInGame(){
+	    	console.log($routeParams.game_id);
+	    	$http
+	    		.get('/teams/in_game/' + $routeParams.game_id)
+	    		.then(function(response){
+		    			vm.allTeams = response.data;
+		    			console.log(response.data.team_name);
+		    			console.log('Viewing All Available Teams')
+		    		}, function(response){
+		    			console.log("Error: Cannot retrieve teams");
+	    		});
+
+	    }
+
 	    function viewAvailableTeams(){
 	    	$http
-	    		.get('/teams/game/' + 1)
+	    		.get('/teams/game/' + $routeParams.game_id)	
 	    		.then(function(response){
 	    			vm.allTeams = response.data;
 	    			console.log(response.data);
@@ -252,11 +269,12 @@
 	          	game_id : gameid,
 	          	default_team_id : currentTeamId
 	        }
-	        console.log(gameid);
+	        console.log(currentTeamId);
 	    	$http
 	    		.post('/teams/join/game',gameToPlay)
 	    		.then(function(response){
 	    			console.log('Team Joined Event')
+	    			viewTeamInGame();
 	    		}, function(response){
 	    			console.log("error");
 	    		});
