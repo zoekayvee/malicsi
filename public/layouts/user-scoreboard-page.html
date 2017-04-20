@@ -8,7 +8,7 @@
     <div class="ui centered grid" ng-controller="userGameSchedController as UGSC" ng-repeat="x in UGSC.allSports" ng-init="a=x.sport_id;UGSC.viewGamesLeaderboards(x)">
         <div class="center aligned twelve wide column">
             <h1 class="centered" class="sportsname"> {{x.sport_name}} </h1>
-            &nbsp;
+
             <table id="maintable" class="ui selectable celled table">
                 <thead>
                     <tr>
