@@ -4,7 +4,7 @@
 	.module('malicsi')
 	.controller('gameController',gameController);
 
-	function gameController($http,$routeParams){
+	function gameController($http,$location,$routeParams){
 		var vm = this;
 		
 		vm.game = null;
@@ -49,6 +49,9 @@
         vm.setWinner = setWinner;
         vm.winnerTeamId = null;
         vm.updateScores = updateScores;
+        vm.viewThreeScoreboard = viewThreeScoreboard;
+        vm.gameThreeScoreboard = [];
+        vm.viewGameFromScoreboard = viewGameFromScoreboard;
 
 		viewAllGames();
 
@@ -101,6 +104,23 @@
 				console.log('Error Viewng Game');
 			});
 		}
+
+		function viewThreeScoreboard(){
+			$http
+				.get('/game/score/' + $routeParams.event_id)
+				.then(function(response){
+					vm.gameThreeScoreboard = response.data;
+					console.log('Viewing Scoreboard in Event Page Successful');
+			},
+			function(response){
+				console.log('Error Viewing Scoreboard');
+			});
+		}
+
+		function viewGameFromScoreboard(game_id){
+			$location.path('/game/' + game_id)
+		}
+
 
 		function canBet(){
 			$http

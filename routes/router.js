@@ -46,7 +46,7 @@ router.delete('/users/:user_id',       adminController.removeUser);
 /*-------------------------DASHBOARD------------------------*/
 router.get('/viewTeamPlayGame', 			dashboardController.viewTeamPlayGame);
 router.get('/viewCurrentGames', 			    dashboardController.viewCurrentGame);
-// router.get('/viewUpcomingGame', 			dashboardController.viewUpcomingGame);
+router.get('/viewUpcomingGame', 			dashboardController.viewUpcomingGame);
 
 /*----------------------------------------------------------*/
 router.post		('/login',                       userController.login);
@@ -143,6 +143,7 @@ router.get('/schedule/:sport_id', 			gameController.viewScheds);
 router.post('/leaderboard/:sport_id', 		gameController.viewLeaderboards);
 router.get('/leaderboard/:sport_id', 		gameController.viewLeaderboards);
 router.get('/venues', 						venueController.viewAllVenues);
+router.get('/game/score/:event_id',			gameController.viewThreeScoreboard);
 
 router.get('/user_loggedin', (req, res) => {
 	if (req.session)
