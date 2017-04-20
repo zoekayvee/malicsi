@@ -69,6 +69,7 @@
 			})
 			.when('/team/:team_id',{
 				templateUrl: 'layouts/user-team-page.html'
+
 			})
 
 			//Search Routers

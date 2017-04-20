@@ -72,14 +72,14 @@
                     <div class="field">
                         <label>Team 1</label>
                         <form  class="ui">
-                            <select ng-init="team.viewAllTeam()" ng-model="team.teamId" ng-options="x.team_name for x in team.allTeams">
+                            <select ng-init="team.viewTeamInGame()" ng-model="team.teamId" ng-options="x.team_name for x in team.allTeams">
                             </select>
                         </form>
                     </div>
                     <div class="field">
                         <label>Team 2</label>
                         <form  class="ui">
-                            <select ng-init="team.viewAllTeam()" ng-model="team.teamId2" ng-options="x.team_name for x in team.allTeams">
+                            <select ng-init="team.viewTeamInGame()" ng-model="team.teamId2" ng-options="x.team_name for x in team.allTeams">
                             </select>
                         </form>
                     </div>
