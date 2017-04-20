@@ -77,9 +77,9 @@
 
 
 	    function viewTeam(id){
-	    	$location.path('/teams/'+id)
+	    	$location.path('/team/'+id)
 	    	$http
-	    		.get('/teams/'+id)
+	    		.get('/team/'+id)
 	    		.then(function(response){
 	    			
 	    			vm.allTeams = response.data[0];

@@ -64,12 +64,12 @@
 			})
 
 			//Teams Routers
-			.when('team', {
+			.when('/team', {
 				templateUrl: 'layouts/user-view-all-teams.html'
 			})
 			.when('/team/:team_id',{
-				templateUrl: 'layouts/user-view-team.html'
-			})
+				templateUrl: 'layouts/user-team-page.html'
+
 
 			//Search Routers
 			.when('/search', {
