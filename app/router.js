@@ -72,7 +72,6 @@
 
 			})
 
-
 			//Search Routers
 			.when('/search', {
 				templateUrl: 'layouts/user-search-page.html'
@@ -82,7 +81,7 @@
 			.when('/admin', {
 				templateUrl: 'layouts/admin-homepage.html'
 			})
-			.when('/admin/all-users', { //changed, this is the route in htmls
+			.when('/admin/users', { //changed, this is the route in htmls
 				templateUrl: 'layouts/admin-all-users.html'
 			})
 			.when('/admin/events', {
