@@ -64,6 +64,18 @@ create table event(
 	constraint 		event_user_id_fk foreign key(user_id) references users(user_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
+create table user_event(
+	/* added for user dashboard */
+	user_event_id   int unsigned auto_increment,
+	user_id 		int unsigned,
+	event_id 		int unsigned,
+
+	constraint 		user_event_id_pk primary key(user_event_id),
+	constraint 		user_user_id_fk foreign key(user_id) references users(user_id) ON DELETE CASCADE ON UPDATE CASCADE,
+	constraint 		user_event_id_fk foreign key(event_id) references event(event_id) ON DELETE CASCADE ON UPDATE CASCADE
+	
+);
+
 create table team(
 	team_id 		int unsigned auto_increment,
 	team_name 		varchar(100) not null,
@@ -756,6 +768,12 @@ CREATE TRIGGER sponsorEventInsert AFTER INSERT ON sponsor_events
 			SELECT * FROM logs where user_id = userid;
 			INSERT INTO logs(user_id, message) VALUES(userid, concat((select username from users where user_id = userid), " viewed the logs"));
 		END;
+%%
+	CREATE PROCEDURE userJoinsEvent(in userId int unsigned , in eventId int unsigned)
+		/* procedure for user joining an event */
+ 		BEGIN
+ 			INSERT INTO user_event(user_id,event_id) VALUES (userId,1);
+ 		END;
 %%
 DELIMITER ;
 
