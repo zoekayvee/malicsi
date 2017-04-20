@@ -29,6 +29,10 @@
 			.when('/user/activity-log', {
 				templateUrl: 'layouts/user-activity-log.html'
 			})
+			.when('/users/:username', {
+				//new route for visiting other profile
+				templateUrl: 'layouts/user-visit-profile.html'
+			})
 
 			//Events Routers
 			.when('/events', {
@@ -76,7 +80,7 @@
 			.when('/admin', {
 				templateUrl: 'layouts/admin-homepage.html'
 			})
-			.when('/admin/users', {
+			.when('/admin/all-users', { //changed, this is the route in htmls
 				templateUrl: 'layouts/admin-all-users.html'
 			})
 			.when('/admin/events', {

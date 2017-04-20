@@ -7,6 +7,12 @@
 	function adminController($http){
 		var vm = this;
 
+		/*ADDED*/	
+		vm.newUser={};
+		vm.user_id = ""; //for user_id initialization
+		vm.addUser = addUser;
+		vm.initialize= initialize;
+		vm.allPending=[];
 
 		vm.allLogs = [];
 		vm.allUsers = [];
@@ -52,7 +58,7 @@
 
 		function addUser(){
 			// console.log(user_id);
-			$http.post('/addUser')
+			$http.post('/user',vm.newUser)
 				.then(function(response){
 					console.log('Added User');
 					window.location.reload();
@@ -71,11 +77,11 @@
 				});
 		}
 
-		function updateUser(user_id){
+		function updateUser(){
 			var user = {
 				password : vm.password
 			}
-			$http.put('/users/passwords/' + user_id, user)
+			$http.put('/users/passwords/' + vm.user_id, user)
 				.then(function(response){
 					closeModal('edit-modal');
 					console.log('Updated User');
@@ -96,6 +102,11 @@
 		function closeModal(dmodal){
 			$('#'+dmodal+'.modal')
 			 	.modal('hide');	
+		}
+
+		//added, the user_id should not be passed when there's modal
+		function initialize(user_id){
+			vm.user_id=user_id;
 		}
 	}
 })();
