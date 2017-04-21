@@ -211,6 +211,26 @@ exports.viewLeaderboards = (req,res) =>{
 	})
 }
 
+exports.viewThreeScoreboard = (req,res) =>{
+	var query = 'select game.game_id,sport_id,sport_name,event_event_id,date_start,winner_team_id,t.team_name as team,t2.team_name as team2,sc.team_score as score,sc2.team_score as score2 from game natural join sport,team t,team t2,game_score sc,game_score sc2 where date_start < curdate() and event_event_id = 1 and t.team_id in (select team_id from team_plays_game where game_id = game.game_id) and t2.team_id in (select team_id from team_plays_game where game_id =  game.game_id) and t.team_id>t2.team_id and (sc.game_id = game.game_id and sc.team_score_id = t.team_id) and (sc2.game_id = game.game_id and sc2.team_score_id = t2.team_id) limit 3;';
+	
+	var id = connection.query(
+		query,
+		[req.params.event_id],
+		(err, rows) => {
+			if(!err){
+				console.log("Retrieving data Success");
+				res.send(rows);
+			}
+			else{
+				console.log(err);
+				res.send('Server Error');
+			}
+	})
+}
+
+
+
 exports.getScores = (req,res) => {
 	var query = 'call viewScores(?, ?)';
 	const data = [
