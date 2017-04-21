@@ -162,5 +162,22 @@ exports.deleteEvent = (req, res, next) => {
 	});
 }
 
+exports.getTeamsOfAllEvent = (req, res, next) => {
+	var query = 'select * from (select * from team_joins_event NATURAL JOIN team)a NATURAL JOIN event';
+	var id = connection.query(
+		query,
+		(err, row, fields) => {
+			if(!err){
+				console.log(row);
+				res.status(200).send(row);
+				
+			}
+			else{
+				console.log(err);
+				res.status(500).send('Server error');
+			}
+	});
+}
+
 
 

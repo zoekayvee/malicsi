@@ -64,6 +64,18 @@ create table event(
 	constraint 		event_user_id_fk foreign key(user_id) references users(user_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
+create table user_event(
+	/* added for user dashboard */
+	user_event_id   int unsigned auto_increment,
+	user_id 		int unsigned,
+	event_id 		int unsigned,
+
+	constraint 		user_event_id_pk primary key(user_event_id),
+	constraint 		user_user_id_fk foreign key(user_id) references users(user_id) ON DELETE CASCADE ON UPDATE CASCADE,
+	constraint 		user_event_id_fk foreign key(event_id) references event(event_id) ON DELETE CASCADE ON UPDATE CASCADE
+	
+);
+
 create table team(
 	team_id 		int unsigned auto_increment,
 	team_name 		varchar(100) not null,
@@ -612,9 +624,16 @@ CREATE TRIGGER sponsorEventInsert AFTER INSERT ON sponsor_events
 			INSERT INTO team(team_name) VALUES(teamName);
 		END;
 %%
-	CREATE PROCEDURE userJoinsTeam(in userid int unsigned, in teamName varchar(100))
+	CREATE PROCEDURE userJoinsTeam(in userid int unsigned, in teamName varchar(100), in stats enum('accepted', 'rejected', 'pending'))
 		BEGIN
-			INSERT INTO team_players(team_id, user_id) values((select team_id from team where team_name = teamName), userid);
+			INSERT INTO team_players(team_id, user_id, status) values((select team_id from team where team_name = teamName), userid, stats);
+		END;
+%%
+	CREATE PROCEDURE creatorApprovesPlayer(in userid int unsigned, in teamid int unsigned, in eventid int unsigned,in stats enum('accepted', 'rejected', 'pending'))
+		/*procedure for when the creator approved the player*/
+		BEGIN
+			UPDATE team_players SET status=stats where team_id=teamid and user_id=userid;
+			INSERT INTO user_event(user_id,event_id) VALUES (userId,eventid);
 		END;
 %%
 	CREATE PROCEDURE viewTeam(in teamId int unsigned)
@@ -762,20 +781,20 @@ CREATE TRIGGER sponsorEventInsert AFTER INSERT ON sponsor_events
 
 DELIMITER ;
 
-	call addTeam("TBA");
-	call addTeam(" TBA ");
-
-	insert into users(username, password, user_type, firstname, lastname, college, contactno, email, weight, height) values("Tester1", "test", "admin", "nathaniel", "carvajal", "CAS", 09166994203, "nfcarvajal@up.edu.ph", 59, 177);
-	insert into users(username, password, user_type, firstname, lastname, college, contactno, email, weight, height) values("Tester2", "test", "admin", "nathaniel", "carvajal", "CAS", 09166994203, "nfcarvajal@up.edu.ph", 59, 177);
-
+	insert into users(username, password, user_type, firstname, lastname, college, contactno, email, weight, height) values("Tester1", "$2a$10$XZ3gB4uWjsKhIBQ0xoxFmejypyylQqHw.Bi43dvMzp4vmoW9/YPGm", "admin", "Person", "A", "CAS", 09166994203, "pa@up.edu.ph", 59, 177); /*pw: test*/
+	insert into users(username, password, user_type, firstname, lastname, college, contactno, email, weight, height) values("Tester2", "$2a$10$XZ3gB4uWjsKhIBQ0xoxFmejypyylQqHw.Bi43dvMzp4vmoW9/YPGm", "normal", "Person", "B", "CAS", 09166994203, "pb@up.edu.ph", 59, 177); /*pw: test*/
+	insert into users(username, password, user_type, firstname, lastname, college, contactno, email, weight, height) values("Tester3", "$2a$10$XZ3gB4uWjsKhIBQ0xoxFmejypyylQqHw.Bi43dvMzp4vmoW9/YPGm", "normal", "Person", "C", "CAS", 09166994203, "pc@up.edu.ph", 59, 177); /*pw: test*/
+	insert into users(username, password, user_type, firstname, lastname, college, contactno, email, weight, height) values("a", "$2a$10$lVkrOWmUYhHeK7i80M6NBu9aE0AuO0mzLdV1pBEmsRbCrxON2IIdy", "pending", "Person", "D", "CEM", 09166994203, "pc@up.edu.ph", 59, 177); /*pw: a*/
+	
 	insert into venue(latitude, longitude, address, venue_name) values(12.23,32.123, "los banos, laguna", "Copeland Gymasium");
 
 	insert into venue(latitude, longitude, address, venue_name) values(12.23,32.123, "los banos, laguna", "Baker Hall");
 
 	call addEvent(1, "Malicsihan", "2017-12-23", "2017-12-25");
-	call addEvent(1, "Palicsihan", "2017-12-23", "2017-12-25");
+	call addEvent(2, "Palicsihan", "2017-12-23", "2017-12-25");
+	call addEvent(1, "Malacasan", "2017-04-20", "2017-12-25");
 
-	call addSport("Basketballl");
+	call addSport("Basketball");
 	call addSport("Volleyball");
 	call addSport("Badminton");
 	call addSport("Phil. Games");
@@ -800,9 +819,9 @@ DELIMITER ;
 
 	call addTeam("team1");
 	call addTeam("team2");
-
-	call userJoinsTeam(1, "team1");
-	call userJoinsTeam(1, "team1");
+	call addTeam("team3");
+	call teamJoinsEvent(1,1);
+	call teamJoinsEvent(2,2);
 
 	call addSponsor("ArvinSartilloCompany");
 	call addSponsor("Tester");
