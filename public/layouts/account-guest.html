@@ -1,7 +1,7 @@
 <link rel='stylesheet prefetch' href='css/components/icon.min.css' />
-<link rel='stylesheet' href='css/account-guest.css' />
-<script type='text/javascript' src='js/account-guest.js'></script>
+<link rel='stylesheet' href='css/account-guest.css' /> 
 
+<script type='text/javascript' src='js/account-guest.js'></script>
 <!-- NAVIGATION SECTION -->
 <div class="ui fixed inverted menu" id="page-navigation-2">
     <div class="ui container">
@@ -12,7 +12,7 @@
             <div class="right menu" ng-controller="userController as login">
                 <form class="ui mini form">
                     <div class="item">
-                        <div class="fields" ng-hide="login.hasUser">
+                        <div class="fields">
                             <div class="field">
                                 <div class="ui left icon input">
                                     <i class="user icon"></i>
@@ -27,26 +27,9 @@
                             </div>
                         </div>
                         <div class="field">
-                            <div class="ui left icon input">
-                                <i class="lock icon"></i>
-                                <input type="password" name="password" placeholder="password" ng-model="login.password">
-                            </div>
-                        </div>
-<<<<<<< HEAD
-                        <div class="alight right ui simple dropdown item" ng-show="login.hasUser">
-                            {{login.user.firstname + " " + login.user.lastname}} <i class="dropdown icon"></i>
-                            <div class="menu">
-                                <a class="item" href="#!/user/profile">Profile</a>
-                                <a class="item" href="/#!/user/activity-log">Activity Log</a>
-                                <a class="item" href="#" ng-click="user.logOut()">Logout</a>
-                            </div>
-                        </div>
-=======
-                        <div class="field">
                             <div class="ui submit button" id="login-button" ng-click="login.loginUser()">Login</div>
                         </div>
                         <a href="/#!/register"><div class="ui button">Register</div></a>
->>>>>>> f96c0eefb9078b123461bec92d85cceab99eb8cc
                     </div>
                 </div>
             </form>

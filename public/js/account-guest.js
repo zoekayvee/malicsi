@@ -27,7 +27,7 @@ function showSlides() {
     form validation
 **********************/
 
-$(document)
+/*$(document)
     .ready(function() {
       $('.ui.form')
         .form({
@@ -54,4 +54,4 @@ $(document)
         })
       ;
     })
-  ;
+  ;*/

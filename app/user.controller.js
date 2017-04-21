@@ -8,7 +8,6 @@
 		var vm = this;
 		vm.username="";
 		vm.password="";
-		vm.hasUser=null;
 		vm.user_type="";
 		vm.loginUser=loginUser;
         vm.user = {};
@@ -25,7 +24,7 @@
 		vm.closeModal= closeModal;
 
         vm.currentUser = {};
-        
+        vm.userDash="";
 
 		//FOR DASHBOARD
 		vm.teamGames = [];
@@ -37,15 +36,25 @@
             .get('/user_loggedin') 
             .then(function(response) {
             	if (response.data){
-            		vm.hasUser=true;
             		$http
                         .get('/users/'+response.data)
                         .then(function(response) {
                             vm.user = response.data;
+                            if(vm.user.user_type==='admin'){
+                         	   window.location.href = '/#!/admin';
+                        	}
+                        	if(vm.user.user_type==='normal'){
+                        		window.location.href ='/#!/user/home';
+                        	}
                         });
-            	}
-            	else{
-            		vm.hasUser=false;
+						
+						/*if(vm.user.user_type==='admin'){
+							redirectLocation('/#!/admin'); //when logged in user access '/' 
+								//it should redirect to its ladning page
+						}
+						if(vm.user.user_type==='normal'){
+							redirectLocation('/#!/user/home');
+						}*/
             	}
             });
 
@@ -113,6 +122,7 @@
 					console.log(redirect);
 					vm.user = response.data
 					toastr.success(response.data.message); //added
+					vm.userDash=redirect;
 					setTimeout(function(){
 						redirectLocation(redirect);
 					}, 500);
