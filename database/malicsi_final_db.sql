@@ -75,6 +75,8 @@ create table team(
 create table team_players(
 	team_id 		int unsigned,
 	user_id 		int unsigned,
+	status 			enum('accepted', 'rejected', 'pending'),
+
 	constraint 		team_id_fk foreign key(team_id) references team(team_id) ON DELETE CASCADE ON UPDATE CASCADE,
 	constraint 		user_id_fk foreign key(user_id) references users(user_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
