@@ -13,12 +13,14 @@
 		vm.allSportGames;
 		vm.allGames = [];
 		vm.rankList = [];
+		vm.overallList = [];
 		vm.viewGame = viewGame;
 		vm.viewGames = viewGames;
 		vm.getScores = getScores;
 		vm.getScores2 = getScores2;
 		vm.viewSportsByEvent = viewSportsByEvent;
 		vm.getRanking = getRanking;
+		vm.getOverallRanking = getOverallRanking;
 		vm.viewGamesLeaderboards = viewGamesLeaderboards;
 
 		viewSportsByEvent();
@@ -27,8 +29,8 @@
 			$http
 				.get('/sport/event/' + $routeParams.event_id)
 				.then(function(response){
-					vm.allSports = null;
 					vm.allSports = response.data;
+					console.log("here" + response.data.length);
 				},
 				function(response){
 					console.log("Error retrieving data!");
@@ -39,14 +41,13 @@
 			$http
 				.get('/schedule/'+sport.sport_id)
 				.then(function(response){
-
+					if(response.data.length == 0) return;
 					vm.games = [];
 					for (var i = 0; i != response.data.length; i++) {
 						if(i%2 == 0) vm.games.push(response.data[i]); //to remove duplicates
 					}
 					while(vm.allGames.length!=(sport.sport_id-1)) vm.allGames.push(null);
 					vm.allGames.push(vm.games);
-					console.log(response.data[0] + sport.sport_name);
 				},
 				function(response){
 					console.log("Error retrieving data!");
@@ -54,9 +55,13 @@
 		}
 
 		function viewGamesLeaderboards(sport){
+			var event_games = {
+				event_id: $routeParams.event_id
+			}
 			$http
-				.get('/leaderboard/'+sport.sport_id)
+				.post('/leaderboard/'+sport.sport_id,event_games)
 				.then(function(response){
+					if(response.data.length == 0) return;
 					vm.games = [];
 					for (var i = 0; i != response.data.length; i++) {
 						if(i%2==0) vm.games.push(response.data[i]); //to remove duplicates
@@ -100,8 +105,11 @@
 		}
 
 		function getRanking(sport){
+			var event = {
+				event_id: $routeParams.event_id
+			}
 			$http
-				.post('/ranking/' + sport.sport_id)
+				.post('/ranking/' + sport.sport_id,event)
 				.then(function(response){
 					vm.rankList = response.data;
 					console.log('Viewing Rank Successful');
@@ -112,8 +120,21 @@
 
 		}
 
+		function getOverallRanking(event){
+			$http
+				.get('/overallranking/' + event.event_id)
+				.then(function(response){
+					vm.overallList = response.data;
+					console.log('Viewing Overall Rank Successful');
+			},
+			function(response){
+				console.log('Error Viewing Rank');
+			});
+
+		}
+
 		function viewGame(game_id){
-			$location.path('/user/game/' + game_id)
+			$location.path('/game/' + game_id)
 		}
 	}
 

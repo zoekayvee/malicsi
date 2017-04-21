@@ -69,8 +69,6 @@ exports.viewAllEvent = (req, res, next) => {
 		query,
 		(err, row, fields) => {
 			if(!err){
-				console.log(row);
-
 				console.log("Success");
 				res.status(200).send(row);
 				//return row
@@ -110,6 +108,34 @@ exports.updateEvent = (req, res, next) => {
 			}
 	});
 }
+
+
+
+
+exports.getUserOfEvent = (req, res, next) => {
+	var query = 'select user_id from event where event_id = ?';
+	const data = [
+		req.params.event_id
+	];
+	console.log(data);
+	var id = connection.query(
+		query,
+		data,
+		(err, row, fields) => {
+			if(!err){
+				console.log(row);
+
+				console.log("Update Event Success");
+				res.status(200).send(row);
+				
+			}
+			else{
+				console.log(err);
+				res.status(500).send('Server error');
+			}
+	});
+}
+
 
 exports.deleteEvent = (req, res, next) => {
 	console.log(1);

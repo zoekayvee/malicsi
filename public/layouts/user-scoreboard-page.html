@@ -1,27 +1,14 @@
-<div class="ui grid">
-    <div class="five wide column"></div>
-    <div class="six wide column">
-        <div class=" fluid ui floating dropdown labeled search icon button">
-            <i class="search icon"></i>
-            <span class="text">Select Event &nbsp;</span>
-            <div class="menu">
-                <div class="item" id="cas">cas</div>
-                <div class="item" id="palicsihan">PalICSihan</div>
-                <div class="item" id="palaronguplb">Palarong UPLB</div>
-            </div>
-        </div>
-    </div>
-    <div class="five wide column"></div>
-</div> <br><br>
+<link rel="stylesheet" type="text/css" href="css/user-scoreboard.css" />
 
+<div id="main-wrapper">
+    <div class="ui grid container" id="sport-wrapper">
 
-<div class="ui row card">
+    <div class="ui row card">
 
-    <div class="ui centered grid" ng-controller="userGameSchedController as UGSC" ng-repeat="x in UGSC.allSports" ng-init="a=x.sport_id">
-
+    <div class="ui centered grid" ng-controller="userGameSchedController as UGSC" ng-repeat="x in UGSC.allSports" ng-init="a=x.sport_id;UGSC.viewGamesLeaderboards(x)">
         <div class="center aligned twelve wide column">
             <h1 class="centered" class="sportsname"> {{x.sport_name}} </h1>
-
+            &nbsp;
             <table id="maintable" class="ui selectable celled table">
                 <thead>
                     <tr>
@@ -36,8 +23,7 @@
                     </tr>
                 </thead>
 
-
-                <tbody ng-init="UGSC.viewGamesLeaderboards(x)">
+                <tbody>
 
                     <a href="">
                         <tr ng-repeat="y in UGSC.allGames[a-1] track by $index" ng-click="UGSC.viewGame(y.game_id)">
@@ -52,12 +38,16 @@
                         </tr>
                     </a>
                 </tbody>
-
             </table>
 
+
+                <div ng-if="UGSC.allGames[a-1]==undefined">
+                    THERE ARE CURRENTLY NO GAMES
+                </div>
         </div>
 
         <div class="center aligned four wide column" ng-init="UGSC.getRanking(x)">
+                
             <table class="ui very basic collapsing celled fluid table">
                 <thead>
                     <h4 class="centered">Standings</h4>
@@ -85,7 +75,8 @@
         </div>
     </div>
 
-</div>
+    </div>
 
-</div>
+    </div>
+
 </div>

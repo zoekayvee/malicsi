@@ -410,10 +410,9 @@ CREATE TRIGGER sponsorEventInsert AFTER INSERT ON sponsor_events
 			END;
 %%
 	/* END OF TRIGGERS */
-	CREATE PROCEDURE addSport(in sportname varchar(100), in eventId int unsigned)
+	CREATE PROCEDURE addSport(in sportname varchar(100))
 		BEGIN
 			INSERT INTO sport(sport_name) VALUES(sportname);
-			INSERT INTO event_has_sport(h_event_id, h_sport_id) VALUES(eventId, (select distinct LAST_INSERT_ID() from sport));
 		END;
 %%
 	CREATE PROCEDURE attachSportToEvent(in sportId int unsigned, in eventId int unsigned)
@@ -464,7 +463,6 @@ CREATE TRIGGER sponsorEventInsert AFTER INSERT ON sponsor_events
 	CREATE PROCEDURE addGame(in sportid int unsigned, in venueid int unsigned, in eventId int unsigned, in datestart date, in timestart time, in durationIn int,in ref varchar(100))
 		BEGIN
 			INSERT INTO game(sport_id, venue_id, event_event_id, date_start, time_start, duration, referee) VALUES(sportid, venueid, eventId, datestart,timestart, durationIn, ref);
-			INSERT INTO team_plays_game(game_id, team_id, bet_count) VALUES((select game_id from game where game_id = LAST_INSERT_ID()), 1, 0), ((select game_id from game where game_id = LAST_INSERT_ID()), 2, 0);
 		END;
 %%
 
@@ -480,11 +478,12 @@ CREATE TRIGGER sponsorEventInsert AFTER INSERT ON sponsor_events
 		END;
 %%
 
-	CREATE PROCEDURE updateGame(in sportId int unsigned, in venueId int unsigned, in ref varchar(100), in gameId int unsigned)
+	CREATE PROCEDURE updateGame(in sportid int unsigned, in venueid int unsigned, in eventId int unsigned, in datestart date, in timestart time, in durationIn int,in ref varchar(100), in gameid int unsigned)
 		BEGIN
-			UPDATE game SET sport_id = sportId,venue_id = venueId,referee = ref WHERE game_id = gameId;
+			UPDATE game SET sport_id = sportId,venue_id = venueId,event_event_id = eventId,date_start = datestart,time_start = timestart,duration = durationIn, referee = ref WHERE game_id = gameId;
 		END;
 %%
+
 	CREATE PROCEDURE bet(in gameid int unsigned, in teamid int unsigned, in playerid int unsigned)
 		BEGIN
 			UPDATE team_plays_game set bet_count = bet_count + 1 WHERE game_id = gameid and team_id = teamid;
@@ -511,7 +510,7 @@ CREATE TRIGGER sponsorEventInsert AFTER INSERT ON sponsor_events
 %%
 	CREATE PROCEDURE viewGame(in gameid int unsigned)
 		BEGIN
-			SELECT distinct S.sport_name, G.game_id, A.team_name, A.team_id, T1.bet_count, T1.team_id, B.team_name as team_name_2, B.team_id as team_id_2, T2.bet_count as bet_count_2, T2.team_id as team_id_2 FROM team A, team B, game G, venue V, sport S,team_plays_game T1,team_plays_game T2,game_score GS, game_score GS2 WHERE A.team_id IN (SELECT team_id FROM team_plays_game WHERE game_id = gameid) AND B.team_id IN (SELECT team_id FROM team_plays_game WHERE game_id = gameid) AND A.team_id != B.team_id AND S.sport_id = G.sport_id AND T1.team_id = A.team_id AND T2.team_id = B.team_id AND T1.game_id = T2.game_id AND T1.game_id = gameid AND G.game_id = gameid LIMIT 1;
+			SELECT distinct S.sport_name, G.game_id, A.team_name, A.team_id, T1.bet_count, T1.team_id, B.team_name as team_name_2, B.team_id as team_id_2, T2.bet_count as bet_count_2, T2.team_id as team_id_2,winner_team_id FROM team A, team B, game G, venue V, sport S,team_plays_game T1,team_plays_game T2,game_score GS, game_score GS2 WHERE A.team_id IN (SELECT team_id FROM team_plays_game WHERE game_id = gameid) AND B.team_id IN (SELECT team_id FROM team_plays_game WHERE game_id = gameid) AND A.team_id != B.team_id AND S.sport_id = G.sport_id AND T1.team_id = A.team_id AND T2.team_id = B.team_id AND T1.game_id = T2.game_id AND T1.game_id = gameid AND G.game_id = gameid LIMIT 1;
 
 		END;
 %%
@@ -647,10 +646,19 @@ CREATE TRIGGER sponsorEventInsert AFTER INSERT ON sponsor_events
 			UPDATE team_joins_event SET status = nstatus where team_id = teamId and event_id = eventId;
 		END;
 %%
-	CREATE PROCEDURE teamPlaysGame(in teamId int unsigned, in gameId int unsigned)
+		CREATE PROCEDURE insertTeamPlaysGame(in gameId int unsigned)
 		BEGIN
-			INSERT INTO team_plays_game(game_id,team_id,bet_count) values(gameId,teamId,0);
-			INSERT INTO game_score(game_id, team_score_id, team_score) values(gameId, teamId, 0);
+			INSERT INTO team_plays_game(game_id, team_id, bet_count) VALUES(gameId, 1, 0);
+			INSERT INTO team_plays_game(game_id, team_id, bet_count) VALUES(gameId, 2, 0);
+			INSERT INTO game_score(game_id, team_score_id, team_score) VALUES(gameId, 1, 0);
+			INSERT INTO game_score(game_id, team_score_id, team_score) VALUES(gameId, 2, 0);
+		END;
+%%
+	CREATE PROCEDURE updateTeamPlaysGame(in teamId int unsigned, in gameId int unsigned, in defaultTeamId int unsigned)
+		BEGIN
+			-- INSERT INTO team_plays_game(game_id,team_id,bet_count) values(gameId,teamId,0);
+			UPDATE team_plays_game set team_id = teamId where game_id = gameId and team_id = defaultTeamId;
+			UPDATE game_score set team_score_id = teamId where game_id = gameId and team_score_id = defaultTeamId ;
 		END;
 %%
 	CREATE PROCEDURE teamWinPoint(in teamId int unsigned, in gameId int unsigned, in addScore int)
@@ -668,14 +676,14 @@ CREATE TRIGGER sponsorEventInsert AFTER INSERT ON sponsor_events
 			INSERT INTO sponsor_events(sponsor_id, event_id) VALUES(sponsorId, eventId);
 		END;
 %%
-	CREATE PROCEDURE viewAllSponsors()
+	CREATE PROCEDURE viewAllSponsor()
 		BEGIN
 			SELECT * FROM sponsor;
 		END;
 %%
 	CREATE PROCEDURE viewSponsorByEvent(in eventId int unsigned)
 		BEGIN
-			SELECT A.event_name, B.sponsor_name from event as A JOIN sponsor as B JOIN sponsor_events as C on (A.event_id = eventId) and (A.event_id = C.event_id) and (B.sponsor_id = C.sponsor_id);
+			SELECT A.event_name, B.sponsor_name, B.sponsor_id from event as A JOIN sponsor as B JOIN sponsor_events as C on (A.event_id = eventId) and (A.event_id = C.event_id) and (B.sponsor_id = C.sponsor_id);
 		END;
 %%
 	CREATE PROCEDURE viewSponsor(in sponsorId int unsigned)
@@ -749,6 +757,7 @@ CREATE TRIGGER sponsorEventInsert AFTER INSERT ON sponsor_events
 			INSERT INTO logs(user_id, message) VALUES(userid, concat((select username from users where user_id = userid), " viewed the logs"));
 		END;
 %%
+
 DELIMITER ;
 
 	call addTeam("TBA");
@@ -759,16 +768,18 @@ DELIMITER ;
 
 	insert into venue(latitude, longitude, address, venue_name) values(12.23,32.123, "los banos, laguna", "Copeland Gymasium");
 
+	insert into venue(latitude, longitude, address, venue_name) values(12.23,32.123, "los banos, laguna", "Baker Hall");
+
 	call addEvent(1, "Malicsihan", "2017-12-23", "2017-12-25");
 	call addEvent(1, "Palicsihan", "2017-12-23", "2017-12-25");
 
-	call addSport("Basketballl",1);
-	call addSport("Volleyball",2);
-	call addSport("Badminton",1);
-	call addSport("Phil. Games",1);
-	call addSport("Dota",1);
-	call addSport("Soccer",2);
-	call addSport("Javelin",2);
+	call addSport("Basketballl");
+	call addSport("Volleyball");
+	call addSport("Badminton");
+	call addSport("Phil. Games");
+	call addSport("Dota");
+	call addSport("Soccer");
+	call addSport("Javelin");
 
 	call attachSportToEvent(1, 1);
 	call attachSportToEvent(4, 1);
@@ -781,16 +792,15 @@ DELIMITER ;
 	call attachSportToEvent(3, 2);
 
 	call addGame(1, 1, 1,  "2017-12-23", "11:59:59", 1, "Ma'am Kat");
+	call insertTeamPlaysGame(1);
 	call addGame(2, 1, 1, "2017-12-23", "11:59:59", 1, "Ma'am K");
+	call insertTeamPlaysGame(2);
 
 	call addTeam("team1");
 	call addTeam("team2");
 
 	call userJoinsTeam(1, "team1");
 	call userJoinsTeam(1, "team1");
-
-	call teamPlaysGame(1, 1);
-	call teamPlaysGame(2, 1);
 
 	call addSponsor("ArvinSartilloCompany");
 	call addSponsor("Tester");

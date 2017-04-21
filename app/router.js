@@ -7,7 +7,15 @@
 	function router($routeProvider) {
 		$routeProvider
 			.when('/', {
-					templateUrl: 'layouts/login.html',
+					templateUrl: 'layouts/account-guest.html',
+					controller:'userController'
+			})
+			.when('/login', {
+					templateUrl: 'layouts/account-login.html',
+					controller:'userController'
+			})
+			.when('/register', {
+					templateUrl: 'layouts/account-register.html',
 					controller:'userController'
 			})
 
@@ -21,24 +29,28 @@
 			.when('/user/activity-log', {
 				templateUrl: 'layouts/user-activity-log.html'
 			})
+			.when('/users/:username', {
+				//new route for visiting other profile
+				templateUrl: 'layouts/user-visit-profile.html'
+			})
 
 			//Events Routers
-			.when('/event', {
+			.when('/events', {
 				templateUrl: 'layouts/user-view-all-events.html',
 				controller: 'eventController',
 				controllerAs: 'event'
 			})
-			.when('/event/:event_id',{
+			.when('/events/:event_id',{
 				templateUrl:'layouts/user-view-event.html',
 				controller: 'eventController',
 				controllerAs: 'event'
 			})
-			.when('/event/:event_id/scoreboard', {
+			.when('/events/:event_id/scoreboard', {
 				templateUrl: 'layouts/user-scoreboard-page.html',
 				controller:'userGameSchedController',
 				controllerAs:'UGSC'
 			})
-			.when('/event/game-schedule', {
+			.when('/events/game-schedule', {
 				templateUrl: 'layouts/user-game-sched.html',
 				controller:'userGameSchedController',
 				controllerAs:'UGSC'
@@ -52,11 +64,12 @@
 			})
 
 			//Teams Routers
-			.when('team', {
+			.when('/team', {
 				templateUrl: 'layouts/user-view-all-teams.html'
 			})
 			.when('/team/:team_id',{
-				templateUrl: 'layouts/user-view-team.html'
+				templateUrl: 'layouts/user-team-page.html'
+
 			})
 
 			//Search Routers
@@ -68,7 +81,7 @@
 			.when('/admin', {
 				templateUrl: 'layouts/admin-homepage.html'
 			})
-			.when('/admin/users', {
+			.when('/admin/users', { //changed, this is the route in htmls
 				templateUrl: 'layouts/admin-all-users.html'
 			})
 			.when('/admin/events', {

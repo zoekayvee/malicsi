@@ -1,8 +1,9 @@
-<div id="main-wrapper">
+<div id="main-wrapper" style="margin-left: 6%;"">
+    <div class="ui row" style="margin-top: 1%;" ng-controller="teamController as team">
+        <div class="ui large centered align header"> All Teams </div>
+        <div class="ui special cards" ng-init="team.viewAllTeam()">
 
-    <div class="ui container" ng-controller = "teamController as team">
-        <div class="ui special cards" ng-init = "team.viewAllTeam()">
-            <div class="card" ng-repeat = "x in team.allTeams">
+            <div class="ui card" ng-repeat="x in team.allTeams">
                 <div class="blurring dimmable image">
                     <div class="ui dimmer">
                         <div class="content">
@@ -11,18 +12,17 @@
                             </div>
                         </div>
                     </div>
-                    <img src="../images/teamteam.jpg">
+                    <img src="images/temo_icon.png">
                 </div>
                 <div class="content">
-                    <a class="header" ng-click = "team.viewTeam(x.team_id)">{{x.team_name}}</a>
+                    <a class="header" ng-click="team.viewTeam(x.team_id)">{{x.team_name}}</a>
                     <div class="meta">
                         <span class="date">{{x.team_id}}</span>
                     </div>
                 </div>
                 <div class="extra content">
                     <a>
-                        <i class="users icon"></i>
-                        2 Members
+                        <i class="users icon"></i> 2 Members
                     </a>
                 </div>
             </div>

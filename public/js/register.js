@@ -21,7 +21,7 @@ $(document)
                 }
               ]
             },
-			email: {
+      email: {
               identifier  : 'email',
               rules: [
                 {
@@ -34,7 +34,7 @@ $(document)
                 }
               ]
             },
-			firstname: {
+      firstname: {
               identifier  : 'firstname',
               rules: [
                 {
@@ -43,7 +43,7 @@ $(document)
                 }
               ]
             },
-			lastname: {
+      lastname: {
               identifier  : 'lastname',
               rules: [
                 {
@@ -125,8 +125,8 @@ $(document)
             },
 
         },   
-		  inline : true,
-	   	on     : 'blur'
+      inline : true,
+      on     : 'blur'
         })
       ;
     })

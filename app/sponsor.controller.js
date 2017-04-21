@@ -1,3 +1,4 @@
+
 (function(){
     'use strict'
     angular
@@ -21,29 +22,43 @@
         vm.getSponsorByEvent = getSponsorByEvent;
         vm.setSponsorId = setSponsorId;
         vm.deleteSponsorFromEvent = deleteSponsorFromEvent;
-        function addSponsor() {    
+        vm.viewAllSponsor = viewAllSponsor;
+        vm.setSponsor = setSponsor;
+        vm.openModal = openModal;
+        vm.closeModal = closeModal;
+        vm.newSponsor = "";
+
+        vm.deleteSponsorId = "";
+        vm.updateSponsorName;
+         vm.updateSponsorId; 
+        function addSponsor() {   
             var sponsorToBeAdded = {
-                 sponsor_name: vm.sponsorName
+                 sponsor_name: vm.newSponsor
             }
         $http
             .post('/sponsors', sponsorToBeAdded)
             .then(function(response){
                     console.log(response.data);
                     console.log('Success! Sponsor Added!')
+                    viewAllSponsor();
                 },
                 function(response){
                     console.log("Error :()");
                 });
+            vm.newSponsor = "";
         }
 
 
         function setSponsorId(sponsor_id){
+
             vm.sponsorId = sponsor_id;
+            //console.log(vm.deleteSponsorId);
         }
 
 
 
     function sponsorEvent() {
+        var i = 0;
         if(vm.sponsorId == undefined){
             console.log("Select a legitimate sponsor");
         } 
@@ -78,7 +93,6 @@
             function(response){
                 console.log('error');
             });
-
     }
     */
 
@@ -97,12 +111,16 @@
     }
 
 
-    function deleteSponsor(id) {
-        
+    function deleteSponsor(sponsor_id) {
+        console.log(sponsor_id);
         $http
-            .delete('/sponsors/'+id)
+            .delete('/sponsors/'+sponsor_id)
             .then(function(response){
+            console.log(vm.deleteSponsorId);
             console.log('Sponsor deleted')
+            console.log(response.data);
+            closeModal('delete-modal');
+            viewAllSponsor();
         },
         function(response){
             console.log("error");   
@@ -110,6 +128,7 @@
     }
 
     function deleteSponsorFromEvent(sponsor_id){
+        console.log(sponsor_id);
         var deleteSponsorEvent = {
             sponsor_id: sponsor_id,
             event_id: $routeParams.event_id
@@ -125,11 +144,20 @@
                 console.log("error");
             })
     }
+    function setSponsor(sponsor_name,sponsor_id,dmodal){
+        openModal(dmodal);
+        console.log(sponsor_name);
+        vm.updateSponsorName = sponsor_name;
+        vm.updateSponsorId = sponsor_id;
+        console.log(vm.updateSponsorId);
+    }
+
 
     function updateSponsor() {
+        
             var sponsorToBeUpdated = {
-                sponsor_id: vm.newSponsorId,
-                sponsor_name: vm.newSponsorName
+                sponsor_id: vm.updateSponsorId,
+                sponsor_name: vm.updateSponsorName
             };
             $http
                 .put('/sponsors', sponsorToBeUpdated)
@@ -145,7 +173,7 @@
 
     function viewAllSponsor() {
         $http
-            .get('/sponsors')
+            .get('/sponsors/')
             .then(function(response){
             vm.allSponsors = response.data[0];
             console.log(response.data);
@@ -156,5 +184,19 @@
             });
 
     }
+
+    function openModal(dmodal){
+            $('#'+dmodal+'.modal')
+            .modal('setting', {
+                 closable: false
+            })
+            .modal('show');
+    }
+    function closeModal(dmodal){
+       $('#'+dmodal+'.modal')
+                .modal('hide'); 
+        }
+
+
 }
 })();

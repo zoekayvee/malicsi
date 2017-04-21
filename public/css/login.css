@@ -7,29 +7,42 @@ body {
     min-height: calc(100vh - 65px) !important;
 }
 
-.form-holder {
-    margin-top: 5%;
-    border-radius: 10px;
-    background-color:  #e7eae1;
-}
-
 .form-head {
-  font-size: 30px;
-  letter-spacing: 2px;
   text-transform: uppercase;
-  text-shadow: 0 0 30px #000;
-  margin: 15px auto 30px auto;
 }
 
 label{
 	text-align: left;
 }
 
-#loginbutton{
+#login-button{
 	background-color: #DE1B1B;
 	color: white;
 }
 
 #register-div {
-    display: none;
+    /*display: none;*/
+}
+
+#image-header {
+    /*border: solid 1px red;*/
+    text-align: center;
+    margin-top: 20px;
+}
+
+#image-header img {
+    width: 20%;
+}
+
+#forms {
+    /*border: solid 1px red;*/
+    margin-top: 20px;
+    margin-bottom: 50px;
+
+}
+
+#back {
+    position: absolute;
+    top: 20px;
+    left: 20px;
 }

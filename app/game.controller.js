@@ -4,7 +4,7 @@
 	.module('malicsi')
 	.controller('gameController',gameController);
 
-	function gameController($http,$routeParams){
+	function gameController($http,$location,$routeParams){
 		var vm = this;
 		
 		vm.game = null;
@@ -13,6 +13,8 @@
 		vm.user_id = 1;
 		vm.score = 0;
 		vm.score2 = 0;
+		vm.updateScore = 0;
+		vm.updateScore2 = 0;
 		vm.addGame = addGame;
 		vm.updateGame = updateGame;
 		vm.deleteGame = deleteGame;
@@ -26,6 +28,7 @@
 		vm.bet = bet;
 		vm.addSportId = null;
 		vm.addVenueId = null;
+		vm.addEventId = null;
 		vm.addDate = null;
 		vm.addTime = null;
 		vm.addDuration = null;
@@ -33,13 +36,44 @@
 		vm.updateGameId = null;
 		vm.updateSportId = null;
 		vm.updateVenueId = null;
+		vm.updateEventId = null;
 		vm.updateReferee = null;
+		vm.updateDateStart = null;
+		vm.updateTimeStart = null;
+		vm.updateDuration = null;
+        vm.openModal = openModal;
+        vm.closeModal = closeModal;
+        vm.setCurrentId = setCurrentId;
+        vm.setVenueId = setVenueId;
+        vm.setEventId = setEventId;
+        vm.setWinner = setWinner;
+        vm.winnerTeamId = null;
+        vm.updateScores = updateScores;
+        vm.viewThreeScoreboard = viewThreeScoreboard;
+        vm.gameThreeScoreboard = [];
+        vm.viewGameFromScoreboard = viewGameFromScoreboard;
+
+		viewAllGames();
+
+		function setCurrentId(id,dmodal){
+            console.log(id);
+            openModal(dmodal)
+            vm.currentId = id;
+        }
+
+        function setVenueId(id){
+            vm.addVenueId = id;
+        }
+
+        function setEventId(id){
+            vm.addEventId = id;
+        }
 		
 		function addGame(){
 			var gameToBeAdded = {
-				sport_id: vm.addSportId,
-				venue_id: vm.addVenueId,
-				event_id: $routeParams.event_id,
+				sport_id: vm.addSportId.sport_id,
+				venue_id: vm.addVenueId.venue_id,
+				event_id: vm.addEventId.event_id,
 				date_start: vm.addDate,
 				time_start: vm.addTime,
 				duration: vm.addDuration,
@@ -48,6 +82,7 @@
 			$http
 				.post('/game',gameToBeAdded)
 				.then(function(response){
+					viewAllGames();
 					console.log('Adding Game Successful!');
 			},
 			function(response){
@@ -60,6 +95,7 @@
 				.get('/game/' + $routeParams.game_id)
 				.then(function(response){
 					vm.game = response.data;
+					vm.winnerTeamId = vm.game.winner_team_id;
 					vm.getScores(vm.game);
 					vm.getScores2(vm.game);
 					console.log('Viewing Game Successful');
@@ -68,6 +104,23 @@
 				console.log('Error Viewng Game');
 			});
 		}
+
+		function viewThreeScoreboard(){
+			$http
+				.get('/game/score/' + $routeParams.event_id)
+				.then(function(response){
+					vm.gameThreeScoreboard = response.data;
+					console.log('Viewing Scoreboard in Event Page Successful');
+			},
+			function(response){
+				console.log('Error Viewing Scoreboard');
+			});
+		}
+
+		function viewGameFromScoreboard(game_id){
+			$location.path('/game/' + game_id)
+		}
+
 
 		function canBet(){
 			$http
@@ -91,7 +144,6 @@
 			$http
 				.post('/bet/' + vm.user_id,bet)
 				.then(function(response){
-					// vm.game = response.data;
 					console.log('Betting Successful');
 			},
 			function(response){
@@ -99,7 +151,6 @@
 			});
 
 		}
-	
 		function viewAllGames(){
 			$http
 				.get('/game')
@@ -112,15 +163,33 @@
 			});
 
 		}
-		function updateGame(){
+		function viewAllVenues(){
+			$http
+				.get('/game')
+				.then(function(response){
+					console.log('Viewing All Venues Successful');
+					vm.allGames = response.data;
+			},
+			function(response){
+				console.log('Error Viewing All Games');
+			});
+
+		}
+		function updateGame(id){
 			var updatedGames = {
-				sport_id: vm.updateSportId,
-				venue_id: vm.updateVenueId,
+
+				sport_id: vm.updateSportId.sport_id,
+				venue_id: vm.updateVenueId.venue_id,
+				event_id: vm.updateEventId.event_id,
+				date_start: vm.updateDateStart,
+				time_start: vm.updateTimeStart,
+				duration: vm.updateDuration,
 				referee: vm.updateReferee
 			}
 			$http
-				.put('/game/' + vm.updateGameId, updatedGames)
+				.put('/game/' + id, updatedGames)
 				.then(function(response){
+					viewAllGames();
 					console.log('Updating Game Successful!');
 			},
 			function(response){
@@ -133,7 +202,7 @@
 			$http
 				.delete('/game/' + id)
 				.then(function(response){
-					vm.allGames = response.data;
+					viewAllGames();
 					console.log('Deleting Game Successful!');
 			},
 			function(response){
@@ -174,5 +243,56 @@
 				console.log('Error Viewing Score');
 			});
 		}
+
+		function updateScores(team1,team2){
+			var scoreDetails = {
+				score1: vm.updateScore,
+				score2: vm.updateScore2,
+				team_id: team1,
+				team_id_2: team2
+			}
+			$http
+				.post('/scores/update/' + vm.game.game_id,scoreDetails)
+				.then(function(response){
+					console.log("Updated Scores!");
+			},
+			function(response){
+				console.log('Error Updating Score');
+			});
+			closeModal('addscore-modal');
+		}
+
+		function setWinner(){
+			console.log(vm.game.team_id);
+			console.log(vm.game.team_id_2);
+			console.log(vm.score);
+			console.log(vm.score2);
+			if(vm.score > vm.score2) vm.winnerTeamId = vm.game.team_id;
+			else vm.winnerTeamId = vm.game.team_id_2;
+			
+			var winnerToBeAdded = {
+				winner_team_id: vm.winnerTeamId,
+				game_id: $routeParams.game_id
+			}
+			$http
+				.post('/winner',winnerToBeAdded)
+				.then(function(response){
+					console.log("Updating Winner Successful! ");
+				},
+				function(response){
+					console.log("Error adding winner!");
+				});
+		}
+        function openModal(dmodal){
+            $('#'+dmodal+'.modal')
+            .modal('setting', {
+                 closable: false
+            })
+            .modal('show');
+        }
+        function closeModal(dmodal){
+           $('#'+dmodal+'.modal')
+                    .modal('hide'); 
+            }
 	}
 })();
