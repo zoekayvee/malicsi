@@ -784,11 +784,16 @@ DELIMITER ;
 	insert into users(username, password, user_type, firstname, lastname, college, contactno, email, weight, height) values("Tester1", "$2a$10$XZ3gB4uWjsKhIBQ0xoxFmejypyylQqHw.Bi43dvMzp4vmoW9/YPGm", "admin", "Person", "A", "CAS", 09166994203, "pa@up.edu.ph", 59, 177); /*pw: test*/
 	insert into users(username, password, user_type, firstname, lastname, college, contactno, email, weight, height) values("Tester2", "$2a$10$XZ3gB4uWjsKhIBQ0xoxFmejypyylQqHw.Bi43dvMzp4vmoW9/YPGm", "normal", "Person", "B", "CAS", 09166994203, "pb@up.edu.ph", 59, 177); /*pw: test*/
 	insert into users(username, password, user_type, firstname, lastname, college, contactno, email, weight, height) values("Tester3", "$2a$10$XZ3gB4uWjsKhIBQ0xoxFmejypyylQqHw.Bi43dvMzp4vmoW9/YPGm", "normal", "Person", "C", "CAS", 09166994203, "pc@up.edu.ph", 59, 177); /*pw: test*/
-	insert into users(username, password, user_type, firstname, lastname, college, contactno, email, weight, height) values("a", "$2a$10$lVkrOWmUYhHeK7i80M6NBu9aE0AuO0mzLdV1pBEmsRbCrxON2IIdy", "pending", "Person", "D", "CEM", 09166994203, "pc@up.edu.ph", 59, 177); /*pw: a*/
+	insert into users(username, password, user_type, firstname, lastname, college, contactno, email, weight, height) values("a", "$2a$10$lVkrOWmUYhHeK7i80M6NBu9aE0AuO0mzLdV1pBEmsRbCrxON2IIdy", "pending", "Person", "D", "CEM", 09166994203, "pd@up.edu.ph", 59, 177); /*pw: a*/
+	insert into users(username, password, user_type, firstname, lastname, college, contactno, email, weight, height) values("b", "$2a$10$lVkrOWmUYhHeK7i80M6NBu9aE0AuO0mzLdV1pBEmsRbCrxON2IIdy", "pending", "Person", "E", "CEAT", 09166994203, "pe@up.edu.ph", 59, 177); /*pw: a*/
 	
 	insert into venue(latitude, longitude, address, venue_name) values(12.23,32.123, "los banos, laguna", "Copeland Gymasium");
 
 	insert into venue(latitude, longitude, address, venue_name) values(12.23,32.123, "los banos, laguna", "Baker Hall");
+
+	call addTeam("team1");
+	call addTeam("team2");
+	call addTeam("team3");
 
 	call addEvent(1, "Malicsihan", "2017-12-23", "2017-12-25");
 	call addEvent(2, "Palicsihan", "2017-12-23", "2017-12-25");
@@ -817,11 +822,10 @@ DELIMITER ;
 	call addGame(2, 1, 1, "2017-12-23", "11:59:59", 1, "Ma'am K");
 	call insertTeamPlaysGame(2);
 
-	call addTeam("team1");
-	call addTeam("team2");
-	call addTeam("team3");
 	call teamJoinsEvent(1,1);
 	call teamJoinsEvent(2,2);
+	call userJoinsTeam(2,"team1","accepted");
+	call userJoinsTeam(3,"team1","accepted");
 
 	call addSponsor("ArvinSartilloCompany");
 	call addSponsor("Tester");
