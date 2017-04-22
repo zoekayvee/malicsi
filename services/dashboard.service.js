@@ -44,7 +44,7 @@ exports.viewTeamPlayGame = (req,res) => {
 }
 
 exports.viewLatestEvent = (req,res) => {
-	const query_string = "SELECT event_name,event.event_id,date_start,user_event.user_id User_From_Event from event JOIN user_event ON event.event_id = user_event.event_id where user_event.user_id = ? ORDER BY date_start DESC";
+	const query_string = "SELECT event_name,event.event_id,date_start,user_event.user_id User_From_Event from event JOIN user_event ON event.event_id = user_event.event_id where user_event.user_id = ? ORDER BY date_start";
 	const data = [req.params.user_id];
 
 	connection.query(query_string,data,(err,rows) =>{
@@ -56,3 +56,6 @@ exports.viewLatestEvent = (req,res) => {
 		}
 	})
 }
+
+
+ 

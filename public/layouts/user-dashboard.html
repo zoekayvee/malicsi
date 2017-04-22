@@ -1,10 +1,9 @@
-<link rel='stylesheet' href='css/dashboard.css' />
+<link rel='stylesheet' href='css/dashboard.css'/>
 <script type='text/javascript' src='js/dashboard.js'></script>
 <script type='text/javascript' src='js/default.js'></script>
 
 
-<div id="main-wrapper" ng-controller = "dashboardController as dashboard">
-
+<div id="main-wrapper">
     <div id="public-event" class="ui container">
         <h3>Leaderboard</h3>
         <canvas id="leadchart"></canvas>
@@ -14,48 +13,52 @@
 
     <div id="feeds-panel">
 
-        <div class="ui two column grid container">
-            <div class="five wide column">
+        <div
+        ng-controller="dashboardController as dashboard"
+        class="ui two column grid container">
 
-                <!-- Event Details -->
-                <div id="event-panel" class="ui card">
-                    <h1 id="event-name">{{dashboard.recentEvent.event_name}}</h1>
-                    <p id="event-details">
-                        Event Details
-                    </p>
-                </div>
-                <!-- Leaderboard -->
-                <div id="leaderboard" class="ui card">
-                    <div class="section-title">
-                        <h3>Leaderboard</h3>
-                    </div>
+        <div class="five wide column">
 
-                    <table class="ui very basic collapsing celled table">
-                        <thead>
-                            <tr><th>Team</th>
-                                <th>Total Score</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr ng-repeat="x in dashboard.teamGames">
-                                <td>
-                                    <h4 class="ui image header">
-                                        <img src="images/tnt.jpg" class="ui mini rounded image">
-                                        <div class="content">
-                                            {{x.team_name}}
-                                            <div class="sub header">Lorem Ipsum</div>
-                                        </div>
-                                    </h4>
-                                </td>
-                                <td>
-                                    {{x.score}}
-                                </td>
-                            </tr>
-                        </tbody>
-
-                    </table>
-                </div>
+            <!-- Event Details -->
+            <div id="event-panel" class="ui card">
+                <h1 id="event-name">{{dashboard.recentEvent.event_name}}</h1>
+                <p id="event-details">
+                    {{dashboard.recentEvent.date_start}}
+                </p>
             </div>
+            <!-- Leaderboard -->
+            <div id="leaderboard" class="ui card">
+                <div class="section-title">
+                    <h3>Leaderboard</h3>
+                </div>
+
+                <table class="ui very basic collapsing celled table">
+                    <thead>
+                        <tr><th>Team</th>
+                            <th>Total Score</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="x in dashboard.teamGames">
+                            <td>
+                                <h4 class="ui image header">
+                                    <img src="images/tnt.jpg" class="ui mini rounded image">
+                                    <div class="content">
+                                        {{x.team_name}}
+                                        <div class="sub header">Lorem Ipsum</div>
+                                    </div>
+                                </h4>
+                            </td>
+                            <td>
+                                {{x.score}}
+                            </td>
+                        </tr>
+                    </tbody>
+
+                </table>
+            </div>
+
+        </div>
         <div class="eleven wide column" id="right-panel">
 
             <!-- Membership Requests -->
@@ -78,7 +81,7 @@
                 <div class="section-title">
                     <h3>Current Games</h3>
                     <br>
-                    <div ng-repeat="game in dashboard.currentGames" class="ui card-panel">
+                    <div ng-repeat="game in dashboard.sportsFromEvent" class="ui card-panel">
                         <h5>{{game.sport_name + " Game " + game.game_id }}</h5>
                         <p>{{game.Date}}</p>
                         <p>{{game.venue_name}}</p>

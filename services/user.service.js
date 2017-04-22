@@ -287,7 +287,7 @@ exports.viewCompetitor=(req, res)=>{
 }
 
 exports.viewUserTeams = (req,res) => {
-	const query_string =  "SELECT DISTINCT * from team natural join (select team_id from team_players where user_id= ? )a";
+	const query_string =  "SELECT DISTINCT * from team natural join (select team_id from team_players where user_id= ? and status='accepted')a";
 	const req_data = [req.params.user_id]
 
 	connection.query(query_string, req_data, (err,result)=>{

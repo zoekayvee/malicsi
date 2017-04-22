@@ -135,6 +135,9 @@ router.post('/teams/join/game',	    		teamController.teamPlayGame);
 router.get('/teams/game/:team_id',			teamController.viewAvailableTeams)
 router.post('/ranking/:sport_id', 			gameController.getRanking);
 router.get('/overallranking/:event_id', 	gameController.getOverallRanking);
+router.get('/events/:event_id/games', 	    gameController.viewGamesByEvent);
+router.get('/events/:event_id/current_games', 	    gameController.viewCurrentGamesByEvent);
+router.get('/events/:event_id/upcoming_games', 	    gameController.viewCurrentGamesByEvent);
 router.post('/bet/:user_id', 				gameController.bet);
 router.get('/bet/:user_id/:game_id', 		gameController.betStatus);
 router.get('/scores/:game_id/:team_id', 	gameController.getScores);

@@ -64,18 +64,6 @@ create table event(
 	constraint 		event_user_id_fk foreign key(user_id) references users(user_id) ON DELETE CASCADE ON UPDATE CASCADE
 );
 
-create table user_event(
-	/* added for user dashboard */
-	user_event_id   int unsigned auto_increment,
-	user_id 		int unsigned,
-	event_id 		int unsigned,
-
-	constraint 		user_event_id_pk primary key(user_event_id),
-	constraint 		user_user_id_fk foreign key(user_id) references users(user_id) ON DELETE CASCADE ON UPDATE CASCADE,
-	constraint 		user_event_id_fk foreign key(event_id) references event(event_id) ON DELETE CASCADE ON UPDATE CASCADE
-	
-);
-
 create table team(
 	team_id 		int unsigned auto_increment,
 	team_name 		varchar(100) not null,
@@ -629,11 +617,17 @@ CREATE TRIGGER sponsorEventInsert AFTER INSERT ON sponsor_events
 			INSERT INTO team_players(team_id, user_id, status) values((select team_id from team where team_name = teamName), userid, stats);
 		END;
 %%
-	CREATE PROCEDURE creatorApprovesPlayer(in userid int unsigned, in teamid int unsigned, in eventid int unsigned,in stats enum('accepted', 'rejected', 'pending'))
+	CREATE PROCEDURE creatorApprovesPlayer(in userid int unsigned, in teamid int unsigned, in eventid int unsigned)
 		/*procedure for when the creator approved the player*/
 		BEGIN
-			UPDATE team_players SET status=stats where team_id=teamid and user_id=userid;
+			UPDATE team_players SET status='accepted' where team_id=teamid and user_id=userid;
 			INSERT INTO user_event(user_id,event_id) VALUES (userId,eventid);
+		END;
+%%
+	CREATE PROCEDURE creatorApprovesPlayer(in userid int unsigned, in teamid int unsigned, in eventid int unsigned))
+		/*procedure for when the creator disapproved the player; no user_event insertion*/
+		BEGIN
+			UPDATE team_players SET status='rejected' where team_id=teamid and user_id=userid;
 		END;
 %%
 	CREATE PROCEDURE viewTeam(in teamId int unsigned)
@@ -778,6 +772,7 @@ CREATE TRIGGER sponsorEventInsert AFTER INSERT ON sponsor_events
 			INSERT INTO logs(user_id, message) VALUES(userid, concat((select username from users where user_id = userid), " viewed the logs"));
 		END;
 %%
+
 
 DELIMITER ;
 

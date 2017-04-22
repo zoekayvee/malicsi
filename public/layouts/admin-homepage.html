@@ -38,9 +38,9 @@
              <div class="column" ng-repeat="x in home.allTeams | filter: {status: 'pending'}">
             <div class="ui card" id="card">
                 <div class=" center aligned content">
-                <h3 class="ui header"> {{x.team_name}}</h3>
-                 <div class="sub-header"> {{ x.event_name }}</div>
-                <i class="massive user icon"></i>
+                <h3 class="ui header">{{x.team_name}}</h3>
+                 <div class="sub-header">Event: {{ x.event_name }}</div>
+                     <i class="massive users icon"></i>
                 </div>
                 <div class="center aligned extra">
                     <button class ="ui button" id="accept" ng-click="home.approveTeam(x.team_id,x.event_id)">ACCEPT</button>
