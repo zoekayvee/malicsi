@@ -31,8 +31,9 @@
                     <div class="ui ordered middle aligned selection list">
                   <div class="item"  ng-repeat="player in team.allPlayers | filter: {status: 'accepted'}">
                     <img class="ui avatar image" src="images/avatar.png">
-                    <div class="content">
-                      <div class="header">{{player.username}}</div>
+                    <div class="content" ng-controller = "otherUsersController as others"> 
+                            <a ng-click = "others.clicked(player.user_id)">
+                      <div class="header">{{player.username}}</div></a>
                     </div>
                   </div>
             </div>

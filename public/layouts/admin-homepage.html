@@ -20,7 +20,8 @@
              <div class="column" ng-repeat="x in home.allUsers | filter: {user_type: 'pending'}">
             <div class="ui card" id="card">
                 <div class=" center aligned content">
-                <h3 class="ui header"> {{x.username}}</h3>
+                <h3 class="ui header" ng-controller = "otherUsersController as others"> 
+                            <a ng-click = "others.clicked(x.user_id)"> {{x.username}}</a></h3>
                 <i class="massive user icon"></i>
                 </div>
                 <div class="center aligned extra">
