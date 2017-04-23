@@ -137,6 +137,8 @@ router.get('/bet/:user_id/:game_id', 		gameController.betStatus);
 router.get('/scores/:game_id/:team_id', 	gameController.getScores);
 router.post('/scores/update/:game_id', 	    gameController.updateScores);
 router.get('/sport/event/:event_id', 		sportController.viewSportsByEvent);
+router.get('/sport/:sport_id/event/:event_id', sportController.viewSportsByEvent);
+
 router.get('/sport/event/view/:event_id', 	sportController.viewAvailableSports);
 router.post('/game/sport/:sport_id', 		gameController.viewGamesBySport);
 router.get('/schedule/:sport_id', 			gameController.viewScheds);

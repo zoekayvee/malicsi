@@ -531,7 +531,7 @@ CREATE TRIGGER sponsorEventInsert AFTER INSERT ON sponsor_events
 %%
 	CREATE PROCEDURE viewLeaderBoard(in sportId int unsigned, in eventId int unsigned)
 		BEGIN
-			SELECT distinct G.game_id, G.date_start,V.venue_name, A.team_name, A.team_id,  B.team_name as team_name_2, B.team_id as team_id_2, G.referee FROM team A, team B, game G, venue V, sport S, team_plays_game T1, team_plays_game T2 WHERE A.team_id IN (SELECT team_id FROM team_plays_game WHERE G.sport_id = sportId) AND B.team_id IN (SELECT team_id FROM team_plays_game WHERE G.sport_id = sportId) AND A.team_id != B.team_id and A.team_id = T1.team_id and B.team_id = T2.team_id and T1.game_id = T2.game_id  and G.game_id = T1.game_id and V.venue_id = G.venue_id and G.sport_id = S.sport_id and G.sport_id = sportId and G.event_event_id = eventId order by game_id;
+			SELECT distinct G.game_id, G.date_start,V.venue_name, A.team_name, A.team_id,  B.team_name as team_name_2, B.team_id as team_id_2, G.referee FROM team A, team B, game G, venue V, sport S, team_plays_game T1, team_plays_game T2 WHERE A.team_id IN (SELECT team_id FROM team_plays_game WHERE G.sport_id = sportId) AND B.team_id IN (SELECT team_id FROM team_plays_game WHERE G.sport_id = sportId) AND A.team_id > B.team_id and A.team_id = T1.team_id and B.team_id = T2.team_id and T1.game_id = T2.game_id  and G.game_id = T1.game_id and V.venue_id = G.venue_id and G.sport_id = S.sport_id and G.sport_id = sportId and G.event_event_id = eventId order by game_id;
 		END;
 
 %%

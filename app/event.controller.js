@@ -15,6 +15,7 @@
         vm.eventId = "";
         vm.allowReg = "";
         vm.allEvents = [];
+        vm.event = "";
         vm.addEvent = addEvent;
         vm.viewAllEvent = viewAllEvent;
         vm.deleteEvent = deleteEvent;
@@ -36,7 +37,9 @@
         vm.setDeleteEventId = setDeleteEventId;
         vm.deleteEventModal = deleteEventModal;
         vm.addEventModal = addEventModal;
-        
+        vm.viewEventDetails = viewEventDetails;
+
+
         function addEvent(user_id) {
 
             var newEvent = {
@@ -129,6 +132,14 @@
             //         //console.log($window.localStorage);
             //         }
             //     });
+        }
+
+        function viewEventDetails(){
+            $http
+                .get('/events/' + $routeParams.event_id)
+                .then(function(response){
+                    vm.event = response.data[0];
+                });
         }
 
         function getUserIdOfEvent(){

@@ -9,7 +9,7 @@
 		
 		vm.game = null;
 		vm.allGames = null;
-		vm.game_id;
+		vm.game_id = "";
 		vm.user_id = 1;
 		vm.score = 0;
 		vm.score2 = 0;
@@ -29,6 +29,7 @@
 		vm.addSportId = null;
 		vm.addVenueId = null;
 		vm.addEventId = null;
+		vm.currentId = null;
 		vm.addDate = null;
 		vm.addTime = null;
 		vm.addDuration = null;
@@ -56,9 +57,8 @@
 		viewAllGames();
 
 		function setCurrentId(id,dmodal){
-            console.log(id);
             openModal(dmodal)
-            vm.currentId = id;
+            vm.game_id = id;
         }
 
         function setVenueId(id){
@@ -186,8 +186,10 @@
 				duration: vm.updateDuration,
 				referee: vm.updateReferee
 			}
+			console.log(vm.game_id);
+			console.log(id);
 			$http
-				.put('/game/' + id, updatedGames)
+				.put('/game/' + vm.game_id, updatedGames)
 				.then(function(response){
 					viewAllGames();
 					console.log('Updating Game Successful!');
@@ -200,7 +202,7 @@
 		function deleteGame(id){
 
 			$http
-				.delete('/game/' + id)
+				.delete('/game/' + vm.game_id)
 				.then(function(response){
 					viewAllGames();
 					console.log('Deleting Game Successful!');
@@ -263,10 +265,6 @@
 		}
 
 		function setWinner(){
-			console.log(vm.game.team_id);
-			console.log(vm.game.team_id_2);
-			console.log(vm.score);
-			console.log(vm.score2);
 			if(vm.score > vm.score2) vm.winnerTeamId = vm.game.team_id;
 			else vm.winnerTeamId = vm.game.team_id_2;
 			
