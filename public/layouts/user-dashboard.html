@@ -16,9 +16,7 @@
         <div
         ng-controller="dashboardController as dashboard"
         class="ui two column grid container">
-
         <div class="five wide column">
-
             <!-- Event Details -->
             <div id="event-panel" class="ui card">
                 <h1 id="event-name">{{dashboard.recentEvent.event_name}}</h1>
@@ -62,16 +60,18 @@
         <div class="eleven wide column" id="right-panel">
 
             <!-- Membership Requests -->
-            <div class="ui section" id="membership-request-panel">
+            <div class="ui section" id="membership-request-panel"  ng-repeat="x in dashboard.playerReq | filter: {player_status: 'pending'}">
                 <div class="ui card member-request">
                     <div class="request-text">
-                        Angelo Guiam has requested to join Palarong UPLB
-                    </div>
+                        {{x.firstname}} {{x.lastname}} has requested to join team :  {{x.team_name}} 
+                        <div class="sub-header">Event: {{ x.event_name }}</div>
+                     </div>
                     <div class="request-approve two wide column">
-                        <button type="button" name="button" class="membership-command">X</button>
+                        <button type="button" name="button" class="membership-command" ng-click="dashboard.disapproveTeamPlayer(x.team_id,x.user_id)">X</button>
                     </div>
                     <div class="request-decline two wide column">
-                        <button type="button" name="button" class="membership-command">/</button>
+                        <button type="button" name="button" class="membership-command" ng-click="dashboard.approveTeamPlayer(x.team_id,x.user_id,x.event_id)">/</button>
+                    </div>
                     </div>
                 </div>
             </div>

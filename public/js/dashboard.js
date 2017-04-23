@@ -1,7 +1,6 @@
 $(document).ready(function(){
     $(this).scroll(function() {
         var scroll = $(this).scrollTop();
-        console.log(scroll);
         if (scroll > 0 ) {
             $('#page-navigation').addClass('nav-scrolled');
         }

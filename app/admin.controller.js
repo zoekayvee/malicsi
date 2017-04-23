@@ -27,6 +27,8 @@
 		vm.approveUser = approveUser;
 		vm.approveTeam = approveTeam;
 		vm.disapproveTeam = disapproveTeam;
+		vm.playerReq=[];
+		vm.hasEvent = null;
 
 		$http   
             .get('/user_type_loggedin') 
@@ -49,6 +51,21 @@
 						}, function(response){
 							console.log('Error');
 						}); 
+					$http   
+             			.get('/user_loggedin') 
+             			.then(function(response) {
+             				$http
+                               .get('/users/player_requests/'+response.data)
+                               .then(function(response) {
+                                  vm.playerReq = response.data;
+                                  if(vm.playerReq.length > 0){
+                                    vm.hasEvent=true;
+                                  }
+                                  else{
+                                    vm.hasEvent=false;
+                                  }
+                               });
+             			});
                 }
                 else{
                 	window.location.href ='/403';

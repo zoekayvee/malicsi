@@ -236,7 +236,7 @@ exports.teamPlayGame = (req, res, next) => {
 
 
 exports.userJoinTeam = (req,res, next) => {
-	var query = 'insert into team_players(team_id,user_id,status) values (?,?,?)';
+	var query = 'insert into team_players(team_id,user_id,player_status) values (?,?,?)';
 	const data = [
 		req.body.team_id,
 		req.body.user_id,
@@ -260,7 +260,7 @@ exports.userJoinTeam = (req,res, next) => {
 }
 
 exports.updateTeamPlayerStatus = (req,res, next) => {
-	var query = 'UPDATE team_players SET status=? where team_id=? and user_id=?';
+	var query = 'UPDATE team_players SET player_status=? where team_id=? and user_id=?';
 	const data = [
 		req.body.status,
 		req.body.team_id,
@@ -284,7 +284,7 @@ exports.updateTeamPlayerStatus = (req,res, next) => {
 }
 
 exports.getTeamPlayers = (req,res, next) => {
-	var query = 'select * from team_players natural join users where team_id=?';
+	var query = 'select * from (select * from team_players natural join team)a natural join users where a.team_id=?';
 	const data = [
 		req.params.team_id
 		];

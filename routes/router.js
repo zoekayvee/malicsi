@@ -32,6 +32,9 @@ router.put      ('/user/:user_id',			userController.updateUser); //added
 router.get 		('/user/teams/:user_id',    userController.viewUserTeams); //added
 router.post  	('/user',                	adminController.addUser); //added
 router.get      ('/users/joined_events/:user_id',dashboardController.viewLatestEvent); //added for dashboard
+router.get      ('/users/player_requests/:user_id',dashboardController.getPlayerRequests); //added for dashboard
+router.put      ('/users/player_requests/approval',dashboardController.approveTeamPlayer);
+router.put      ('/users/player_requests/disapproval',dashboardController.disapproveTeamPlayer);
 
 router.get('/user/events/:user_id',         userController.viewUserEvents);
 router.get('/user/sponsored/:user_id',      userController.viewSponsoredEvents);

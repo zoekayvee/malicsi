@@ -57,5 +57,58 @@ exports.viewLatestEvent = (req,res) => {
 	})
 }
 
+exports.getPlayerRequests = (req, res, next) => {
+	var query = ' select * from (select * from (select * from (select * from (select event_id,event_name from event,users where users.user_id=1 and event.user_id=?)a NATURAL JOIN team_joins_event where status="accepted")b natural join team_players)c NATURAL JOIN users)c NATURAL JOIN team';
+	const data = [
+		req.params.user_id
+	];
+	var id = connection.query(
+		query,
+		data,
+		(err, row, fields) => {
+			if(!err){
+				console.log(row);
+				res.status(200).send(row);
+				
+			}
+			else{
+				console.log(err);
+				res.status(500).send('Server error');
+			}
+	});
+}
+
+exports.approveTeamPlayer = (req,res) =>{
+	const query_string = 'call creatorApprovesPlayer(?,?,?)';
+	const req_data = [
+		req.body.user_id,
+		req.body.team_id,
+		req.body.event_id
+	];
+    connection.query(query_string, req_data, (err,result) => {
+    	if (!err) {
+			res.status(200).send(result);
+			} else {
+				console.log(err);
+				res.status(500).send(err);
+			}
+    })
+} 
+
+exports.disapproveTeamPlayer = (req,res) =>{
+	const query_string = 'call creatorDisapprovesPlayer(?,?)';
+	const req_data = [
+		req.body.user_id,
+		req.body.team_id
+	];
+    connection.query(query_string, req_data, (err,result) => {
+    	if (!err) {
+			res.status(200).send(result);
+			} else {
+				console.log(err);
+				res.status(500).send(err);
+			}
+    })
+} 
 
  

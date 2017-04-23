@@ -83,7 +83,7 @@
 	    			vm.allPlayers.forEach(function(e){
 		    		 	console.log(e);
 		    		 	if(e.user_id===vm.userId){
-			    			vm.playerStatus=e.status;
+			    			vm.playerStatus=e.player_status;
 			    			vm.alreadyJoined=true;
 			    		}
 			    	});
