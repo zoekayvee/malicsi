@@ -8,6 +8,7 @@
 		var vm = this;
 
 		vm.allSports = [];
+		vm.defaultSportId = null;
 		vm.allSportGames;
 		vm.allGames = [];
         vm.addSportName = null
@@ -35,6 +36,7 @@
 				.get('/sport/event/' + $routeParams.event_id)
 				.then(function(response){
 					vm.allSports = response.data;
+					vm.defaultSportId = response.data[0].sport_id;
 				},
 				function(response){
 					console.log("Error retrieving data!");
@@ -131,11 +133,11 @@
         }
 
 		function viewGame(game_id){
-			$location.path('/user/game/' + game_id)
+			$location.path('/game/' + game_id)
 		}
 
 		function scoreboard(){
-			$location.path('/user/event/' + $routeParams.event_id + '/scoreboard')
+			$location.path('/events/' + $routeParams.event_id + '/scoreboard/' + vm.defaultSportId )
 		}
 
         function setCurrentId(id,dmodal){

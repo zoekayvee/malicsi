@@ -69,6 +69,25 @@ exports.viewAllTeam = (req, res, next) => {
 	});
 }
 
+exports.viewTeamsInGame = (req, res, next) => {
+	var query = 'select * from team where team_id NOT IN (select team_id from team_plays_game where game_id = ?)';
+
+	var id = connection.query(
+		query,
+		[req.params.game_id],
+		(err, row, fields) => {
+			if(!err){
+				console.log("Success viewing available teams");
+				console.log(req.params.game_id);
+				res.status(200).send(row);
+			}
+			else{
+				console.log(err);
+				res.status(500).send('Server error');
+			}
+	});
+}
+
 exports.viewAvailableTeams = (req, res, next) => {
 	var query = 'select * from team where team_id != 1 and team_id != 2 and team_id != ?';
 

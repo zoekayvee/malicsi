@@ -50,11 +50,16 @@
 				controller:'userGameSchedController',
 				controllerAs:'UGSC'
 			})
-			.when('/events/game-schedule', {
-				templateUrl: 'layouts/user-game-sched.html',
+			.when('/events/:event_id/scoreboard/:sport_id', {
+				templateUrl: 'layouts/user-scoreboard-page.html',
 				controller:'userGameSchedController',
 				controllerAs:'UGSC'
 			})
+			// .when('/events/game-schedule', {
+			// 	templateUrl: 'layouts/user-game-sched.html',
+			// 	controller:'userGameSchedController',
+			// 	controllerAs:'UGSC'
+			// })
 
 			//Game Routers
 			.when('/game/:game_id', {
@@ -64,11 +69,12 @@
 			})
 
 			//Teams Routers
-			.when('/teams', {
+			.when('/team', {
 				templateUrl: 'layouts/user-view-all-teams.html'
 			})
-			.when('/teams/:team_id',{
-				templateUrl: 'layouts/user-view-team.html'
+			.when('/team/:team_id',{
+				templateUrl: 'layouts/user-team-page.html'
+
 			})
 
 			//Search Routers
@@ -80,7 +86,7 @@
 			.when('/admin', {
 				templateUrl: 'layouts/admin-homepage.html'
 			})
-			.when('/admin/all-users', { //changed, this is the route in htmls
+			.when('/admin/users', { //changed, this is the route in htmls
 				templateUrl: 'layouts/admin-all-users.html'
 			})
 			.when('/admin/events', {

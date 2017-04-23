@@ -72,14 +72,14 @@
                     <div class="field">
                         <label>Team 1</label>
                         <form  class="ui">
-                            <select ng-init="team.viewAllTeam()" ng-model="team.teamId" ng-options="x.team_name for x in team.allTeams">
+                            <select ng-init="team.viewTeamInGame()" ng-model="team.teamId" ng-options="x.team_name for x in team.allTeams">
                             </select>
                         </form>
                     </div>
                     <div class="field">
                         <label>Team 2</label>
                         <form  class="ui">
-                            <select ng-init="team.viewAllTeam()" ng-model="team.teamId2" ng-options="x.team_name for x in team.allTeams">
+                            <select ng-init="team.viewTeamInGame()" ng-model="team.teamId2" ng-options="x.team_name for x in team.allTeams">
                             </select>
                         </form>
                     </div>
@@ -89,7 +89,18 @@
                 </div>
             </div>
         </div>
+            <!-- <div ng-if="game.winnerTeamId == 0">
+                WINNER
+            </div> -->
         <button class="ui button" style="float:right" ng-click="game.setWinner()">FINALIZE GAME</button>
+        <div class="ui modal" style="margin:-10%;width:20%" id="tie-modal">
+            <div class="content ">
+                <center>
+                    GAME IS TIED!<br><br>
+                    <div class="ui button" id="cancel" ng-click = "team.closeModal('tie-modal')">OK</div>
+                </center>
+            </div>
+        </div>
     </div>
 
 
