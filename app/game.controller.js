@@ -53,6 +53,7 @@
         vm.viewThreeScoreboard = viewThreeScoreboard;
         vm.gameThreeScoreboard = [];
         vm.viewGameFromScoreboard = viewGameFromScoreboard;
+        vm.viewGamePage = viewGamePage;
 
 		viewAllGames();
 
@@ -104,6 +105,10 @@
 				console.log('Error Viewng Game');
 			});
 		}
+		function viewGamePage(game_id){
+			$location.path('/game/' + game_id)
+		}
+
 
 		function viewThreeScoreboard(){
 			$http
@@ -272,6 +277,13 @@
 				winner_team_id: vm.winnerTeamId,
 				game_id: $routeParams.game_id
 			}
+
+			if(vm.score == vm.score2){
+				winnerToBeAdded.winner_team_id = 0;
+				vm.winnerTeamId = 0;
+				openModal("tie-modal");
+			}
+
 			$http
 				.post('/winner',winnerToBeAdded)
 				.then(function(response){
