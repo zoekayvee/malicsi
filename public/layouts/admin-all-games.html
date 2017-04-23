@@ -35,6 +35,7 @@
                         </tr>
                     </thead>
                     <tbody>
+
                         <tr ng-repeat="x in game.allGames" ng-if="y.event_id==x.event_event_id">
                             <td> {{x.game_id}} </td>
                             <td> {{x.sport_id}} </td>
@@ -135,6 +136,12 @@
                                             <i class="checkmark icon"></i> Yes
                                         </div>
                                     </div>
+                                </div>
+                            </td>
+                            <td>
+                                <div class="ui button" ng-click="game.viewGamePage(x.game_id)">
+                                    <div class="visible content">VIEW</div>
+                                    <!-- <div class="hidden content"> Delete </div> -->
                                 </div>
                             </td>
 
