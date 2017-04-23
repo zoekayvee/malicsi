@@ -19,6 +19,9 @@
 					controller:'userController'
 			})
 
+			.when('/view', {
+					templateUrl: 'layouts/user-view-event.html',
+			})
 			//User Account Routers
 			.when('/user/home', {
 				templateUrl: 'layouts/user-dashboard.html'
