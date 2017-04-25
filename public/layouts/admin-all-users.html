@@ -2,17 +2,16 @@
 <link rel="stylesheet" type="text/css" href="css/admin_homepage.css"> </link>
 <link rel="stylesheets" type='text/javascript' src='js/admin.js'></link>
 
-
 <div class="ui container" id="main-wrapper">
     <div class="ui card" id="main_card">
         <div class="content">
             <div class="ui row">
                 <div class="ui horizontal center aligned segments" id="segment">
-                    <a class="ui segment" href="/#!/admin/all-users"> Users </a>
-                    <a class="ui segment" href="/#!/admin/all-events"> Events </a>
-                    <a class="ui segment" href="/#!/admin/all-games"> Games </a>
-                    <a class="ui segment" href="/#!/admin/all-sports"> Sports </a>
-                    <a class="ui segment" href="/#!/admin/all-sponsors"> Sponsors </a>
+                    <a class="ui segment" href="/#!/admin/users"> Users </a>
+                    <a class="ui segment" href="/#!/admin/events"> Events </a>
+                    <a class="ui segment" href="/#!/admin/games"> Games </a>
+                    <a class="ui segment" href="/#!/admin/sports"> Sports </a>
+                    <a class="ui segment" href="/#!/admin/sponsors"> Sponsors </a>
                 </div>
             </div>
             <!-- <div class="ui header">Users</div> -->
@@ -33,7 +32,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr ng-repeat = "x in admin.allUsers">
+                        <tr ng-repeat = "x in admin.allUsers | filter:q | startsFrom:currentPage*pageSize | limitTo:pageSize">
                             <td> {{x.user_id}}</td>
                             <td> {{x.username}}</td>
                             <td> {{x.firstname}}</td>
@@ -102,6 +101,7 @@
                                 <i class="user icon" ></i>
                                 Add User
                             </div>
+                            
                             <div class="ui modal" id="add-modal">
                                 <div class="header"> UPDATE USER</div>
                                 <div class="content">
@@ -157,6 +157,15 @@
 
                 </tfoot>
             </table>
+
+            <button class="ui button" ng-disabled="currentPage == 0" ng-click="currentPage=currentPage-1">
+                Previous
+            </button>
+                {{currentPage+1}}/{{numberOfPages()}}
+            <button class="ui button" ng-disabled="currentPage >= getData().length/pageSize - 1" ng-click="currentPage=currentPage+1">
+                Next
+            </button>
+
         </div>
     </div>
 </div>
