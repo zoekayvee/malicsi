@@ -50,11 +50,16 @@
 				controller:'userGameSchedController',
 				controllerAs:'UGSC'
 			})
-			.when('/events/game-schedule', {
-				templateUrl: 'layouts/user-game-sched.html',
+			.when('/events/:event_id/scoreboard/:sport_id', {
+				templateUrl: 'layouts/user-scoreboard-page.html',
 				controller:'userGameSchedController',
 				controllerAs:'UGSC'
 			})
+			// .when('/events/game-schedule', {
+			// 	templateUrl: 'layouts/user-game-sched.html',
+			// 	controller:'userGameSchedController',
+			// 	controllerAs:'UGSC'
+			// })
 
 			//Game Routers
 			.when('/game/:game_id', {

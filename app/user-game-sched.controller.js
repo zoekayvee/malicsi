@@ -22,6 +22,13 @@
 		vm.getRanking = getRanking;
 		vm.getOverallRanking = getOverallRanking;
 		vm.viewGamesLeaderboards = viewGamesLeaderboards;
+		vm.openGame = openGame;
+		vm.sport_id = null;
+		vm.sport_id_route = null;
+		vm.event_id_route = null;
+		vm.sport = $routeParams.sport_id;
+		vm.viewGamesByEventSport = viewGamesByEventSport;
+		vm.allSportGames = null;
 
 		viewSportsByEvent();
 
@@ -30,7 +37,31 @@
 				.get('/sport/event/' + $routeParams.event_id)
 				.then(function(response){
 					vm.allSports = response.data;
+					vm.sport_id_route = $routeParams.sport_id;
+					vm.event_id_route = $routeParams.event_id;
 					console.log("here" + response.data.length);
+				},
+				function(response){
+					console.log("Error retrieving data!");
+				});
+		}
+
+		function openGame(sportid) {
+			$location.path('/events/' + $routeParams.event_id + '/scoreboard/' + sportid);
+	    }
+		function viewGame(game_id){
+			$location.path('/game/' + game_id)
+		}
+
+	    function viewGamesByEventSport(){
+			var event = {
+				event_id: $routeParams.event_id
+			}
+			$http
+				.post('/leaderboard/' + $routeParams.sport_id,event)
+				.then(function(response){
+					vm.allSportGames = response.data;
+					console.log(response.data);
 				},
 				function(response){
 					console.log("Error retrieving data!");
@@ -104,12 +135,12 @@
 			});
 		}
 
-		function getRanking(sport){
+		function getRanking(){
 			var event = {
 				event_id: $routeParams.event_id
 			}
 			$http
-				.post('/ranking/' + sport.sport_id,event)
+				.post('/ranking/' + $routeParams.sport_id,event)
 				.then(function(response){
 					vm.rankList = response.data;
 					console.log('Viewing Rank Successful');

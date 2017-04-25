@@ -191,18 +191,21 @@ exports.viewScheds = (req,res) =>{
 
 // VIEWING LEADERBOARDS THROUGH 'sport_id' (TABLES (GAME, SPORT, VENUE, TEAM, TEAM_PLAYS_GAME))
 exports.viewLeaderboards = (req,res) =>{
-	var query = 'call viewLeaderBoard(?, ?)';
+	var query = 'SELECT distinct G.game_id, S.sport_name as sport_name,S.sport_id as sport_id, G.date_start,V.venue_name, A.team_name, A.team_id,  B.team_name as team_name_2, B.team_id as team_id_2, G.referee FROM team A, team B, game G, venue V, sport S, team_plays_game T1, team_plays_game T2 WHERE A.team_id IN (SELECT team_id FROM team_plays_game WHERE G.sport_id = ?) AND B.team_id IN (SELECT team_id FROM team_plays_game WHERE G.sport_id = ?) AND A.team_id > B.team_id and A.team_id = T1.team_id and B.team_id = T2.team_id and T1.game_id = T2.game_id  and G.game_id = T1.game_id and V.venue_id = G.venue_id and G.sport_id = S.sport_id and G.sport_id = ? and G.event_event_id = ? order by game_id';
 	const data = [
+		req.params.sport_id,
+		req.params.sport_id,
 		req.params.sport_id,
 		req.body.event_id
 	];
+	console.log(data);
 	var id = connection.query(
 		query,
 		data,
 		(err, rows) => {
 			if(!err){
 				console.log("Retrieving data Success");
-				res.send(rows[0]);
+				res.send(rows);
 			}
 			else{
 				console.log(err);
@@ -229,8 +232,25 @@ exports.viewThreeScoreboard = (req,res) =>{
 	})
 }
 
+exports.viewGamesByEvent = (req,res) =>{
+	var query = 'select game.game_id,sport_id,sport_name,event_event_id,date_start,winner_team_id,t.team_name as team,t2.team_name as team2,sc.team_score as score,sc2.team_score as score2 from game natural join sport,team t,team t2,game_score sc,game_score sc2 where event_event_id = ? and t.team_id in (select team_id from team_plays_game where game_id = game.game_id) and t2.team_id in (select team_id from team_plays_game where game_id =  game.game_id) and t.team_id>t2.team_id and (sc.game_id = game.game_id and sc.team_score_id = t.team_id) and (sc2.game_id = game.game_id and sc2.team_score_id = t2.team_id);';
+	
+	var id = connection.query(
+		query,
+		[req.params.event_id],
+		(err, rows) => {
+			if(!err){
+				console.log("Retrieving data Success");
+				res.send(rows);
+			}
+			else{
+				console.log(err);
+				res.send('Server Error');
+			}
+	})
+}
 exports.viewCurrentGamesByEvent = (req,res) =>{
-	var query = 'select game.game_id,sport_id,sport_name,event_event_id,date_start,winner_team_id,t.team_name as team,t2.team_name as team2,sc.team_score as score,sc2.team_score as score2 from game natural join sport,team t,team t2,game_score sc,game_score sc2 where date_start = curdate() and event_event_id = 1 and t.team_id in (select team_id from team_plays_game where game_id = game.game_id) and t2.team_id in (select team_id from team_plays_game where game_id =  game.game_id) and t.team_id>t2.team_id and (sc.game_id = game.game_id and sc.team_score_id = t.team_id) and (sc2.game_id = game.game_id and sc2.team_score_id = t2.team_id);';
+	var query = 'select game.game_id,sport_id,sport_name,event_event_id,date_start,winner_team_id,t.team_name as team,t2.team_name as team2,sc.team_score as score,sc2.team_score as score2 from game natural join sport,team t,team t2,game_score sc,game_score sc2 where date_start = curdate() and event_event_id = ? and t.team_id in (select team_id from team_plays_game where game_id = game.game_id) and t2.team_id in (select team_id from team_plays_game where game_id =  game.game_id) and t.team_id>t2.team_id and (sc.game_id = game.game_id and sc.team_score_id = t.team_id) and (sc2.game_id = game.game_id and sc2.team_score_id = t2.team_id);';
 	
 	var id = connection.query(
 		query,
@@ -248,7 +268,7 @@ exports.viewCurrentGamesByEvent = (req,res) =>{
 }
 
 exports.viewPastGamesByEvent = (req,res) =>{
-	var query = 'select game.game_id,sport_id,sport_name,event_event_id,date_start,winner_team_id,t.team_name as team,t2.team_name as team2,sc.team_score as score,sc2.team_score as score2 from game natural join sport,team t,team t2,game_score sc,game_score sc2 where date_start < curdate() and event_event_id = 1 and t.team_id in (select team_id from team_plays_game where game_id = game.game_id) and t2.team_id in (select team_id from team_plays_game where game_id =  game.game_id) and t.team_id>t2.team_id and (sc.game_id = game.game_id and sc.team_score_id = t.team_id) and (sc2.game_id = game.game_id and sc2.team_score_id = t2.team_id);';
+	var query = 'select game.game_id,sport_id,sport_name,event_event_id,date_start,winner_team_id,t.team_name as team,t2.team_name as team2,sc.team_score as score,sc2.team_score as score2 from game natural join sport,team t,team t2,game_score sc,game_score sc2 where date_start < curdate() and event_event_id = ? and t.team_id in (select team_id from team_plays_game where game_id = game.game_id) and t2.team_id in (select team_id from team_plays_game where game_id =  game.game_id) and t.team_id>t2.team_id and (sc.game_id = game.game_id and sc.team_score_id = t.team_id) and (sc2.game_id = game.game_id and sc2.team_score_id = t2.team_id);';
 	
 	var id = connection.query(
 		query,
@@ -266,7 +286,7 @@ exports.viewPastGamesByEvent = (req,res) =>{
 }
 
 exports.viewUpcomingGamesByEvent = (req,res) =>{
-	var query = 'select game.game_id,sport_id,sport_name,event_event_id,date_start,winner_team_id,t.team_name as team,t2.team_name as team2,sc.team_score as score,sc2.team_score as score2 from game natural join sport,team t,team t2,game_score sc,game_score sc2 where date_start > curdate() and event_event_id = 1 and t.team_id in (select team_id from team_plays_game where game_id = game.game_id) and t2.team_id in (select team_id from team_plays_game where game_id =  game.game_id) and t.team_id>t2.team_id and (sc.game_id = game.game_id and sc.team_score_id = t.team_id) and (sc2.game_id = game.game_id and sc2.team_score_id = t2.team_id);';
+	var query = 'select game.game_id,sport_id,sport_name,event_event_id,date_start,winner_team_id,t.team_name as team,t2.team_name as team2,sc.team_score as score,sc2.team_score as score2 from game natural join sport,team t,team t2,game_score sc,game_score sc2 where date_start > curdate() and event_event_id = ? and t.team_id in (select team_id from team_plays_game where game_id = game.game_id) and t2.team_id in (select team_id from team_plays_game where game_id =  game.game_id) and t.team_id>t2.team_id and (sc.game_id = game.game_id and sc.team_score_id = t.team_id) and (sc2.game_id = game.game_id and sc2.team_score_id = t2.team_id);';
 	
 	var id = connection.query(
 		query,
