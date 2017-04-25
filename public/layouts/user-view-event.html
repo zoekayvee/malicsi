@@ -59,116 +59,127 @@
         </div>
 
         <div class="twelve wide column" ng-controller="userEventController as UEC">
-            <button style="float:right" class="ui button" ng-click="UEC.scoreboard()" ng-show="logged.userId == event.currentUserId">VIEW SCOREBOARD</button>
-            <div class="event-section">
-                <h1>Sports</h1>
-                <div class="ui divider"></div>
 
-                <div>
-                    <table id="sports" class="ui celled table">
-                        <tbody>
-                            <tr ng-repeat="x in UEC.allSports" ng-init="a=x.sport_id">
-                                <td ng-click="showGame[$index]=!showGame[$index]">
-                                    {{x.sport_name}}
-                                    <!--   <div>
-                                        <table class="ui single line table" ng-show="showGame[$index]">
-                                            <thead>
-                                                <tr>
-                                                    <th> Game ID </th>
-                                                    <th> Date </th>
-                                                    <th> Time </th>
-                                                    <th> Venue </th>
-                                                </tr>
-                                            </thead>
-                                            <tbody ng-init="UEC.viewGamesByEvent(x)">
-                                                <tr ng-repeat="y in UEC.allGames[a-1]" ng-click="UEC.viewGame(y.game_id)">
-                                                    <td id="game"> {{y.game_id}} </td>
-                                                    <td id="date"> {{y.date_start}} </td>
-                                                    <td id="time"> {{y.time_start}} </td>
-                                                    <td id="venue"> {{y.venue_name}} </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div> -->
+            <div class="ui column grid score-section" ng-controller="gameController as game" ng-init="game.viewThreeScoreboard()">
+            <br>
+                <div class="ui card score-card" ng-repeat="x in game.gameThreeScoreboard" ng-show="game.gameThreeScoreboard!=null">
+                    <!-- <img src='images/1.jpg' class="event-icon" /> -->
 
-                                    <button style="float:right" class="ui red button" ng-click="UEC.setCurrentId(x.sport_id,'delete-modal')" ng-show="logged.userId == event.currentUserId">X</button>
+                    <div class="card-content" ng-click="game.viewGameFromScoreboard(x.game_id)">
+                        <h3>{{x.sport_name}}</h3><br>
 
-                                    <div class="ui basic modal" id="delete-modal">
-                                        <div class="ui icon header">
-                                            <i class="trash icon"></i> DELETE
-                                        </div>
-                                        <div class="actions">
-                                            <div class="ui red basic cancel inverted button" ng-click="UEC.closeModal('delete-modal')">
-                                                <i class="remove icon"></i> No
+                        <div class="ui grid align-center">
+                            <div class="team1-section">
+                                <h5>{{x.team}}</h5>
+                                <h3>{{x.score}}</h3>
+                            </div>
+                            <div class="versus">
+                                <h3>VS</h3>
+                            </div>
+                            <div class="team2-section">
+                                <h5>{{x.team2}}</h5>
+                                <h3>{{x.score2}}</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="ui view-all">
+                    <button style="float:right" class="ui button" ng-click="UEC.scoreboard()" ng-show="logged.userId == event.currentUserId">VIEW SCOREBOARD</button>
+                </div>
+            </div>
+
+
+            <div>
+                <div class="event-section">
+                    <h1>Sports</h1>
+                    <div class="ui divider"></div>
+
+                    <div>
+                        <table id="sports" class="ui celled table">
+                            <tbody>
+                                <tr ng-repeat="x in UEC.allSports" ng-init="a=x.sport_id">
+                                    <td ng-click="showGame[$index]=!showGame[$index]">
+                                        {{x.sport_name}}
+
+                                        <button style="float:right" class="ui red button" ng-click="UEC.setCurrentId(x.sport_id,'delete-modal')" ng-show="logged.userId == event.currentUserId">X</button>
+
+                                        <div class="ui basic modal" id="delete-modal">
+                                            <div class="ui icon header">
+                                                <i class="trash icon"></i> DELETE
                                             </div>
-                                            <div class="ui green ok inverted button" ng-click="UEC.deleteSportFromEvent();UEC.closeModal('delete-modal')">
-                                                <i class="checkmark icon"></i> Yes
+                                            <div class="actions">
+                                                <div class="ui red basic cancel inverted button" ng-click="UEC.closeModal('delete-modal')">
+                                                    <i class="remove icon"></i> No
+                                                </div>
+                                                <div class="ui green ok inverted button" ng-click="UEC.deleteSportFromEvent();UEC.closeModal('delete-modal')">
+                                                    <i class="checkmark icon"></i> Yes
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </td>
+                                    </td>
 
-                            </tr>
-                        </tbody>
-                    </table>
-                    <form class="ui" ng-show="logged.userId == event.currentUserId">
-                        <select ng-init="UEC.viewAvailableSports()" ng-model="UEC.sportId" ng-options="x.sport_name for x in UEC.allAvailableSports">
-                        </select>
-                    </form>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <form class="ui" ng-show="logged.userId == event.currentUserId">
+                            <select ng-init="UEC.viewAvailableSports()" ng-model="UEC.sportId" ng-options="x.sport_name for x in UEC.allAvailableSports">
+                            </select>
+                        </form>
 
-                    <button ng-click="UEC.attachSportToEvent()" ng-show="logged.userId == event.currentUserId">ADD SPORT</button>
+                        <button ng-click="UEC.attachSportToEvent()" ng-show="logged.userId == event.currentUserId">ADD SPORT</button>
 
+
+                        <br>
+                    </div>
+                </div>
+
+                <div class="event-section" ng-controller="teamController as team">
+                    <h1>Team</h1>
+
+                    <div class="ui form" ng-show="logged.userId == event.currentUserId">
+                        <div class="field">
+                            <label>Team name</label>
+                            <input type="text" ng-model="team.teamName" name="team_name">
+                        </div>
+                        <div ng-click="team.addTeam(event.eventId)">
+                            <button class="ui button team" ng-click="event.viewTeamPerEvent()">Submit</button>
+                        </div>
+                    </div>
 
                     <br>
-                </div>
-            </div>
+                    <!-- <div class="ui divider"></div> -->
 
-            <div class="event-section" ng-controller="teamController as team">
-                <h1>Team</h1>
+                    <div ng-init="team.viewTeamPerEvent()">
+                        <div class="ui card" ng-repeat="x in team.allTeams">
+                            {{x.team_name}}
+                            <button class="ui teal button" ng-click="team.viewTeam(x.team_id)">{{x.team_name}}</button>
+                            <button class="ui red button" ng-show="logged.userId == event.currentUserId" ng-click="team.deleteTeamFromEvent(x.team_id)">Remove</button>
+                        </div>
+                    </div>
 
-                <div class="ui form" ng-show="logged.userId == event.currentUserId">
-                    <div class="field">
-                        <label>Team name</label>
-                        <input type="text" ng-model="team.teamName" name="team_name">
-                    </div>
-                    <div ng-click="team.addTeam(event.eventId)">
-                        <button class="ui button team" ng-click="event.viewTeamPerEvent()">Submit</button>
-                    </div>
                 </div>
 
-                <br>
-                <!-- <div class="ui divider"></div> -->
-
-                <div ng-init="team.viewTeamPerEvent()">
-                    <div class="ui card" ng-repeat="x in team.allTeams">
-                        {{x.team_name}}
-                        <button class="ui teal button" ng-click="team.viewTeam(x.team_id)">{{x.team_name}}</button>
-                        <button class="ui red button" ng-show="logged.userId == event.currentUserId" ng-click="team.deleteTeamFromEvent(x.team_id)">Remove</button>
-                    </div>
-                </div>
-
-            </div>
-
-            <div class="event-section">
-                <h1>Sponsors</h1>
-                <div class="ui divider"></div>
-                <div class="ui container" ng-controller="sponsorController as sponsor">
-                    <form class="ui" ng-show="logged.userId == event.currentUserId">
-                        <select name="Sponsors" ng-init="sponsor.viewAllSponsor()">
-                            <option ng-click="sponsor.setSponsorId(undefined)">Sponsors</option>
-                            <option ng-repeat="x in sponsor.allSponsors" ng-click="sponsor.setSponsorId(x.sponsor_id)" value="x.sponsor_id" ng-model="sponsor.sponsorId" >{{x.sponsor_name}}</option>
-                        </select>
-                    </form>
-                    <button ng-click="sponsor.sponsorEvent()" ng-show="logged.userId == event.currentUserId">ADD SPONSORSHIP</button>
-                    <div ng-init="sponsor.getSponsorByEvent()">
-                        <div class="ui card" ng-repeat="x in sponsor.allEventSponsors">
-                            {{x.sponsor_name}}
-                            <button class="ui red button" ng-click="sponsor.deleteSponsorFromEvent(x.sponsor_id)" ng-show="logged.userId == event.currentUserId">Remove Sponsorhip</button>
+                <div class="event-section">
+                    <h1>Sponsors</h1>
+                    <div class="ui divider"></div>
+                    <div class="ui container" ng-controller="sponsorController as sponsor">
+                        <form class="ui" ng-show="logged.userId == event.currentUserId">
+                            <select name="Sponsors" ng-init="sponsor.viewAllSponsor()">
+                                <option ng-click="sponsor.setSponsorId(undefined)">Sponsors</option>
+                                <option ng-repeat="x in sponsor.allSponsors" ng-click="sponsor.setSponsorId(x.sponsor_id)" value="x.sponsor_id" ng-model="sponsor.sponsorId" >{{x.sponsor_name}}</option>
+                            </select>
+                        </form>
+                        <button ng-click="sponsor.sponsorEvent()" ng-show="logged.userId == event.currentUserId">ADD SPONSORSHIP</button>
+                        <div ng-init="sponsor.getSponsorByEvent()">
+                            <div class="ui card" ng-repeat="x in sponsor.allEventSponsors">
+                                {{x.sponsor_name}}
+                                <button class="ui red button" ng-click="sponsor.deleteSponsorFromEvent(x.sponsor_id)" ng-show="logged.userId == event.currentUserId">Remove Sponsorhip</button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-
         </div>
 
     </div>
