@@ -20,9 +20,7 @@ body {
 }
 
 #main-wrapper {
-    /*background: url("../images/guest.jpg");*/
     background-size: 100%;
-    /*background: rgba(0,0,0,0.5);*/
     margin-top: 65px !important;
     margin-bottom: 0 !important;
 }
