@@ -32,6 +32,9 @@ router.put      ('/user/:user_id',			userController.updateUser); //added
 router.get 		('/user/teams/:user_id',    userController.viewUserTeams); //added
 router.post  	('/user',                	adminController.addUser); //added
 router.get      ('/users/joined_events/:user_id',dashboardController.viewLatestEvent); //added for dashboard
+router.get      ('/users/player_requests/:user_id',dashboardController.getPlayerRequests); //added for dashboard
+router.put      ('/users/player_requests/approval',dashboardController.approveTeamPlayer);
+router.put      ('/users/player_requests/disapproval',dashboardController.disapproveTeamPlayer);
 
 router.get('/user/events/:user_id',         userController.viewUserEvents);
 router.get('/user/sponsored/:user_id',      userController.viewSponsoredEvents);
@@ -60,6 +63,7 @@ router.get      ('/events/:event_id', 		eventController.viewEvent);
 router.get      ('/events',   				eventController.viewAllEvent);
 router.put      ('/events',    				eventController.updateEvent);
 router.delete   ('/events/:event_id',   	eventController.deleteEvent);
+router.get 		('/events_teams',			eventController.getTeamsOfAllEvent);
 
 router.get      ('/sponsors_get_id/:sponsor_name',	sponsorController.getSponsorId)
 router.post     ('/sponsors',      sponsorController.addSponsor);
@@ -79,10 +83,12 @@ router.delete   ('/teams/:team_id', teamController.deleteTeam);
 router.post		('/teams/join',	    teamController.userJoinTeam);
 router.get      ('/teams_get_id/:team_name',			teamController.getTeamId);
 router.post		('/teams/event',	teamController.teamJoinEvent);
-router.get       ('/teams_per/:event_id', teamController.viewTeamPerEvent);
+router.get      ('/teams_per/:event_id', teamController.viewTeamPerEvent);
 router.get 		('/teams/in_game/:game_id' 		,teamController.viewTeamsInGame); 
 router.post 	('/teams_from_event',teamController.deleteTeamFromEvent);
-
+router.put 		('/teams_status',	teamController.teamStatusUpdate);
+router.put 		('/teams/player_status',	teamController.updateTeamPlayerStatus);
+router.get 		('/teams/players/:team_id',	teamController.getTeamPlayers);
 
 router.get      ('/sponsors_get_id/:sponsor_name',	sponsorController.getSponsorId)
 router.post     ('/sponsors',      sponsorController.addSponsor);
@@ -132,6 +138,9 @@ router.post('/teams/join/game',	    		teamController.teamPlayGame);
 router.get('/teams/game/:team_id',			teamController.viewAvailableTeams)
 router.post('/ranking/:sport_id', 			gameController.getRanking);
 router.get('/overallranking/:event_id', 	gameController.getOverallRanking);
+router.get('/events/:event_id/games', 	    gameController.viewGamesByEvent);
+router.get('/events/:event_id/current_games', 	    gameController.viewCurrentGamesByEvent);
+router.get('/events/:event_id/upcoming_games', 	    gameController.viewCurrentGamesByEvent);
 router.post('/bet/:user_id', 				gameController.bet);
 router.get('/bet/:user_id/:game_id', 		gameController.betStatus);
 router.get('/scores/:game_id/:team_id', 	gameController.getScores);

@@ -8,7 +8,6 @@
 		var vm = this;
 		
 		vm.interests = "";
-        vm.kiw = "DADA";
 
 		vm.user = {};
 		vm.userEvents = {};
@@ -30,7 +29,6 @@
                         .get('/users/'+response.data)
                         .then(function(response) {
                             vm.user = response.data;
-
                         });
 
                     $http
@@ -143,8 +141,7 @@
                         	console.log("Added interest");
                             window.location.reload();  //added
                         });
-				});
-			//window.location.reload();		
+				});	
 		}
 
         function deleteInterest(interest){
@@ -161,8 +158,7 @@
                         .then(function(response){
                             window.location.reload();//added
                         });
-                });
-            //window.location.reload();     
+                });    
         }
 
 

@@ -1,7 +1,6 @@
 $(document).ready(function(){
     $(this).scroll(function() {
         var scroll = $(this).scrollTop();
-        console.log(scroll);
         if (scroll > 0 ) {
             $('#page-navigation').addClass('nav-scrolled');
         }
@@ -17,21 +16,17 @@ $(document).ready(function(){
         }, 500);
     });
 
-    $("#page-navigation").show();
-    $("#page-footer").show();
-    
-    $.get('/user_loggedin', function(user_id){
- 
-         $.get('/users/joined_events/' + user_id, function(data){
-             $.get('/overallranking/' + data.event_id, function(data){
-                 console.log(data);
-                 teams = data;
-                 loadGraph(teams);
-             });
-         });
+
+
+    $.get('/overallranking/1', function(data){
+        console.log(data);
+        teams = data;
+        loadGraph(teams);
+    });
 
 });
-    
+
+
 function loadGraph(teams) {
 
 var ctx = document.getElementById("leadchart");
@@ -47,14 +42,14 @@ for(var i=0; i<teams.length; i++) {
     console.log(teams_data[i]);
 }
 
-var ctx = document.getElementById("leadchart");
+
 var myChart = new Chart(ctx, {
     type: 'bar',
     data: {
         labels: teams_label,
         datasets: [{
             label: 'Scores',
-            data: teams_data    ,
+            data: teams_data,
             backgroundColor: [
                 'rgba(222, 27, 27, 1)',
                 'rgba(233, 229, 129, 1)',
@@ -75,3 +70,5 @@ var myChart = new Chart(ctx, {
         }
     }
 });
+
+}
