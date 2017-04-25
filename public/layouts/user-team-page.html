@@ -10,20 +10,30 @@
                 <div class="content">
 
                     <div class="center aligned header">
-                         {{x.team_name}}
-
+                        <div> {{x.team_name}}</div>
+                        <div ng-hide="team.alreadyJoined">
+                         <button class="negative ui animated button" ng-click="team.userJoinTeam(x.team_id)">
+                                <div class="visible content" >Join </div>
+                                <div class="hidden content">
+                                    <i class="left sign in icon"> </i>
+                                </div>
+                            </button>
+                            </div>
+                        <div ng-show="team.alreadyJoined">
+                         <button>
+                               {{team.playerStatus}}
+                            </button>
+                            </div>
                     </div>
-                    <div class="hidden content"> <i class="sign in icon"></i>
-                    </div>
-                    </button>
-                    
+                     
                     <div class="ui centered large header"> Team Players</div>
                 
                     <div class="ui ordered middle aligned selection list">
-                  <div class="item">
+                  <div class="item"  ng-repeat="player in team.allPlayers | filter: {player_status: 'accepted'}">
                     <img class="ui avatar image" src="images/avatar.png">
-                    <div class="content">
-                      <div class="header">Gabby-chan</div>
+                    <div class="content" ng-controller = "otherUsersController as others"> 
+                            <a ng-click = "others.clicked(player.user_id)">
+                      <div class="header">{{player.username}}</div></a>
                     </div>
                   </div>
             </div>

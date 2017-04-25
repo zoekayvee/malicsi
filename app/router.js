@@ -86,7 +86,7 @@
 			.when('/admin', {
 				templateUrl: 'layouts/admin-homepage.html'
 			})
-			.when('/admin/users', { //changed, this is the route in htmls
+			.when('/admin/users', {
 				templateUrl: 'layouts/admin-all-users.html'
 			})
 			.when('/admin/events', {

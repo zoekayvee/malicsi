@@ -25,9 +25,9 @@ $(document).ready(function() {
     });
 
 
-    $("select.dropdown").dropdown();
+   /* $("select.dropdown").dropdown();
     $("#page-navigation").hide();
-    $("#page-footer").hide();
+    $("#page-footer").hide();*/
 
     // $("#register-trigger").click(function(){
     //     $("#login-div").slideUp("fast");

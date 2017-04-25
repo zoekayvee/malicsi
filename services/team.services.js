@@ -236,10 +236,57 @@ exports.teamPlayGame = (req, res, next) => {
 
 
 exports.userJoinTeam = (req,res, next) => {
-	var query = 'insert into team_players(team_id,user_id) values (?,?)';
+	var query = 'insert into team_players(team_id,user_id,player_status) values (?,?,?)';
 	const data = [
 		req.body.team_id,
+		req.body.user_id,
+		'pending'
+		];
+
+		var id = connection.query(
+			query,
+			data,
+			(err,row,fields) => {
+				if(!err){
+					console.log(row);
+					res.status(200).send(row);
+					return row
+				}
+				else{
+					console.log(err);
+					res.status(500).send('server error');
+				}
+			})
+}
+
+exports.updateTeamPlayerStatus = (req,res, next) => {
+	var query = 'UPDATE team_players SET player_status=? where team_id=? and user_id=?';
+	const data = [
+		req.body.status,
+		req.body.team_id,
 		req.body.user_id
+		];
+
+		var id = connection.query(
+			query,
+			data,
+			(err,row,fields) => {
+				if(!err){
+					console.log(row);
+					res.status(200).send(row);
+					return row
+				}
+				else{
+					console.log(err);
+					res.status(500).send('server error');
+				}
+			})
+}
+
+exports.getTeamPlayers = (req,res, next) => {
+	var query = 'select * from (select * from team_players natural join team)a natural join users where a.team_id=?';
+	const data = [
+		req.params.team_id
 		];
 
 		var id = connection.query(
@@ -302,7 +349,27 @@ exports.viewTeamPerEvent = (req,res,next) => {
 				res.status(500).send('Server error');
 			}
 	});
+}
 
-
-
+exports.teamStatusUpdate = (req, res, next) => {
+	var query = 'call teamStatusUpdate(?,?,?)';
+	const data = [
+		req.body.team_id,
+		req.body.event_id,
+		req.body.status
+	];
+	console.log(data);
+	var id = connection.query(
+		query,
+		data,
+		(err, row, fields) => {
+			if(!err){
+				console.log("Update Team Status Success");
+				res.status(200).send(row);
+			}
+			else{
+				console.log(err);
+				res.status(500).send('Server error');
+			}
+	});
 }
