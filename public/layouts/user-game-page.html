@@ -85,18 +85,19 @@
                     </div>
                     <br>
                     <div class="ui button" id="cancel" ng-click = "team.closeModal('add-modal')">Cancel</div>
-                    <div class="ui button" ng-click="team.teamPlayGame(game.game.game_id,game.game.team_id);team.team2PlayGame(game.game.game_id,game.game.team_id_2);game.viewGame()">Add</div>
+                    <div class="ui button" ng-click="team.teamPlayGame(game.game.game_id,game.game.team_id);team.team2PlayGame(game.game.game_id,game.game.team_id_2);game.viewGame()" ng-if="team.teamId != team.teamId2">Add</div>
                 </div>
             </div>
         </div>
-            <!-- <div ng-if="game.winnerTeamId == 0">
-                WINNER
-            </div> -->
         <button class="ui button" style="float:right" ng-click="game.setWinner()">FINALIZE GAME</button>
         <div class="ui modal" style="margin:-10%;width:20%" id="tie-modal">
             <div class="content ">
-                <center>
+                <center ng-if="game.score == game.score2">
                     GAME IS TIED!<br><br>
+                    <div class="ui button" id="cancel" ng-click = "team.closeModal('tie-modal')">OK</div>
+                </center>
+                <center ng-if="game.score != game.score2">
+                    UPDATED GAME WINNER!<br><br>
                     <div class="ui button" id="cancel" ng-click = "team.closeModal('tie-modal')">OK</div>
                 </center>
             </div>
@@ -137,7 +138,7 @@
                             <i class="star icon"></i>
                             {{game.game.bet_count}} Bets
                         </a>
-                        <button ng-click="game.bet(game.game.game_id,game.game.team_id);game.userCanbet=false;game.viewGame()" ng-show="game.userCanbet">PLACE BET</button>
+                        <button class="ui button" ng-click="game.bet(game.game.game_id,game.game.team_id);game.userCanbet=false;game.viewGame()" ng-show="game.userCanbet">PLACE BET</button>
 
                     </div>
                 </div>
@@ -172,7 +173,7 @@
                             <i class="star icon"></i>
                             {{game.game.bet_count_2}} Bets
                         </a>
-                        <button ng-click="game.bet(game.game.game_id,game.game.team_id_2);game.userCanbet=false;game.viewGame()" ng-show="game.userCanbet">PLACE BET</button>
+                        <button class="ui button" ng-click="game.bet(game.game.game_id,game.game.team_id_2);game.userCanbet=false;game.viewGame()" ng-show="game.userCanbet">PLACE BET</button>
                     </div>
                 </div>
             </div>

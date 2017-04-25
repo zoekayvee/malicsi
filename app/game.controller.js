@@ -281,8 +281,8 @@
 			if(vm.score == vm.score2){
 				winnerToBeAdded.winner_team_id = 0;
 				vm.winnerTeamId = 0;
-				openModal("tie-modal");
 			}
+			openModal("tie-modal");
 
 			$http
 				.post('/winner',winnerToBeAdded)
