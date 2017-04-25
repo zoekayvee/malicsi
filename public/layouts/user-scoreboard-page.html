@@ -6,14 +6,17 @@
     <div class="ui card" id="main_card">
     <div class="content">
         <div class="ui row">
-            <div class="ui top attached tabular menu">
-                <div class="active item"> Basketball </div>
-                <div class="item"> Volleyball </div>
-                <div class="item"> Badminton </div>
+            <div class="ui tabular menu">
+                <script type="text/javascript">
+                    $('.tabular.menu .item').tab();
+                </script>
+                <div class="active item" data-tab="basketball"> Basketball </div>
+                <div class="item" data-tab="volleyball"> Volleyball </div>
+                <div class="item" data-tab="badminton"> Badminton </div>
             </div>
-            <div class="ui bottom attached active tab segment"> No scores </div>
-            <div class="ui bottom attached tab segment"> No scoress </div>
-            <div class="ui bottom attached tab segment"> No scoresss </div>
+            <div class="ui active tab" data-tab="basketball"> No scores </div>
+            <div class="ui tab" data-tab="volleyball"> No scoress </div>
+            <div class="ui tab" data-tab="badminton"> No scoresss </div>
         </div>
 
         <div class="ui row">
