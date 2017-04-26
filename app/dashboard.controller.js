@@ -15,6 +15,7 @@
 		vm.teamGames = [];
     vm.sportsFromEvent = [];
 		vm.upcomingGames = [];
+    vm.eventsByInterest = [];
 
         $http   
              .get('/user_loggedin') 
@@ -42,6 +43,13 @@
                                           .get('/events/' + vm.recentEvent.event_id + '/upcomingGames') 
                                           .then(function(response) {
                                               vm.upcomingGames = response.data;
+                                              console.log(response.data);
+                                          }); 
+
+                                        $http   
+                                          .get('/eventsByInterest/' + vm.user.user_id) 
+                                          .then(function(response) {
+                                              vm.eventsByInterest = response.data;
                                               console.log(response.data);
                                           }); 
                                     });
