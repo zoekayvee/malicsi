@@ -12,7 +12,7 @@ const venueController = require('../services/venue.service');
 
 // const dashboardController =require('../services/dashboard.service');
 const dashboardController =require('../services/dashboard.service');
-
+const guestController = require('../services/guest.service');
 
 
 var path = require('path');
@@ -45,9 +45,10 @@ router.delete('/users/:user_id',       adminController.removeUser);
 
 /*-------------------------DASHBOARD------------------------*/
 router.get('/viewTeamPlayGame', 			dashboardController.viewTeamPlayGame);
-router.get('/viewCurrentGames', 			    dashboardController.viewCurrentGame);
+router.get('/viewCurrentGames', 			dashboardController.viewCurrentGame);
 router.get('/viewUpcomingGame', 			dashboardController.viewUpcomingGame);
 router.get('/eventsByInterest/:user_id', 			dashboardController.viewEventUsingInterest);
+router.get('/viewGames',					guestController.viewGames);
 /*----------------------------------------------------------*/
 router.post		('/login',                       userController.login);
 router.get 		('/logout',                 userController.logout);
@@ -147,7 +148,6 @@ router.post('/leaderboard/:sport_id', 		gameController.viewLeaderboards);
 router.get('/leaderboard/:sport_id', 		gameController.viewLeaderboards);
 router.get('/venues', 						venueController.viewAllVenues);
 router.get('/game/score/:event_id',			gameController.viewThreeScoreboard);
-router.get('game')
 
 router.get('/user_loggedin', (req, res) => {
 	if (req.session)

@@ -23,7 +23,7 @@ exports.login=(req,res)=>{
 		if(!err){
 	        if(!rows.length) {
 				console.log('Wrong username or password...');
-	            res.status(404).send({message: 'Wrong username'});
+	            res.status(404).send({message: 'Wrong username or password'});
 	        }else if (req.session.usertype != undefined && req.session.userid != undefined && req.session.userid != rows[0].user_id){
 	        	console.log('Login session is not yet finished...');
 	            return res.status(404).send({message: 'Login session is not yet finished.'});
