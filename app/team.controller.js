@@ -4,7 +4,7 @@
 		.module('malicsi')
 		.controller('teamController', teamController);
 
-	function teamController($http,$location,$routeParams){
+	function teamController($http,$location,$routeParams,$window,$route){
 		var vm = this;
 
 		vm.userId = "";
@@ -231,7 +231,8 @@
 	    		.delete('/teams/'+id)
 	    		.then(function(response){
 	    			console.log('Team deleted')
-	    			$location.path('/events');
+	    			/*$location.path('/events');*/
+	    			 $window.history.back(); 
 	    			viewTeamPerEvent();
 	    		}, function(response){
 	    			console.log("error");
@@ -270,6 +271,7 @@
 		        .then(function(response){
 		            console.log('event updated');
 		            viewClickedTeam();
+		            $route.reload();
 
 		        },
 		        function(response){
