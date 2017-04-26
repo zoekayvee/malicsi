@@ -23,7 +23,7 @@
     <script type='text/javascript' src="chart.js/samples/utils.js"></script>
 </head>
 
-<body ng-controller="userController as user">
+<body ng-controller="loggedUserController as logged">
     <div id="overlay"></div>
 
     <!-- NAVIGATION SECTION -->
@@ -32,15 +32,16 @@
             <a href="/#!/" class="header item">
                 <img class="logo" src="images/malicsi.png"> &nbsp;&nbsp;MALICSI
             </a>
+
             <a href="/#!/user/home" class="item">Home</a>
             <a href="/#!/events" class="item">Events</a>
 
-            <div class="alight right ui simple dropdown item">
+            <div class="alight right ui simple dropdown item" ng-controller="userController as user">
                 {{user.user.firstname + " " + user.user.lastname}} <i class="dropdown icon"></i>
                 <div class="menu">
                     <a class="item" href="#!/user/profile">Profile</a>
                     <a class="item" href="/#!/user/activity-log">Activity Log</a>
-                    <a class="item" href="#" ng-click="user.logOut()">Logout</a>
+                    <a class="item" href="#!/" ng-click="user.logOut()">Logout</a>
                 </div>
             </div>
         </div>
@@ -73,4 +74,5 @@
 <script src="sport.controller.js"></script>
 <script src="venue.controller.js"></script>
 <script src="other-users.controller.js"></script> <!-- added -->
+<script src="guest.controller.js"></script>
 </html>

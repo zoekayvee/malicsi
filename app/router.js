@@ -41,7 +41,7 @@
 				controllerAs: 'event'
 			})
 			.when('/events/:event_id',{
-				templateUrl:'layouts/user-view-event.html',
+				templateUrl:'layouts/user-view-event-ui.html',
 				controller: 'eventController',
 				controllerAs: 'event'
 			})
@@ -103,8 +103,8 @@
 			})
 
 			//Catch Case
-			.otherwise({
-				templateUrl: 'layouts/error-404.html'
-			})
+			// .otherwise({
+			// 	templateUrl: 'layouts/error-404.html'
+			// })
 	}
 })();

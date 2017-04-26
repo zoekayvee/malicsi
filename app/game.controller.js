@@ -54,6 +54,13 @@
         vm.gameThreeScoreboard = [];
         vm.viewGameFromScoreboard = viewGameFromScoreboard;
         vm.viewGamePage = viewGamePage;
+        vm.currentGamesTeam = null;
+        vm.viewCurrentGamesByTeam = viewCurrentGamesByTeam;
+        vm.interval = 0;
+        vm.incrementInterval = incrementInterval;
+        vm.decrementInterval = decrementInterval;
+        vm.date = null;
+        vm.getDate = getDate;
 
 		viewAllGames();
 
@@ -122,10 +129,48 @@
 			});
 		}
 
+		function viewCurrentGamesByTeam(){
+			var data ={
+				interval: vm.interval
+			}
+			$http
+				.post('/game/team/' + $routeParams.team_id,data)
+				.then(function(response){
+					vm.currentGamesTeam = response.data;
+					// vm.date = response.data[0].date_start;
+					console.log('Viewing Current Games per Team Successful');
+			},
+			function(response){
+				console.log('Error Viewing Scoreboard');
+			});
+		}
+
+		function getDate(){
+			$http
+				.get('/game/date/' + vm.interval)
+				.then(function(response){
+					vm.date = response.data[0].date;
+			},
+			function(response){
+				console.log('Error Viewing Date');
+			});
+		}
+
+		function incrementInterval(){
+			vm.interval = vm.interval + 1;
+			vm.date = vm.date + 1;
+			viewCurrentGamesByTeam();
+		}
+
+		function decrementInterval(){
+			vm.interval = vm.interval - 1;
+			vm.date = vm.date - 1;
+			viewCurrentGamesByTeam();
+		}
+
 		function viewGameFromScoreboard(game_id){
 			$location.path('/game/' + game_id)
 		}
-
 
 		function canBet(){
 			$http
@@ -281,8 +326,8 @@
 			if(vm.score == vm.score2){
 				winnerToBeAdded.winner_team_id = 0;
 				vm.winnerTeamId = 0;
-				openModal("tie-modal");
 			}
+			openModal("tie-modal");
 
 			$http
 				.post('/winner',winnerToBeAdded)
