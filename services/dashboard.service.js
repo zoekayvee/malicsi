@@ -58,7 +58,7 @@ exports.viewLatestEvent = (req,res) => {
 }
 
 exports.getPlayerRequests = (req, res, next) => {
-	var query = ' select * from (select * from (select * from (select * from (select event_id,event_name from event,users where users.user_id=1 and event.user_id=?)a NATURAL JOIN team_joins_event where status="accepted")b natural join team_players)c NATURAL JOIN users)c NATURAL JOIN team';
+	var query = 'select * from (select * from (select * from (select * from ( select event_id,event_name,date_start,date_end from users NATURAL JOIN event where event.status="accepted" and users.user_id=?)a natural join team_joins_event)b NATURAL JOIN team)c NATURAL JOIN team_players)d NATURAL JOIN users';
 	const data = [
 		req.params.user_id
 	];

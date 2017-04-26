@@ -138,7 +138,7 @@
 					toastr.success('Successfully sent account approval to admin!');
 				},
 				function(response){
-					toastr.error('Error in input!');
+					//toastr.error('Error in input!');
 					console.log('Error');
 					setTimeout(function(){
 						redirectLocation('no');

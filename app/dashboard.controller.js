@@ -54,6 +54,7 @@
                                    .get('/users/player_requests/'+vm.user.user_id)
                                    .then(function(response) {
                                       vm.playerReq = response.data;
+                                      console.log(response.data)
                                       if(vm.playerReq.length > 0){
                                         vm.hasEvent=true;
                                       }
