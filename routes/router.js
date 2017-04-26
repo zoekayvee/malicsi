@@ -84,7 +84,7 @@ router.post		('/teams/join',	    teamController.userJoinTeam);
 router.get      ('/teams_get_id/:team_name',			teamController.getTeamId);
 router.post		('/teams/event',	teamController.teamJoinEvent);
 router.get      ('/teams_per/:event_id', teamController.viewTeamPerEvent);
-router.get 		('/teams/in_game/:game_id' 		,teamController.viewTeamsInGame); 
+router.get 		('/teams/in_game/:game_id' 		,teamController.viewTeamsInGame);
 router.post 	('/teams_from_event',teamController.deleteTeamFromEvent);
 router.put 		('/teams_status',	teamController.teamStatusUpdate);
 router.put 		('/teams/player_status',	teamController.updateTeamPlayerStatus);

@@ -46,3 +46,7 @@ label{
     top: 20px;
     left: 20px;
 }
+
+#page-navigation {
+    display: none !important;
+}
