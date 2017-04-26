@@ -33,7 +33,7 @@ $('#end-date-pick').calendar();
         		<button class="ui circular edit icon button" ng-click="event.updateEvent()">
 	        		<i class="edit icon"></i>
 	        	</button>
-	        	<button class="ui red circular trash icon button" id="button-delete" ng-click ="event.openModal('delete-modal')">
+	        	<button class="ui red circular trash icon button" id="button-delete" ng-click ="event.openModal('delete-event-modal')">
 	        		<i class="trash icon"></i>
 	        	</button>
 	        		
@@ -41,7 +41,7 @@ $('#end-date-pick').calendar();
         	<button class="fluid positive ui button">JOIN</button>
 
             <!-- MODAL FOR DELETE EVENT -->
-            <div class="ui basic modal" id="delete-modal">
+            <div class="ui basic modal" id="delete-event-modal">
                     <div class="ui icon header">
                           <i class="trash icon"></i> DELETE
                     </div>
@@ -49,7 +49,7 @@ $('#end-date-pick').calendar();
                         <div class="ui red basic cancel inverted button" ng-click="UEC.closeModal('delete-modal')">
                          <i class="remove icon"></i> No
                         </div>
-                        <div class="ui green ok inverted button" ng-click="event.deleteEvent(x.event_id);UEC.closeModal('delete-modal')">
+                        <div class="ui green ok inverted button" ng-click="event.deleteEvent(x.event_id); UEC.closeModal('delete-modal')">
                         <i class="checkmark icon"></i> Yes
                         </div>
                     </div>
