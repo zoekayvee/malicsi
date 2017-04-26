@@ -25,7 +25,7 @@
                        .get('/users/'+response.data)
                        .then(function(response) {
                            vm.user = response.data;
-                           if(vm.user.user_type==='normal'){
+                           if(vm.user.user_type==='normal' || vm.user.user_type==='admin'){
                               $http
                                    .get('/users/joined_events/'+vm.user.user_id)
                                    .then(function(response) {
