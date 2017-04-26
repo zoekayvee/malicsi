@@ -7,6 +7,9 @@
 #forbut1 {
 	margin-left: 55%;
 }
+#card1 {
+	width: 25%;
+}
 #seg {
 	width: 24%;
 	margin-left: 2%;
@@ -22,23 +25,37 @@
 }
 #card1 {
 	margin-top: 0px;
+	margin-left: -4%;
 }
 #card2 {
-	width: 40%;
-	/*margin-top: 0px;*/
+	width: 65%;
+	margin-right: 0%;
+	margin-top: 0px;
+	padding: 15px;
 	
 
 }
+p {
+	font-size: 36px;
+}
+.ui.grid {
+	margin-left: 10%;
+
+}
+
+.ui.cards {
+	margin-bottom: -10%;
+	height: 100%;
+	margin-left: 5%;
+}
+
 .action.input{
 	width: 100%;
 }
 #mgtop {
 	margin-top: 40px;
 }
-#searchbut, .animated.button, .ui.button  {
-	background-color: #6a8e9e;
-	color: white;
-}
+
 th {
 	background-color: #6a8e9e;
 	color: white;

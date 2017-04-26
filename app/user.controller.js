@@ -8,7 +8,7 @@
 		var vm = this;
 		vm.username="";
 		vm.password="";
-
+		vm.hasUser=null;
 		vm.user_type="";
 		vm.loginUser=loginUser;
         vm.user = {};
@@ -25,7 +25,7 @@
 		vm.closeModal= closeModal;
 
         vm.currentUser = {};
-        
+        vm.userDash="";
 
 		//FOR DASHBOARD
 		vm.teamGames = [];
@@ -33,7 +33,23 @@
 		vm.upcomingGames = [];
 		
 
+		$http   
+            .get('/user_loggedin') 
+            .then(function(response) {
+            	if (response.data){
+            		vm.hasUser=true;
+            		$http
+                        .get('/users/'+response.data)
+                        .then(function(response) {
+                            vm.user = response.data;
+                        });
+            	}
+            	else{
+            		vm.hasUser=false;
+            	}
+            });
 
+        
         function setToastr(){
 		    toastr.options.positionClass = "toast-bottom-right";
 		    toastr.options.closeButton = true;
@@ -97,14 +113,14 @@
 					console.log(redirect);
 					vm.user = response.data
 					toastr.success(response.data.message); //added
+					vm.userDash=redirect;
 					setTimeout(function(){
 						redirectLocation(redirect);
 					}, 500);
 				}, function (response){	
 					toastr.error(response.data.message);
-					console.log('Error');
 					setTimeout(function(){
-						redirectLocation('no');
+						redirectLocation(response.data.redirect);
 					}, 500);
 				});
 		}
@@ -122,7 +138,7 @@
 					toastr.success('Successfully sent account approval to admin!');
 				},
 				function(response){
-					toastr.error('Error in input!');
+					//toastr.error('Error in input!');
 					console.log('Error');
 					setTimeout(function(){
 						redirectLocation('no');
@@ -136,6 +152,7 @@
 	     				var redirect = response.data.redirect;
 	     				toastr.success('Logged out.');
 	     				window.location.href=redirect;
+	     				vm.hasUser=false;
 	     			});
 	     }
 

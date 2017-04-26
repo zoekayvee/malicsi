@@ -19,15 +19,42 @@ $(document).ready(function() {
                     }
                 ]
             },
+            firstname: {
+              identifier  : 'firstname',
+              rules: [
+                {
+                  type   : 'empty',
+                  prompt : 'Please enter your firstname'
+                }
+              ]
+            },
+      lastname: {
+              identifier  : 'lastname',
+              rules: [
+                {
+                  type   : 'empty',
+                  prompt : 'Please enter your lastname'
+                }
+              ]
+            },
+      usertype: {
+              identifier  : 'usertype',
+              rules: [
+                {
+                  type   : 'empty',
+                  prompt : 'Please select your usertype'
+                }
+              ]
+            },
         },
         inline : true,
         on     : "blur"
     });
 
 
-    $("select.dropdown").dropdown();
+   /* $("select.dropdown").dropdown();
     $("#page-navigation").hide();
-    $("#page-footer").hide();
+    $("#page-footer").hide();*/
 
     // $("#register-trigger").click(function(){
     //     $("#login-div").slideUp("fast");

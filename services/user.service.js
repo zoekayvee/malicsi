@@ -22,8 +22,7 @@ exports.login=(req,res)=>{
 	function next_auth(err, rows){
 		if(!err){
 	        if(!rows.length) {
-				console.log('Wrong username or password...');
-	            res.status(404).send({message: 'Wrong username'});
+	            res.status(404).send({message: 'Wrong username or password', redirect:'/#!/login'});
 	        }else if (req.session.usertype != undefined && req.session.userid != undefined && req.session.userid != rows[0].user_id){
 	        	console.log('Login session is not yet finished...');
 	            return res.status(404).send({message: 'Login session is not yet finished.'});
@@ -67,7 +66,7 @@ exports.login=(req,res)=>{
 		   			
 		   		}
 		   		else{
-		   			res.status(404).send({message: 'Wrong username or password.'}); 
+		   			res.status(404).send({message: 'Wrong username or password.', redirect: '/#!/login'}); 
 		   		}
 	        }    
 		}
@@ -287,7 +286,7 @@ exports.viewCompetitor=(req, res)=>{
 }
 
 exports.viewUserTeams = (req,res) => {
-	const query_string =  "SELECT DISTINCT * from team natural join (select team_id from team_players where user_id= ? )a";
+	const query_string =  "SELECT DISTINCT * from team natural join (select team_id from team_players where user_id= ? and player_status='accepted')a";
 	const req_data = [req.params.user_id]
 
 	connection.query(query_string, req_data, (err,result)=>{

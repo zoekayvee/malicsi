@@ -34,9 +34,11 @@
                 </div>
             </div>
         </div>
-        <div class="ui animated button add-trigger" style="float:right"  ng-click = "team.setCurrentId(1,'add-modal')">
+        <div ng-controller="guestController as admin">
+        <div ng-show="admin.isAdmin" class="ui animated button add-trigger" style="float:right"  ng-click = "team.setCurrentId(1,'add-modal')">
             <div class="visible content"><i class="add icon"> </i></div>
             <div class="hidden content"> Team </div>
+        </div>
         </div>
     </div>
 
@@ -58,9 +60,11 @@
             </div>
         </div>
     </div>
-    <div class="ui animated button add-trigger" style="float:right" ng-click = "game.setCurrentId(1,'addscore-modal')">
+    <div ng-controller="guestController as admin">
+    <div ng-show="admin.isAdmin" class="ui animated button add-trigger" style="float:right" ng-click = "game.setCurrentId(1,'addscore-modal')">
         <div class="visible content"><i class="add icon"> </i></div>
         <div class="hidden content"> Score </div>
+    </div>
     </div>
 
 
@@ -72,24 +76,37 @@
                     <div class="field">
                         <label>Team 1</label>
                         <form  class="ui">
-                            <select ng-init="team.viewAllTeam()" ng-model="team.teamId" ng-options="x.team_name for x in team.allTeams">
+                            <select ng-init="team.viewTeamInGame()" ng-model="team.teamId" ng-options="x.team_name for x in team.allTeams">
                             </select>
                         </form>
                     </div>
                     <div class="field">
                         <label>Team 2</label>
                         <form  class="ui">
-                            <select ng-init="team.viewAllTeam()" ng-model="team.teamId2" ng-options="x.team_name for x in team.allTeams">
+                            <select ng-init="team.viewTeamInGame()" ng-model="team.teamId2" ng-options="x.team_name for x in team.allTeams">
                             </select>
                         </form>
                     </div>
                     <br>
                     <div class="ui button" id="cancel" ng-click = "team.closeModal('add-modal')">Cancel</div>
-                    <div class="ui button" ng-click="team.teamPlayGame(game.game.game_id,game.game.team_id);team.team2PlayGame(game.game.game_id,game.game.team_id_2);game.viewGame()">Add</div>
+                    <div class="ui button" ng-click="team.teamPlayGame(game.game.game_id,game.game.team_id);team.team2PlayGame(game.game.game_id,game.game.team_id_2);game.viewGame()" ng-if="team.teamId != team.teamId2">Add</div>
                 </div>
             </div>
         </div>
-        <button class="ui button" style="float:right" ng-click="game.setWinner()">FINALIZE GAME</button>
+        <div ng-controller="guestController as admin">
+        <button ng-show="admin.isAdmin" class="ui button" style="float:right" ng-click="game.setWinner()">FINALIZE GAME</button>
+        </div>
+        <div class="ui modal" style="margin:-10%;width:20%" id="tie-modal">
+            <div class="content ">
+                <center ng-if="game.score == game.score2">
+                    GAME IS TIED!<br><br>
+                    <div class="ui button" id="cancel" ng-click = "team.closeModal('tie-modal')">OK</div>
+                </center>
+                <center ng-if="game.score != game.score2">
+                    UPDATED GAME WINNER!<br><br>
+                    <div class="ui button" id="cancel" ng-click = "team.closeModal('tie-modal')">OK</div>
+                </center>
+            </div>        
     </div>
 
 
@@ -121,13 +138,12 @@
                             </div>
                         </div>
                     </div>
-                    <div class="six wide column">
+                    <div class="six wide column" ng-controller="guestController as logged">
                         <a>
                             <i class="star icon"></i>
                             {{game.game.bet_count}} Bets
                         </a>
-                        <button ng-click="game.bet(game.game.game_id,game.game.team_id);game.userCanbet=false;game.viewGame()" ng-show="game.userCanbet">PLACE BET</button>
-
+                        <button ng-show="logged.hasUser" ng-click="game.bet(game.game.game_id,game.game.team_id);game.userCanbet=false;game.viewGame()" ng-show="game.userCanbet">PLACE BET</button>
                     </div>
                 </div>
             </div>
@@ -156,12 +172,13 @@
                             </div>
                         </div>
                     </div>
-                    <div class="six wide column">
+                    <div class="six wide column" ng-controller="guestController as logged">
                         <a>
                             <i class="star icon"></i>
                             {{game.game.bet_count_2}} Bets
                         </a>
-                        <button ng-click="game.bet(game.game.game_id,game.game.team_id_2);game.userCanbet=false;game.viewGame()" ng-show="game.userCanbet">PLACE BET</button>
+
+                        <button ng-show="logged.hasUser" ng-click="game.bet(game.game.game_id,game.game.team_id_2);game.userCanbet=false;game.viewGame()" ng-show="game.userCanbet">PLACE BET</button>
                     </div>
                 </div>
             </div>

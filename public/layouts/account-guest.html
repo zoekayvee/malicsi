@@ -1,19 +1,18 @@
-<!-- <link rel='stylesheet prefetch' href='css/components/icon.min.css'> -->
-<!-- <link rel='stylesheet' href='css/landing-page.css' /> -->
-<!-- <script type='text/javascript' src='js/landin-page.js'></script> -->
+<link rel='stylesheet prefetch' href='css/components/icon.min.css' />
+<link rel='stylesheet' href='css/account-guest.css' /> 
 
-<div id="main-wrapper">
-    <!-- NAVIGATION SECTION -->
-    <div class="ui fixed inverted menu" id="page-navigation">
-        <div class="ui container">
-            <a href="#" class="header item">
-                <img class="logo" src="images/icon.ico"> &nbsp;&nbsp;MALICSI
-            </a>
+<script type='text/javascript' src='js/account-guest.js'></script>
+<!-- NAVIGATION SECTION -->
+<div class="ui fixed inverted menu" id="page-navigation-2">
+    <div class="ui container">
+        <a href="#" class="header item">
+            <img id="logo" src="images/malicsi-text.png">
+        </a>
 
             <div class="right menu" ng-controller="userController as login">
                 <form class="ui mini form">
                     <div class="item">
-                        <div class="fields">
+                        <div class="fields" ng-hide="login.hasUser">
                             <div class="field">
                                 <div class="ui left icon input">
                                     <i class="user icon"></i>
@@ -26,136 +25,47 @@
                                     <input type="password" name="password" placeholder="password" ng-model="login.password">
                                 </div>
                             </div>
-                            <div class="field">
-                                <div class="ui mini submit button" id="loginbutton" ng-click="login.loginUser()" href="/#/login">Login</div>
-                            </div>
-                            <a href="/#!/register">register here</a>
                         </div>
+                        <div class="alight right ui simple dropdown item" ng-show="login.hasUser">
+                            {{login.user.firstname + " " + login.user.lastname}} <i class="dropdown icon"></i>
+                            <div class="menu">
+                                <a class="item" href="#!/user/profile">Profile</a>
+                                <a class="item" href="/#!/user/activity-log">Activity Log</a>
+                                <a class="item" href="#" ng-click="user.logOut()">Logout</a>
+                            </div>
+                        </div>
+                        <div class="field" ng-hide="login.hasUser">
+                            <div class="ui submit button" id="login-button" ng-click="login.loginUser()">Login</div>
+                        </div>
+                        <a href="/#!/register"><div class="ui button" ng-hide="login.hasUser">Register</div></a>
                     </div>
 
-                </form>
+                    <div ng-show="login.hasUser" class="alight right ui simple dropdown item">
+                    {{user.user.firstname + " " + user.user.lastname}} <i class="dropdown icon"></i>
+                    <div class="menu" ng-controller="userController as user">
+                        <a class="item" href="#!/user/profile">Profile</a>
+                        <a class="item" href="/#!/user/activity-log">Activity Log</a>
+                        <a class="item" href="#" ng-click="user.logOut()">Logout</a>
+                    </div>
             </div>
-        </div>
-    </div>
 
-
-    <!-- CONTENT SECTION -->
-    <!-- <div class="ui main" id="main-panel">
-        <div class="ui container">
-
-            <div ng-view>
-                <div class="pusher">
-                    <div class="ui vertical stripe segment">
-                        <div class="ui middle aligned stackable grid container">
-                            <div class="row">
-                                <div class="eleven wide left floated column">
-                                    <div class="slideshow-container">
-
-                                        <div class="mySlides fade"> <img src="images/4.jpg" style="width:100%"> </div>
-                                        <div class="mySlides fade"> <img src="images/2.jpg" style="width:100%"> </div>
-                                        <div class="mySlides fade"> <img src="images/3.jpg" style="width:100%"> </div>
-                                        <div class="mySlides fade"> <img src="images/5.jpg" style="width:100%"> </div>
-
-                                        <div style="text-align:center">
-                                            <span class="dot"></span>
-                                            <span class="dot"></span>
-                                            <span class="dot"></span>
-                                            <span class="dot"></span>
-                                        </div>
-
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="seven wide column">
-                                        <div class="ui black floating message" id="gameSched">
-                                            <h2>Leader Board</h2>
-                                            <table class="ui inverted very basic celled table">
-                                                <thead>
-                                                    <tr>
-                                                        <th>Event</th>
-                                                        <th>Team</th>
-                                                        <th>Score</th>
-                                                    </tr>
-                                                </thead>
-
-                                                <tbody>
-                                                    <tr>
-                                                        <td>PalICSihan</td>
-                                                        <td>
-                                                            <h4 class="ui inverted image header"><img src="images/icon5.svg" class="ui mini rounded image"><div class="content">Bloo Tim</div>
-                                                            </h4>
-                                                        </td>
-                                                        <td>230pts</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>PalICSihan</td>
-                                                        <td>
-                                                            <h4 class="ui inverted image header"><img src="images/icon6.svg" class="ui mini rounded image"><div class="content">Yelow Tim</div>
-                                                            </h4>
-                                                        </td>
-                                                        <td>210pts</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>PalICSihan</td>
-                                                        <td>
-                                                            <h4 class="ui inverted image header"><img src="images/icon8.svg" class="ui mini rounded image"><div class="content">Grin Tim</div>
-                                                            </h4>
-                                                        </td>
-                                                        <td>150pts</td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-
-                                    <div class="seven wide column">
-                                        <div class="ui black floating message" id="gameSched">
-                                            <h2>Game Schedule</h2>
-                                            <table class="ui inverted very basic celled table">
-                                                <thead>
-                                                    <tr>
-                                                        <th>Game</th>
-                                                        <th>Date</th>
-                                                        <th>Time</th>
-                                                    </tr>
-                                                </thead>
-
-                                                <tbody>
-                                                    <tr>
-                                                        <td>
-                                                            <h4 class="ui inverted image header"><img src="images/icon3.svg" class="ui mini rounded image"><div class="content">Basketball</div>
-                                                            </h4>
-                                                        </td>
-                                                        <td>April 21,2017</td>
-                                                        <td> 2:00pm</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <h4 class="ui inverted image header"><img src="images/icon2.png" class="ui mini rounded image"><div class="content">Volleyball</div>
-                                                            </h4>
-                                                        </td>
-                                                        <td>April 22,2017</td>
-                                                        <td> 2:00pm</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <h4 class="ui inverted image header"><img src="images/icon4.svg" class="ui mini rounded image"><div class="content">Badminton</div>
-                                                            </h4>
-                                                        </td>
-                                                        <td>April 23,2017</td>
-                                                        <td>3:00pm</td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
-            </div>
+            </form>
         </div>
-    </div> -->
 
+    </div>
+</div>
+
+<div id="main-wrapper" ng-controller="guestController as game">
+    <div id="preview-panel" class="ui container" >
+            <div class="game-preview" ng-repeat="x in game.allGames">
+                <a ng-click="game.clicked(x.game_id)">
+                {{ x.sport_name }}
+                <br>
+                {{ x.event_name }}  <!-- turn this to link that redirects to event -->
+                <br>
+                {{ x.date_start + "  " + x.time_start }}
+                </a>
+            </div>
+    </div>
 </div>

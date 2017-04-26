@@ -4,19 +4,23 @@
 
 <div class="ui container" id="main-wrapper">
     <div class="ui card" id="main_card">
-        <div class="content">
+        <div class="content"  ng-controller="eventController as event" ng-init="event.viewAllEvent()" >
             <div class="ui row">
                 <div class="ui horizontal center aligned segments" id="segment">
-                    <a class="ui segment" href="/#!/admin/all-users"> Users </a>
-                    <a class="ui segment" href="/#!/admin/all-events"> Events </a>
-                    <a class="ui segment" href="/#!/admin/all-games"> Games </a>
-                    <a class="ui segment" href="/#!/admin/all-sports"> Sports </a>
-                    <a class="ui segment" href="/#!/admin/all-sponsors"> Sponsors </a>
+                    <a class="ui segment" href="/#!/admin/users"> Users </a>
+                    <a class="ui segment" href="/#!/admin/events"> Events </a>
+                    <a class="ui segment" href="/#!/admin/games"> Games </a>
+                    <a class="ui segment" href="/#!/admin/sports"> Sports </a>
+                    <a class="ui segment" href="/#!/admin/sponsors"> Sponsors </a>
                 </div>
             </div>
             <div class="ui row" ng-controller="gameController as game">
-                <table class="ui center aligned table">
-                    <thead>
+                <table class="ui center aligned table" ng-repeat="y in event.allEvents">
+                     
+                     <thead>
+                        <tr>
+                            <th><h1>{{y.event_name}}</h1></th>
+                        </tr>
                         <tr>
                             <th>Game ID</th>
                             <th>Sport ID</th>
@@ -31,7 +35,8 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr ng-repeat="x in game.allGames">
+
+                        <tr ng-repeat="x in game.allGames" ng-if="y.event_id==x.event_event_id">
                             <td> {{x.game_id}} </td>
                             <td> {{x.sport_id}} </td>
                             <td> {{x.venue_id}} </td>
@@ -110,7 +115,7 @@
                                             </div>
                                             <br>
                                             <div class="ui button" id="cancel" ng-click="game.closeModal('edit-modal')">Cancel</div>
-                                            <div class="ui button" ng-click="game.updateGame(game.currentId);game.closeModal('edit-modal')">Submit</div>
+                                            <div class="ui button" ng-click="game.updateGame(x.game_id);game.closeModal('edit-modal');game.viewAllGames()">Submit</div>
                                         </div>
                                     </div>
                             </td>
@@ -133,6 +138,12 @@
                                     </div>
                                 </div>
                             </td>
+                            <td>
+                                <div class="ui button" ng-click="game.viewGamePage(x.game_id)">
+                                    <div class="visible content">VIEW</div>
+                                    <!-- <div class="hidden content"> Delete </div> -->
+                                </div>
+                            </td>
 
                         </tr>
 
@@ -140,7 +151,7 @@
                     <tfoot class="full-width">
                         <tr>
                             <th colspan="100%">
-                                <div class="ui right floated small primary labeled icon button" ng-click="game.openModal('add-modal')">
+                                <div class="ui right floated small primary labeled icon button" ng-click="game.openModal('add-modal');game.setEventId(y)">
                                     <i class="add square icon"></i> Add Game
                                 </div>
                             </th>
@@ -156,8 +167,8 @@
                                 <div ng-controller="sportController as sport">
                                     <label> Sport </label>
                                     <form class="ui">
-                                        <select ng-model="game.addSportId" ng-options="x.sport_name for x in sport.allSports">
-                            </select>
+                                        <select ng-model="game.addSportId" ng-options="z.sport_name for z in sport.allSports">
+                                        </select>
                                     </form>
                                 </div>
                             </div>
@@ -165,34 +176,34 @@
                                 <div ng-controller="venueController as venue">
                                     <label> Venue </label>
                                     <form class="ui">
-                                        <select ng-model="game.addVenueId" ng-options="x.venue_name for x in venue.allVenues">
-                            </select>
+                                        <select ng-model="game.addVenueId" ng-options="z.venue_name for z in venue.allVenues">
+                                        </select>
                                     </form>
                                 </div>
                             </div>
-                            <div class="field">
+                           <!--  <div class="field">
                                 <div ng-controller="eventController as event" ng-init="event.viewAllEvent()">
                                     <label> Event </label>
                                     <form class="ui">
-                                        <select ng-model="game.addEventId" ng-options="x.event_name for x in event.allEvents">
-                            </select>
+                                        <select ng-model="game.addEventId" ng-options="z.event_name for z in event.allEvents">
+                                        </select>
                                     </form>
                                 </div>
-                            </div>
+                            </div> -->
                             <div class="_field">
                                 <label>Date Start</label>
                                 <input type="text" placeholder="Date Start" ng-model="game.addDate">
                             </div>
                             <div class="_field">
-                                <label>Time Start</label>
+                                <label><br>Time Start</label>
                                 <input type="text" placeholder="Time Start" ng-model="game.addTime">
                             </div>
                             <div class="_field">
-                                <label>Referee</label>
+                                <label><br>Referee</label>
                                 <input type="text" placeholder="Referee" ng-model="game.addReferee">
                             </div>
                             <div class="_field">
-                                <label>Duration</label>
+                                <label><br>Duration</label>
                                 <input type="text" placeholder="Duration" ng-model="game.addDuration">
                             </div>
                         </div>
@@ -207,8 +218,7 @@
                     </div>
 
                 </table>
-                </div>
-
             </div>
         </div>
     </div>
+</div>
