@@ -35,8 +35,8 @@
             </div>
         </div>
         <div class="ui animated button add-trigger" style="float:right"  ng-click = "team.setCurrentId(1,'add-modal')">
-            <div class="visible content"><i class="add icon"> </i></div>
-            <div class="hidden content"> Team </div>
+        <div class="hidden content"><i class="add icon"> </i></div>
+        <div class="visible content"> Team </div>
         </div>
     </div>
 
@@ -46,11 +46,11 @@
             <div class="ui form">
                 <div class="field">
                     <label>Team 1</label>
-                    <input value="" type="number" ng-model="game.updateScore">
+                    <input type="number" min="0" ng-model="game.updateScore">
                 </div>
                 <div class="field">
                     <label>Team 2</label>
-                    <input type="number" ng-model="game.updateScore2">
+                    <input type="number" min="0" ng-model="game.updateScore2">
                 </div>
                 <br>
                 <div class="ui button" id="cancel" ng-click = "game.viewGame();game.closeModal('addscore-modal')">Cancel</div>
@@ -59,8 +59,8 @@
         </div>
     </div>
     <div class="ui animated button add-trigger" style="float:right" ng-click = "game.setCurrentId(1,'addscore-modal')">
-        <div class="visible content"><i class="add icon"> </i></div>
-        <div class="hidden content"> Score </div>
+        <div class="hidden content"><i class="add icon"> </i></div>
+        <div class="visible content"> Score </div>
     </div>
 
 
