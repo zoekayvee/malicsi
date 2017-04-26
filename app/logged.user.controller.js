@@ -10,16 +10,6 @@ function loggedUserController($http,$location,$rootScope){
     vm.userId = 1;
 
 
-
-
-
-
-
-
-
-
-
-
 }   
 }
 )();

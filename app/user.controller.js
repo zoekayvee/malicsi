@@ -37,10 +37,10 @@
             .get('/user_loggedin') 
             .then(function(response) {
             	if (response.data){
-            		vm.hasUser="true";
+            		vm.hasUser=true;
             	}
             	else{
-            		vm.hasUser="false";
+            		vm.hasUser=false;
             	}
             });
 
