@@ -7,8 +7,13 @@ angular
 function loggedUserController($http,$location,$rootScope){
 
     var vm = this;
-    vm.userId = 1;
+    vm.userId = null;
 
+    	$http   
+            .get('/user_loggedin') 
+            .then(function(response) {
+            	vm.userId=response.data;
+            });
 
 }   
 }
