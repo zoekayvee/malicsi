@@ -108,25 +108,27 @@
                     </div>
                     <div class="ui row">
 
-                        <div id="forbut" class="ui row">
-                            <button class="negative ui animated button" tabindex="0">
+                        <div id="forbut" class="ui row" ng-controller="gameController as game">
+                            <button class="negative ui animated button" tabindex="0" ng-click="game.decrementInterval();game.getDate()">
                                 <div class="visible content">Prev </div>
                                 <div class="hidden content">
                                     <i class="left arrow icon"> </i>
                                 </div>
                             </button>
 
-                            <button class="negative ui button">
+                            <button class="negative ui button" ng-click="game.interval=0;game.viewCurrentGamesByTeam()">
                                 Today's Date
                             </button>
 
 
-                            <button class="negative ui animated button" tabindex="0">
-                                <div class="visible content">Next </div>
+                            <button class="negative ui animated button" tabindex="0" ng-click="game.incrementInterval();game.getDate()">
+                                <div class="visible content" >Next </div>
                                 <div class="hidden content">
                                     <i class="right arrow icon"> </i>
                                 </div>
                             </button>
+
+                           <h3>{{game.date}}</h3>
 
 
                             <div class="ui row" id="divtable1" style="border-color: #466675">
@@ -139,11 +141,11 @@
                                             <th>Location</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>Show the matchup team here</td>
-                                            <td>Show the time here</td>
-                                            <td>Show the location here</td>
+                                    <tbody ng-init="game.viewCurrentGamesByTeam();game.getDate()">
+                                        <tr ng-repeat="x in game.currentGamesTeam" ng-click="game.viewGamePage(x.game_id)">
+                                            <td><b>{{x.team}}   -   {{x.team2}} </td>
+                                            <td>{{x.time_start}}</td>
+                                            <td>{{x.venue_name}}</td>
 
                                         </tr>
                                     </tbody>
