@@ -74,7 +74,7 @@
                     <tfoot class="full-width">
                         <tr>
                             <th colspan="100%">
-                                <div class="ui right floated small primary labeled icon button" ng-click="sport.openModal('add-modal')">
+                                <div class="ui right floated small primary labeled icon button" ng-click="sport.openModal('addSport-modal')">
                                     <i class="add square icon"></i> Add Sports
                                 </div>
                             </th>
@@ -83,7 +83,7 @@
                     </tfoot>
                 </table>
 
-                <div class="ui basic modal" id="add-modal">
+                <div class="ui basic modal" id="addSport-modal">
                     <div class="ui icon header">
                         Add Sport
                     </div>
@@ -94,10 +94,10 @@
                         </div>
                     </div>
                     <div class="actions">
-                        <div class="ui red basic cancel inverted button" ng-click="sport.closeModal('add-modal')">
+                        <div class="ui red basic cancel inverted button" ng-click="sport.closeModal('addSport-modal')">
                             Cancel
                         </div>
-                        <div ng-click="sport.addSport()" class="ui green ok inverted button">
+                        <div ng-click="sport.addSport();sport.closeModal('addSport-modal')" class="ui green ok inverted button">
                             <i class="checkmark icon"></i> Yes
                         </div>
                     </div>
