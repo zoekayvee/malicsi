@@ -144,7 +144,7 @@ $('#end-date-pick').calendar();
                             <div class="item" ng-repeat="x in sport.allSports" ng-click="sport.setSportId(x.sport_id)" value="x.sport_id" ng-model="sport.sportId">{{x.sport_name}}</div>
                         </div>
                     </div> -->
-                    <button class="ui plus icon button" ng-click="sport.addSport()">
+                    <button class="ui plus icon button" ng-click="sport.attachSportToEvent()">
                         <i class="plus icon"></i>
                     </button>
         			<!-- List of Sports -->

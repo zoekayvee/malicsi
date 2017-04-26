@@ -38,7 +38,7 @@
         vm.setCurrentId = setCurrentId;
         vm.openModal = openModal;
         vm.closeModal = closeModal;	
-
+        vm.setTeamName = setTeamName;
         vm.playerStatus="";
         vm.alreadyJoined=null; //for the user/player
         vm.samp = null;
@@ -231,7 +231,7 @@
 	    		.delete('/teams/'+id)
 	    		.then(function(response){
 	    			console.log('Team deleted')
-	    			//$location.path('/user/team');
+	    			$location.path('/events');
 	    			viewTeamPerEvent();
 	    		}, function(response){
 	    			console.log("error");
@@ -268,12 +268,17 @@
 		    $http
 		        .put('/teams',updateData)
 		        .then(function(response){
-		            console.log('event updated')
+		            console.log('event updated');
 		            viewClickedTeam();
+
 		        },
 		        function(response){
 		            console.log("error");
 		        });
+		}
+
+		function setTeamName(team_name){
+			vm.teamName = team_name;
 		}
 
 		function getTeamId(team_name,event_id){
@@ -353,6 +358,7 @@
         function closeModal(dmodal){
            $('#'+dmodal+'.modal')
             .modal('hide'); 
+
         }
 
 	}
