@@ -97,18 +97,21 @@ $('#end-date-pick').calendar();
         	</div>
         </div>
 
+
         <!-- right side of the page -->
-        <div class = "eleven wide column">
-        <div id="panel">
+        <div class = "eleven wide column" ng-controller="userEventController as UEC">
+        <div id="panel" ng-controller="gameController as game" ng-init="game.viewThreeScoreboard()">
             <div class="ui cards">
-                <div class="card">
-                    <div class="content">
-                        <div class="header">sched</div>
+                <div class="card card-content2" ng-repeat="x in game.gameThreeScoreboard" ng-show="game.gameThreeScoreboard!=null">
+                    <div class="content" ng-click="game.viewGameFromScoreboard(x.game_id)">
+                        <div class="header">{{x.sport_name}}</div>
                     <table class="ui celled padded table">
                         <tbody>
                             <tr>
-                                <td><img class="ui mini circular image" src="/images/tnt.jpg" >24</td>
-                                <td><img class="ui mini circular image" src="/images/tnt.jpg" >24</td>
+                                <td><img class="ui mini circular image" src="/images/tnt.jpg" >{{x.team}} - {{x.score}}</td>
+                            </tr>
+                            <tr>
+                                <td><img class="ui mini circular image" src="/images/tnt.jpg" >{{x.team2}} - {{x.score2}}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -116,7 +119,7 @@ $('#end-date-pick').calendar();
                 </div>
             </div>
         </div>
-        <a href="#!/" class="ui button btn-slide">
+        <a class="ui button btn-slide" ng-click="UEC.scoreboard()">
          See Scores
         </a>
 
@@ -125,40 +128,46 @@ $('#end-date-pick').calendar();
         				SPORTS
         			</h1>
 
-                    <div class="ui simple selection dropdown" ng-init="sport.viewAllSports()">
+
+                    <div class="ui simple selection dropdown" ng-init="UEC.viewAvailableSports()">
                       <div class="default text">Sports</div>
                       <i class="dropdown icon"></i>
                       <div class="menu">
-                        <div class="item" ng-repeat="x in sport.allSports" ng-click="sport.setSportId(x.sport_id)" value="x.sport_id" ng-model="sport.sportId">
+                        <div class="item" ng-repeat="x in UEC.allAvailableSports" ng-click="UEC.setSportId(x.sport_id)" value="x.sport_id" ng-model="UEC.sportId">
                           {{x.sport_name}}
                         </div>
                       </div>
                     </div>
 
-                
-                    <!-- <div class="ui selection dropdown">
-                        <input type="hidden" name="sport">
-                        <i class="dropdown icon"></i>
-                        <div class="default text"> Sport</div>
-                        <div class="menu" ng-init="sport.viewAllSports()">
-                            <div class="item" ng-repeat="x in sport.allSports" ng-click="sport.setSportId(x.sport_id)" value="x.sport_id" ng-model="sport.sportId">{{x.sport_name}}</div>
-                        </div>
-                    </div> -->
-                    <button class="ui plus icon button" ng-click="sport.addSport()">
+                    <button class="ui plus icon button" ng-click="UEC.attachSportToEvent()">
                         <i class="plus icon"></i>
                     </button>
         			<!-- List of Sports -->
         			<div class="ui middle aligned divided list">
-        				<div class="item">
+        				<div class="item"  ng-repeat="x in UEC.allSports">
         					<div class="right floated content">
-	        					<button class="ui red  trash icon button"><i class="trash icon"></i>
+	        					<button class="ui red  trash icon button" ng-click="UEC.setCurrentId(x.sport_id,'delete-modal')" ><i class="trash icon"></i>
 	        					</button>
         					</div>
-        					<div class="content">
-	        					<h4>fsfs</h4>
+        					<div class="content" ng-click="UEC.openGame(x.sport_id)">
+	        					<a><h4>{{x.sport_name}}</h4></a>
 	        				</div>
         				</div>
         			</div>
+
+                    <div class="ui basic modal" id="delete-modal">
+                        <div class="ui icon header">
+                            <i class="trash icon"></i> DELETE
+                        </div>
+                        <div class="actions">
+                            <div class="ui red basic cancel inverted button" ng-click="UEC.closeModal('delete-modal')">
+                                <i class="remove icon"></i> No
+                            </div>
+                            <div class="ui green ok inverted button" ng-click="UEC.deleteSportFromEvent();UEC.closeModal('delete-modal')">
+                                <i class="checkmark icon"></i> Yes
+                            </div>
+                        </div>
+                    </div>
         		
         		</div>
         		<div class="ui segment" ng-controller="teamController as team">
