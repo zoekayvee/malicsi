@@ -35,7 +35,7 @@
                     <tbody>
                         <tr ng-repeat = "x in admin.allUsers">
                             <td> {{x.user_id}}</td>
-                            <td ng-controller = "otherUsersController as others"> 
+                            <td ng-controller = "otherUsersController as others">
                             <a ng-click = "others.clicked(x.user_id)">{{x.username}}</a>
                             <div class="sub-header"> {{ x.user_type }}</div>
                             </td>
