@@ -43,6 +43,10 @@ div {
     padding: 20px;
 }
 
+.card-content2 {
+    width: 30% !important; 
+}
+
 .view-all {
     margin-top: 8%;
 }

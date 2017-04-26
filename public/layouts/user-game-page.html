@@ -48,11 +48,11 @@
             <div class="ui form">
                 <div class="field">
                     <label>Team 1</label>
-                    <input value="" type="number" ng-model="game.updateScore">
+                    <input type="number" min="0" ng-model="game.updateScore">
                 </div>
                 <div class="field">
                     <label>Team 2</label>
-                    <input type="number" ng-model="game.updateScore2">
+                    <input type="number" min="0" ng-model="game.updateScore2">
                 </div>
                 <br>
                 <div class="ui button" id="cancel" ng-click = "game.viewGame();game.closeModal('addscore-modal')">Cancel</div>
@@ -127,7 +127,7 @@
                     WINNER
                 </div>
                 <h3 class="ui block header"> {{game.game.team_name}} </h3>
-                <div class="ui grid">
+                <div class="ui grid" ng-controller="guestController as logged">
                     <div class="ten wide column">
                         <div class="ui statistic">
                             <div class="value">
@@ -138,19 +138,19 @@
                             </div>
                         </div>
                     </div>
-                    <div class="six wide column" ng-controller="guestController as logged">
+                    <div class="six wide column">
                         <a>
                             <i class="star icon"></i>
                             {{game.game.bet_count}} Bets
                         </a>
-                        <button ng-show="logged.hasUser" ng-click="game.bet(game.game.game_id,game.game.team_id);game.userCanbet=false;game.viewGame()" ng-show="game.userCanbet">PLACE BET</button>
+                        <button ng-click="game.bet(game.game.game_id,game.game.team_id);game.userCanbet=false;game.viewGame()" ng-show="game.userCanbet && logged.hasUser">PLACE BET</button>
                     </div>
                 </div>
             </div>
 
         </div>
 
-        <div class="column game-panel">
+        <div class="column game-panel" ng-controller="guestController as logged">
             <div class="image">
                 <img class="ui huge rounded image" src="images/star.jpg">
             </div>
@@ -172,13 +172,13 @@
                             </div>
                         </div>
                     </div>
-                    <div class="six wide column" ng-controller="guestController as logged">
+                    <div class="six wide column" >
                         <a>
                             <i class="star icon"></i>
                             {{game.game.bet_count_2}} Bets
                         </a>
 
-                        <button ng-show="logged.hasUser" ng-click="game.bet(game.game.game_id,game.game.team_id_2);game.userCanbet=false;game.viewGame()" ng-show="game.userCanbet">PLACE BET</button>
+                        <button ng-click="game.bet(game.game.game_id,game.game.team_id_2);game.userCanbet=false;game.viewGame()" ng-show="game.userCanbet && logged.hasUser">PLACE BET</button>
                     </div>
                 </div>
             </div>

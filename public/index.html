@@ -22,7 +22,7 @@
     <script type='text/javascript' src="chart.js/samples/utils.js"></script>
 </head>
 
-<body ng-controller="userController as user">
+<body ng-controller="loggedUserController as logged">
     <div id="overlay"></div>
 
     <!-- NAVIGATION SECTION -->
@@ -35,7 +35,7 @@
             <a href="/#!/user/home" class="item">Home</a>
             <a href="/#!/events" class="item">Events</a>
 
-            <div class="alight right ui simple dropdown item">
+            <div class="alight right ui simple dropdown item" ng-controller="userController as user">
                 {{user.user.firstname + " " + user.user.lastname}} <i class="dropdown icon"></i>
                 <div class="menu">
                     <a class="item" href="#!/user/profile">Profile</a>

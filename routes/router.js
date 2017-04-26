@@ -157,6 +157,8 @@ router.post('/leaderboard/:sport_id', 		gameController.viewLeaderboards);
 router.get('/leaderboard/:sport_id', 		gameController.viewLeaderboards);
 router.get('/venues', 						venueController.viewAllVenues);
 router.get('/game/score/:event_id',			gameController.viewThreeScoreboard);
+router.post('/game/team/:team_id',			gameController.viewCurrentGamesByTeam);
+router.get('/game/date/:interval',			gameController.getDate);
 
 router.get('/user_loggedin', (req, res) => {
 	if (req.session)
