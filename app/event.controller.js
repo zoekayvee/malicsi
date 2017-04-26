@@ -4,7 +4,7 @@
     .module('malicsi')
     .controller('eventController', eventController);
 
-    function eventController($http,$location,$routeParams){
+    function eventController($http,$location,$routeParams,$window,$route){
 
         var vm = this;
 
@@ -221,7 +221,8 @@
                 .put('/events',updateData)
                 .then(function(response){
                     console.log('event updated')
-                    viewEvent($routeParams.event_id)
+                    viewEvent($routeParams.event_id);
+                    $route.reload();
                 },
                 function(response){
                     console.log("Error :(");
