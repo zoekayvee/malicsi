@@ -37,125 +37,16 @@
     </div>
 </div>
 
-<div id="main-wrapper">
-
-    <!-- CONTENT SECTION -->
-    <div class="ui main" id="main-panel">
-        <div class="ui container">
-
-            <div>
-                <div class="pusher">
-                    <div class="ui vertical stripe segment">
-                        <div class="ui middle aligned stackable grid container">
-                            <div class="row">
-                                <div class="eleven wide left floated column">
-                                    <div class="slideshow-container">
-
-                                        <div class="mySlides fade"> <img src="images/4.jpg" style="width:100%"> </div>
-                                        <div class="mySlides fade"> <img src="images/2.jpg" style="width:100%"> </div>
-                                        <div class="mySlides fade"> <img src="images/3.jpg" style="width:100%"> </div>
-                                        <div class="mySlides fade"> <img src="images/5.jpg" style="width:100%"> </div>
-
-                                        <div style="text-align:center">
-                                            <span class="dot"></span>
-                                            <span class="dot"></span>
-                                            <span class="dot"></span>
-                                            <span class="dot"></span>
-                                        </div>
-
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="seven wide column">
-                                        <div class="ui black floating message data-panel">
-                                            <h2>Leader Board</h2>
-                                            <table class="ui inverted very basic celled table">
-                                                <thead>
-                                                    <tr>
-                                                        <th>Event</th>
-                                                        <th>Team</th>
-                                                        <th>Score</th>
-                                                    </tr>
-                                                </thead>
-
-                                                <tbody>
-                                                    <tr>
-                                                        <td>PalICSihan</td>
-                                                        <td>
-                                                            <h4 class="ui inverted image header"><img src="images/icon5.svg" class="ui mini rounded image"><div class="content">Bloo Tim</div>
-                                                            </h4>
-                                                        </td>
-                                                        <td>230pts</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>PalICSihan</td>
-                                                        <td>
-                                                            <h4 class="ui inverted image header"><img src="images/icon6.svg" class="ui mini rounded image"><div class="content">Yelow Tim</div>
-                                                            </h4>
-                                                        </td>
-                                                        <td>210pts</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>PalICSihan</td>
-                                                        <td>
-                                                            <h4 class="ui inverted image header"><img src="images/icon8.svg" class="ui mini rounded image"><div class="content">Grin Tim</div>
-                                                            </h4>
-                                                        </td>
-                                                        <td>150pts</td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                    <br>
-                                    <div class="seven wide column">
-                                        <div class="ui black floating message data-panel">
-                                            <h2>Game Schedule</h2>
-                                            <table class="ui inverted very basic celled table">
-                                                <thead>
-                                                    <tr>
-                                                        <th>Game</th>
-                                                        <th>Date</th>
-                                                        <th>Time</th>
-                                                    </tr>
-                                                </thead>
-
-                                                <tbody>
-                                                    <tr>
-                                                        <td>
-                                                            <h4 class="ui inverted image header"><img src="images/icon3.svg" class="ui mini rounded image"><div class="content">Basketball</div>
-                                                            </h4>
-                                                        </td>
-                                                        <td>April 21,2017</td>
-                                                        <td> 2:00pm</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <h4 class="ui inverted image header"><img src="images/icon2.png" class="ui mini rounded image"><div class="content">Volleyball</div>
-                                                            </h4>
-                                                        </td>
-                                                        <td>April 22,2017</td>
-                                                        <td> 2:00pm</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <h4 class="ui inverted image header"><img src="images/icon4.svg" class="ui mini rounded image"><div class="content">Badminton</div>
-                                                            </h4>
-                                                        </td>
-                                                        <td>April 23,2017</td>
-                                                        <td>3:00pm</td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+<div id="main-wrapper" ng-controller="guestController as game">
+    <div id="preview-panel" class="ui container" >
+            <div class="game-preview" ng-repeat="x in game.allGames">
+                {{ x.sport_name }}
+                <br>
+                {{ x.event_name }}  <!-- turn this to link that redirects to event -->
+                <br>
+                {{ x.date_start + "  " + x.time_start }}
+                
             </div>
-        </div>
+            
     </div>
-
 </div>
