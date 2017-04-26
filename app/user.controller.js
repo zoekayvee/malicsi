@@ -152,6 +152,7 @@
 	     				var redirect = response.data.redirect;
 	     				toastr.success('Logged out.');
 	     				window.location.href=redirect;
+	     				vm.hasUser=false;
 	     			});
 	     }
 

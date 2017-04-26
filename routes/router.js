@@ -50,8 +50,8 @@ router.delete('/users/:user_id',       adminController.removeUser);
 router.get('/viewTeamPlayGame', 			dashboardController.viewTeamPlayGame);
 router.get('/viewCurrentGames', 			dashboardController.viewCurrentGame);
 router.get('/viewUpcomingGame', 			dashboardController.viewUpcomingGame);
+router.get('/eventsByInterest/:user_id', 			dashboardController.viewEventUsingInterest);
 router.get('/viewGames',					guestController.viewGames);
-
 /*----------------------------------------------------------*/
 router.post		('/login',                       userController.login);
 router.get 		('/logout',                 userController.logout);

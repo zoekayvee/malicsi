@@ -103,8 +103,8 @@
 			})
 
 			//Catch Case
-			.otherwise({
-				templateUrl: 'layouts/error-404.html'
-			})
+			// .otherwise({
+			// 	templateUrl: 'layouts/error-404.html'
+			// })
 	}
 })();
