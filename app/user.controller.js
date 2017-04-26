@@ -8,7 +8,7 @@
 		var vm = this;
 		vm.username="";
 		vm.password="";
-
+		vm.hasUser=null;
 		vm.user_type="";
 		vm.loginUser=loginUser;
         vm.user = {};
@@ -25,7 +25,7 @@
 		vm.closeModal= closeModal;
 
         vm.currentUser = {};
-        
+        vm.userDash="";
 
 		//FOR DASHBOARD
 		vm.teamGames = [];
@@ -33,7 +33,23 @@
 		vm.upcomingGames = [];
 		
 
+		$http   
+            .get('/user_loggedin') 
+            .then(function(response) {
+            	if (response.data){
+            		vm.hasUser=true;
+            		$http
+                        .get('/users/'+response.data)
+                        .then(function(response) {
+                            vm.user = response.data;
+                        });
+            	}
+            	else{
+            		vm.hasUser=false;
+            	}
+            });
 
+        
         function setToastr(){
 		    toastr.options.positionClass = "toast-bottom-right";
 		    toastr.options.closeButton = true;
@@ -45,10 +61,11 @@
     	}
 
     	function redirectLocation(redirect){
-			if(redirect === '/#!/user/home')
-				window.location.href=redirect;
-			else
+    		//changed
+			if(redirect === 'no')
 				window.location.reload();
+			else
+				window.location.href = redirect;
 		}
 		
         // $http   
@@ -95,17 +112,15 @@
 					var redirect = response.data.redirect;
 					console.log(redirect);
 					vm.user = response.data
-					if (redirect === '/#!/user/home'){
-						toastr.success(response.data.message);
-						setTimeout(function(){
-							redirectLocation(redirect);
-						}, 500);
-					}
+					toastr.success(response.data.message); //added
+					vm.userDash=redirect;
+					setTimeout(function(){
+						redirectLocation(redirect);
+					}, 500);
 				}, function (response){	
 					toastr.error(response.data.message);
-					console.log('Error');
 					setTimeout(function(){
-						redirectLocation('no');
+						redirectLocation(response.data.redirect);
 					}, 500);
 				});
 		}

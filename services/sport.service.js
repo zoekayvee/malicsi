@@ -4,9 +4,7 @@ var path = require('path');
 
 // ADDING SPORT (VALUES  'sport_name')
 exports.addSport = (req,res) =>{
-	var query = 'INSERT INTO sport(sport_name) VALUES(?)';
-	var query1 = 'SELECT sport_id from sport WHERE sport_name = ?';
-	var query2 = 'INSERT INTO event_has_sport VALUES(?,?)';
+	var query = 'call addSport(?)';
 	const data = [
 		req.body.sport_name
 	];
@@ -18,13 +16,50 @@ exports.addSport = (req,res) =>{
 			if(!err){
 				console.log("Adding Sport Success");
 		    	res.send('Sport Successfully added');
-		    	var con1 = connection.query( query1, data, (err,rows) => {
-					const data2 = [
-						req.params.event_id,
-						rows[0].sport_id
-					];
-		    		var con2 = connection.query( query2, data2, (err,rows) => {} );
-		    	} );
+			}
+			else{
+				console.log(err);
+				res.status(500).send("Server Error");
+			}
+		}
+	)   
+}
+
+exports.attachSportToEvent = (req,res) =>{
+	var query = 'call attachSportToEvent(?,?)';
+	const data = [
+		req.body.sport_id,
+		req.params.event_id
+	];
+	var con = connection.query(
+		query,
+		data,
+		(err, rows) => {
+			if(!err){
+				console.log("Adding Sport Success");
+		    	res.send('Sport Successfully added');
+			}
+			else{
+				console.log(err);
+				res.status(500).send("Server Error");
+			}
+		}
+	)   
+}
+
+exports.deleteSportFromEvent = (req,res) =>{
+	var query = 'delete from event_has_sport where h_event_id = ? and h_sport_id = ?;';
+	const data = [
+		req.params.event_id,
+		req.body.sport_id,
+	];
+	var con = connection.query(
+		query,
+		data,
+		(err, rows) => {
+			if(!err){
+				console.log("Deleting Sport Success");
+		    	res.send('Sport Successfully deleted');
 			}
 			else{
 				console.log(err);
@@ -36,7 +71,7 @@ exports.addSport = (req,res) =>{
 
 // VIEWING SPORT THROUGH 'sport_id'
 exports.viewSports = (req,res) =>{
-	var query = 'SELECT * from sport where sport_id = ?';
+	var query = 'call viewSportById(?)';
 	const data = [
 		req.params.sport_id
 	];
@@ -57,13 +92,13 @@ exports.viewSports = (req,res) =>{
 
 // VIEWING ALL SPORTS
 exports.viewAllSports = (req,res) =>{
-	var query = 'SELECT * FROM sport order by sport_id';
+	var query = 'call viewAllSports()';
 	var con = connection.query(
 		query,
 		(err, rows) => {
 			if(!err){
 				console.log("Viewing All Sports Success");
-				res.send(rows);
+				res.send(rows[0]);
 			}
 			else{
 				console.log(err);
@@ -75,7 +110,7 @@ exports.viewAllSports = (req,res) =>{
 
 // VIEWING SPORT THROUGH 'event_event_id'
 exports.viewSportsByEvent = (req,res) =>{
-	var query = 'SELECT * from sport where sport_id IN (select h_sport_id from event_has_sport where h_event_id = ?) order by sport_id';
+	var query = 'call viewSportByEvent(?)';
 	const data = [
 		req.params.event_id
 	];
@@ -85,6 +120,27 @@ exports.viewSportsByEvent = (req,res) =>{
 		(err, rows) =>{
 			if(!err){
 				console.log("Viewing Sport Success");
+				res.send(rows[0]);
+			}
+			else{
+				console.log(err)
+				res.status(500).send("Server Error")
+			}
+	}) 
+}
+
+// VIEWING SPORT THROUGH 'event_event_id'
+exports.viewAvailableSports = (req,res) =>{
+	var query = 'select * from sport where sport_id  not in (SELECT sport_id FROM sport WHERE sport_id IN (select h_sport_id from event_has_sport where h_event_id = ?) ORDER BY sport_id);';
+	const data = [
+		req.params.event_id
+	];
+	var con = connection.query(
+		query,
+		data,
+		(err, rows) =>{
+			if(!err){
+				console.log("Viewing Avaiable Sports Success");
 				res.send(rows);
 			}
 			else{
@@ -96,10 +152,10 @@ exports.viewSportsByEvent = (req,res) =>{
 
 // UPDATING SPORT (VALUES - 'sport_name')
 exports.updateSport = (req,res) =>{
-	var query = 'UPDATE sport SET sport_name = ? WHERE sport_id = ?';
+	var query = 'call sportUpdate(?,?)';
 	const data = [
-		req.body.sport_name,
-		req.body.sport_id
+		req.body.sport_id,
+		req.body.sport_name
 	];
 
 	var con = connection.query(
@@ -109,6 +165,7 @@ exports.updateSport = (req,res) =>{
 			if(!err){
 				console.log("Updating Sport Success");
 				res.send("Sport Successfully Updated");
+				console.log(rows);
 			}
 			else{
 				console.log(err);
@@ -119,7 +176,7 @@ exports.updateSport = (req,res) =>{
 
 // DELETING SPORT THROUGH 'sport_id'
 exports.deleteSport = (req,res) =>{
-	var query = 'DELETE FROM sport where sport_id = ?';
+	var query = 'call sportDelete(?)';
 	const data = [
 		req.params.sport_id
 	];
@@ -141,7 +198,7 @@ exports.deleteSport = (req,res) =>{
 
 // DELETING ALL SPORTS
 exports.deleteAllSports = (req,res) =>{
-	var query = 'DELETE FROM sport';
+	var query = 'call sportDeleteAll()';
 	var con = connection.query(
 		query,
 		(err, rows) => {

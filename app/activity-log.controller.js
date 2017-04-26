@@ -29,7 +29,6 @@
 			                    });
 		                    }
 		                    else{
-		                    	console.log('ADMIN');
 			                	$http
 									.get('/logs')
 									.then(function(response) {
@@ -48,9 +47,12 @@
             });
 
         function modifyTime(){
-        	console.log("MODIFIRD");
         	 vm.allLogs.forEach(function(e){
-            	if(e.Minutes<60){
+            	if(e.Seconds<60){
+            		//added
+            		e.Time= e.Seconds+ "s ago ";
+            	}
+            	else if(e.Minutes<60){
             		e.Time=e.Minutes + "m ago ";		
             	}
             	else if(e.Hour<24){
