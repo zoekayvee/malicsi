@@ -16,7 +16,7 @@
 
 		vm.allLogs = [];
 		vm.allUsers = [];
-		vm.allTeams = [];
+		vm.allEvents = [];
 		vm.deleteUser = deleteUser;
 		vm.updateUser = updateUser;
 		vm.password = "";
@@ -25,8 +25,8 @@
 		vm.currentUserId = null;
 		vm.user_type = null;
 		vm.approveUser = approveUser;
-		vm.approveTeam = approveTeam;
-		vm.disapproveTeam = disapproveTeam;
+		vm.approveEvent = approveEvent;
+		vm.disapproveEvent = disapproveEvent;
 		vm.playerReq=[];
 		vm.hasEvent = null;
 
@@ -44,28 +44,13 @@
 							console.log('Error');
 						}); 
 					$http
-						.get('/events_teams')
+						.get('/events')
 						.then(function(response) {
-							vm.allTeams = response.data;
+							vm.allEvents = response.data;
 							console.log(response.data);
 						}, function(response){
 							console.log('Error');
 						}); 
-					$http   
-             			.get('/user_loggedin') 
-             			.then(function(response) {
-             				$http
-                               .get('/users/player_requests/'+response.data)
-                               .then(function(response) {
-                                  vm.playerReq = response.data;
-                                  if(vm.playerReq.length > 0){
-                                    vm.hasEvent=true;
-                                  }
-                                  else{
-                                    vm.hasEvent=false;
-                                  }
-                               });
-             			});
                 }
                 else{
                 	window.location.href ='/403';
@@ -105,13 +90,12 @@
 				});
 		}
 
-		function approveTeam(team_id,event_id){
+		function approveEvent(event_id){
 			var data = {
-				team_id: team_id,
 				event_id:event_id,
 				status:'accepted'
 			}
-			$http.put('/teams_status',data)
+			$http.put('/events_status',data)
 				.then(function(response){
 					console.log('Approved Team');
 					window.location.reload();
@@ -120,13 +104,12 @@
 				});
 		}
 
-		function disapproveTeam(team_id,event_id){
+		function disapproveEvent(event_id){
 			var data = {
-				team_id: team_id,
 				event_id:event_id,
 				status:'rejected'
 			}
-			$http.put('/teams_status',data)
+			$http.put('/events_status',data)
 				.then(function(response){
 					console.log('Approved Team');
 					window.location.reload();

@@ -19,6 +19,33 @@ $(document).ready(function() {
                     }
                 ]
             },
+            firstname: {
+              identifier  : 'firstname',
+              rules: [
+                {
+                  type   : 'empty',
+                  prompt : 'Please enter your firstname'
+                }
+              ]
+            },
+      lastname: {
+              identifier  : 'lastname',
+              rules: [
+                {
+                  type   : 'empty',
+                  prompt : 'Please enter your lastname'
+                }
+              ]
+            },
+      usertype: {
+              identifier  : 'usertype',
+              rules: [
+                {
+                  type   : 'empty',
+                  prompt : 'Please select your usertype'
+                }
+              ]
+            },
         },
         inline : true,
         on     : "blur"

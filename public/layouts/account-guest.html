@@ -39,6 +39,16 @@
                         </div>
                         <a href="/#!/register"><div class="ui button" ng-hide="login.hasUser">Register</div></a>
                     </div>
+
+                    <div ng-show="login.hasUser" class="alight right ui simple dropdown item">
+                    {{user.user.firstname + " " + user.user.lastname}} <i class="dropdown icon"></i>
+                    <div class="menu" ng-controller="userController as user">
+                        <a class="item" href="#!/user/profile">Profile</a>
+                        <a class="item" href="/#!/user/activity-log">Activity Log</a>
+                        <a class="item" href="#" ng-click="user.logOut()">Logout</a>
+                    </div>
+            </div>
+
                 </div>
             </form>
         </div>
@@ -46,22 +56,16 @@
     </div>
 </div>
 
-<div id="main-wrapper">
-    <div id="preview-panel" class="ui container">
-            <div class="game-preview">
-                Event Name. Sports.
-                Game Details.
-                Hello World!
-            </div>
-            <div class="game-preview">
-                Hello World!
-                Event Name. Sports.
-                Game Details.
-            </div>
-            <div class="game-preview">
-                Event Name. Sports.
-                Game Details.
-                Hello World!
+<div id="main-wrapper" ng-controller="guestController as game">
+    <div id="preview-panel" class="ui container" >
+            <div class="game-preview" ng-repeat="x in game.allGames">
+                <a ng-click="game.clicked(x.game_id)">
+                {{ x.sport_name }}
+                <br>
+                {{ x.event_name }}  <!-- turn this to link that redirects to event -->
+                <br>
+                {{ x.date_start + "  " + x.time_start }}
+                </a>
             </div>
     </div>
 </div>

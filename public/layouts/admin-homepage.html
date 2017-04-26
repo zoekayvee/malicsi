@@ -32,18 +32,18 @@
             </div>
             </div>
             <div>
-            <div>TEAM APPROVAL</div>
+            <div>EVENT APPROVAL</div>
              <div class="ui three column grid" >
-             <div class="column" ng-repeat="x in home.allTeams | filter: {status: 'pending'}">
+             <div class="column" ng-repeat="x in home.allEvents | filter: {status: 'pending'}">
             <div class="ui card" id="card">
                 <div class=" center aligned content">
-                <h3 class="ui header">{{x.team_name}}</h3>
-                 <div class="sub-header">Event: {{ x.event_name }}</div>
-                     <i class="massive users icon"></i>
+                <h3 class="ui header">{{x.event_name}}
+                    Date Start: {{x.date_start}}<br> Date End: {{x.date_end}}<br>
+                </h3>
                 </div>
                 <div class="center aligned extra">
-                    <button class ="ui button" id="accept" ng-click="home.approveTeam(x.team_id,x.event_id)">ACCEPT</button>
-                    <button class ="ui button" id="decline" ng-click="home.disapproveTeam(x.team_id,x.event_id)">DECLINE</button>
+                    <button class ="ui button" id="accept" ng-click="home.approveEvent(x.event_id)">ACCEPT</button>
+                    <button class ="ui button" id="decline" ng-click="home.disapproveEvent(x.event_id)">DECLINE</button>
                 </div>
             </div>
             </div>
