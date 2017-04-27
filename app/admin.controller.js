@@ -47,15 +47,6 @@
 						.get('/user/all_events')
 						.then(function(response) {
 							vm.allEvents = response.data;
-							console.log(vm.allEvents);
-						}, function(response){
-							console.log('Error');
-						}); 
-					$http
-						.get('/events')
-						.then(function(response) {
-							vm.allEvents = response.data;
-							console.log(response.data);
 						}, function(response){
 							console.log('Error');
 						}); 

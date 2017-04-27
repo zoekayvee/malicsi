@@ -451,9 +451,26 @@ exports.updateScores = (req,res) =>{
 	})
 }
 
+exports.viewAllAcceptedGames=(req,res)=>{
+	var query = 'select * from (select * from (select event_id as event_event_id,status from event)a natural join game where status="accepted")b natural join sport';
+	var id = connection.query(
+		query,
+		(err, rows) => {
+			if(!err){
+				console.log("Viewing All Games Success");
+				res.send(rows);
+				//res.send(rows); if error, try this line of code
+			}
+			else{
+				console.log(err);
+				res.send('Server Error');
+			}
+	})
+}
+
 // VIEWING ALL GAMES 
 exports.viewAllGames = (req,res) =>{
-	var query = 'call viewAllGames';
+	var query = 'call viewAllGames'; 
 	var id = connection.query(
 		query,
 		(err, rows) => {

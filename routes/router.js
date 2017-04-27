@@ -114,6 +114,7 @@ router.delete('/competitors/:team_id', adminController.deleteCompetitor);
 router.post('/game', 						gameController.addGame);
 router.get('/game/:game_id',				gameController.viewGame);
 router.get('/game', 						gameController.viewAllGames);
+router.get('/games/accepted',               gameController.viewAllAcceptedGames);
 router.put('/game/:game_id', 				gameController.updateGame);
 router.delete('/game/:game_id', 			gameController.deleteGame);
 router.delete('/game', 						gameController.deleteAllGames);
