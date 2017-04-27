@@ -1,7 +1,8 @@
 body {
     background: url("../images/guest.jpg");
     border: solid 1px rgba(0,0,0,0);
-    background-size: 100%;
+    background-size: cover;
+    background-attachment: fixed;
     background-position: top center;
 }
 
@@ -32,7 +33,7 @@ body {
 
 #preview-panel {
     width: 100vw;
-    height: 100px;
+    height: 120px;
     background: rgba(0,0,0,0.5);
     position: absolute;
     bottom: 0;
@@ -41,19 +42,41 @@ body {
 }
 
 .game-preview {
-    width: 200px;
-    height: 100px;
+    width: 170px;
+    height: 90px;
     background: rgba(0,0,0,0.5);
     display: inline-block;
-    color: white;
-    padding: 20px;
-    /*border: solid 1px red;*/
+    padding: 5px;
+    padding-left: 10px;
+    transition: all 0.1s linear;
+    border-left: solid 1px rgba(255, 0, 0, 0.5);
+    margin-right: 15px;
 }
 
 .game-preview:hover {
-    background-color: rgba(255,0,0,0.3);
+    background-color: rgba(255,0,0,0.1);
+    transform: scale(1.1);
 }
 
 input, .button {
     height: 35px !important;
+}
+
+
+.guest-games {
+    line-height: 10px;
+}
+
+.guest-games h3 {
+    margin-bottom: -20px;
+    color: #DE1B1B;
+}
+
+.guest-games h5 {
+    margin-bottom: -20px;
+    color: #DEDEDE;
+}
+
+.guest-games p {
+    color: #999;
 }
