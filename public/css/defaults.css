@@ -31,3 +31,8 @@ body {
 #page-footer a {
     color: #DE1B1B;
 }
+
+.hidden-item {
+    display: none;
+    visibility: hidden;
+}
