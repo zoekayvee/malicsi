@@ -82,7 +82,6 @@ exports.addCompetitor = (req,res)=>{
 }
 // updateCompetitor - updates a team's score and bet count (specify which game)
 exports.updateCompetitor=(req,res)=>{
-
 	const query_string = 'UPDATE team_plays_game SET score = ?, bet_count = ? WHERE team_id = ? AND game_id = ?';
 	const req_data = [
 		req.body.score,
