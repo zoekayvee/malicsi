@@ -13,7 +13,7 @@ const uploadController = require('../services/uploadController');
 
 // const dashboardController =require('../services/dashboard.service');
 const dashboardController =require('../services/dashboard.service');
-
+const guestController = require('../services/guest.service');
 
 
 var path = require('path');
@@ -50,9 +50,10 @@ router.delete('/users/:user_id',       adminController.removeUser);
 
 /*-------------------------DASHBOARD------------------------*/
 router.get('/viewTeamPlayGame', 			dashboardController.viewTeamPlayGame);
-router.get('/viewCurrentGames', 			    dashboardController.viewCurrentGame);
+router.get('/viewCurrentGames', 			dashboardController.viewCurrentGame);
 router.get('/viewUpcomingGame', 			dashboardController.viewUpcomingGame);
-
+router.get('/eventsByInterest/:user_id', 			dashboardController.viewEventUsingInterest);
+router.get('/viewGames',					guestController.viewGames);
 /*----------------------------------------------------------*/
 router.post		('/login',                       userController.login);
 router.get 		('/logout',                 userController.logout);
@@ -66,6 +67,8 @@ router.get      ('/events',   				eventController.viewAllEvent);
 router.put      ('/events',    				eventController.updateEvent);
 router.delete   ('/events/:event_id',   	eventController.deleteEvent);
 router.get 		('/events_teams',			eventController.getTeamsOfAllEvent);
+router.put 		('/events_status',			eventController.eventStatusUpdate);
+router.get 		('/events/:event_id/upcomingGames',  gameController.viewUpcomingGamesByEvent);
 
 router.get      ('/sponsors_get_id/:sponsor_name',	sponsorController.getSponsorId)
 router.post     ('/sponsors',      sponsorController.addSponsor);
@@ -86,9 +89,8 @@ router.post		('/teams/join',	    teamController.userJoinTeam);
 router.get      ('/teams_get_id/:team_name',			teamController.getTeamId);
 router.post		('/teams/event',	teamController.teamJoinEvent);
 router.get      ('/teams_per/:event_id', teamController.viewTeamPerEvent);
-router.get 		('/teams/in_game/:game_id' 		,teamController.viewTeamsInGame); 
+router.get 		('/teams/in_game/:game_id' 		,teamController.viewTeamsInGame);
 router.post 	('/teams_from_event',teamController.deleteTeamFromEvent);
-router.put 		('/teams_status',	teamController.teamStatusUpdate);
 router.put 		('/teams/player_status',	teamController.updateTeamPlayerStatus);
 router.get 		('/teams/players/:team_id',	teamController.getTeamPlayers);
 

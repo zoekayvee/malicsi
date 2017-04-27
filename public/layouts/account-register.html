@@ -1,5 +1,5 @@
-<link rel='stylesheet' href='css/login.css' />
-<script type='text/javascript' src='js/login.js'></script>
+<link rel='stylesheet' href='css/account-login.css' />
+<script type='text/javascript' src='js/register-validation.js'></script>
 
 <div id="main-wrapper">
 
@@ -19,20 +19,24 @@
             <form class="ui medium form" ng-controller="userController as signUp">
                 <div class="field">
                     <label> Username </label>
-                    <input id="username" type="text" placeholder="Username" ng-model="signUp.newUser.username">
+                    <input id="username" type="text" placeholder="Username" ng-model="signUp.newUser.username" required>
                 </div>
                 <div class="field">
                     <label>Password</label>
-                    <input type="password" id="password" placeholder="Password" ng-model="signUp.newUser.password">
+                    <input type="password" id="password" placeholder="Password" ng-model="signUp.newUser.password" required>
+                </div>
+                <div class="field">
+                    <label>Reenter Password</label>
+                    <input type="password" id="password2" placeholder="Password" ng-model="signUp.newUser.password" required>
                 </div>
                 <div class="two fields">
                     <div class="field">
                         <label>First Name</label>
-                        <input type="text" id="firstname" placeholder="First Name" ng-model="signUp.newUser.firstname">
+                        <input type="text" id="firstname" placeholder="First Name" ng-model="signUp.newUser.firstname" required>
                     </div>
                     <div class="field">
                         <label>Last Name</label>
-                        <input type="text" id="lastname" placeholder="Last Name " ng-model="signUp.newUser.lastname">
+                        <input type="text" id="lastname" placeholder="Last Name " ng-model="signUp.newUser.lastname" required>
                     </div>
                 </div>
                 <div class="two fields">
@@ -42,14 +46,6 @@
                             <option value="" id="lastname" >Gender</option>
                             <option value="M">Male</option>
                             <option value="F">Female</option>
-                        </select>
-                    </div>
-                    <div class="field">
-                        <label>User Type</label>
-                        <select class="ui dropdown" name="usertype">
-                            <option value="">User Type</option>
-                            <option value="1">Admin</option>
-                            <option value="0">Normal</option>
                         </select>
                     </div>
                 </div>

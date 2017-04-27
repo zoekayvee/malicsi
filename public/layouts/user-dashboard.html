@@ -1,7 +1,5 @@
-<link rel='stylesheet' href='css/dashboard.css'/>
-<script type='text/javascript' src='js/dashboard.js'></script>
-<script type='text/javascript' src='js/default.js'></script>
-
+<link rel='stylesheet' href='css/user-dashboard.css'/>
+<script type='text/javascript' src='js/user-dashboard.js'></script>
 
 <div id="main-wrapper">
     <div id="public-event" class="ui container">
@@ -63,7 +61,7 @@
             <div class="ui section" id="membership-request-panel"  ng-repeat="x in dashboard.playerReq | filter: {player_status: 'pending'}">
                 <div class="ui card member-request">
                     <div class="request-text">
-                        {{x.firstname}} {{x.lastname}} has requested to join team :  {{x.team_name}} 
+                        {{x.firstname}} {{x.lastname}} has requested to join team :  {{x.team_name}}
                         <div class="sub-header">Event: {{ x.event_name }}</div>
                      </div>
                     <div class="request-approve two wide column">
@@ -76,7 +74,7 @@
                 </div>
             </div>
             <br>
-
+            <div ng-hide="dashboard.newUser">
             <div class="ui section">
                 <div class="section-title">
                     <h3>Current Games</h3>
@@ -102,7 +100,16 @@
                 </div>
             </div>
             <br>
-
+            <div class="ui section">
+                <div class="section-title" >
+                    <h3>User Interest</h3>
+                    <br>
+                    <div ng-repeat="ei in dashboard.eventsByInterest" class="ui card-panel">
+                        <h5>{{ei.event_name}}</h5>
+                        <p>{{ei.date_start}}</p>
+                    </div>
+                </div>
+            </div>
         </div>
 
     </div>

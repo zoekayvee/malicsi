@@ -2,12 +2,6 @@
 <script type='text/javascript' src='js/user-event.js'></script>
 <link rel='stylesheet' href='semantic-ui-calendar/dist/calendar.css'/>
 <script src="semantic-ui-calendar/dist/calendar.js"></script>
-<script type="text/javascript">
-    $(function() {
-    $('.ui.dropdown').dropdown();
-});
-</script>
-
 
 <script type="text/javascript" src="jquery.js"></script>
 
@@ -33,7 +27,7 @@ $('#end-date-pick').calendar();
         		<button class="ui circular edit icon button" ng-click="event.updateEvent()">
 	        		<i class="edit icon"></i>
 	        	</button>
-	        	<button class="ui red circular trash icon button" id="button-delete" ng-click ="event.openModal('delete-event-modal')">
+	        	<button class="ui red circular trash icon button" id="button-delete" ng-click ="event.openModal('delete-modal')">
 	        		<i class="trash icon"></i>
 	        	</button>
 	        		
@@ -41,7 +35,7 @@ $('#end-date-pick').calendar();
         	<button class="fluid positive ui button">JOIN</button>
 
             <!-- MODAL FOR DELETE EVENT -->
-            <div class="ui basic modal" id="delete-event-modal">
+            <div class="ui basic modal" id="delete-modal">
                     <div class="ui icon header">
                           <i class="trash icon"></i> DELETE
                     </div>
@@ -49,7 +43,7 @@ $('#end-date-pick').calendar();
                         <div class="ui red basic cancel inverted button" ng-click="UEC.closeModal('delete-modal')">
                          <i class="remove icon"></i> No
                         </div>
-                        <div class="ui green ok inverted button" ng-click="event.deleteEvent(x.event_id); UEC.closeModal('delete-modal')">
+                        <div class="ui green ok inverted button" ng-click="event.deleteEvent(x.event_id);UEC.closeModal('delete-modal')">
                         <i class="checkmark icon"></i> Yes
                         </div>
                     </div>
@@ -97,21 +91,18 @@ $('#end-date-pick').calendar();
         	</div>
         </div>
 
-
         <!-- right side of the page -->
-        <div class = "eleven wide column" ng-controller="userEventController as UEC">
-        <div id="panel" ng-controller="gameController as game" ng-init="game.viewThreeScoreboard()">
+        <div class = "eleven wide column">
+        <div id="panel">
             <div class="ui cards">
-                <div class="card card-content2" ng-repeat="x in game.gameThreeScoreboard" ng-show="game.gameThreeScoreboard!=null">
-                    <div class="content" ng-click="game.viewGameFromScoreboard(x.game_id)">
-                        <div class="header">{{x.sport_name}}</div>
+                <div class="card">
+                    <div class="content">
+                        <div class="header">sched</div>
                     <table class="ui celled padded table">
                         <tbody>
                             <tr>
-                                <td><img class="ui mini circular image" src="/images/tnt.jpg" >{{x.team}} - {{x.score}}</td>
-                            </tr>
-                            <tr>
-                                <td><img class="ui mini circular image" src="/images/tnt.jpg" >{{x.team2}} - {{x.score2}}</td>
+                                <td><img class="ui mini circular image" src="/images/tnt.jpg" >24</td>
+                                <td><img class="ui mini circular image" src="/images/tnt.jpg" >24</td>
                             </tr>
                         </tbody>
                     </table>
@@ -119,54 +110,97 @@ $('#end-date-pick').calendar();
                 </div>
             </div>
         </div>
-        <a class="ui button btn-slide" ng-click="UEC.scoreboard()">
+        <a href="#" class="ui button btn-slide">
          See Scores
         </a>
-
+                <div class="ui segment">
+                    <h1 class="ui header">
+                    SCOREBOARD
+                    </h1>
+                    <div class="ui top attached tabular menu">
+                      <a class="item" data-tab="first">Basketball</a>
+                      <a class="item active" data-tab="second">Volleyball</a>
+                    </div>
+                    <div class="ui bottom attached tab segment" data-tab="first">
+                       <table class="ui striped table">
+                        <thead id="lala">
+                            <tr>
+                                <th>Team Name</th>
+                                <th>Score</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <h4 class="ui image header">
+                                        <img src="/images/tnt.jpg" class="ui mini rounded image">
+                                        <div class="content">
+                                            TEAM
+                                        </div>
+                                    </h4>
+                                </td>
+                                <td>
+                                2-1
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    </div>
+                    <div class="ui bottom attached tab segment active" data-tab="second">
+                      <table class="ui striped table">
+                        <thead id="lala">
+                            <tr>
+                                <th>Team Name</th>
+                                <th>Score</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <h4 class="ui image header">
+                                        <img src="/images/tnt.jpg" class="ui mini rounded image">
+                                        <div class="content">
+                                            TEAM
+                                        </div>
+                                    </h4>
+                                </td>
+                                <td>
+                                2-1
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    </div>
+                   
+                </div>
         		<div class="ui segment" ng-controller="sportController as sport">
         			<h1 class="ui header">
         				SPORTS
         			</h1>
 
-
-                    <div class="ui simple selection dropdown" ng-init="UEC.viewAvailableSports()">
-                      <div class="default text">Sports</div>
-                      <i class="dropdown icon"></i>
-                      <div class="menu">
-                        <div class="item" ng-repeat="x in UEC.allAvailableSports" ng-click="UEC.setSportId(x.sport_id)" value="x.sport_id" ng-model="UEC.sportId">
-                          {{x.sport_name}}
+                    <div class="ui selection dropdown">
+                        <input type="hidden" name="sport">
+                        <i class="dropdown icon"></i>
+                        <div class="default text"> Sport</div>
+                        <div class="menu" ng-init="sport.viewAllSports()">
+                            <div class="item" ng-repeat="x in sport.allSports" ng-click="sport.setSportId(x.sport_id)" value="x.sport_id" ng-model="sport.sportId">{{x.sport_name}}</div>
                         </div>
-                      </div>
                     </div>
-                    <button class="ui plus icon button" ng-click="UEC.attachSportToEvent()">
+                    <button class="ui plus icon button" ng-click="">
                         <i class="plus icon"></i>
                     </button>
         			<!-- List of Sports -->
         			<div class="ui middle aligned divided list">
-        				<div class="item"  ng-repeat="x in UEC.allSports">
+        				<div class="item">
         					<div class="right floated content">
-	        					<button class="ui red  trash icon button" ng-click="UEC.setCurrentId(x.sport_id,'delete-modal')" ><i class="trash icon"></i>
+	        					<button class="ui red  trash icon button"><i class="trash icon"></i>
 	        					</button>
         					</div>
-        					<div class="content" ng-click="UEC.openGame(x.sport_id)">
-	        					<a><h4>{{x.sport_name}}</h4></a>
+        					<div class="content">
+	        					<h4></h4>
 	        				</div>
         				</div>
         			</div>
-
-                    <div class="ui basic modal" id="delete-modal">
-                        <div class="ui icon header">
-                            <i class="trash icon"></i> DELETE
-                        </div>
-                        <div class="actions">
-                            <div class="ui red basic cancel inverted button" ng-click="UEC.closeModal('delete-modal')">
-                                <i class="remove icon"></i> No
-                            </div>
-                            <div class="ui green ok inverted button" ng-click="UEC.deleteSportFromEvent();UEC.closeModal('delete-modal')">
-                                <i class="checkmark icon"></i> Yes
-                            </div>
-                        </div>
-                    </div>
         		
         		</div>
         		<div class="ui segment" ng-controller="teamController as team">
@@ -191,7 +225,7 @@ $('#end-date-pick').calendar();
         			<div class="ui four cards" ng-init="team.viewTeamPerEvent()">
         				<div class="card" ng-repeat="x in team.allTeams">
         					<div class="content">
-        						<a class="header" ng-click = "team.viewTeam(x.team_id)">{{x.team_name}}</a>
+        						<a class="header">{{x.team_name}}</a>
         					</div>
         					<div class="extra content">
 	        					<button class="ui red  right floated  trash icon button" ng-click="team.deleteTeamFromEvent(x.team_id)">
@@ -207,15 +241,13 @@ $('#end-date-pick').calendar();
         			<h1 class="ui header">
         				SPONSORS
         			</h1>
-                    <div class="ui simple selection dropdown" ng-init="sponsor.viewAllSponsor()">
-                        <input name="Sponsors" type="hidden">
-                      <div class="default text">Sponsors</div>
-                      <i class="dropdown icon"></i>
-                      <div class="menu">
-                        <div class="item" ng-repeat="x in sponsor.allSponsors" ng-click="sponsor.setSponsorId(x.sponsor_id)" value="x.sponsor_id" ng-model="sponsor.sponsorId">
-                          {{x.sponsor_name}}
+                    <div class="ui selection dropdown">
+                        <input type="hidden" name="sponsors">
+                        <i class="dropdown icon"></i>
+                        <div class="default text">Sponsor</div>
+                        <div class="menu" ng-init="sponsor.viewAllSponsor()">
+                            <div class="item" ng-repeat="x in sponsor.allSponsors" ng-click="sponsor.setSponsorId(x.sponsor_id)" value="x.sponsor_id" ng-model="sponsor.sponsorId">{{x.sponsor_name}}</div>
                         </div>
-                      </div>
                     </div>
                     <button class="ui plus icon button" ng-click="sponsor.sponsorEvent()">
                         <i class="plus icon"></i>

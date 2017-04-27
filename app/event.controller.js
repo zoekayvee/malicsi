@@ -182,7 +182,8 @@
                 .delete('/events/'+id)
                 .then(function(response){
                     console.log('Event deleted')
-                    viewEvent($routeParams.event_id)
+                    //viewEvent($routeParams.event_id)
+                    $location.path('/events');
             }, function(response){
                 console.log("error");
             });
