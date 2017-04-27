@@ -36,7 +36,7 @@
             <a href='/#!/user/home' class='item'>Home</a>
             <a href='/#!/events' class='item'>Events</a>
 
-            <div class='alight right ui simple dropdown item' ng-controller='userController as user'>
+            <div id="identity-wrapper" class='alight right ui simple dropdown item' ng-controller='userController as user'>
                 {{user.user.firstname + ' ' + user.user.lastname}} <i class='dropdown icon'></i>
                 <div class='menu'>
                     <a class='item' href='#!/user/profile'>Profile</a>
@@ -59,21 +59,22 @@
 <script src='router.js'></script>
 
 <!-- controllers -->
-<script src='admin.controller.js'></script>
-<script src='activity-log.controller.js'></script>
-<script src='dashboard.controller.js'></script>
-<script src='event.controller.js'></script>
-<script src='sponsor.controller.js'></script>
-<script src='logged.user.controller.js'></script>
-<script src='team.controller.js'></script>
-<script src='user.controller.js'></script>
-<script src='profile.controller.js'></script>
-<script src='user-game-sched.controller.js'></script>
-<script src='user-event.controller.js'></script>
-<script src='game.controller.js'></script>
-<script src='sport.controller.js'></script>
-<script src='venue.controller.js'></script>
-<script src='other-users.controller.js'></script>
+<script type='text/javascript' src='file-input.directive.js'></script>
+<script src="admin.controller.js"></script>
+<script src="activity-log.controller.js"></script>
+<script src="dashboard.controller.js"></script>
+<script src="event.controller.js"></script>
+<script src="sponsor.controller.js"></script>
+<script src="logged.user.controller.js"></script>
+<script src="team.controller.js"></script>
+<script src="user.controller.js"></script>
+<script src="profile.controller.js"></script>
+<script src="user-game-sched.controller.js"></script>
+<script src="user-event.controller.js"></script>
+<script src="game.controller.js"></script>
+<script src="sport.controller.js"></script>
+<script src="venue.controller.js"></script>
+<script src="other-users.controller.js"></script> <!-- added -->
 <script src='guest.controller.js'></script>
 
 </html>

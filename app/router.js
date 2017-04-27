@@ -55,6 +55,9 @@
 				controller:'userGameSchedController',
 				controllerAs:'UGSC'
 			})
+			.when('/events/join', {
+				templateUrl: 'layouts/user-join-event.html'
+			})
 
 			//Game Routers
 			.when('/game/:game_id', {
@@ -64,10 +67,10 @@
 			})
 
 			//Teams Routers
-			.when('/team', {
+			.when('/teams', {
 				templateUrl: 'layouts/user-view-all-teams.html'
 			})
-			.when('/team/:team_id',{
+			.when('/teams/:team_id',{
 				templateUrl: 'layouts/user-view-team.html'
 			})
 
