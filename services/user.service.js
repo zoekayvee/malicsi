@@ -302,6 +302,25 @@ exports.viewUserTeams = (req,res) => {
 	});
 }
 
+exports.updateProfilePicture = (req,res) => {
+	const query_string = 'call updateProfilePicture(?,?)';
+	
+	const req_data = [
+		req.params.user_id,
+		req.file? req.file.path.substring(req.file.path.indexOf('public/')).replace('public',''):""
+	];
+
+	connection.query(query_string, req_data, (err, result) => {
+		if(!err) {
+			res.status(200).send(result);
+		} else {
+			console.log("Error in Updating Profile Picture");
+			console.log(err);
+			res.status(500).send(err);
+		}
+	})		
+}
+
 // updateUser - updates user information (uses user_id)
 exports.updateUser=(req,res)=>{
 	if(req.body.flag === "false"){

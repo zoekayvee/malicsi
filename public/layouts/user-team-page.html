@@ -20,7 +20,7 @@
                             </button>
                             </div>
                         <div ng-show="team.alreadyJoined">
-                         <button>
+                         <button class = "ui button">
                                {{team.playerStatus}}
                             </button>
                             </div>
@@ -46,12 +46,47 @@
                 <div class="content">
                     <div class="massive header"> 
                     <div class="ui right floated buttons">
-                        <button class="positive ui right floated button edit-trigger">
+                    <div ng-controller = "teamController as team">
+                        <button class="positive ui right floated button edit-trigger" ng-click = "team.openModal('update-modal');team.setTeamName(x.team_name)">
                           Edit
-                        </button>
-                        <button class="negative ui button">
-                         Delete
-                        </button>
+                        </button >
+                        <div class="ui modal" id="update-modal">
+                            <form class="ui form">
+                            <h2 class="ui dividing header">UPDATE TEAM</h2>
+                            <div class="fields">
+                                <div class="field">
+                                    <label>Team Name</label>
+                                    <input type="text" ng-model = "team.teamName" ng-init = "x.team_name" id="firstname">
+                                </div>
+                            </div>
+                                <button class="ui button" ng-click = "team.updateTeam(); team.closeModal('update-modal'); team.viewTeam(x.team_id)">Submit</button>
+                                <button class="ui button" ng-click = "team.closeModal('update-modal')">Cancel</button>
+                            </form>
+                    </div>
+
+                    <button class="negative ui button" ng-click = "team.openModal('delete-modal')">
+                        Delete
+                    </button>
+
+
+                           <div class="ui basic modal" id="delete-modal">
+                                    <div class="ui icon header">
+                                        <i class="trash icon"></i> DELETE
+                                    </div>
+                                    <div class="actions">
+                                        <div class="ui red basic cancel inverted button" ng-click="team.closeModal('delete-modal')">
+                                            <i class="remove icon"></i> No
+                                        </div>
+                                        <div class="ui green ok inverted button" ng-click="team.deleteTeam(x.team_id);team.closeModal('delete-modal')">
+                                            <i class="checkmark icon"></i> Yes
+                                        </div>
+                                    </div>
+                                </div>
+
+
+            </div>
+
+
                     </div>
                    <p> Stats and Standings </p>
                     

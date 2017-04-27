@@ -1,4 +1,4 @@
-	'use strict';
+'use strict';
 
 const adminController =require('../services/admin.service');
 const userController =require('../services/user.service');
@@ -9,6 +9,7 @@ const eventController =require('../services/event.services');
 const teamController = require('../services/team.services');
 const sponsorController = require('../services/sponsor.services');
 const venueController = require('../services/venue.service');
+const uploadController = require('../services/uploadController');
 
 // const dashboardController =require('../services/dashboard.service');
 const dashboardController =require('../services/dashboard.service');
@@ -24,6 +25,7 @@ router.get      ('/users',                  adminController.viewAllUsers);
 router.get      ('/users/:user_id',         userController.viewUser);
 router.put      ('/users/:user_id',         adminController.updateUserPassword);
 router.delete   ('/users/:user_id',         adminController.removeUser);
+router.put 		('/users/:user_id/profilepic', uploadController.upload.single('profilepic') ,userController.updateProfilePicture);
 router.post     ('/user_team',              userController.userJoinsTeam);
 router.get      ('/logs',                   adminController.viewAllLogs);
 router.get      ('/logs/:user_id',          adminController.viewLogs);
