@@ -29,7 +29,7 @@
 			.when('/user/activity-log', {
 				templateUrl: 'layouts/user-activity-log.html'
 			})
-			.when('/users/:username', {
+			.when('/users/:user_id', {
 				//new route for visiting other profile
 				templateUrl: 'layouts/user-visit-profile.html'
 			})

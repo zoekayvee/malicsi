@@ -1,4 +1,4 @@
-<link rel="stylesheet" type="text/css" href="css/admin_homepage.css"> </link>
+ <link rel="stylesheet" type="text/css" href="css/admin_homepage.css"> </link>
 
 <div class="ui container" id="main-wrapper" ng-controller="adminController as home">
     <div class="ui card" id="main_card"> 
@@ -40,6 +40,7 @@
                 <h3 class="ui header">{{x.event_name}}
                     Date Start: {{x.date_start}}<br> Date End: {{x.date_end}}<br>
                 </h3>
+                <div class="sub-header"> Event Creator:  {{x.firstname + ' ' + x.lastname}}</div>
                 </div>
                 <div class="center aligned extra">
                     <button class ="ui button" id="accept" ng-click="home.approveEvent(x.event_id)">ACCEPT</button>

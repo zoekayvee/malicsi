@@ -153,7 +153,9 @@
 	     				toastr.success('Logged out.');
 	     				window.location.href=redirect;
 	     				vm.hasUser=false;
+	     				 vm.user = {};
 	     			});
+
 	     }
 
 		function dropDown(){

@@ -45,6 +45,7 @@ router.put('/users/passwords/:user_id',     adminController.updateUserPassword);
 router.delete('/users/interests/:user_id/:users', userController.deleteInterests);
 
 router.delete('/users/:user_id',       adminController.removeUser);
+router.get('/user/all_events',				adminController.getUsersOfEvent);
 
 /*-------------------------DASHBOARD------------------------*/
 router.get('/viewTeamPlayGame', 			dashboardController.viewTeamPlayGame);

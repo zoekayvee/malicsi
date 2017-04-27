@@ -38,7 +38,7 @@
                             <div class="item" ng-repeat="player in team.allPlayers | filter: {player_status: 'accepted'}">
                                 <img class="ui avatar image" src="images/avatar.png">
                                 <div class="content" ng-controller="otherUsersController as others">
-                                    <a ng-click="others.clicked(player.user_id)">
+                                    <a ng-click="others.clicked(player.username)">
                                         <div class="header">{{player.username}}</div>
                                     </a>
                                 </div>

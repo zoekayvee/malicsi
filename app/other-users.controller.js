@@ -37,7 +37,7 @@
 			})
 
 		function clicked(id){
-			window.location.href ='#!/users/' + id;
+			window.location.href ='/#!/users/' + id;
 		}
 	}
 })();
