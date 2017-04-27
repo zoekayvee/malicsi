@@ -6,6 +6,10 @@ div {
     width: 100%;
 }
 
+.game-panel .card {
+    width: 100%;
+}
+
 .divider p {
     height: 50px;
     width: 50px;
@@ -18,4 +22,8 @@ div {
 
 #game-wrapper {
     margin-bottom: 20px;
+}
+
+.card-win {
+    background: red !important;
 }

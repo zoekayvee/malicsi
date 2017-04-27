@@ -67,10 +67,10 @@
                 <div>
                     <table id="sports" class="ui celled table">
                         <tbody>
-                            <tr ng-repeat="x in UEC.allSports" ng-init="a=x.sport_id"> 
+                            <tr ng-repeat="x in UEC.allSports" ng-init="a=x.sport_id">
                                 <td ng-click="showGame[$index]=!showGame[$index]">
-                                {{x.sport_name}} 
-                                    
+                                {{x.sport_name}}
+
 
                                     <button style="float:right" class="ui red button" ng-click="UEC.setCurrentId(x.sport_id,'delete-modal')" ng-show="logged.userId == event.currentUserId">X</button>
 

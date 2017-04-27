@@ -1,71 +1,66 @@
-<link rel='stylesheet prefetch' href='css/components/icon.min.css' />
-<link rel='stylesheet' href='css/account-guest.css' /> 
+<link rel='stylesheet' href='css/account-guest.css' />
 
-<script type='text/javascript' src='js/account-guest.js'></script>
-<!-- NAVIGATION SECTION -->
+<!-- navigation section -->
 <div class="ui fixed inverted menu" id="page-navigation-2">
     <div class="ui container">
         <a href="#" class="header item">
             <img id="logo" src="images/malicsi-text.png">
         </a>
 
-            <div class="right menu" ng-controller="userController as login">
-                <form class="ui mini form">
-                    <div class="item">
-                        <div class="fields" ng-hide="login.hasUser">
-                            <div class="field">
-                                <div class="ui left icon input">
-                                    <i class="user icon"></i>
-                                    <input type="text" name="username" placeholder="username" ng-model="login.username">
-                                </div>
-                            </div>
-                            <div class="field">
-                                <div class="ui left icon input">
-                                    <i class="lock icon"></i>
-                                    <input type="password" name="password" placeholder="password" ng-model="login.password">
-                                </div>
+        <div class="right menu" ng-controller="userController as login">
+            <form class="ui mini form">
+                <div class="item">
+                    <div class="alight right ui simple dropdown item" ng-show="login.hasUser">
+                        {{login.user.firstname + " " + login.user.lastname}} <i class="dropdown icon"></i>
+                        <div class="menu">
+                            <a class="item" href="#!/user/profile">Profile</a>
+                            <a class="item" href="/#!/user/activity-log">Activity Log</a>
+                            <a class="item" href="#" ng-click="user.logOut()">Logout</a>
+                        </div>
+                    </div>
+
+                    <div class="fields" ng-hide="login.hasUser">
+                        <div class="field">
+                            <div class="ui left icon input">
+                                <i class="user icon"></i>
+                                <input type="text" name="username" placeholder="username" ng-model="login.username">
                             </div>
                         </div>
-                        <div class="alight right ui simple dropdown item" ng-show="login.hasUser">
-                            {{login.user.firstname + " " + login.user.lastname}} <i class="dropdown icon"></i>
-                            <div class="menu">
-                                <a class="item" href="#!/user/profile">Profile</a>
-                                <a class="item" href="/#!/user/activity-log">Activity Log</a>
-                                <a class="item" href="#" ng-click="user.logOut()">Logout</a>
+                        <div class="field">
+                            <div class="ui left icon input">
+                                <i class="lock icon"></i>
+                                <input type="password" name="password" placeholder="password" ng-model="login.password">
                             </div>
                         </div>
                         <div class="field" ng-hide="login.hasUser">
                             <div class="ui submit button" id="login-button" ng-click="login.loginUser()">Login</div>
+                            <a href="/#!/register"><div class="ui button" ng-hide="login.hasUser">Register</div></a>
                         </div>
-                        <a href="/#!/register"><div class="ui button" ng-hide="login.hasUser">Register</div></a>
                     </div>
 
                     <div ng-show="login.hasUser" class="alight right ui simple dropdown item">
-                    {{user.user.firstname + " " + user.user.lastname}} <i class="dropdown icon"></i>
-                    <div class="menu" ng-controller="userController as user">
-                        <a class="item" href="#!/user/profile">Profile</a>
-                        <a class="item" href="/#!/user/activity-log">Activity Log</a>
-                        <a class="item" href="#" ng-click="user.logOut()">Logout</a>
+                        {{user.user.firstname + " " + user.user.lastname}} <i class="dropdown icon"></i>
+                        <div class="menu" ng-controller="userController as user">
+                            <a class="item" href="#!/user/profile">Profile</a>
+                            <a class="item" href="/#!/user/activity-log">Activity Log</a>
+                            <a class="item" href="#" ng-click="user.logOut()">Logout</a>
+                        </div>
                     </div>
-            </div>
 
                 </div>
-            </form>
-        </div>
-
+            </div>
+        </form>
     </div>
 </div>
 
 <div id="main-wrapper" ng-controller="guestController as game">
     <div id="preview-panel" class="ui container" >
-            <div class="game-preview" ng-repeat="x in game.allGames">
-                <a ng-click="game.clicked(x.game_id)">
-                {{ x.sport_name }}
-                <br>
-                {{ x.event_name }}  <!-- turn this to link that redirects to event -->
-                <br>
-                {{ x.date_start + "  " + x.time_start }}
-                </a>
+        <div class="game-preview" ng-repeat="x in game.allGames">
+            <div ng-click="game.clicked(x.game_id)" class="guest-games">
+                <h3>{{ x.sport_name }}</h3>
+                <h5>{{ x.event_name }}<h5>
+                <p>{{ x.date_start + "  " + x.time_start }}</p>
             </div>
+        </div>
     </div>
 </div>
