@@ -42,7 +42,7 @@ body {
 }
 
 .game-preview {
-    width: 20% !important;
+    width: 18% !important;
     height: 90px;
     background: rgba(0,0,0,0.5);
     display: inline-block;
@@ -62,6 +62,17 @@ input, .button {
     height: 35px !important;
 }
 
+#event-redirect {
+    width: 100px !important;
+    position: absolute;
+    right: -50px;
+    background-color: rgba(255,0,0,0.1);
+    color: white;
+    text-align: center;
+    font-size: 15pt;
+    padding-top: 22px;
+    line-height: 15px;
+}
 
 .guest-games {
     line-height: 10px;
