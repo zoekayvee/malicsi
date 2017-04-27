@@ -9,7 +9,7 @@ $(document).ready(function(){
         }
         else if(data != "1") {
             $("#admin-anchor").hide();
-        }
+        } 
     });
 
 });
