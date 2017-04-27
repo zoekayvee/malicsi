@@ -13,11 +13,11 @@
                         <img id="team-icon" src="images/olympics.gif">
                     </div>
 
-                    <div class="content center aligned">
+                    <div class="content center aligned" ng-controller="guestController as loged">
                         <div class="header">
                             <h1 class="ui centered large header">{{x.team_name}}</h1>
                             <div ng-hide="team.alreadyJoined">
-                                <button ng-show="logged.hasUser" class="negative ui animated button" ng-click="team.userJoinTeam(x.team_id)" id="join-group-button">
+                                <button ng-show="loged.hasUser" class="negative ui animated button" ng-click="team.userJoinTeam(x.team_id)" id="join-group-button">
                                     <div class="visible content" >Join </div>
                                     <div class="hidden content">
                                         <i class="left sign in icon"> </i>
@@ -25,8 +25,11 @@
                                 </button>
                             </div>
                             <div ng-show="team.alreadyJoined">
-                                <button class="ui button">
-                                    {{team.playerStatus}}
+                                <button ng-click="team.deleteTeamPlayer(logged.userId)" class="ui animated button">
+                                    <div class="visible content" >{{team.playerStatus}}</div>
+                                    <div class="hidden content">
+                                        <i class="left sign out icon"> </i>
+                                    </div>
                                 </button>
                             </div>
                         </div>

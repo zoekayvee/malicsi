@@ -35,12 +35,14 @@
     	//vm.getCurrentUser=getCurrentUser;
     	vm.updateFuckingTeam = updateFuckingTeam;
     	vm.getTeamPlayers=getTeamPlayers;
+    	vm.deleteTeamPlayer=deleteTeamPlayer;
     	vm.currentId = null;
         vm.setCurrentId = setCurrentId;
         vm.openModal = openModal;
         vm.closeModal = closeModal;	
         vm.setTeamName = setTeamName;
         vm.playerStatus="";
+        vm.playerTeamId=null;
         vm.alreadyJoined=null; //for the user/player
         vm.samp = null;
         vm.getRankingTeam = getRankingTeam;
@@ -90,12 +92,26 @@
 	    			vm.allPlayers.forEach(function(e){
 		    		 	console.log(e);
 		    		 	if(e.user_id===vm.userId){
+		    		 		vm.playerTeamId= $routeParams.team_id;
 			    			vm.playerStatus=e.player_status;
 			    			vm.alreadyJoined=true;
 			    		}
 			    	});
     		 });
 	
+		}
+
+		function deleteTeamPlayer(user_id){
+			var data = {
+				user_id : user_id
+			}
+			$http
+	    		.delete('/teams/player/'+$routeParams.team_id,data)
+	    		.then(function(response){
+	    			window.location.reload();
+    		 	} ,function(response){
+					console.log('Error');
+				});
 		}
 
 		function userJoinTeam(team_id) {
