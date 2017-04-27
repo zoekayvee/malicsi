@@ -16,8 +16,6 @@ $(document).ready(function(){
         }, 500);
     });
 
-
-
     $.get('/user_loggedin', function(data){
          $.get('/users/joined_events/'+data, function(data){
              $.get('/overallranking/'+data.event_id, function(data){
@@ -29,8 +27,6 @@ $(document).ready(function(){
     });
 
 });
-
-
 
 function loadGraph(teams) {
 
