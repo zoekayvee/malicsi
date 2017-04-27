@@ -186,7 +186,7 @@
                 .then(function(response){
                     console.log('Event deleted')
                     //viewEvent($routeParams.event_id)
-                    $location.path('/events');
+                    $window.history.back();
             }, function(response){
                 console.log("error");
             });
