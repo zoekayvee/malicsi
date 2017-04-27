@@ -273,7 +273,7 @@
 		        .put('/teams',updateData)
 		        .then(function(response){
 		            console.log('event updated');
-
+		            $route.reload();
 		        },
 		        function(response){
 		            console.log("error");
@@ -282,6 +282,7 @@
 
 		function setTeamName(team_name){
 			vm.teamName = team_name;
+			console.log("SET TEAM NAME" + vm.teamName);
 		}
 
 		function getTeamId(team_name,event_id){
