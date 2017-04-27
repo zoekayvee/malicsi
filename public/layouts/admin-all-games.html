@@ -151,14 +151,15 @@
                     <tfoot class="full-width">
                         <tr>
                             <th colspan="100%">
-                                <div class="ui right floated small primary labeled icon button" ng-click="game.openModal('add-modal');game.setEventId(y)">
+
+                                <div class="ui right floated small primary labeled icon button" ng-click="game.openModal('addGame-modal');game.setEventId(y)">
                                     <i class="add square icon"></i> Add Game
                                 </div>
                             </th>
                         </tr>
 
                     </tfoot>
-                    <div class="ui basic modal" id="add-modal">
+                    <div class="ui basic modal" id="addGame-modal">
                         <div class="ui icon header">
                             Add Game
                         </div>
@@ -208,10 +209,10 @@
                             </div>
                         </div>
                         <div class="actions">
-                            <div class="ui red basic cancel inverted button" ng-click="game.closeModal('add-modal')">
+                            <div class="ui red basic cancel inverted button" ng-click="game.closeModal('addGame-modal')">
                                 Cancel
                             </div>
-                            <div ng-click="game.addGame()" class="ui green ok inverted button">
+                            <div ng-click="game.addGame();game.closeModal('addGame-modal')" class="ui green ok inverted button">
                                 <i class="checkmark icon"></i> Yes
                             </div>
                         </div>

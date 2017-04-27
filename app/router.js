@@ -41,7 +41,7 @@
 				controllerAs: 'event'
 			})
 			.when('/events/:event_id',{
-				templateUrl:'layouts/user-view-event.html',
+				templateUrl:'layouts/user-view-event-ui.html',
 				controller: 'eventController',
 				controllerAs: 'event'
 			})
@@ -73,8 +73,7 @@
 				templateUrl: 'layouts/user-view-all-teams.html'
 			})
 			.when('/team/:team_id',{
-				templateUrl: 'layouts/user-team-page.html'
-
+				templateUrl: 'layouts/user-view-team.html'
 			})
 
 			//Search Routers
@@ -102,9 +101,9 @@
 				templateUrl: 'layouts/admin-all-sports.html'
 			})
 
-			//Catch Case
-			// .otherwise({
-			// 	templateUrl: 'layouts/error-404.html'
-			// })
+			// catch case
+			.otherwise({
+				templateUrl: 'layouts/error-404.html'
+			})
 	}
 })();

@@ -1,12 +1,11 @@
 .event-card {
 	min-height: 200px !important;
 	padding: 0 !important;
-	transition: all 0.9s linear;
+	transition: all 0.1s linear;
 }
 
 .event-card:hover {
-	/*background-color: #e9e581 !important;*/
-	box-shadow: 5px 5px 10px #e9e581;
+	transform: scale(1.05);
 }
 
 .card-content {
