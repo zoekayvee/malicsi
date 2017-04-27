@@ -138,7 +138,7 @@
 					toastr.success('Successfully sent account approval to admin!');
 				},
 				function(response){
-					toastr.error('Error in input!');
+					//toastr.error('Error in input!');
 					console.log('Error');
 					setTimeout(function(){
 						redirectLocation('no');
@@ -152,6 +152,7 @@
 	     				var redirect = response.data.redirect;
 	     				toastr.success('Logged out.');
 	     				window.location.href=redirect;
+	     				vm.hasUser=false;
 	     			});
 	     }
 

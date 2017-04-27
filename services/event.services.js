@@ -179,5 +179,28 @@ exports.getTeamsOfAllEvent = (req, res, next) => {
 	});
 }
 
+exports.eventStatusUpdate = (req, res, next) => {
+	var query = 'call eventStatusUpdate(?,?)';
+	const data = [
+		req.body.event_id,
+		req.body.status
+	];
+	console.log(data);
+	var id = connection.query(
+		query,
+		data,
+		(err, row, fields) => {
+			if(!err){
+				console.log("Update Event Status Success");
+				res.status(200).send(row);
+			}
+			else{
+				console.log(err);
+				res.status(500).send('Server error');
+			}
+	});
+}
+
+
 
 

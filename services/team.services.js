@@ -350,26 +350,3 @@ exports.viewTeamPerEvent = (req,res,next) => {
 			}
 	});
 }
-
-exports.teamStatusUpdate = (req, res, next) => {
-	var query = 'call teamStatusUpdate(?,?,?)';
-	const data = [
-		req.body.team_id,
-		req.body.event_id,
-		req.body.status
-	];
-	console.log(data);
-	var id = connection.query(
-		query,
-		data,
-		(err, row, fields) => {
-			if(!err){
-				console.log("Update Team Status Success");
-				res.status(200).send(row);
-			}
-			else{
-				console.log(err);
-				res.status(500).send('Server error');
-			}
-	});
-}

@@ -1,38 +1,156 @@
-<div id="main-wrapper">
-    <div class="ui container" ng-controller="teamController as team">
-        <div class="ui special cards" ng-init="team.viewClickedTeam()">
-            <div class="card" ng-repeat="x in team.allTeams">
-                <div class="blurring dimmable image">
-                    <div class="ui dimmer">
-                        <div class="content">
-                            <div class="center">
-                                <div class="ui inverted button">Add Friend</div>
+<link rel='stylesheet' href='css/user-team-page.css' />
+
+<div ng-controller="teamController as team" ng-init="team.viewClickedTeam()" id="main-wrapper" class="ui container">
+
+    <div class="ui grid">
+
+        <div class="four wide column">
+
+            <div ng-repeat="x in team.allTeams">
+
+                <div class="ui card center aligned">
+
+                    <div class="center aligned image">
+                        <img id="team-icon" src="images/olympics.gif">
+                    </div>
+
+                    <div class="content center aligned">
+                        <div class="header">
+                            <h1 class="ui centered large header">{{x.team_name}}</h1>
+                            <div ng-hide="team.alreadyJoined">
+                                <button class="negative ui animated button" ng-click="team.userJoinTeam(x.team_id)" id="join-group-button">
+                                    <div class="visible content" >Join </div>
+                                    <div class="hidden content">
+                                        <i class="left sign in icon"> </i>
+                                    </div>
+                                </button>
+                            </div>
+                            <div ng-show="team.alreadyJoined">
+                                <button class="ui button">
+                                    {{team.playerStatus}}
+                                </button>
+                            </div>
+                        </div>
+
+                        <h4>Team Players</h4>
+
+                        <div class="ui ordered middle aligned selection list">
+                            <div class="item" ng-repeat="player in team.allPlayers | filter: {player_status: 'accepted'}">
+                                <img class="ui avatar image" src="images/avatar.png">
+                                <div class="content" ng-controller="otherUsersController as others">
+                                    <a ng-click="others.clicked(player.user_id)">
+                                        <div class="header">{{player.username}}</div>
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <img src="../images/teamteam.jpg">
-                </div>
-                <div class="content">
-                    <a class="header">{{x.team_name}}</a>
-                    <div class="meta">
-                        <span class="date">{{x.team_id}}</span>
-                        <a><i class="write icon"></i></a>
 
-                    </div>
-                </div>
-                <div class="extra content">
-                    <a>
-                        <i class="users icon"></i> 2 Members
-                    </a>
                 </div>
             </div>
         </div>
-        <form class="ui form">
-            <div class="field">
-                <label>Team Name</label>
-                <input name="team-name" ng-model="team.teamName" placeholder="Phoenix Suns" type="text" required>
+
+        <div class="twelve wide column">
+            <div class="content">
+
+                <div id="team-header">
+
+                <div class="ui right floated buttons">
+                    <div ng-controller="teamController as team">
+
+                        <button class="positive ui right floated button edit-trigger" ng-click="team.openModal('update-modal');team.setTeamName(x.team_name)">Edit</button>
+
+                        <div class="ui modal" id="update-modal">
+                            <form class="ui form">
+                                <h2 class="ui dividing header">UPDATE TEAM</h2>
+                                <div class="fields">
+                                    <div class="field">
+                                        <label>Team Name</label>
+                                        <input type="text" ng-model="team.teamName" ng-init="x.team_name" id="firstname">
+                                    </div>
+                                </div>
+                                <button class="ui button" ng-click="team.updateTeam(); team.closeModal('update-modal'); team.viewTeam(x.team_id)">Submit</button>
+                                <button class="ui button" ng-click="team.closeModal('update-modal')">Cancel</button>
+                            </form>
+                        </div>
+
+                        <button class="negative ui button" ng-click="team.openModal('delete-modal')">Delete</button>
+
+                        <div class="ui basic modal" id="delete-modal">
+                            <div class="ui icon header">
+                                <i class="trash icon"></i> DELETE
+                            </div>
+                            <div class="actions">
+                                <div class="ui red basic cancel inverted button" ng-click="team.closeModal('delete-modal')">
+                                    <i class="remove icon"></i> No
+                                </div>
+                                <div class="ui green ok inverted button" ng-click="team.deleteTeam(x.team_id);team.closeModal('delete-modal')">
+                                    <i class="checkmark icon"></i> Yes
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="description">
+                    <div><h3 id="team-score">17 WINS<h3></div>
+                    <div id="team-standing">Rank 3</div>
+                </div>
+
             </div>
-            <button class="ui button" ng-click="team.updateTeam(x.team_id)" type="submit">Submit</button>
-        </form>
+
+
+                <div class="ui row">
+                    <h3>Schedule of Games</h2>
+
+                    <div id="forbut" ng-controller="gameController as game">
+
+                        <button class="negative ui animated button" ng-click="game.decrementInterval();game.getDate()">
+                            <div class="visible content">Prev</div>
+                            <div class="hidden content">
+                                <i class="left arrow icon"></i>
+                            </div>
+                        </button>
+
+                        <button class="negative ui button" ng-click="game.interval=0;game.viewCurrentGamesByTeam()">
+                            Today's Date
+                        </button>
+
+                        <button class="negative ui animated button" ng-click="game.incrementInterval();game.getDate()">
+                            <div class="visible content">Next</div>
+                            <div class="hidden content">
+                                <i class="right arrow icon"></i>
+                            </div>
+                        </button>
+
+                        <h3>{{game.date}}</h3>
+
+                        <div class="ui row" id="divtable1" style="border-color: #466675">
+                            <meta name="viewport" content="width=device-width, initial-scale=1">
+                            <table class="ui center aligned celled table">
+                                <thead>
+                                    <tr>
+                                        <th>VS</th>
+                                        <th>Time</th>
+                                        <th>Location</th>
+                                    </tr>
+                                </thead>
+                                <tbody ng-init="game.viewCurrentGamesByTeam();game.getDate()">
+                                    <tr ng-repeat="x in game.currentGamesTeam" ng-click="game.viewGamePage(x.game_id)">
+                                        <td>{{x.team}}   -   {{x.team2}}</td>
+                                        <td>{{x.time_start}}</td>
+                                        <td>{{x.venue_name}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
     </div>
 </div>

@@ -58,6 +58,7 @@ create table event(
 	date_start 		date,
 	date_end 		date,
 	duration 		int,
+	status 			enum('accepted', 'rejected', 'pending'),
 
 	UNIQUE			(event_name),
 	constraint 		event_id_pk primary key(event_id),
@@ -95,7 +96,6 @@ create table team_players(
 create table team_joins_event(
 	event_id 		int unsigned,
 	team_id 		int unsigned,
-	status			enum('accepted', 'rejected', 'pending'),
 
 	UNIQUE 			(team_id),
 	constraint 		team_id_joins_event_fk foreign key(team_id) references team(team_id) ON DELETE CASCADE ON UPDATE CASCADE,
@@ -375,7 +375,7 @@ CREATE TRIGGER sponsorEventInsert AFTER INSERT ON sponsor_events
 				DECLARE name,eventname varchar(100);
 				SET name = (SELECT team_name from team where team_id=NEW.team_id LIMIT 1);
 				SET eventname = (SELECT event_name from event where event_id=NEW.event_id LIMIT 1);
-				INSERT INTO logs(message) VALUES(concat(name,"'s request status to join ", eventname, ": ", NEW.status));
+				INSERT INTO logs(message) VALUES(concat(name,"'s request status to join ", eventname));
 			END;
 %%
 	CREATE TRIGGER teamPlayGameInsert AFTER INSERT ON team_plays_game
@@ -589,7 +589,7 @@ CREATE TRIGGER sponsorEventInsert AFTER INSERT ON sponsor_events
 	CREATE PROCEDURE addEvent(in userid int unsigned, in eventName varchar(100), in dateStart date, in dateEnd date)
 		BEGIN
 
-			INSERT INTO event(user_id, event_name, date_start, date_end, duration ) VALUES(userid, eventName, dateStart, dateEnd, datediff(dateEnd, dateStart));
+			INSERT INTO event(user_id, event_name, date_start, date_end, duration,status) VALUES(userid, eventName, dateStart, dateEnd, datediff(dateEnd, dateStart),'pending');
 		END;
 %%
 	CREATE PROCEDURE viewEvent(in eventId int unsigned)
@@ -665,12 +665,12 @@ CREATE TRIGGER sponsorEventInsert AFTER INSERT ON sponsor_events
 %%
 	CREATE PROCEDURE teamJoinsEvent(in teamId int unsigned, in eventId int unsigned)
 		BEGIN
-			INSERT INTO team_joins_event(event_id,team_id, status) VALUES(eventId,teamId, 'pending');
+			INSERT INTO team_joins_event(event_id,team_id) VALUES(eventId,teamId);
 		END;
 %%
-	CREATE PROCEDURE teamStatusUpdate(in teamId int unsigned, in eventId int unsigned, in nstatus enum('accepted', 'rejected', 'pending'))
+	CREATE PROCEDURE eventStatusUpdate(in eventId int unsigned, in nstatus enum('accepted', 'rejected', 'pending'))
 		BEGIN
-			UPDATE team_joins_event SET status = nstatus where team_id = teamId and event_id = eventId;
+			UPDATE event SET status = nstatus where event_id = eventId;
 		END;
 %%
 		CREATE PROCEDURE insertTeamPlaysGame(in gameId int unsigned)

@@ -7,17 +7,14 @@
     function loggedUserController($http,$location,$rootScope){
 
         var vm = this;
-        vm.userId =null;
-        $http
-            .get('/user_loggedin')
-            .then(function(response) {
-            	if (response.data){
-            	       vm.userId = response.data;
-            	}
-            	else{
+        vm.userId = null;
 
-            	}
-            });
+        $http
+        .get('/user_loggedin')
+        .then(function(response) {
+            vm.userId=response.data;
+        });
+        
     }
 }
 )();

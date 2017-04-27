@@ -1,8 +1,6 @@
-<link rel='stylesheet prefetch' href='css/components/icon.min.css' />
 <link rel='stylesheet' href='css/account-guest.css' />
 
-<script type='text/javascript' src='js/account-guest.js'></script>
-<!-- NAVIGATION SECTION -->
+<!-- navigation section -->
 <div class="ui fixed inverted menu" id="page-navigation-2">
     <div class="ui container">
         <a href="#" class="header item">
@@ -39,37 +37,30 @@
                             <a href="/#!/register"><div class="ui button" ng-hide="login.hasUser">Register</div></a>
                         </div>
                     </div>
+
+                    <div ng-show="login.hasUser" class="alight right ui simple dropdown item">
+                        {{user.user.firstname + " " + user.user.lastname}} <i class="dropdown icon"></i>
+                        <div class="menu" ng-controller="userController as user">
+                            <a class="item" href="#!/user/profile">Profile</a>
+                            <a class="item" href="/#!/user/activity-log">Activity Log</a>
+                            <a class="item" href="#" ng-click="user.logOut()">Logout</a>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </form>
     </div>
-
-</div>
 </div>
 
-<div id="main-wrapper">
-    <div id="preview-panel" class="ui container">
-        <a href="/#!/events">
-            <div class="game-preview">
-                Event Name. Sports.
-                Game Details.
-                Hello World!
+<div id="main-wrapper" ng-controller="guestController as game">
+    <div id="preview-panel" class="ui container" >
+        <div class="game-preview" ng-repeat="x in game.allGames">
+            <div ng-click="game.clicked(x.game_id)" class="guest-games">
+                <h3>{{ x.sport_name }}</h3>
+                <h5>{{ x.event_name }}<h5>
+                <p>{{ x.date_start + "  " + x.time_start }}</p>
             </div>
-        </a>
-        <a href="/#!/events">
-            <div class="game-preview">
-                Hello World!
-                Event Name. Sports.
-                Game Details.
-            </div>
-        </a>
-        <a href="/#!/events">
-            <div class="game-preview">
-                Event Name. Sports.
-                Game Details.
-                Hello World!
-            </div>
-        </a>
-
+        </div>
     </div>
 </div>
