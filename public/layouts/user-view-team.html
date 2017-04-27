@@ -2,11 +2,11 @@
 
 <div ng-controller="teamController as team" ng-init="team.viewClickedTeam()" id="main-wrapper" class="ui container">
 
-    <div class="ui grid">
+    <div class="ui grid" ng-repeat="x in team.allTeams">
 
         <div class="four wide column">
 
-            <div ng-repeat="x in team.allTeams">
+            <div >
 
                 <div class="ui card center aligned">
 
@@ -69,7 +69,7 @@
                                         <input type="text" ng-model="team.teamName" ng-init="x.team_name" id="firstname">
                                     </div>
                                 </div>
-                                <button class="ui button" ng-click="team.updateTeam(); team.closeModal('update-modal'); team.viewTeam(x.team_id)">Submit</button>
+                                <button class="ui button" ng-click="team.updateTeam(); team.closeModal('update-modal'); team.viewClickedTeam()">Submit</button>
                                 <button class="ui button" ng-click="team.closeModal('update-modal')">Cancel</button>
                             </form>
                         </div>
