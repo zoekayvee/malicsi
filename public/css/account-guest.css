@@ -1,4 +1,5 @@
 body {
+    overflow: hidden;
     background: url("../images/guest.jpg");
     border: solid 1px rgba(0,0,0,0);
     background-size: cover;
@@ -42,7 +43,7 @@ body {
 }
 
 .game-preview {
-    width: 20% !important;
+    width: 18% !important;
     height: 90px;
     background: rgba(0,0,0,0.5);
     display: inline-block;
@@ -62,6 +63,20 @@ input, .button {
     height: 35px !important;
 }
 
+#event-redirect {
+    height: 90px;
+    width: 100px !important;
+    position: absolute;
+    right: 20px;
+    bottom: 0;
+    background-color: rgba(255,0,0,0.1);
+    color: white;
+    text-align: center;
+    font-size: 15pt;
+    padding-top: 22px;
+    line-height: 15px;
+    border-top: solid 1px rgba(255, 0, 0, 0.5);
+}
 
 .guest-games {
     line-height: 10px;

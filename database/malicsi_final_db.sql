@@ -11,11 +11,11 @@ Go to directory where malicsidb.sql is located or enter full path to file then r
 
 -- GRANT ALL PRIVILEGES ON malicsiDB.* TO "projectOneTwoEight"@"localhost" WITH GRANT OPTION;
 
-DROP DATABASE IF EXISTS `malicsiDB`;
+DROP DATABASE IF EXISTS `malicsiDB1`;
 
-CREATE DATABASE IF NOT EXISTS `malicsiDB`;
+CREATE DATABASE IF NOT EXISTS `malicsiDB1`;
 
-USE `malicsiDB`;
+USE `malicsiDB1`;
 
 create table users(
 	user_id 		int unsigned auto_increment,

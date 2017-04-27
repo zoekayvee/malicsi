@@ -54,6 +54,8 @@
                 .then(function(response){
                     console.log(response.data);
                     console.log('DADA');
+                    $route.reload();
+
                 }, function(response){
                     console.log("Error: Cannot Create Event");
                 });
@@ -115,6 +117,7 @@
             }
 
         function viewEvent(id){
+            console.log("VIEW EVENT" + id)
             $location.path('/events/' + id)
             // $http
             //     .get('/events/' + id)
@@ -183,7 +186,7 @@
                 .then(function(response){
                     console.log('Event deleted')
                     //viewEvent($routeParams.event_id)
-                    $location.path('/events');
+                    $window.history.back();
             }, function(response){
                 console.log("error");
             });

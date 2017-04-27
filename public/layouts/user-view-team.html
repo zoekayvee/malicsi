@@ -2,11 +2,11 @@
 
 <div ng-controller="teamController as team" ng-init="team.viewClickedTeam()" id="main-wrapper" class="ui container">
 
-    <div class="ui grid">
+    <div class="ui grid" ng-repeat="x in team.allTeams">
 
         <div class="four wide column">
 
-            <div ng-repeat="x in team.allTeams">
+            <div >
 
                 <div class="ui card center aligned">
 
@@ -53,10 +53,10 @@
         <div class="twelve wide column">
             <div class="content">
 
-                <div id="team-header">
+                <div id="team-header" ng-controller="teamController as team">
 
                 <div class="ui right floated buttons">
-                    <div ng-controller="teamController as team">
+                    <div>
 
                         <button class="positive ui right floated button edit-trigger" ng-click="team.openModal('update-modal');team.setTeamName(x.team_name)">Edit</button>
 
@@ -69,7 +69,7 @@
                                         <input type="text" ng-model="team.teamName" ng-init="x.team_name" id="firstname">
                                     </div>
                                 </div>
-                                <button class="ui button" ng-click="team.updateTeam(); team.closeModal('update-modal'); team.viewTeam(x.team_id)">Submit</button>
+                                <button class="ui button" ng-click="team.updateTeam(); team.closeModal('update-modal'); team.viewClickedTeam()">Submit</button>
                                 <button class="ui button" ng-click="team.closeModal('update-modal')">Cancel</button>
                             </form>
                         </div>
@@ -93,9 +93,9 @@
                     </div>
                 </div>
 
-                <div class="description">
-                    <div><h3 id="team-score">17 WINS<h3></div>
-                    <div id="team-standing">Rank 3</div>
+                <div class="description" ng-init="team.getOverallRanking()">
+                    <div><h3 id="team-score" style="color:white">{{team.overallList.wins}} wins<h3></div>
+                    <div id="team-standing">{{team.overallList.rank}}</div>
                 </div>
 
             </div>
@@ -113,7 +113,7 @@
                             </div>
                         </button>
 
-                        <button class="negative ui button" ng-click="game.interval=0;game.viewCurrentGamesByTeam()">
+                        <button class="negative ui button" ng-click="game.interval=0;game.viewCurrentGamesByTeam();game.getDate()">
                             Today's Date
                         </button>
 
@@ -123,6 +123,9 @@
                                 <i class="right arrow icon"></i>
                             </div>
                         </button>
+
+                          <!-- Date: -->
+                          <!-- <input type="date" name="date" ng-model="game.date"> -->
 
                         <h3>{{game.date}}</h3>
 
