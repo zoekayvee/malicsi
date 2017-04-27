@@ -41,7 +41,7 @@
 				controllerAs: 'event'
 			})
 			.when('/events/:event_id',{
-				templateUrl:'layouts/user-view-event.html',
+				templateUrl:'layouts/user-view-event-ui.html',
 				controller: 'eventController',
 				controllerAs: 'event'
 			})
@@ -55,11 +55,9 @@
 				controller:'userGameSchedController',
 				controllerAs:'UGSC'
 			})
-			// .when('/events/game-schedule', {
-			// 	templateUrl: 'layouts/user-game-sched.html',
-			// 	controller:'userGameSchedController',
-			// 	controllerAs:'UGSC'
-			// })
+			.when('/events/join', {
+				templateUrl: 'layouts/user-join-event.html'
+			})
 
 			//Game Routers
 			.when('/game/:game_id', {
@@ -72,9 +70,8 @@
 			.when('/team', {
 				templateUrl: 'layouts/user-view-all-teams.html'
 			})
-			.when('/team/:team_id',{
-				templateUrl: 'layouts/user-team-page.html'
-
+			.when('/events/:event_id/team/:team_id',{
+				templateUrl: 'layouts/user-view-team.html'
 			})
 
 			//Search Routers
@@ -86,7 +83,7 @@
 			.when('/admin', {
 				templateUrl: 'layouts/admin-homepage.html'
 			})
-			.when('/admin/users', { //changed, this is the route in htmls
+			.when('/admin/users', {
 				templateUrl: 'layouts/admin-all-users.html'
 			})
 			.when('/admin/events', {
@@ -102,7 +99,7 @@
 				templateUrl: 'layouts/admin-all-sports.html'
 			})
 
-			//Catch Case
+			// catch case
 			.otherwise({
 				templateUrl: 'layouts/error-404.html'
 			})

@@ -1,9 +1,9 @@
 body {
     background: url("../images/guest.jpg");
     border: solid 1px rgba(0,0,0,0);
-    background-size: 100%;
-    /*animation: bgbg 5s;*/
-    /*transition: all 2s linear;*/
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: top center;
 }
 
 /* special navigation bar */
@@ -21,12 +21,9 @@ body {
 }
 
 #main-wrapper {
-    background: url("../images/guest.jpg");
     background-size: 100%;
-    /*background: rgba(0,0,0,0.5);*/
     margin-top: 65px !important;
     margin-bottom: 0 !important;
-    display: none;
 }
 
 #login-button {
@@ -34,139 +31,66 @@ body {
     color: white;
 }
 
-.data-panel {
-    background-color: #333 !important;
+#preview-panel {
+    width: 100vw;
+    height: 120px;
+    background: rgba(0,0,0,0.5);
+    position: absolute;
+    bottom: 0;
+    padding-left: 5%;
+    padding-right: 5%;
 }
 
-
-/*******************************
-             Text
-*******************************/
-
-p {
-    margin: 0em 0em 1em;
-    line-height: 1.4285em;
-}
-
-p:first-child {
-    margin-top: 0em;
-}
-
-p:last-child {
-    margin-bottom: 0em;
-}
-
-
-/*-------------------
-        Links
---------------------*/
-
-a {
-    color: #4183C4;
-    text-decoration: none;
-}
-
-a:hover {
-    color: #1e70bf;
-    text-decoration: none;
-}
-
-.landingImage {
-    height: auto;
-    max-width: 100%;
-}
-
-
-/*-------------------
-   image slider
---------------------*/
-
-.mySlides {
-    display: none;
-}
-
-.mySlides img {
-    box-shadow: 3px 3px 10px black;
-}
-
-/* Slideshow container */
-
-.slideshow-container {
-    max-width: 1000px;
-    margin: auto;
-}
-
-
-/* The dots/bullets/indicators */
-
-.dot {
-    height: 13px;
-    width: 13px;
-    margin: 0 2px;
-    background-color: #bbb;
-    border-radius: 50%;
+.game-preview {
+    width: 18% !important;
+    height: 90px;
+    background: rgba(0,0,0,0.5);
     display: inline-block;
-    transition: background-color 0.6s ease;
+    padding: 5px;
+    padding-left: 10px;
+    transition: all 0.1s linear;
+    border-left: solid 1px rgba(255, 0, 0, 0.5);
+    margin-right: 15px;
 }
 
-.active {
-    background-color: #717171;
+.game-preview:hover {
+    background-color: rgba(255,0,0,0.1);
+    transform: scale(1.1);
 }
 
-
-/* Fading animation */
-
-.fade {
-    -webkit-animation-name: fade;
-    -webkit-animation-duration: 1.5s;
-    animation-name: fade;
-    animation-duration: 1.5s;
+input, .button {
+    height: 35px !important;
 }
 
-@-webkit-keyframes fade {
-    from {
-        opacity: .4
-    }
-    to {
-        opacity: 1
-    }
+#event-redirect {
+    height: 90px;
+    width: 100px !important;
+    position: absolute;
+    right: 20px;
+    bottom: 0;
+    background-color: rgba(255,0,0,0.1);
+    color: white;
+    text-align: center;
+    font-size: 15pt;
+    padding-top: 22px;
+    line-height: 15px;
+    border-top: solid 1px rgba(255, 0, 0, 0.5);
 }
 
-@keyframes fade {
-    from {
-        opacity: .4
-    }
-    to {
-        opacity: 1
-    }
+.guest-games {
+    line-height: 10px;
 }
 
-
-@keyframes fade {
-    from {
-        opacity: .4
-    }
-    to {
-        opacity: 1
-    }
+.guest-games h3 {
+    margin-bottom: -20px;
+    color: #DE1B1B;
 }
 
-
-/* On smaller screens, decrease text size */
-
-@media only screen and (max-width: 300px) {
-    .text {
-        font-size: 11px
-    }
+.guest-games h5 {
+    margin-bottom: -20px;
+    color: #DEDEDE;
 }
 
-@-webkit-keyframes bgbg {
-    from {
-        background: url("../images/guest.jpg");
-        border: solid 1px rgba(0,0,0,0);
-        background-size: 100%;
-    }
-    to {
-        background: #333;
-    }
+.guest-games p {
+    color: #999;
 }

@@ -4,7 +4,7 @@
     .module('malicsi')
     .controller('eventController', eventController);
 
-    function eventController($http,$location,$routeParams){
+    function eventController($http,$location,$routeParams,$window,$route){
 
         var vm = this;
 
@@ -54,6 +54,8 @@
                 .then(function(response){
                     console.log(response.data);
                     console.log('DADA');
+                    $route.reload();
+
                 }, function(response){
                     console.log("Error: Cannot Create Event");
                 });
@@ -115,6 +117,7 @@
             }
 
         function viewEvent(id){
+            console.log("VIEW EVENT" + id)
             $location.path('/events/' + id)
             // $http
             //     .get('/events/' + id)
@@ -182,7 +185,8 @@
                 .delete('/events/'+id)
                 .then(function(response){
                     console.log('Event deleted')
-                    viewEvent($routeParams.event_id)
+                    //viewEvent($routeParams.event_id)
+                    $window.history.back();
             }, function(response){
                 console.log("error");
             });
@@ -221,7 +225,8 @@
                 .put('/events',updateData)
                 .then(function(response){
                     console.log('event updated')
-                    viewEvent($routeParams.event_id)
+                    viewEvent($routeParams.event_id);
+                    $route.reload();
                 },
                 function(response){
                     console.log("Error :(");

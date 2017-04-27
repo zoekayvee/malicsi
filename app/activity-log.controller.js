@@ -47,7 +47,6 @@
             });
 
         function modifyTime(){
-        	console.log("MODIFIRD");
         	 vm.allLogs.forEach(function(e){
             	if(e.Seconds<60){
             		//added

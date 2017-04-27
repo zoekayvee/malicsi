@@ -2,22 +2,26 @@
 
 <div id="main-wrapper" ng-controller="eventController as event">
 
-    <div class="ui grid container">
+    <div class="ui grid container"  ng-controller="loggedUserController as logged">
         <div class="four wide column" ng-init="event.viewClickedEvent()">
             <div class="ui card" ng-repeat="x in event.allEvents">
                 <h2>{{x.event_name}}</h2> Start Date:{{x.date_start}}
                 <br> End Date:{{x.date_end}}
                 <br> Open for registration? : {{x.allow_reg == '1' ? 'Yes' : 'No'}}
                 <br>
+                {{logged.userId}}
                 <div id="command-panel" ng-show="logged.userId == event.currentUserId">
+
                     <button class="command-btn" ng-click="event.updateEvent()"><i class="write icon"></i>
                     </button>
                     <button class="command-btn" ng-click="event.deleteEvent(x.event_id)"><i class="delete icon"></i>
                     </button>
                 </div>
             </div>
-            <div class="ui card">
-                <button class="ui button" id="join-button">Join</button>
+            <div ng-controller="guestController as logged">
+            <div ng-show="logged.hasUser" class="ui card">
+                <a href="events/join"><button class="ui button" id="join-button">Join</button></a>
+            </div>
             </div>
             <div class="ui form" ng-repeat="x in event.allEvents">
                 <div ng-show="logged.userId == event.currentUserId">

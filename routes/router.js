@@ -1,4 +1,4 @@
-	'use strict';
+'use strict';
 
 const adminController =require('../services/admin.service');
 const userController =require('../services/user.service');
@@ -9,10 +9,11 @@ const eventController =require('../services/event.services');
 const teamController = require('../services/team.services');
 const sponsorController = require('../services/sponsor.services');
 const venueController = require('../services/venue.service');
+const uploadController = require('../services/uploadController');
 
 // const dashboardController =require('../services/dashboard.service');
 const dashboardController =require('../services/dashboard.service');
-
+const guestController = require('../services/guest.service');
 
 
 var path = require('path');
@@ -24,6 +25,7 @@ router.get      ('/users',                  adminController.viewAllUsers);
 router.get      ('/users/:user_id',         userController.viewUser);
 router.put      ('/users/:user_id',         adminController.updateUserPassword);
 router.delete   ('/users/:user_id',         adminController.removeUser);
+router.put 		('/users/:user_id/profilepic', uploadController.upload.single('profilepic') ,userController.updateProfilePicture);
 router.post     ('/user_team',              userController.userJoinsTeam);
 router.get      ('/logs',                   adminController.viewAllLogs);
 router.get      ('/logs/:user_id',          adminController.viewLogs);
@@ -32,6 +34,9 @@ router.put      ('/user/:user_id',			userController.updateUser); //added
 router.get 		('/user/teams/:user_id',    userController.viewUserTeams); //added
 router.post  	('/user',                	adminController.addUser); //added
 router.get      ('/users/joined_events/:user_id',dashboardController.viewLatestEvent); //added for dashboard
+router.get      ('/users/player_requests/:user_id',dashboardController.getPlayerRequests); //added for dashboard
+router.put      ('/users/player_requests/approval',dashboardController.approveTeamPlayer);
+router.put      ('/users/player_requests/disapproval',dashboardController.disapproveTeamPlayer);
 
 router.get('/user/events/:user_id',         userController.viewUserEvents);
 router.get('/user/sponsored/:user_id',      userController.viewSponsoredEvents);
@@ -45,9 +50,10 @@ router.delete('/users/:user_id',       adminController.removeUser);
 
 /*-------------------------DASHBOARD------------------------*/
 router.get('/viewTeamPlayGame', 			dashboardController.viewTeamPlayGame);
-router.get('/viewCurrentGames', 			    dashboardController.viewCurrentGame);
+router.get('/viewCurrentGames', 			dashboardController.viewCurrentGame);
 router.get('/viewUpcomingGame', 			dashboardController.viewUpcomingGame);
-
+router.get('/eventsByInterest/:user_id', 			dashboardController.viewEventUsingInterest);
+router.get('/viewGames',					guestController.viewGames);
 /*----------------------------------------------------------*/
 router.post		('/login',                       userController.login);
 router.get 		('/logout',                 userController.logout);
@@ -60,6 +66,9 @@ router.get      ('/events/:event_id', 		eventController.viewEvent);
 router.get      ('/events',   				eventController.viewAllEvent);
 router.put      ('/events',    				eventController.updateEvent);
 router.delete   ('/events/:event_id',   	eventController.deleteEvent);
+router.get 		('/events_teams',			eventController.getTeamsOfAllEvent);
+router.put 		('/events_status',			eventController.eventStatusUpdate);
+router.get 		('/events/:event_id/upcomingGames',  gameController.viewUpcomingGamesByEvent);
 
 router.get      ('/sponsors_get_id/:sponsor_name',	sponsorController.getSponsorId)
 router.post     ('/sponsors',      sponsorController.addSponsor);
@@ -75,14 +84,15 @@ router.post     ('/teams',      	teamController.addTeam);
 router.get      ('/teams/:team_id', teamController.viewTeam);
 router.get      ('/teams',  	    teamController.viewAllTeam);
 router.put      ('/teams',          teamController.updateTeam);
-router.delete   ('/teams/:team_id', teamController.deleteTeam);
+router.delete   ('/teams_delete/:team_id', teamController.deleteTeam);
 router.post		('/teams/join',	    teamController.userJoinTeam);
 router.get      ('/teams_get_id/:team_name',			teamController.getTeamId);
 router.post		('/teams/event',	teamController.teamJoinEvent);
-router.get       ('/teams_per/:event_id', teamController.viewTeamPerEvent);
-router.get 		('/teams/in_game/:game_id' 		,teamController.viewTeamsInGame); 
+router.get      ('/teams_per/:event_id', teamController.viewTeamPerEvent);
+router.get 		('/teams/in_game/:game_id' 		,teamController.viewTeamsInGame);
 router.post 	('/teams_from_event',teamController.deleteTeamFromEvent);
-
+router.put 		('/teams/player_status',	teamController.updateTeamPlayerStatus);
+router.get 		('/teams/players/:team_id',	teamController.getTeamPlayers);
 
 router.get      ('/sponsors_get_id/:sponsor_name',	sponsorController.getSponsorId)
 router.post     ('/sponsors',      sponsorController.addSponsor);
@@ -132,6 +142,10 @@ router.post('/teams/join/game',	    		teamController.teamPlayGame);
 router.get('/teams/game/:team_id',			teamController.viewAvailableTeams)
 router.post('/ranking/:sport_id', 			gameController.getRanking);
 router.get('/overallranking/:event_id', 	gameController.getOverallRanking);
+router.post('/overallranking/:event_id', 	gameController.getRankingTeam);
+router.get('/events/:event_id/games', 	    gameController.viewGamesByEvent);
+router.get('/events/:event_id/current_games', 	    gameController.viewCurrentGamesByEvent);
+router.get('/events/:event_id/upcoming_games', 	    gameController.viewCurrentGamesByEvent);
 router.post('/bet/:user_id', 				gameController.bet);
 router.get('/bet/:user_id/:game_id', 		gameController.betStatus);
 router.get('/scores/:game_id/:team_id', 	gameController.getScores);
@@ -146,6 +160,10 @@ router.post('/leaderboard/:sport_id', 		gameController.viewLeaderboards);
 router.get('/leaderboard/:sport_id', 		gameController.viewLeaderboards);
 router.get('/venues', 						venueController.viewAllVenues);
 router.get('/game/score/:event_id',			gameController.viewThreeScoreboard);
+router.post('/game/team/:team_id',			gameController.viewCurrentGamesByTeam);
+router.get('/game/date/:interval',			gameController.getDate);
+router.post('/game/user',					gameController.viewPastGamesUser);
+router.get('/game/user/:user_id',					gameController.viewPastGamesUser);
 
 router.get('/user_loggedin', (req, res) => {
 	if (req.session)

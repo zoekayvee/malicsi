@@ -1,0 +1,15 @@
+#join-group-button {
+	width: 100%;
+}
+
+#team-header {
+	padding: 20px;
+	margin-bottom: 15px;
+	width: 100% !important;
+	background: url("../images/1.jpg");
+}
+
+#team-score {
+	font-size: 50px;
+	margin-bottom: -30px;
+}

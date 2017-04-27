@@ -38,6 +38,7 @@
         }
 
         function setSportId(id){
+            console.log("Set sport id " + id);
             vm.addSportId = id;
         }
 

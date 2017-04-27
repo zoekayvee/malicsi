@@ -8,7 +8,7 @@
 		var vm = this;
 		vm.username="";
 		vm.password="";
-		vm.hasUser="";
+		vm.hasUser=null;
 		vm.user_type="";
 		vm.loginUser=loginUser;
         vm.user = {};
@@ -18,33 +18,40 @@
 		vm.newUser = {};
 
 
+
 		vm.registerUser=registerUser;
 		vm.logOut = logOut;
 		vm.dropDown = dropDown;
 		vm.openModal = openModal;
 		vm.closeModal= closeModal;
 
+
         vm.currentUser = {};
-        
+        vm.userDash="";
 
 		//FOR DASHBOARD
 		vm.teamGames = [];
 		vm.currentGames = [];
 		vm.upcomingGames = [];
-		
 
-		$http   
-            .get('/user_loggedin') 
+
+		$http
+            .get('/user_loggedin')
             .then(function(response) {
             	if (response.data){
-            		vm.hasUser="true";
+            		vm.hasUser=true;
+            		$http
+                        .get('/users/'+response.data)
+                        .then(function(response) {
+                            vm.user = response.data;
+                        });
             	}
             	else{
-            		vm.hasUser="false";
+            		vm.hasUser=false;
             	}
             });
 
-        
+
         function setToastr(){
 		    toastr.options.positionClass = "toast-bottom-right";
 		    toastr.options.closeButton = true;
@@ -62,60 +69,29 @@
 			else
 				window.location.href = redirect;
 		}
-		
-        // $http   
-        //     .get('/viewTeamPlayGame') 
-        //     .then(function(response) {
-        //         if (response.data) {
-        //            vm.teamGames = response.data;   
-        //         }
-        //         else{
-        //         	console.log("ERROR!");
-        //         }
-        //     })
-
-        //  $http   
-        //     .get('/viewCurrentGames') 
-        //     .then(function(response) {
-        //         if (response.data) {
-        //            vm.currentGames = response.data;   
-        //         }
-        //         else{
-        //         	console.log("ERROR!");
-        //         }
-        //     })
-
-        //  $http   
-        //     .get('/viewUpcomingGame') 
-        //     .then(function(response) {
-        //         if (response.data) {
-        //            vm.upcomingGames = response.data;   
-        //         }
-        //         else{
-        //         	console.log("ERROR!");
-        //         }
-        //     })
-
 
 		function loginUser(){
 			var credentials={
 				username: vm.username,
 				password: vm.password
 			}
+			var redirect_url;
 			$http.post('/login', credentials)
 				.then(function (response){
+					redirect_url = response.data.redirect;
 					var redirect = response.data.redirect;
 					console.log(redirect);
 					vm.user = response.data
 					toastr.success(response.data.message); //added
+					vm.userDash=redirect;
 					setTimeout(function(){
+						location.reload();
 						redirectLocation(redirect);
 					}, 500);
-				}, function (response){	
+				}, function (response){
 					toastr.error(response.data.message);
-					console.log('Error');
 					setTimeout(function(){
-						redirectLocation('no');
+						redirectLocation(response.data.redirect);
 					}, 500);
 				});
 		}
@@ -128,12 +104,12 @@
 					console.log(response.data);
 					console.log('User added!');
 					vm.username= vm.newUser.username;
-					vm.password= vm.newUser.password; 
+					vm.password= vm.newUser.password;
 					vm.newUser={};
 					toastr.success('Successfully sent account approval to admin!');
 				},
 				function(response){
-					toastr.error('Error in input!');
+					//toastr.error('Error in input!');
 					console.log('Error');
 					setTimeout(function(){
 						redirectLocation('no');
@@ -147,6 +123,7 @@
 	     				var redirect = response.data.redirect;
 	     				toastr.success('Logged out.');
 	     				window.location.href=redirect;
+	     				vm.hasUser=false;
 	     			});
 	     }
 
@@ -161,11 +138,11 @@
 				 closable: false
 			})
 			.modal('show');
-		
+
 		}
 		function closeModal(dmodal){
 			$('#'+dmodal+'.modal')
-			 	.modal('hide');	
+			 	.modal('hide');
 		}
 		}
 

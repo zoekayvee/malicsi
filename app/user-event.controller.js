@@ -28,6 +28,7 @@
 		vm.openModal = openModal;
 		vm.closeModal = closeModal;
 		vm.setCurrentId =setCurrentId;
+		vm.openGame = openGame;
 
 		viewSportByEvent();
 
@@ -82,7 +83,7 @@
 
 		function attachSportToEvent(){
             var sportToBeAdded = {
-                sport_id: vm.sportId.sport_id,
+                sport_id: vm.sportId,
             }
             $http
                 .post('/sport/' + $routeParams.event_id, sportToBeAdded)
@@ -117,6 +118,10 @@
             vm.sportId = sport_id;
             //console.log(vm.deleteSponsorId);
         }
+
+		function openGame(sportid) {
+			$location.path('/events/' + $routeParams.event_id + '/scoreboard/' + sportid);
+	    }
 		
 		function addSport(){
             var sportToBeAdded = {

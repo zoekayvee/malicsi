@@ -16,6 +16,7 @@
 
 		vm.allLogs = [];
 		vm.allUsers = [];
+		vm.allEvents = [];
 		vm.deleteUser = deleteUser;
 		vm.updateUser = updateUser;
 		vm.password = "";
@@ -24,6 +25,10 @@
 		vm.currentUserId = null;
 		vm.user_type = null;
 		vm.approveUser = approveUser;
+		vm.approveEvent = approveEvent;
+		vm.disapproveEvent = disapproveEvent;
+		vm.playerReq=[];
+		vm.hasEvent = null;
 
 		$http   
             .get('/user_type_loggedin') 
@@ -34,6 +39,14 @@
 						.get('/users')
 						.then(function(response) {
 							vm.allUsers = response.data;
+							console.log(response.data);
+						}, function(response){
+							console.log('Error');
+						}); 
+					$http
+						.get('/events')
+						.then(function(response) {
+							vm.allEvents = response.data;
 							console.log(response.data);
 						}, function(response){
 							console.log('Error');
@@ -71,6 +84,34 @@
 			$http.put('/users/approval/'+user_id)
 				.then(function(response){
 					console.log('Approved User');
+					window.location.reload();
+				}, function(response){
+					console.log('Error');
+				});
+		}
+
+		function approveEvent(event_id){
+			var data = {
+				event_id:event_id,
+				status:'accepted'
+			}
+			$http.put('/events_status',data)
+				.then(function(response){
+					console.log('Approved Team');
+					window.location.reload();
+				}, function(response){
+					console.log('Error');
+				});
+		}
+
+		function disapproveEvent(event_id){
+			var data = {
+				event_id:event_id,
+				status:'rejected'
+			}
+			$http.put('/events_status',data)
+				.then(function(response){
+					console.log('Approved Team');
 					window.location.reload();
 				}, function(response){
 					console.log('Error');

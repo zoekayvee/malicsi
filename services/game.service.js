@@ -139,11 +139,11 @@ exports.getRanking = (req,res) =>{
 				res.send('Server Error');
 			}
 	})
-}
+}	
 
 //returns team_name, team_id, wins and loss
 exports.getOverallRanking = (req,res) =>{
-	var query = 'SELECT tp.team_id AS team_id,t.team_name, (SELECT COUNT(*) FROM game WHERE winner_team_id = tp.team_id AND game.event_event_id = 1) AS wins,(SELECT COUNT(*) FROM game NATURAL JOIN team_plays_game AS tpg WHERE tpg.team_id = tp.team_id AND (winner_team_id!=tp.team_id AND game.event_event_id = 1)) AS loss FROM (SELECT DISTINCT team_id FROM game NATURAL JOIN team_plays_game WHERE event_event_id = 1) as tp NATURAL JOIN team t where t.team_name != "TBA" and t.team_name != " TBA"  ORDER BY wins DESC;';
+	var query = 'Select tp.team_id AS team_id,t.team_name, (SELECT COUNT(*) FROM game WHERE winner_team_id = tp.team_id AND game.event_event_id = ?) AS wins,(SELECT COUNT(*) FROM game NATURAL JOIN team_plays_game AS tpg WHERE tpg.team_id = tp.team_id AND (winner_team_id!=tp.team_id AND game.event_event_id = ?)) AS loss FROM (SELECT DISTINCT team_id FROM game NATURAL JOIN team_plays_game WHERE event_event_id = ?) as tp NATURAL JOIN team t where t.team_name != "TBA" and t.team_name != " TBA";';
 
 	const data = [
 		req.params.event_id,
@@ -156,6 +156,33 @@ exports.getOverallRanking = (req,res) =>{
 		(err, rows) => {
 			if(!err){
 				console.log("Retrieving Overall Ranking Success");
+
+				res.send(rows);
+			}
+			else{
+				console.log(err);
+				res.send('Server Error');
+			}
+	})
+}
+//returns team_name, team_id, wins and loss
+// SET @x=0;SELECT (@x:=@x+1) Rank, tp.team_id AS team_id,t.team_name, (SELECT COUNT(*) FROM game WHERE winner_team_id = tp.team_id AND game.event_event_id = ?) AS wins,(SELECT COUNT(*) FROM game NATURAL JOIN team_plays_game AS tpg WHERE tpg.team_id = tp.team_id AND (winner_team_id!=tp.team_id AND game.event_event_id = ?)) AS loss FROM (SELECT DISTINCT team_id FROM game NATURAL JOIN team_plays_game WHERE event_event_id = ?) as tp NATURAL JOIN team t where t.team_name != "TBA" and t.team_name != " TBA" and tp.team_id = ?;
+exports.getRankingTeam = (req,res) =>{
+	var query = 'SET @x=0;SELECT (@x:=@x+1) Rank, tp.team_id AS team_id,t.team_name, (SELECT COUNT(*) FROM game WHERE winner_team_id = tp.team_id AND game.event_event_id = ?) AS wins,(SELECT COUNT(*) FROM game NATURAL JOIN team_plays_game AS tpg WHERE tpg.team_id = tp.team_id AND (winner_team_id!=tp.team_id AND game.event_event_id = ?)) AS loss FROM (SELECT DISTINCT team_id FROM game NATURAL JOIN team_plays_game WHERE event_event_id = ?) as tp NATURAL JOIN team t where t.team_name != "TBA" and t.team_name != " TBA" and tp.team_id = ?;';
+
+	const data = [
+		req.params.event_id,
+		req.params.event_id,
+		req.params.event_id,
+		req.body.team_id
+	];
+	        console.log(data);
+	var id = connection.query(
+		query,
+		data,
+		(err, rows) => {
+			if(!err){
+				console.log("Retrieving  Ranking Success");
 
 				res.send(rows);
 			}
@@ -233,7 +260,7 @@ exports.viewThreeScoreboard = (req,res) =>{
 }
 
 exports.viewGamesByEvent = (req,res) =>{
-	var query = 'select game.game_id,sport_id,sport_name,event_event_id,date_start,winner_team_id,t.team_name as team,t2.team_name as team2,sc.team_score as score,sc2.team_score as score2 from game natural join sport,team t,team t2,game_score sc,game_score sc2 where event_event_id = ? and t.team_id in (select team_id from team_plays_game where game_id = game.game_id) and t2.team_id in (select team_id from team_plays_game where game_id =  game.game_id) and t.team_id>t2.team_id and (sc.game_id = game.game_id and sc.team_score_id = t.team_id) and (sc2.game_id = game.game_id and sc2.team_score_id = t2.team_id);';
+	var query = 'select game.game_id,sport_id,sport_name,event_event_id,date_start,winner_team_id,t.team_name as team,t2.team_name as team2,sc.team_score as score,sc2.team_score as score2 from game natural join sport,team t,team t2,game_score sc,game_score sc2 where event_event_id = 1 and t.team_id in (select team_id from team_plays_game where game_id = game.game_id) and t2.team_id in (select team_id from team_plays_game where game_id =  game.game_id) and t.team_id>t2.team_id and (sc.game_id = game.game_id and sc.team_score_id = t.team_id) and (sc2.game_id = game.game_id and sc2.team_score_id = t2.team_id);';
 	
 	var id = connection.query(
 		query,
@@ -268,7 +295,7 @@ exports.viewCurrentGamesByEvent = (req,res) =>{
 }
 
 exports.viewPastGamesByEvent = (req,res) =>{
-	var query = 'select game.game_id,sport_id,sport_name,event_event_id,date_start,winner_team_id,t.team_name as team,t2.team_name as team2,sc.team_score as score,sc2.team_score as score2 from game natural join sport,team t,team t2,game_score sc,game_score sc2 where date_start < curdate() and event_event_id = ? and t.team_id in (select team_id from team_plays_game where game_id = game.game_id) and t2.team_id in (select team_id from team_plays_game where game_id =  game.game_id) and t.team_id>t2.team_id and (sc.game_id = game.game_id and sc.team_score_id = t.team_id) and (sc2.game_id = game.game_id and sc2.team_score_id = t2.team_id);';
+	var query = 'select game.game_id,sport_id,sport_name,event_event_id,date_start,winner_team_id,t.team_name as team,t2.team_name as team2,sc.team_score as score,sc2.team_score as score2 from game natural join sport,team t,team t2,game_score sc,game_score sc2 where date_start < curdate() and event_event_id = 1 and t.team_id in (select team_id from team_plays_game where game_id = game.game_id) and t2.team_id in (select team_id from team_plays_game where game_id =  game.game_id) and t.team_id>t2.team_id and (sc.game_id = game.game_id and sc.team_score_id = t.team_id) and (sc2.game_id = game.game_id and sc2.team_score_id = t2.team_id);';
 	
 	var id = connection.query(
 		query,
@@ -283,6 +310,70 @@ exports.viewPastGamesByEvent = (req,res) =>{
 				res.send('Server Error');
 			}
 	})
+}
+
+
+
+
+exports.viewPastGamesUser = (req,res) =>{
+	var query = 'select game.game_id,sport_id,sport_name,event_event_id,date_start,time_start,winner_team_id,t.team_name as team,t2.team_name as team2,sc.team_score as score,sc2.team_score as score2,v.venue_name from game natural join sport,team t,team t2,game_score sc,game_score sc2,venue v where date_start < curdate() and t.team_id in (select team_id from team_plays_game where game_id = game.game_id) and t2.team_id in (select team_id from team_plays_game where game_id =  game.game_id) and t.team_id>t2.team_id and (sc.game_id = game.game_id and sc.team_score_id = t.team_id) and (sc2.game_id = game.game_id and sc2.team_score_id = t2.team_id) and (t.team_id in (select distinct team_id from team_players where user_id = ?) or t2.team_id in (select distinct team_id from team_players where user_id = ?)) and v.venue_id = game.venue_id;';
+	console.log("here: "+ req.params.user_id);
+	var id = connection.query(
+		query,
+		[req.params.user_id,req.params.user_id],
+		(err, rows) => {
+			if(!err){
+				console.log("Retrieving Past Games of User Success");
+				res.send(rows);
+			}
+			else{
+				console.log(err);
+				res.send('Retrieving Past Games of User Failed');
+			}
+	})
+}
+
+
+
+exports.viewCurrentGamesByTeam = (req,res) =>{
+	var query = 'select game.game_id,sport_id,sport_name,event_event_id,date_start,time_start,winner_team_id,t.team_name as team,t2.team_name as team2,sc.team_score as score,sc2.team_score as score2,v.venue_name from game natural join sport,team t,team t2,game_score sc,game_score sc2,venue v where date_start = date_add(curdate(),interval ? day ) and t.team_id in (select team_id from team_plays_game where game_id = game.game_id) and t2.team_id in (select team_id from team_plays_game where game_id =  game.game_id) and t.team_id>t2.team_id and (sc.game_id = game.game_id and sc.team_score_id = t.team_id) and (sc2.game_id = game.game_id and sc2.team_score_id = t2.team_id) and (t.team_id = ? or t2.team_id = ?) and v.venue_id = game.venue_id;';
+
+	const data = [
+		req.body.interval,
+		req.params.team_id,
+		req.params.team_id
+	];
+	
+	var id = connection.query(
+		query,
+		data,
+		(err, rows) => {
+			if(!err){
+				console.log("Retrieving data Success");
+				res.send(rows);
+			}
+			else{
+				console.log(err);
+				res.send('Server Error');
+			}
+	})
+}
+exports.getDate = (req,res) =>{
+	var query = 'select date_add( curdate(), interval ? day ) as date;';
+	const data = [
+		req.params.interval
+	];
+	var id = connection.query(
+		query,
+		data,
+		(err, rows) => {
+			if(!err){
+				res.send(rows);
+			}
+			else{
+				res.send('Server Error');
+			}
+		})
 }
 
 exports.viewUpcomingGamesByEvent = (req,res) =>{
