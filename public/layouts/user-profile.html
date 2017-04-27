@@ -240,10 +240,10 @@ $('#end-date-pick').calendar();
                 <!--End of Events-->
                 
                 <!--LIST OF EVENTS-->
-                <div class="ui four cards">
+                <div class="ui four cards" ng-controller = "eventController as eventA">
                     <div class="card" ng-repeat="event in user.userEvents">
                         <div class="content">
-                            <div class="header">{{event.event_name}}</div>
+                            <div class="header"><a ng-click = "eventA.viewEvent(event.event_id)">{{event.event_name}}</a></div>
                             <div class="description">{{event.Date}}</div>
                         </div>
                     </div>

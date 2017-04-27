@@ -117,6 +117,7 @@
             }
 
         function viewEvent(id){
+            console.log("VIEW EVENT" + id)
             $location.path('/events/' + id)
             // $http
             //     .get('/events/' + id)
