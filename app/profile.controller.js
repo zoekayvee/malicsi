@@ -80,7 +80,7 @@
                 fd.append("profilepic", vm.files[0]);
                 $http.put('/users/'+ vm.user.user_id +'/profilepic', fd, options)
                     .then(function(response) {
-                        console.log("Profile picture updated");
+                        console.log("Profile picture updated where userID is" + vm.user.user_id);
                         window.location.reload();
                     })
                     .catch(function(err) {
