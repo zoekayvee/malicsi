@@ -18,11 +18,13 @@
 		vm.newUser = {};
 
 
+
 		vm.registerUser=registerUser;
 		vm.logOut = logOut;
 		vm.dropDown = dropDown;
 		vm.openModal = openModal;
 		vm.closeModal= closeModal;
+
 
         vm.currentUser = {};
         vm.userDash="";
@@ -67,40 +69,6 @@
 			else
 				window.location.href = redirect;
 		}
-
-        // $http
-        //     .get('/viewTeamPlayGame')
-        //     .then(function(response) {
-        //         if (response.data) {
-        //            vm.teamGames = response.data;
-        //         }
-        //         else{
-        //         	console.log("ERROR!");
-        //         }
-        //     })
-
-        //  $http
-        //     .get('/viewCurrentGames')
-        //     .then(function(response) {
-        //         if (response.data) {
-        //            vm.currentGames = response.data;
-        //         }
-        //         else{
-        //         	console.log("ERROR!");
-        //         }
-        //     })
-
-        //  $http
-        //     .get('/viewUpcomingGame')
-        //     .then(function(response) {
-        //         if (response.data) {
-        //            vm.upcomingGames = response.data;
-        //         }
-        //         else{
-        //         	console.log("ERROR!");
-        //         }
-        //     })
-
 
 		function loginUser(){
 			var credentials={
