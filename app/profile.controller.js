@@ -63,7 +63,7 @@
                         });
                 }
                 else{
-                	window.location.href ='/403';
+                	window.location.href ='/#!/login';
                 }
             });
 
@@ -81,6 +81,7 @@
                 $http.put('/users/'+ vm.user.user_id +'/profilepic', fd, options)
                     .then(function(response) {
                         console.log("Profile picture updated");
+                        window.location.reload();
                     })
                     .catch(function(err) {
                         console.log("Error in uploading picture");
