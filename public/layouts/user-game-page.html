@@ -34,6 +34,7 @@
                     </div>
                 </div>
             </div>
+
             <div ng-controller="guestController as admin">
                 <div ng-show="admin.isAdmin" class="ui animated button add-trigger" style="float:right" ng-click="team.setCurrentId(1,'add-modal')">
                     <div class="visible content"><i class="add icon"> </i></div>
@@ -111,71 +112,76 @@
                 </div>
             </div>
 
-            <div class="ui two column middle aligned very relaxed stackable grid" id="game-wrapper">
+            <div class="ui two column very relaxed stackable grid" id="game-wrapper">
+
                 <div class="column game-panel">
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                    <div class="image">
-                        <img class="ui huge rounded image" src="images/star.jpg">
-                    </div>
-                    <div class="content">
-                        <br>
-                        <div ng-if="game.winnerTeamId == game.game.team_id">
-                            WINNER
+                    <div class="ui card {{ (game.winnerTeamId == game.game.team_id)? card-win : card-lost }}">
+                        <div class="image">
+                            <img class="ui large rounded image" src="images/star.jpg">
                         </div>
-                        <h3 class="ui block header"> {{game.game.team_name}} </h3>
-                        <div class="ui grid" ng-controller="guestController as logged">
-                            <div class="ten wide column">
-                                <div class="ui statistic">
-                                    <div class="value">
-                                        {{game.score}}
-                                    </div>
-                                    <div class="label">
-                                        Points
+                        <div class="content">
+                            <br>
+                            <div ng-if="game.winnerTeamId == game.game.team_id">
+                                WINNER
+                            </div>
+                            <h3 class="ui block header"> {{game.game.team_name}} </h3>
+                            <div class="ui grid" ng-controller="guestController as logged">
+                                <div class="ten wide column">
+                                    <div class="ui statistic">
+                                        <div class="value">
+                                            {{game.score}}
+                                        </div>
+                                        <div class="label">
+                                            Points
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="six wide column">
-                                <a>
-                                    <i class="star icon"></i> {{game.game.bet_count}} Bets
-                                </a>
-                                <button ng-click="game.bet(game.game.game_id,game.game.team_id);game.userCanbet=false;game.viewGame()" ng-show="game.userCanbet && logged.hasUser">PLACE BET</button>
+                                <div class="six wide column">
+                                    <a>
+                                        <i class="star icon"></i> {{game.game.bet_count}} Bets
+                                    </a>
+                                    <button ng-click="game.bet(game.game.game_id,game.game.team_id);game.userCanbet=false;game.viewGame()" ng-show="game.userCanbet && logged.hasUser">PLACE BET</button>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
 
                 <div class="column game-panel" ng-controller="guestController as logged">
-                    <div class="image">
-                        <img class="ui huge rounded image" src="images/star.jpg">
-                    </div>
-                    <div class="content" ng-controller="teamController as team">
-                        <br>
-                        <div ng-if="game.winnerTeamId == game.game.team_id_2">
-                            WINNER
+                    <div class="ui card {{ (game.winnerTeamId == game.game.team_id)? card-win : card-lost }}">
+                        <div class="image">
+                            <img class="ui large rounded image" src="images/star.jpg">
                         </div>
-                        <h3 class="ui block header"> {{game.game.team_name_2}} </h3>
-                        <div class="ui grid">
-                            <div class="ten wide column">
-                                <div class="ui statistic">
-                                    <div class="value">
-                                        {{game.score2}}
-                                    </div>
-                                    <div class="label">
-                                        Points
+                        <div class="content" ng-controller="teamController as team">
+                            <br>
+                            <div ng-if="game.winnerTeamId == game.game.team_id_2">
+                                WINNER
+                            </div>
+                            <h3 class="ui block header"> {{game.game.team_name_2}} </h3>
+                            <div class="ui grid">
+                                <div class="ten wide column">
+                                    <div class="ui statistic">
+                                        <div class="value">
+                                            {{game.score2}}
+                                        </div>
+                                        <div class="label">
+                                            Points
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="six wide column">
-                                <a>
-                                    <i class="star icon"></i> {{game.game.bet_count_2}} Bets
-                                </a>
-                                <button ng-click="game.bet(game.game.game_id,game.game.team_id_2);game.userCanbet=false;game.viewGame()" ng-show="game.userCanbet && logged.hasUser">PLACE BET</button>
+                                <div class="six wide column">
+                                    <a>
+                                        <i class="star icon"></i> {{game.game.bet_count_2}} Bets
+                                    </a>
+                                    <button ng-click="game.bet(game.game.game_id,game.game.team_id_2);game.userCanbet=false;game.viewGame()" ng-show="game.userCanbet && logged.hasUser">PLACE BET</button>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
 
             </div>
+
         </div>
 
     </div>
