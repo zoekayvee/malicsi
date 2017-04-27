@@ -14,19 +14,32 @@ $('#end-date-pick').calendar();
     <div class="ui grid container">
         <div class="five wide column">
             <div class="ui center aligned segment">
+
                 <!--User image-->
-                <img class="ui centered small circular image" src="images/id.jpg">
-                <!--Display Username-->
-                <h2 class ="ui centered header" id="header-section">           
-                    {{user.user.firstname + " " + user.user.lastname}}          
-                    <div class="sub header" id="header-section">{{user.user.location}}</div>
+                <img class="ui centered small circular image" src="{{user.user.profilepic}}">
+                <h2 class ="ui centered header" id="header-section">
+                    {{user.user.firstname + " " + user.user.lastname}}
+                    <div class="sub header" id="header-section">
+                      {{user.user.location}}
+                    </div>
                 </h2>
-                <!--button for update profile -->
-                <button class="ui button" id="updateButton">
-                    <i class="edit icon"></i>Update
+
+                <button class="ui basic button" id="updateButton" ng-click ="user.openModal('update-modal')">
+                    <i class="edit icon"></i>
+                    Update
                 </button>
 
-                <!-- modal for updating user profile -->        
+                <div>
+                    <label for="file" ng-show="!user.files[0]" class="ui icon button">
+                        <i class="file icon"></i>
+                        Change Picture</label>
+                    <label for="file" ng-show="user.files[0]" ng-click="user.updateProfilePic()" class="ui icon green button">
+                        <i class="file icon"></i>
+                        Save Picture</label>
+                    <input type="file" id="file" file-input="user.files" style="display:none">
+                </div>
+
+                <!-- update profile -->
                 <div class="ui modal " id="update-modal">
                     <div class="header">Update Profile</div>
                         <div class="content">
@@ -91,6 +104,7 @@ $('#end-date-pick').calendar();
                                                 <option value="F">Female</option>
                                         </select> 
                                     </div>
+
                                 </div>
                                 </br>
                                 <div class="ui actions">
@@ -105,6 +119,15 @@ $('#end-date-pick').calendar();
                                 </div>
                             </form>
                         </div>
+<!--
+                                </div> 
+                            <div class="ui actions">
+                                <div class="ui close button" ng-click="update.closeModal('update-modal')">Cancel</div>
+                                <div class="ui button" type="submit" ng-click="update.updateUser(update.user,username,password,location,college,age,height,weight,firstname,lastname,email,contactno,gender,profilepic)">Update</div>
+                            </div>
+                        </form>
+                    </div>
+ -->
                 </div>
                 <!--end of modal for updating user profile --> 
                 <!--User Profile-->
