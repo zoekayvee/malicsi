@@ -21,9 +21,15 @@
                     <label> Username </label>
                     <input id="username" type="text" placeholder="Username" ng-model="signUp.newUser.username">
                 </div>
-                <div class="field">
-                    <label>Password</label>
-                    <input type="password" id="password" placeholder="Password" ng-model="signUp.newUser.password">
+                <div class="two fields">
+                    <div class="field">
+                        <label>Password</label>
+                        <input type="password" id="password" placeholder="Password" ng-model="signUp.newUser.password">
+                    </div>
+                    <div class="field">
+                        <label>Re-enter password</label>
+                        <input type="password" id="password" placeholder="Re-enter password">
+                    </div>                    
                 </div>
                 <div class="two fields">
                     <div class="field">
@@ -71,11 +77,11 @@
                 <div class="two fields">
                     <div class="field">
                         <label>Age</label>
-                        <input type="integer" name="age" placeholder="Age" ng-model="signUp.newUser.age">
+                        <input type="number" name="age" placeholder="Age" min=10 ng-model="signUp.newUser.age">
                     </div>
                     <div class="field">
                         <label>Contact No.</label>
-                        <input type="integer" name="contactno" placeholder="Contact No." ng-model="signUp.newUser.contactno">
+                        <input type="tel" name="contactno" placeholder="09XX-XXX-XXXX" ng-model="signUp.newUser.contactno">
                     </div>
                 </div>
                 <div class="field">
