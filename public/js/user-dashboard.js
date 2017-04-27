@@ -19,7 +19,6 @@ $(document).ready(function(){
     $.get('/user_loggedin', function(data){
          $.get('/users/joined_events/'+data, function(data){
              $.get('/overallranking/'+data.event_id, function(data){
-                console.log(data);
                 teams = data;
                 loadGraph(teams);
             });
