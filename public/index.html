@@ -33,8 +33,9 @@
                 <img class='logo' src='images/malicsi.png'>&nbsp;&nbsp;MALICSI
             </a>
 
-            <a href='/#!/user/home' class='item'>Home</a>
-            <a href='/#!/events' class='item'>Events</a>
+            <a href='/#!/user/home' class='item' id="home-anchor">Home</a>
+            <a href='/#!/admin' class='item' id="admin-anchor">Admin Panel</a>
+            <a href='/#!/events' class='item' id="events-anchor">Events</a>
 
             <div id="identity-wrapper" class='alight right ui simple dropdown item' ng-controller='userController as user'>
                 {{user.user.firstname + ' ' + user.user.lastname}} <i class='dropdown icon'></i>
