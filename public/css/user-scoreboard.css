@@ -11,14 +11,22 @@
 	background-color: #E9E581;
 }
 
-a {
-        color: black;
+#sidebar {
+	width:200px;
+	height:100%;
+	margin-top:5px;
+	background-color: #f7f7f7;
 }
-#main_card {
-    width: 100%;
+
+#scoreboardDetails {
+	margin-left:100px;
+	margin-top:20px;
+	width:100%; 
 }
-#segment {
-    margin-top: -35px; 
-    margin-right: -35px; 
-    margin-left: -35px;
+
+#scoreboardDetailsTable {
+	margin-left:75px;
+	width:98%;
+	padding:2%;
+	margin-right:30px;
 }
