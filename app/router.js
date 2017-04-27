@@ -55,11 +55,6 @@
 				controller:'userGameSchedController',
 				controllerAs:'UGSC'
 			})
-			// .when('/events/game-schedule', {
-			// 	templateUrl: 'layouts/user-game-sched.html',
-			// 	controller:'userGameSchedController',
-			// 	controllerAs:'UGSC'
-			// })
 
 			//Game Routers
 			.when('/game/:game_id', {
@@ -73,8 +68,7 @@
 				templateUrl: 'layouts/user-view-all-teams.html'
 			})
 			.when('/team/:team_id',{
-				templateUrl: 'layouts/user-team-page.html'
-
+				templateUrl: 'layouts/user-view-team.html'
 			})
 
 			//Search Routers
@@ -102,9 +96,9 @@
 				templateUrl: 'layouts/admin-all-sports.html'
 			})
 
-			//Catch Case
-			// .otherwise({
-			// 	templateUrl: 'layouts/error-404.html'
-			// })
+			// catch case
+			.otherwise({
+				templateUrl: 'layouts/error-404.html'
+			})
 	}
 })();
