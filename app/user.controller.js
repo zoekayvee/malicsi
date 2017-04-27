@@ -33,10 +33,10 @@
 		vm.teamGames = [];
 		vm.currentGames = [];
 		vm.upcomingGames = [];
-		
 
-		$http   
-            .get('/user_loggedin') 
+
+		$http
+            .get('/user_loggedin')
             .then(function(response) {
             	if (response.data){
             		vm.hasUser=true;
@@ -51,7 +51,7 @@
             	}
             });
 
-        
+
         function setToastr(){
 		    toastr.options.positionClass = "toast-bottom-right";
 		    toastr.options.closeButton = true;
@@ -75,17 +75,20 @@
 				username: vm.username,
 				password: vm.password
 			}
+			var redirect_url;
 			$http.post('/login', credentials)
 				.then(function (response){
+					redirect_url = response.data.redirect;
 					var redirect = response.data.redirect;
 					console.log(redirect);
 					vm.user = response.data
 					toastr.success(response.data.message); //added
 					vm.userDash=redirect;
 					setTimeout(function(){
+						location.reload();
 						redirectLocation(redirect);
 					}, 500);
-				}, function (response){	
+				}, function (response){
 					toastr.error(response.data.message);
 					setTimeout(function(){
 						redirectLocation(response.data.redirect);
@@ -101,7 +104,7 @@
 					console.log(response.data);
 					console.log('User added!');
 					vm.username= vm.newUser.username;
-					vm.password= vm.newUser.password; 
+					vm.password= vm.newUser.password;
 					vm.newUser={};
 					toastr.success('Successfully sent account approval to admin!');
 				},
@@ -135,11 +138,11 @@
 				 closable: false
 			})
 			.modal('show');
-		
+
 		}
 		function closeModal(dmodal){
 			$('#'+dmodal+'.modal')
-			 	.modal('hide');	
+			 	.modal('hide');
 		}
 		}
 
