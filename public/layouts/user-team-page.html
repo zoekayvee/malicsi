@@ -59,7 +59,7 @@
                                     <input type="text" ng-model = "team.teamName" ng-init = "x.team_name" id="firstname">
                                 </div>
                             </div>
-                                <button class="ui button" ng-click = "team.updateTeam(); team.closeModal('update-modal'); team.viewTeam(x.team_id)">Submit</button>
+                                <button class="ui button" ng-click = "team.updateTeam(); team.closeModal('update-modal'); team.viewClickedTeam()">Submit</button>
                                 <button class="ui button" ng-click = "team.closeModal('update-modal')">Cancel</button>
                             </form>
                     </div>

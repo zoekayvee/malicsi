@@ -1,4 +1,5 @@
 $(document).ready(function() {
+
     $(".ui.form").form({
         fields: {
             username: {

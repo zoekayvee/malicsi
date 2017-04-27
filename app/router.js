@@ -55,6 +55,9 @@
 				controller:'userGameSchedController',
 				controllerAs:'UGSC'
 			})
+			.when('/events/join', {
+				templateUrl: 'layouts/user-join-event.html'
+			})
 
 			//Game Routers
 			.when('/game/:game_id', {

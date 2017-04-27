@@ -33,6 +33,7 @@
     	vm.deleteTeamFromEvent = deleteTeamFromEvent;
     	vm.viewAvailableTeams = viewAvailableTeams;
     	//vm.getCurrentUser=getCurrentUser;
+    	vm.updateFuckingTeam = updateFuckingTeam;
     	vm.getTeamPlayers=getTeamPlayers;
     	vm.currentId = null;
         vm.setCurrentId = setCurrentId;
@@ -118,7 +119,7 @@
 	    function viewTeam(id){
 	    	$location.path('/events/' + $routeParams.event_id + '/team/'+id)
 	    	$http
-	    		.get('/team/'+id)
+	    		.get('/teams/'+id)
 	    		.then(function(response){
 	    			
 	    			vm.allTeams = response.data[0];
@@ -176,7 +177,7 @@
 	    }
 
 	    function viewClickedTeam(){
-	    	console.log("view clicked team" + $routeParams.team_id);
+	    	console.log("VIEW CLICKED TEAM " + $routeParams.team_id);
 	    	$http
 	    		.get('/teams/' + $routeParams.team_id)
 	    		.then(function(response){
@@ -207,7 +208,7 @@
 
 
 		function deleteTeamFromEvent(team_id){
-
+			console.log("DELETING TEAM FROM EVENT" + team_id);
 			var deleteFromEvent = {
 				team_id: team_id,
 				event_id: $routeParams.event_id
@@ -232,7 +233,7 @@
 	    /*-------- delete event ------------*/
 	    function deleteTeam(id){
 	    	$http
-	    		.delete('/teams/'+id)
+	    		.delete('/teams_delete/'+$routeParams.team_id)
 	    		.then(function(response){
 	    			console.log('Team deleted')
 	    			/*$location.path('/events');*/
@@ -269,14 +270,13 @@
 		        team_id : $routeParams.team_id,
 		        team_name : vm.teamName
 	    	}
-
+	    	console.log(updateData);
+	    	console.log("UPDATING " + $routeParams.team_id);
 		    $http
 		        .put('/teams',updateData)
 		        .then(function(response){
 		            console.log('event updated');
-		            viewClickedTeam();
 		            $route.reload();
-
 		        },
 		        function(response){
 		            console.log("error");
@@ -285,6 +285,7 @@
 
 		function setTeamName(team_name){
 			vm.teamName = team_name;
+			console.log("SET TEAM NAME" + vm.teamName);
 		}
 
 		function getTeamId(team_name,event_id){
@@ -325,6 +326,26 @@
 	    			console.log("error");
 	    		});
 	    }
+
+
+	    function updateFuckingTeam(){
+		    var updateData = {
+		        team_id : $routeParams.team_id,
+		        team_name : vm.teamName
+	    	}
+	    	console.log(updateData);
+	    	console.log("UPDATING " + $routeParams.team_id);
+		    $http
+		        .put('/teams',updateData)
+		        .then(function(response){
+		            console.log('event updated');
+		            $route.reload();
+
+		        },
+		        function(response){
+		            console.log("error");
+		        });
+		}
 
 
 	    function team2PlayGame(gameid,currentTeamId){
