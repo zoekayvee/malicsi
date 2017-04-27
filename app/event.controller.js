@@ -54,6 +54,8 @@
                 .then(function(response){
                     console.log(response.data);
                     console.log('DADA');
+                    $route.reload();
+
                 }, function(response){
                     console.log("Error: Cannot Create Event");
                 });

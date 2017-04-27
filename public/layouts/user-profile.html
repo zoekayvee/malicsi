@@ -252,7 +252,7 @@ $('#end-date-pick').calendar();
             <button class="ui button event" id ="cancel-create" ng-click ="user.closeModal('event-modal')">
             Cancel
             </button>
-             <button class="ui button event" id ="submit-create" ng-click = "event.addEvent(user.user.user_id)">
+             <button class="ui button event" id ="submit-create" ng-click = "event.addEvent(user.user.user_id);event.closeModal('event-modal')">
                 Submit
             </button>
         </div>
