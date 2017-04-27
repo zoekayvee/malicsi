@@ -38,6 +38,7 @@
         vm.deleteEventModal = deleteEventModal;
         vm.addEventModal = addEventModal;
         vm.viewEventDetails = viewEventDetails;
+        vm.userJoin=userJoin;
 
 
         function addEvent(user_id) {
@@ -253,7 +254,11 @@
                 function(response){
                     console.log("Error :(");
                 });
-        }         
+        }   
+
+         function userJoin (){  
+            $location.path('/user/join_event/' + $routeParams.event_id);
+         }   
     }   
 
 })();

@@ -44,6 +44,8 @@
         vm.alreadyJoined=null; //for the user/player
         vm.samp = null;
 
+        vm.curr_event_id="";
+
         $http
     		.get('/user_loggedin')
     		.then(function(response){

@@ -40,7 +40,7 @@ $('#end-date-pick').calendar();
         	</div>
             <div ng-controller="guestController as logged">
             <div ng-show="logged.hasUser" class="ui card">
-                <a href="/#!/events/join_event"><button class="fluid positive ui button" id="join-button">JOIN</button></a>
+                <a ng-click="event.userJoin()"><button class="fluid positive ui button" id="join-button">JOIN</button></a>
             </div>
 
             <!-- MODAL FOR DELETE EVENT -->
