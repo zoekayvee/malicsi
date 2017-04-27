@@ -143,6 +143,7 @@ router.post('/teams/join/game',	    		teamController.teamPlayGame);
 router.get('/teams/game/:team_id',			teamController.viewAvailableTeams)
 router.post('/ranking/:sport_id', 			gameController.getRanking);
 router.get('/overallranking/:event_id', 	gameController.getOverallRanking);
+router.post('/overallranking/:event_id', 	gameController.getRankingTeam);
 router.get('/events/:event_id/games', 	    gameController.viewGamesByEvent);
 router.get('/events/:event_id/current_games', 	    gameController.viewCurrentGamesByEvent);
 router.get('/events/:event_id/upcoming_games', 	    gameController.viewCurrentGamesByEvent);
@@ -162,6 +163,8 @@ router.get('/venues', 						venueController.viewAllVenues);
 router.get('/game/score/:event_id',			gameController.viewThreeScoreboard);
 router.post('/game/team/:team_id',			gameController.viewCurrentGamesByTeam);
 router.get('/game/date/:interval',			gameController.getDate);
+router.post('/game/user',					gameController.viewPastGamesUser);
+router.get('/game/user/:user_id',					gameController.viewPastGamesUser);
 
 router.get('/user_loggedin', (req, res) => {
 	if (req.session)

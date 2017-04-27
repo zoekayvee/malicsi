@@ -61,6 +61,8 @@
         vm.decrementInterval = decrementInterval;
         vm.date = null;
         vm.getDate = getDate;
+        // vm.viewPastGamesUser = viewPastGamesUser;
+        // vm.pastGamesUser = [];
 
 		viewAllGames();
 

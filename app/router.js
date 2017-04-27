@@ -70,7 +70,7 @@
 			.when('/team', {
 				templateUrl: 'layouts/user-view-all-teams.html'
 			})
-			.when('/teams/:team_id',{
+			.when('/events/:event_id/team/:team_id',{
 				templateUrl: 'layouts/user-view-team.html'
 			})
 

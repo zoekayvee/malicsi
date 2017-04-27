@@ -43,6 +43,10 @@
         vm.playerStatus="";
         vm.alreadyJoined=null; //for the user/player
         vm.samp = null;
+        vm.getRankingTeam = getRankingTeam;
+        vm.ranking = null;
+        vm.getOverallRanking = getOverallRanking;
+        vm.overallList = null;
 
         vm.curr_event_id="";
 
@@ -115,8 +119,7 @@
 
 
 	    function viewTeam(id){
-	    	console.log("ID" + id)
-	    	$location.path('/teams/'+id)
+	    	$location.path('/events/' + $routeParams.event_id + '/team/'+id)
 	    	$http
 	    		.get('/teams/'+id)
 	    		.then(function(response){
@@ -366,6 +369,36 @@
 	    		});
 	    	closeModal('add-modal');
 	    }
+
+	    function getRankingTeam(){
+	        var data = {
+	        	team_id : $routeParams.team_id,
+	        }
+			$http
+				.post('/overallranking/' + $routeParams.event_id, data)
+				.then(function(response){
+					vm.ranking = response.data[0];
+					console.log(response.data);
+					console.log('Viewing Rank Successful');
+			},
+			function(response){
+				console.log('Error Viewing Rank');
+			});
+
+		}
+
+		function getOverallRanking(){
+			$http
+				.get('/overallranking/' + $routeParams.event_id)
+				.then(function(response){
+					vm.overallList = response.data[0];
+					console.log('Viewing Overall Rank Successful');
+			},
+			function(response){
+				console.log('Error Viewing Rank');
+			});
+
+		}
 
 
         function setCurrentId(id,dmodal){

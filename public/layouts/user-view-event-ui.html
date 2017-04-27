@@ -30,12 +30,12 @@ $('#end-date-pick').calendar();
         			</div>
         		</h2>
         		<!-- <button class="positive ui button">JOIN</button> -->
-        		<button class="ui circular edit icon button" ng-click="event.updateEvent()">
+        		<!-- <button class="ui circular edit icon button" ng-click="event.updateEvent()">
 	        		<i class="edit icon"></i>
 	        	</button>
 	        	<button class="ui red circular trash icon button" id="button-delete" ng-click ="event.openModal('delete-event-modal')">
 	        		<i class="trash icon"></i>
-	        	</button>
+	        	</button> -->
 	        		
         	</div>
             <div ng-controller="guestController as logged">
@@ -59,7 +59,7 @@ $('#end-date-pick').calendar();
            </div>
 
 
-        	<div class="ui segment">
+        	<div class="ui segment" id="form">
         		<div class="ui form" ng-repeat="x in event.allEvents">
         			<!--<div ng-show="logged.userId == event.currentUserId">-->
         			<div class="field">
@@ -96,6 +96,14 @@ $('#end-date-pick').calendar();
         					</div>
         				</div>
         			</div>
+                   
+                                         <div class="ui button" ng-click="event.updateEvent()" id="update-button">
+                 UPDATE
+                 </div>
+                                           <div class="ui red button" ng-click="event.deleteEvent(x.event_id)" id="update-button">
+                 DELETE
+                 </div>
+
         		</div>
         	</div>
         </div>
