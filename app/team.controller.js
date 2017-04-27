@@ -48,7 +48,7 @@
         vm.getOverallRanking = getOverallRanking;
         vm.overallList = null;
 
-        vm.curr_event_id="";
+        vm.currentUserId=null;
 
         $http
     		.get('/user_loggedin')
@@ -131,6 +131,16 @@
 	    			else{
 						console.log(response.data);
 	    				console.log('Viewing team ' + response.data.team_name);
+	    				 var allEvent=[];
+	    				 $http
+			                .get('/events/' + $routeParams.event_id)
+			                .then(function(response){
+			                	allEvent=response.data;
+			                    if(allEvent != undefined){
+			                        vm.currentUserId = response.data[0].user_id; 
+			                        console.log(response.data[0].user_id);  
+			                    }
+			                })
 	    			}
 	    		},
 	    		function(response){

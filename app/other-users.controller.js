@@ -11,7 +11,7 @@
 		vm.userInterests = null;
 		vm.userEvents = {};
 		vm.userTeams = {};
-		vm.userId = $routeParams.username;
+		vm.userId = $routeParams.user_id;
 
 		$http
 			.get('/users/' + vm.userId)
@@ -36,8 +36,8 @@
                     });
 			})
 
-		function clicked(id){
-			window.location.href ='/#!/users/' + id;
+		function clicked(user_id){
+			window.location.href ='/#!/users/' + user_id;
 		}
 	}
 })();
