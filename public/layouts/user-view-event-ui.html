@@ -38,8 +38,8 @@ $('#end-date-pick').calendar();
 	        	</button> -->
 	        		
         	</div>
-            <div ng-controller="guestController as logged">
-            <div ng-show="logged.hasUser" class="ui card">
+            <div ng-controller="guestController as loged">
+            <div ng-show="loged.hasUser" class="ui card">
                 <a ng-click="event.userJoin()"><button class="fluid positive ui button" id="join-button">JOIN</button></a>
             </div>
 
@@ -57,45 +57,45 @@ $('#end-date-pick').calendar();
                         </div>
                     </div>
            </div>
+            
 
-
-        	<div class="ui segment" id="form">
-        		<div class="ui form" ng-repeat="x in event.allEvents">
-        			<!--<div ng-show="logged.userId == event.currentUserId">-->
-        			<div class="field">
-        				<input type="text" ng-model="event.eventName" ng-init="event.eventName=x.event_name" name="event_name">
-        			</div>
-        			<div class="field">
-        				<div class="ui calendar" id="start-date-pick">
-        					<div class="ui input left icon">
-	                        	<i class="calendar icon"></i>
-	                       		<input type="text" ng-model="event.dateStart" ng-init="event.dateStart = x.date_start" name="start_date">
-                    		</div>
-        				</div>
-        			</div>
-        			<div class="field">
-        				<div class="ui calendar" id="end-date-pick">
-        					<div class="ui input left icon">
-	                        	<i class="calendar icon"></i>
-	                       		<input type="text" ng-model="event.dateEnd" ng-init="event.dateEnd = x.date_end" name="end_date">
-                    		</div>
-        				</div>
-        			</div>
-        			<div class="inline fields">
-        				<label for="register">Open for registration?</label>
-        				<div class="field">
-        					<div class="ui radio checkbox">
-        						<input type="radio" name="register" ng-model="event.allowReg" value="1" checked> 
-        						<label>Yes</label>
-        					</div>
-        				</div>
-        				<div class="field">
-        					<div class="ui radio checkbox">
-        						<input type="radio" name="register" ng-model="event.allowReg" value="0"> 
-        						<label>No</label>
-        					</div>
-        				</div>
-        			</div>
+            <div class="ui segment" id="form">
+                <div class="ui form" ng-repeat="x in event.allEvents">
+                    <!--<div ng-show="logged.userId == event.currentUserId">-->
+                    <div class="field">
+                        <input type="text" ng-model="event.eventName" ng-init="event.eventName=x.event_name" name="event_name">
+                    </div>
+                    <div class="field">
+                        <div class="ui calendar" id="start-date-pick">
+                            <div class="ui input left icon">
+                                <i class="calendar icon"></i>
+                                <input type="text" ng-model="event.dateStart" ng-init="event.dateStart = x.date_start" name="start_date">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <div class="ui calendar" id="end-date-pick">
+                            <div class="ui input left icon">
+                                <i class="calendar icon"></i>
+                                <input type="text" ng-model="event.dateEnd" ng-init="event.dateEnd = x.date_end" name="end_date">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="inline fields">
+                        <label for="register">Open for registration?</label>
+                        <div class="field">
+                            <div class="ui radio checkbox">
+                                <input type="radio" name="register" ng-model="event.allowReg" value="1" checked> 
+                                <label>Yes</label>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="ui radio checkbox">
+                                <input type="radio" name="register" ng-model="event.allowReg" value="0"> 
+                                <label>No</label>
+                            </div>
+                        </div>
+                    </div>
                    
                                          <div class="ui button" ng-click="event.updateEvent()" id="update-button">
                  UPDATE
@@ -104,8 +104,8 @@ $('#end-date-pick').calendar();
                  DELETE
                  </div>
 
-        		</div>
-        	</div>
+                </div>
+            </div>
         </div>
 
 
@@ -134,10 +134,10 @@ $('#end-date-pick').calendar();
          See Scores
         </a>
 
-        		<div class="ui segment" ng-controller="sportController as sport">
-        			<h1 class="ui header">
-        				SPORTS
-        			</h1>
+                <div class="ui segment" ng-controller="sportController as sport">
+                    <h1 class="ui header">
+                        SPORTS
+                    </h1>
 
 
                     <div class="ui simple selection dropdown" ng-init="UEC.viewAvailableSports()">
@@ -152,18 +152,18 @@ $('#end-date-pick').calendar();
                     <button class="ui plus icon button" ng-click="UEC.attachSportToEvent()">
                         <i class="plus icon"></i>
                     </button>
-        			<!-- List of Sports -->
-        			<div class="ui middle aligned divided list">
-        				<div class="item"  ng-repeat="x in UEC.allSports">
-        					<div class="right floated content">
-	        					<button class="ui red  trash icon button" ng-click="UEC.setCurrentId(x.sport_id,'delete-modal')" ><i class="trash icon"></i>
-	        					</button>
-        					</div>
-        					<div class="content" ng-click="UEC.openGame(x.sport_id)">
-	        					<a><h4>{{x.sport_name}}</h4></a>
-	        				</div>
-        				</div>
-        			</div>
+                    <!-- List of Sports -->
+                    <div class="ui middle aligned divided list">
+                        <div class="item"  ng-repeat="x in UEC.allSports">
+                            <div class="right floated content">
+                                <button class="ui red  trash icon button" ng-click="UEC.setCurrentId(x.sport_id,'delete-modal')" ><i class="trash icon"></i>
+                                </button>
+                            </div>
+                            <div class="content" ng-click="UEC.openGame(x.sport_id)">
+                                <a><h4>{{x.sport_name}}</h4></a>
+                            </div>
+                        </div>
+                    </div>
 
                     <div class="ui basic modal" id="delete-modal">
                         <div class="ui icon header">
@@ -178,46 +178,46 @@ $('#end-date-pick').calendar();
                             </div>
                         </div>
                     </div>
-        		
-        		</div>
-        		<div class="ui segment" ng-controller="teamController as team">
-        			<h1 class="ui header">
-        				TEAM
-        			</h1>
-        			<div class="ui form">
-        				<div class="inline fields">
-	        				<div class="field">
-	        				<input type="text" ng-model="team.teamName" name="team_name">
-	        				</div>
-	        				<div class="field">
-	        					<button class="ui plus icon button" ng-click="team.addTeam(event.eventId)">
+                
+                </div>
+                <div class="ui segment" ng-controller="teamController as team">
+                    <h1 class="ui header">
+                        TEAM
+                    </h1>
+                    <div class="ui form">
+                        <div class="inline fields">
+                            <div class="field">
+                            <input type="text" ng-model="team.teamName" name="team_name">
+                            </div>
+                            <div class="field">
+                                <button class="ui plus icon button" ng-click="team.addTeam(event.eventId)">
                                 <i class="plus icon"></i>
                                 </button>
-	        				</div>
-        				</div>
-        			</div>
-        			<br>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
                     <!-- hindi ko gets kung paano gusto iimplement yung team, improvised muna FROM HERE
                     -->
-        			<div class="ui four cards" ng-init="team.viewTeamPerEvent()">
-        				<div class="card" ng-repeat="x in team.allTeams">
-        					<div class="content">
-        						<a class="header" ng-click = "team.viewTeam(x.team_id)">{{x.team_name}}</a>
-        					</div>
-        					<div class="extra content">
-	        					<button class="ui red  right floated  trash icon button" ng-click="team.deleteTeamFromEvent(x.team_id)">
-	 							<i class="trash icon"></i>
-	 							</button>
-        					</div>
-        				</div>
-        			</div>
-        		</div>
+                    <div class="ui four cards" ng-init="team.viewTeamPerEvent()">
+                        <div class="card" ng-repeat="x in team.allTeams">
+                            <div class="content">
+                                <a class="header" ng-click = "team.viewTeam(x.team_id)">{{x.team_name}}</a>
+                            </div>
+                            <div class="extra content">
+                                <button class="ui red  right floated  trash icon button" ng-click="team.deleteTeamFromEvent(x.team_id)">
+                                <i class="trash icon"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <!-- UNTIL HERE -->
 
-        		<div class="ui segment" ng-controller="sponsorController as sponsor">
-        			<h1 class="ui header">
-        				SPONSORS
-        			</h1>
+                <div class="ui segment" ng-controller="sponsorController as sponsor">
+                    <h1 class="ui header">
+                        SPONSORS
+                    </h1>
                     <div class="ui simple selection dropdown" ng-init="sponsor.viewAllSponsor()">
                         <input name="Sponsors" type="hidden">
                       <div class="default text">Sponsors</div>
@@ -243,7 +243,7 @@ $('#end-date-pick').calendar();
                             </div>
                         </div>
                     </div>
-        		</div>
-        </div>	
+                </div>
+        </div>  
     </div>
 </div>

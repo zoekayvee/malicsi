@@ -267,7 +267,7 @@
 
 	    }
 
-	    function updateTeam(){
+	     function updateTeam(){
 		    var updateData = {
 		        team_id : $routeParams.team_id,
 		        team_name : vm.teamName
@@ -284,6 +284,7 @@
 		            console.log("error");
 		        });
 		}
+
 
 		function setTeamName(team_name){
 			vm.teamName = team_name;

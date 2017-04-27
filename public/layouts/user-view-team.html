@@ -1,12 +1,12 @@
 <link rel='stylesheet' href='css/user-team-page.css' />
 
 <div ng-controller="teamController as team" ng-init="team.viewClickedTeam()" id="main-wrapper" class="ui container">
-
-    <div class="ui grid" ng-repeat="x in team.allTeams">
+<div ng-controller="guestController as logged">
+    <div class="ui grid">
 
         <div class="four wide column">
 
-            <div >
+            <div ng-repeat="x in team.allTeams">
 
                 <div class="ui card center aligned">
 
@@ -18,7 +18,7 @@
                         <div class="header">
                             <h1 class="ui centered large header">{{x.team_name}}</h1>
                             <div ng-hide="team.alreadyJoined">
-                                <button class="negative ui animated button" ng-click="team.userJoinTeam(x.team_id)" id="join-group-button">
+                                <button ng-show="logged.hasUser" class="negative ui animated button" ng-click="team.userJoinTeam(x.team_id)" id="join-group-button">
                                     <div class="visible content" >Join </div>
                                     <div class="hidden content">
                                         <i class="left sign in icon"> </i>
@@ -38,7 +38,7 @@
                             <div class="item" ng-repeat="player in team.allPlayers | filter: {player_status: 'accepted'}">
                                 <img class="ui avatar image" src="images/avatar.png">
                                 <div class="content" ng-controller="otherUsersController as others">
-                                    <a ng-click="others.clicked(player.username)">
+                                    <a ng-click="others.clicked(player.user_id)">
                                         <div class="header">{{player.username}}</div>
                                     </a>
                                 </div>
@@ -53,12 +53,12 @@
         <div class="twelve wide column">
             <div class="content">
 
-                <div id="team-header" ng-controller="teamController as team">
+                <div id="team-header">
 
                 <div class="ui right floated buttons">
-                    <div>
+                    <div ng-controller="teamController as team">
 
-                        <button class="positive ui right floated button edit-trigger" ng-click="team.openModal('update-modal');team.setTeamName(x.team_name)">Edit</button>
+                        <button ng-show="logged.hasUser" class="positive ui right floated button edit-trigger" ng-click="team.openModal('update-modal');team.setTeamName(x.team_name)">Edit</button>
 
                         <div class="ui modal" id="update-modal">
                             <form class="ui form">
@@ -69,12 +69,11 @@
                                         <input type="text" ng-model="team.teamName" ng-init="x.team_name" id="firstname">
                                     </div>
                                 </div>
-                                <button class="ui button" ng-click="team.updateTeam(); team.closeModal('update-modal'); team.viewClickedTeam()">Submit</button>
-                                <button class="ui button" ng-click="team.closeModal('update-modal')">Cancel</button>
+                                <button class="ui button" ng-click="team.updateTeam(); team.closeModal('update-modal'); team.viewClickedTeam()" ng-show="logged.hasUser">Submit</button>
+                                <button class="ui button" ng-click="team.closeModal('update-modal')" ng-show="logged.hasUser">Cancel</button>
                             </form>
                         </div>
-
-                        <button class="negative ui button" ng-click="team.openModal('delete-modal')">Delete</button>
+                       <button ng-show="logged.hasUser" class="negative ui button" ng-click="team.openModal('delete-modal')">Delete</button>
 
                         <div class="ui basic modal" id="delete-modal">
                             <div class="ui icon header">
@@ -156,4 +155,5 @@
         </div>
 
     </div>
+</div>
 </div>

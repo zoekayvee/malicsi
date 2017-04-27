@@ -9,7 +9,8 @@
 
 		/*ADDED*/	
 		vm.newUser={};
-		vm.user_id = ""; //for user_id initialization
+		vm.user={};
+		//vm.user_id = ""; //for user_id initialization
 		vm.addUser = addUser;
 		vm.initialize= initialize;
 		vm.allPending=[];
@@ -47,6 +48,14 @@
 						.then(function(response) {
 							vm.allEvents = response.data;
 							console.log(vm.allEvents);
+						}, function(response){
+							console.log('Error');
+						}); 
+					$http
+						.get('/events')
+						.then(function(response) {
+							vm.allEvents = response.data;
+							console.log(response.data);
 						}, function(response){
 							console.log('Error');
 						}); 
@@ -117,17 +126,62 @@
 				});
 		}
 
-		function updateUser(){
-			var user = {
-				password : vm.password
-			}
-			$http.put('/users/passwords/' + vm.user_id, user)
-				.then(function(response){
-					closeModal('edit-modal');
-					console.log('Updated User');
-				}, function(response){
-					console.log('Cannot update user password');
-				});
+		function updateUser(user,uname,pw,college,height,weight,fname,lname,email,contactno,user_type){
+			var editUser=vm.user;
+			var flag="false";
+
+			if(uname == "" || typeof(uname)== 'undefined'){
+                uname= user.username
+            }
+            if(pw =="" || typeof(pw)=='undefined'){
+                pw=user.password //the pw is still encrypted
+                flag = "true";
+            }
+            if(college =="" || typeof(college)== 'undefined'){
+                college= user.college
+            }
+            if(height =="" || typeof(height)=='undefined'){
+                height= user.height
+            }
+            if(weight =="" || typeof(weight)== 'undefined'){
+                weight= user.weight
+            }
+            if(fname =="" || typeof(fname)=='undefined'){
+                fname = user.firstname
+            }
+            if(lname =="" || typeof(lname)=='undefined'){
+                lname= user.lastname
+            }
+            if( email =="" || typeof(email)=='undefined'){
+                email= user.email
+            }
+            if(contactno =="" || typeof(contactno)=='undefined'){
+                contactno= user.contactno
+            }
+            if(user_type =="" || typeof(user_type)=='undefined'){
+                user_type= user.user_type
+            }
+
+            editUser.username=uname;
+            editUser.password=pw;
+            editUser.college=college;
+            editUser.height=height;
+            editUser.weight=weight;
+            editUser.firstname=fname;
+            editUser.lastname=lname;
+            editUser.email=email;
+            editUser.contactno=contactno;
+            editUser.user_type=user_type
+            editUser.flag=flag;
+
+            $http
+            	.put('/users/passwords/' + editUser.user_id, editUser)
+            	.then(function(response){
+            		delete editUser.flag;
+            		
+            	});
+
+           	window.location.reload();
 		}
 
 		function openModal(dmodal){
@@ -145,8 +199,8 @@
 		}
 
 		//added, the user_id should not be passed when there's modal
-		function initialize(user_id){
-			vm.user_id=user_id;
+		function initialize(user){
+			vm.user=user;
 		}
 	}
 })();

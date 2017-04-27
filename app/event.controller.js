@@ -41,6 +41,7 @@
         vm.userJoin=userJoin;
 
 
+
         function addEvent(user_id) {
 
             var newEvent = {
