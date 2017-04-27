@@ -42,7 +42,7 @@ body {
 }
 
 .game-preview {
-    width: 170px;
+    width: 20% !important;
     height: 90px;
     background: rgba(0,0,0,0.5);
     display: inline-block;
