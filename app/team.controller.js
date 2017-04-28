@@ -51,6 +51,7 @@
         vm.ranking = null;
         vm.getOverallRanking = getOverallRanking;
         vm.overallList = null;
+        vm.getCheckers=getCheckers;
 
         vm.currentUserId=null;
 
@@ -115,6 +116,23 @@
 			return res;
 		}
 
+		function getCheckers(team_id){
+			$http
+	    		.get('/teams/players/'+team_id)
+	    		.then(function(response){
+	    			vm.allPlayers=response.data;
+	    			console.log(vm.allPlayers);
+	    			vm.allPlayers.forEach(function(e){
+		    		 	console.log(e);
+		    		 	if(e.user_id===vm.userId){
+		    		 		vm.playerTeamId= team_id;
+			    			vm.playerStatus=e.player_status;
+			    			vm.alreadyJoined=true;
+			    		}
+			    	});
+    		 });
+		}
+
 		function deleteTeamPlayer(user_id){
 			$http
 	    		.delete('/teams/player_remove/'+$routeParams.team_id+'/'+ user_id)
@@ -139,7 +157,10 @@
 			.then(function(response){
 				console.log(response.data);
 				console.log('Joined team');
+				vm.playerTeamId= team_id;
 				vm.cancelled=false;
+				vm.alreadyJoined=true;
+				vm.playerStatus='pending';
 				getTeamPlayers();
 			},
 			function(response){

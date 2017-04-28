@@ -2,7 +2,7 @@
 <div class="ui container" id="main-wrapper" ng-controller="teamController as team">
     <div class="ui four cards" ng-init="team.viewTeamPerEvent()">
         <div class="card" ng-repeat="x in team.allTeams">
-            <div class="center aligned content">
+            <div class="center aligned content" ng-init="team.getCheckers(x.team_id)">
                 <div class="blurring dimmable image">
                     <div class="ui dimmer">
                         <div class="content">
@@ -22,7 +22,7 @@
                     </a>
                 </div> -->
                 <br>
-                <div ng-hide="team.alreadyJoined ">
+                <div ng-hide="team.alreadyJoined " ng-controller="guestController as loged">
                 <button ng-show="loged.hasUser" class="negative ui animated button" ng-click="team.userJoinTeam(x.team_id)" id="join-group-button">
                     <div class="visible content" >Join </div>
                     <div class="hidden content">
@@ -30,7 +30,7 @@
                     </div>
                 </button>
             </div>
-            <div ng-show="team.alreadyJoined" >
+            <div ng-show="team.alreadyJoined && team.playerTeamId==x.team_id" >
                 <button class="ui button"> {{team.playerStatus}} </button>
                 <!-- <button class="ui animated button" ng-click="team.deleteTeamPlayer(logged.userId)">
                     <div clas="con"> {{team.playerStatus}}</div>
