@@ -11,11 +11,11 @@ Go to directory where malicsidb.sql is located or enter full path to file then r
 
 -- GRANT ALL PRIVILEGES ON malicsiDB.* TO "projectOneTwoEight"@"localhost" WITH GRANT OPTION;
 
-DROP DATABASE IF EXISTS `malicsiDB1`;
+DROP DATABASE IF EXISTS `malicsiDB`;
 
-CREATE DATABASE IF NOT EXISTS `malicsiDB1`;
+CREATE DATABASE IF NOT EXISTS `malicsiDB`;
 
-USE `malicsiDB1`;
+USE `malicsiDB`;
 
 create table users(
 	user_id 		int unsigned auto_increment,
@@ -795,65 +795,740 @@ CREATE TRIGGER sponsorEventInsert AFTER INSERT ON sponsor_events
 
 DELIMITER ;
 
-	insert into users(username, password, user_type, firstname, lastname, college, contactno, email, weight, height) values("Tester1", "$2a$10$XZ3gB4uWjsKhIBQ0xoxFmejypyylQqHw.Bi43dvMzp4vmoW9/YPGm", "admin", "Person", "A", "CAS", 09166994203, "pa@up.edu.ph", 59, 177); /*pw: test*/
-	insert into users(username, password, user_type, firstname, lastname, college, contactno, email, weight, height) values("Tester2", "$2a$10$XZ3gB4uWjsKhIBQ0xoxFmejypyylQqHw.Bi43dvMzp4vmoW9/YPGm", "normal", "Person", "B", "CAS", 09166994203, "pb@up.edu.ph", 59, 177); /*pw: test*/
-	insert into users(username, password, user_type, firstname, lastname, college, contactno, email, weight, height) values("Tester3", "$2a$10$XZ3gB4uWjsKhIBQ0xoxFmejypyylQqHw.Bi43dvMzp4vmoW9/YPGm", "normal", "Person", "C", "CAS", 09166994203, "pc@up.edu.ph", 59, 177); /*pw: test*/
-	insert into users(username, password, user_type, firstname, lastname, college, contactno, email, weight, height) values("a", "$2a$10$lVkrOWmUYhHeK7i80M6NBu9aE0AuO0mzLdV1pBEmsRbCrxON2IIdy", "pending", "Person", "D", "CEM", 09166994203, "pd@up.edu.ph", 59, 177); /*pw: a*/
-	insert into users(username, password, user_type, firstname, lastname, college, contactno, email, weight, height) values("b", "$2a$10$lVkrOWmUYhHeK7i80M6NBu9aE0AuO0mzLdV1pBEmsRbCrxON2IIdy", "pending", "Person", "E", "CEAT", 09166994203, "pe@up.edu.ph", 59, 177); /*pw: a*/
-	
-	insert into venue(latitude, longitude, address, venue_name) values(12.23,32.123, "los banos, laguna", "Copeland Gymasium");
+insert into users(username, password, user_type, gender, firstname, lastname, college, contactno, email, weight, height) values("admin", "$2a$10$XZ3gB4uWjsKhIBQ0xoxFmejypyylQqHw.Bi43dvMzp4vmoW9/YPGm", "admin", "M", "Person", "A", "CAS", 09166994203, "pa@up.edu.ph", 59, 177); /*pw: test*/
+insert into users(username, password, user_type, gender, firstname, lastname, college, contactno, email, weight, height) values("Tester1", "$2a$10$lVkrOWmUYhHeK7i80M6NBu9aE0AuO0mzLdV1pBEmsRbCrxON2IIdy", "normal", "F", "Hiker", "Castillo", "CAS", 09166994203, "pb@up.edu.ph", 59, 177); /*pw: test*/
+insert into users(username, password, user_type, gender, firstname, lastname, college, contactno, email, weight, height) values("Tester2", "$2a$10$lVkrOWmUYhHeK7i80M6NBu9aE0AuO0mzLdV1pBEmsRbCrxON2IIdy", "normal", "M", "Loura", "Bree", "CAS", 09166994203, "pc@up.edu.ph", 59, 177); /*pw: test*/
+insert into users(username, password, user_type, gender, firstname, lastname, college, contactno, email, weight, height) values("Tester3", "$2a$10$lVkrOWmUYhHeK7i80M6NBu9aE0AuO0mzLdV1pBEmsRbCrxON2IIdy", "normal", "F", "Rianne", "De Castro", "CEM", 09166994203, "pd@up.edu.ph", 59, 177); /*pw: a*/
+insert into users(username, password, user_type, gender, firstname, lastname, college, contactno, email, weight, height) values("Tester4", "$2a$10$lVkrOWmUYhHeK7i80M6NBu9aE0AuO0mzLdV1pBEmsRbCrxON2IIdy", "normal", "Mariane", "Li", "Emeralda", "CEAT", 09166994203, "pe@up.edu.ph", 59, 177); /*pw: a*/
+insert into users(username, password, user_type, gender, firstname, lastname, college, contactno, email, weight, height) values("Tester5", "$2a$10$lVkrOWmUYhHeK7i80M6NBu9aE0AuO0mzLdV1pBEmsRbCrxON2IIdy", "normal", "F", "Mariane", "Sarcedo", "CEM", 09166994203, "pd@up.edu.ph", 59, 177); /*pw: a*/
+insert into users(username, password, user_type, gender, firstname, lastname, college, contactno, email, weight, height) values("Tester6", "$2a$10$lVkrOWmUYhHeK7i80M6NBu9aE0AuO0mzLdV1pBEmsRbCrxON2IIdy", "normal", "M", "Merca", "Mercado", "CEAT", 09166994203, "pe@up.edu.ph", 59, 177); /*pw: a*/
 
-	insert into venue(latitude, longitude, address, venue_name) values(12.23,32.123, "los banos, laguna", "Baker Hall");
+call addVenue(12.23, 32.33, "Los Banos, Laguna", "Copeland Gymasium");
+call addVenue(44.23, 12.33, "Los Banos, Laguna", "Baker Hall");
+call addVenue(01.42, 13.44, "Los Banos, Laguna", "Freedom Park");
+call addVenue(76.00, 76.00, "Los Banos, Laguna", "Tambayan Natin");
 
-	call addTeam("team1");
-	call addTeam("team2");
-	call addTeam("team3");
+call addEvent(2, "Malicsihan", "2017-04-13", "2017-04-23");
+call addEvent(2, "Palicsihan", "2017-06-01", "2017-06-15");
 
-	call addEvent(3, "Malicsihan", "2017-12-23", "2017-12-25");
-	call addEvent(2, "Palicsihan", "2017-12-23", "2017-12-25");
-	call addEvent(3, "Malacasan", "2017-04-20", "2017-12-25");
+call addEvent(3, "Malacasan", "2017-03-10", "2017-03-23");
+call addEvent(3, "Mahinahan", "2017-05-29", "2017-06-07");
+call addEvent(3, "Gualaman", "2017-07-07", "2017-07-08");
+call addEvent(3, "Findapple", "2017-09-18", "2017-09-21");
 
-	call addSport("Basketball");
-	call addSport("Volleyball");
-	call addSport("Badminton");
-	call addSport("Phil. Games");
-	call addSport("Dota");
-	call addSport("Soccer");
-	call addSport("Javelin");
+call addEvent(4, "Halamanan", "2017-04-29", "2017-05-07");
+call addEvent(4, "Sakbakan", "2017-09-12", "2017-09-20");
+call addEvent(4, "Palacasan", "2017-10-09", "2017-10-21");
 
-	call attachSportToEvent(1, 1);
-	call attachSportToEvent(4, 1);
-	call attachSportToEvent(5, 1);
-	call attachSportToEvent(6, 1);
-	call attachSportToEvent(7, 1);
+call addEvent(5, "Boy Voyage", "2017-04-13", "2017-04-23");
+call addEvent(5, "King's Hill", "2017-06-01", "2017-06-15");
 
-	call attachSportToEvent(1, 2);
-	call attachSportToEvent(2, 2);
-	call attachSportToEvent(3, 2);
+call addEvent(6, "TV Olympics", "2017-08-02", "2017-08-15");
+call addEvent(6, "Movie Marathon", "2017-06-01", "2017-06-15");
 
-	call attachSportToEvent(4, 3);
-	call attachSportToEvent(5, 3);
-	call attachSportToEvent(6, 3);
+call addEvent(7, "Malicsihan v2", "2018-04-13", "2018-04-23");
+call addEvent(7, "Palicsihan v2", "2018-06-01", "2018-06-15");
+call addEvent(7, "Findapple v2", "2018-09-18", "2018-09-21");
+call addEvent(7, "TV Olympics v2", "2018-08-02", "2018-08-20");
 
-	call addGame(1, 1, 1,  "2017-12-23", "11:59:59", 1, "Ma'am Kat");
-	call insertTeamPlaysGame(1);
-	call addGame(2, 1, 1, "2017-12-23", "11:59:59", 1, "Ma'am K");
-	call insertTeamPlaysGame(2);
+call addSport("Basketball");
+call addSport("Volleyball");
+call addSport("Badminton");
+call addSport("Phil. Games");
+call addSport("Dota");
+call addSport("Soccer");
+call addSport("Javelin");
 
-	call teamJoinsEvent(1,1);
-	call teamJoinsEvent(2,2);
-	call teamJoinsEvent(3,3);
-	call userJoinsTeam(1,"team1","accepted");
-	call userJoinsTeam(2,"team1","accepted");
-	call userJoinsTeam(2,"team3","pending");
+call addTeam("AiWanEl");
+call addTeam("Elite Five");
+call addTeam("Eight-Eleven");
+call addTeam("Best 100");
+call addTeam("Holyconcrete");
+call addTeam("BeshieDesu");
+call addTeam("WanTooFaiv");
+call addTeam("Team 1");
+call addTeam("Team 2");
 
-	call addSponsor("ArvinSartilloCompany");
-	call addSponsor("Tester");
-	call addSponsor("DanCalixtoCompany");
 
-	call sponsorEvent(1, 1);
-	call sponsorEvent(1, 2);
-	call sponsorEvent(2, 1);
-	call sponsorEvent(2, 2);
-	call sponsorEvent(3, 1);
-	call sponsorEvent(3, 2);
+call addGame(1, 1, 1, "2017-04-14", "08:00:00", 1, "Tylson Reci");
+call addGame(2, 1, 1, "2017-04-15", "08:00:00", 1, "Gabriel Marco");
+call addGame(3, 1, 1, "2017-04-17", "08:00:00", 1, "Aruvin San");
+call addGame(5, 4, 1, "2017-04-20", "08:00:00", 5, "Precy Cinamon");
+
+call attachSportToEvent(1, 1);
+call attachSportToEvent(2, 1);
+call attachSportToEvent(3, 1);
+call attachSportToEvent(5, 1);
+
+call addGame(4, 1, 2, "2017-06-01", "07:00:00", 5, "Tailoson Loo");
+call addGame(1, 1, 2, "2017-06-03", "07:00:00", 1, "Tailoson Loo");
+call addGame(2, 1, 2, "2017-06-04", "07:00:00", 1, "Tailoson Loo");
+call addGame(6, 2, 2, "2017-06-07", "07:00:00", 1, "Tailoson Loo");
+call addGame(7, 3, 2, "2017-06-10", "07:00:00", 1, "Tailoson Loo");
+
+call attachSportToEvent(4, 2);
+call attachSportToEvent(1, 2);
+call attachSportToEvent(2, 2);
+call attachSportToEvent(6, 2);
+call attachSportToEvent(7, 2);
+
+call addGame(1, 1, 3, "2017-03-10", "13:00:00", 1, "Memarina Rinsi");
+call addGame(3, 1, 3, "2017-03-11", "14:00:00", 1, "Memarina Rinsi");
+call addGame(7, 3, 3, "2017-03-14", "14:00:00", 1, "Memarina Rinsi");
+call addGame(4, 1, 3, "2017-03-17", "12:00:00", 1, "Memarina Rinsi");
+
+call attachSportToEvent(1, 3);
+call attachSportToEvent(3, 3);
+call attachSportToEvent(7, 3);
+call attachSportToEvent(4, 3);
+
+call addGame(2, 2, 4, "2017-05-29", "09:00:00", 1, "Granger Resticalo");
+call addGame(3, 1, 4, "2017-05-30", "10:00:00", 1, "Granger Resticalo");
+call addGame(4, 1, 4, "2017-05-31", "11:00:00", 1, "Granger Resticalo");
+call addGame(5, 4, 4, "2017-06-02", "08:00:00", 5, "Peter Paul");
+call addGame(7, 3, 4, "2017-06-03", "15:00:00", 1, "Granger Resticalo");
+
+call attachSportToEvent(2, 4);
+call attachSportToEvent(3, 4);
+call attachSportToEvent(4, 4);
+call attachSportToEvent(5, 4);
+call attachSportToEvent(7, 4);
+
+call addGame(1, 1, 5, "2017-07-07", "09:00:00", 1, "Sin Lee");
+call addGame(2, 1, 5, "2017-07-07", "13:00:00", 1, "Sin Lee");
+call addGame(1, 1, 5, "2017-07-08", "10:00:00", 1, "Sin Lee");
+
+call attachSportToEvent(1, 5);
+call attachSportToEvent(2, 5);
+call attachSportToEvent(1, 5);
+
+call addGame(4, 2, 6, "2017-09-18", "10:00:00", 2, "Aether Kayle");
+call addGame(6, 2, 6, "2017-09-19", "08:00:00", 2, "Aether Kayle");
+call addGame(7, 2, 6, "2017-09-20", "08:00:00", 2, "Aether Kayle");
+
+call attachSportToEvent(4, 6);
+call attachSportToEvent(6, 6);
+call attachSportToEvent(7, 6);
+
+call addGame(3, 1, 7, "2017-04-29", "12:00:00", 1, "Hicson Simpson");
+call addGame(1, 1, 7, "2017-04-30", "08:00:00", 1, "Hicson Simpson");
+call addGame(4, 1, 7, "2017-05-01", "08:00:00", 1, "Hicson Simpson");
+call addGame(6, 2, 7, "2017-05-03", "08:00:00", 1, "Hicson Simpson");
+call addGame(7, 2, 7, "2017-05-04", "08:00:00", 1, "Hicson Simpson");
+
+call attachSportToEvent(3, 7);
+call attachSportToEvent(1, 7);
+call attachSportToEvent(4, 7);
+call attachSportToEvent(6, 7);
+call attachSportToEvent(7, 7);
+
+call addGame(1, 1, 8, "2017-09-12", "07:00:00", 1, "Hayler Hays");
+call addGame(2, 1, 8, "2017-09-13", "07:00:00", 1, "Hayler Hays");
+call addGame(3, 1, 8, "2017-09-14", "07:00:00", 1, "Hayler Hays Jr.");
+call addGame(4, 1, 8, "2017-09-15", "07:00:00", 1, "Hayler Hays Sr.");
+call addGame(5, 4, 8, "2017-09-16", "07:00:00", 1, "Hayler Hays IV");
+call addGame(6, 2, 8, "2017-09-17", "07:00:00", 1, "Hayler Hays III");
+call addGame(7, 3, 8, "2017-09-18", "07:00:00", 1, "Hayler Hays VI");
+
+call attachSportToEvent(1, 8);
+call attachSportToEvent(2, 8);
+call attachSportToEvent(3, 8);
+call attachSportToEvent(4, 8);
+call attachSportToEvent(5, 8);
+call attachSportToEvent(6, 8);
+call attachSportToEvent(7, 8);
+
+call addGame(1, 1, 9, "2017-10-09", "07:00:00", 1, "Rais Kooker");
+call addGame(3, 1, 9, "2017-10-11", "08:00:00", 1, "Belmer Broy");
+call addGame(4, 2, 9, "2017-10-13", "09:00:00", 1, "Kris Lenter");
+call addGame(5, 4, 9, "2017-10-15", "16:00:00", 1, "Ric Jordan");
+call addGame(6, 2, 9, "2017-10-20", "16:00:00", 1, "Wallinston Dai");
+
+call attachSportToEvent(1, 9);
+call attachSportToEvent(3, 9);
+call attachSportToEvent(4, 9);
+call attachSportToEvent(5, 9);
+call attachSportToEvent(6, 9);
+
+call addGame(2, 1, 10, "2017-04-13", "09:00:00", 2, "Macy Lukeheart");
+call addGame(3, 1, 10, "2017-04-14", "10:00:00", 1, "Landy Maligan");
+call addGame(4, 2, 10, "2017-04-15", "09:00:00", 1, "Rhondo Raiser");
+call addGame(5, 4, 10, "2017-04-17", "10:30:00", 5, "Macy Lukeheart");
+call addGame(7, 3, 10, "2017-04-18", "09:00:00", 2, "Landy Maligan");
+
+call attachSportToEvent(2, 10);
+call attachSportToEvent(3, 10);
+call attachSportToEvent(4, 10);
+call attachSportToEvent(5, 10);
+call attachSportToEvent(7, 10);
+
+call addGame(1, 1, 11, "2017-06-01", "13:00:00", 1, "Landy Maligan");
+call addGame(2, 1, 11, "2017-06-04", "10:00:00", 1, "Hicson Simpson");
+call addGame(4, 1, 11, "2017-06-05", "09:00:00", 1, "Rhondo Raiser");
+call addGame(5, 4, 11, "2017-06-10", "09:00:00", 5, "Landy Maligan");
+call addGame(7, 3, 11, "2017-06-12", "08:00:00", 2, "Hicson Simpson");
+call addGame(6, 2, 11, "2017-06-13", "15:00:00", 1, "Rhondo Raiser");
+
+call attachSportToEvent(1, 11);
+call attachSportToEvent(2, 11);
+call attachSportToEvent(4, 11);
+call attachSportToEvent(5, 11);
+call attachSportToEvent(7, 11);
+call attachSportToEvent(6, 11);
+
+call addGame(1, 1, 12, "2017-08-03", "08:00:00", 1, "Ty Ruler");
+call addGame(3, 1, 12, "2017-08-04", "09:00:00", 2, "Cram Recor");
+call addGame(2, 1, 12, "2017-08-06", "08:00:00", 2, "Ayala Dora");
+call addGame(4, 2, 12, "2017-08-10", "09:00:00", 2, "Enrich Belgaria");
+
+call attachSportToEvent(1, 12);
+call attachSportToEvent(3, 12);
+call attachSportToEvent(2, 12);
+call attachSportToEvent(4, 12);
+
+call addGame(6, 2, 13, "2017-06-01", "10:00:00", 2, "Daimian Passimian");
+call addGame(7, 3, 13, "2017-06-03", "11:00:00", 1, "Rudy Passimian");
+call addGame(4, 1, 13, "2017-06-05", "12:00:00", 1, "Daimian Passimian");
+call addGame(2, 2, 13, "2017-06-07", "13:00:00", 1, "Rudy Passimian");
+
+
+call attachSportToEvent(6, 13);
+call attachSportToEvent(7, 13);
+call attachSportToEvent(4, 13);
+call attachSportToEvent(3, 13);
+
+
+call addGame(1, 1, 14, "2018-04-14", "08:00:00", 1, "Tylson Reci");
+call addGame(2, 1, 14, "2018-04-15", "08:00:00", 1, "Gabriel Marco");
+call addGame(3, 1, 14, "2018-04-17", "08:00:00", 1, "Aruvin San");
+call addGame(5, 4, 14, "2018-04-20", "08:00:00", 5, "Precy Cinamon");
+
+
+call attachSportToEvent(1, 14);
+call attachSportToEvent(2, 14);
+call attachSportToEvent(3, 14);
+call attachSportToEvent(5, 14);
+
+
+call addGame(4, 1, 2, "2018-06-01", "07:00:00", 5, "Tailoson Loo");
+call addGame(1, 1, 2, "2018-06-03", "07:00:00", 1, "Tailoson Loo");
+call addGame(2, 1, 2, "2018-06-04", "07:00:00", 1, "Tailoson Loo");
+call addGame(6, 2, 2, "2018-06-07", "07:00:00", 1, "Tailoson Loo");
+call addGame(7, 3, 2, "2018-06-10", "07:00:00", 1, "Tailoson Loo");
+
+call attachSportToEvent(4, 15);
+call attachSportToEvent(1, 15);
+call attachSportToEvent(2, 15);
+call attachSportToEvent(6, 15);
+call attachSportToEvent(7, 15);
+
+
+call addGame(4, 2, 6, "2018-09-18", "10:00:00", 2, "Aether Kayle");
+call addGame(6, 2, 6, "2018-09-19", "08:00:00", 2, "Aether Kayle");
+call addGame(7, 2, 6, "2018-09-20", "08:00:00", 2, "Aether Kayle");
+
+call attachSportToEvent(4, 16);
+call attachSportToEvent(6, 16);
+call attachSportToEvent(7, 16);
+
+
+call addGame(1, 1, 12, "2018-08-03", "08:00:00", 1, "Ty Ruler");
+call addGame(3, 1, 12, "2018-08-04", "09:00:00", 2, "Cram Recor");
+call addGame(2, 1, 12, "2018-08-06", "08:00:00", 2, "Ayala Dora");
+call addGame(4, 2, 12, "2018-08-10", "09:00:00", 2, "Enrich Belgaria");
+
+call attachSportToEvent(1, 17);
+call attachSportToEvent(3, 17);
+call attachSportToEvent(2, 17);
+call attachSportToEvent(4, 17);
+
+
+call teamJoinsEvent(1, 1);
+
+call teamJoinsEvent(2, 2);
+
+call teamJoinsEvent(3, 5);
+
+call teamJoinsEvent(4, 11);
+
+call teamJoinsEvent(5, 14);
+
+call teamJoinsEvent(6, 16);
+
+call teamJoinsEvent(7, 17);
+
+call addSponsor("Aera IV");
+call addSponsor("Bares Jr. IV");
+call addSponsor("Capollo Electric Company");
+call addSponsor("Dmeter Agriculture Expert Inc.");
+call addSponsor("Ephaestus Inc.");
+call addSponsor("Foseidon Water Supply");
+call addSponsor("Gades Electric Company");
+call addSponsor("Metal Company II");
+call addSponsor("Wood Division V");
+
+call sponsorEvent(1, 1);
+call sponsorEvent(1, 2);
+call sponsorEvent(1, 4);
+call sponsorEvent(1, 6);
+call sponsorEvent(1, 7);
+
+call sponsorEvent(2, 1);
+call sponsorEvent(2, 2);
+call sponsorEvent(2, 3);
+call sponsorEvent(2, 4);
+
+call sponsorEvent(3, 1);
+call sponsorEvent(3, 11);
+call sponsorEvent(3, 13);
+call sponsorEvent(3, 14);
+call sponsorEvent(3, 15);
+call sponsorEvent(3, 10);
+call sponsorEvent(3, 9);
+
+
+call sponsorEvent(4, 1);
+call sponsorEvent(4, 2);
+call sponsorEvent(4, 3);
+call sponsorEvent(4, 4);
+call sponsorEvent(4, 5);
+call sponsorEvent(4, 6);
+
+
+call sponsorEvent(5, 2);
+call sponsorEvent(5, 3);
+call sponsorEvent(5, 4);
+call sponsorEvent(5, 5);
+call sponsorEvent(5, 6);
+call sponsorEvent(5, 7);
+call sponsorEvent(5, 8);
+
+
+call sponsorEvent(6, 7);
+call sponsorEvent(6, 8);
+call sponsorEvent(6, 9);
+call sponsorEvent(6, 10);
+call sponsorEvent(6, 11);
+call sponsorEvent(6, 12);
+call sponsorEvent(6, 13);
+call sponsorEvent(6, 16);
+call sponsorEvent(6, 17);
+
+
+call sponsorEvent(7, 2);
+call sponsorEvent(7, 10);
+call sponsorEvent(7, 12);
+call sponsorEvent(7, 13);
+call sponsorEvent(7, 14);
+call sponsorEvent(7, 15);
+
+
+call sponsorEvent(8, 3);
+call sponsorEvent(8, 4);
+call sponsorEvent(8, 5);
+call sponsorEvent(8, 6);
+call sponsorEvent(8, 11);
+call sponsorEvent(8, 12);
+call sponsorEvent(8, 13);
+
+
+call sponsorEvent(9, 1);
+call sponsorEvent(9, 3);
+call sponsorEvent(9, 5);
+call sponsorEvent(9, 7);
+call sponsorEvent(9, 15);
+call sponsorEvent(9, 16);
+call sponsorEvent(9, 17);
+
+insert into team_plays_game (game_id, team_id, bet_count) values(1, 8, 0);
+insert into team_plays_game (game_id, team_id, bet_count) values(1, 9, 0);
+insert into team_plays_game (game_id, team_id, bet_count) values(2, 8, 0);
+insert into team_plays_game (game_id, team_id, bet_count) values(2, 9, 0);
+insert into team_plays_game (game_id, team_id, bet_count) values(3, 8, 0);
+insert into team_plays_game (game_id, team_id, bet_count) values(3, 9, 0);
+insert into team_plays_game (game_id, team_id, bet_count) values(4, 8, 0);
+insert into team_plays_game (game_id, team_id, bet_count) values(4, 9, 0);
+insert into team_plays_game (game_id, team_id, bet_count) values(5, 8, 0);
+insert into team_plays_game (game_id, team_id, bet_count) values(5, 9, 0);
+insert into team_plays_game (game_id, team_id, bet_count) values(6, 8, 0);
+insert into team_plays_game (game_id, team_id, bet_count) values(6, 9, 0);
+insert into team_plays_game (game_id, team_id, bet_count) values(7, 8, 0);
+insert into team_plays_game (game_id, team_id, bet_count) values(7, 9, 0);
+insert into team_plays_game (game_id, team_id, bet_count) values(8, 8, 0);
+insert into team_plays_game (game_id, team_id, bet_count) values(8, 9, 0);
+insert into team_plays_game (game_id, team_id, bet_count) values(9, 8, 0);
+insert into team_plays_game (game_id, team_id, bet_count) values(9, 9, 0);
+insert into team_plays_game (game_id, team_id, bet_count) values(10, 8, 0);
+insert into team_plays_game (game_id, team_id, bet_count) values(10, 9, 0);
+
+
+insert into team_plays_game (game_id, team_id, bet_count) values(11, 8, 0);
+insert into team_plays_game (game_id, team_id, bet_count) values(11, 9, 0);
+insert into team_plays_game (game_id, team_id, bet_count) values(12, 8, 0);
+insert into team_plays_game (game_id, team_id, bet_count) values(12, 9, 0);
+insert into team_plays_game (game_id, team_id, bet_count) values(13, 8, 0);
+insert into team_plays_game (game_id, team_id, bet_count) values(13, 9, 0);
+insert into team_plays_game (game_id, team_id, bet_count) values(14, 8, 0);
+insert into team_plays_game (game_id, team_id, bet_count) values(14, 9, 0);
+insert into team_plays_game (game_id, team_id, bet_count) values(15, 8, 0);
+insert into team_plays_game (game_id, team_id, bet_count) values(15, 9, 0);
+insert into team_plays_game (game_id, team_id, bet_count) values(16, 8, 0);
+insert into team_plays_game (game_id, team_id, bet_count) values(16, 9, 0);
+insert into team_plays_game (game_id, team_id, bet_count) values(17, 8, 0);
+insert into team_plays_game (game_id, team_id, bet_count) values(17, 9, 0);
+insert into team_plays_game (game_id, team_id, bet_count) values(18, 8, 0);
+insert into team_plays_game (game_id, team_id, bet_count) values(18, 9, 0);
+insert into team_plays_game (game_id, team_id, bet_count) values(19, 8, 0);
+insert into team_plays_game (game_id, team_id, bet_count) values(19, 9, 0);
+insert into team_plays_game (game_id, team_id, bet_count) values(20, 8, 0);
+insert into team_plays_game (game_id, team_id, bet_count) values(20, 9, 0);
+
+
+insert into team_plays_game (game_id, team_id, bet_count) values(21, 8, 0);
+insert into team_plays_game (game_id, team_id, bet_count) values(21, 9, 0);
+insert into team_plays_game (game_id, team_id, bet_count) values(22, 8, 0);
+insert into team_plays_game (game_id, team_id, bet_count) values(22, 9, 0);
+insert into team_plays_game (game_id, team_id, bet_count) values(23, 8, 0);
+insert into team_plays_game (game_id, team_id, bet_count) values(23, 9, 0);
+insert into team_plays_game (game_id, team_id, bet_count) values(24, 8, 0);
+insert into team_plays_game (game_id, team_id, bet_count) values(24, 9, 0);
+insert into team_plays_game (game_id, team_id, bet_count) values(25, 8, 0);
+insert into team_plays_game (game_id, team_id, bet_count) values(25, 9, 0);
+insert into team_plays_game (game_id, team_id, bet_count) values(26, 8, 0);
+insert into team_plays_game (game_id, team_id, bet_count) values(26, 9, 0);
+insert into team_plays_game (game_id, team_id, bet_count) values(27, 8, 0);
+insert into team_plays_game (game_id, team_id, bet_count) values(27, 9, 0);
+insert into team_plays_game (game_id, team_id, bet_count) values(28, 8, 0);
+insert into team_plays_game (game_id, team_id, bet_count) values(28, 9, 0);
+insert into team_plays_game (game_id, team_id, bet_count) values(29, 8, 0);
+insert into team_plays_game (game_id, team_id, bet_count) values(29, 9, 0);
+insert into team_plays_game (game_id, team_id, bet_count) values(30, 8, 0);
+insert into team_plays_game (game_id, team_id, bet_count) values(30, 9, 0);
+
+insert into team_plays_game (game_id, team_id, bet_count) values(31, 8, 0);
+insert into team_plays_game (game_id, team_id, bet_count) values(31, 9, 0);
+insert into team_plays_game (game_id, team_id, bet_count) values(32, 8, 0);
+insert into team_plays_game (game_id, team_id, bet_count) values(32, 9, 0);
+insert into team_plays_game (game_id, team_id, bet_count) values(33, 8, 0);
+insert into team_plays_game (game_id, team_id, bet_count) values(33, 9, 0);
+insert into team_plays_game (game_id, team_id, bet_count) values(34, 8, 0);
+insert into team_plays_game (game_id, team_id, bet_count) values(34, 9, 0);
+insert into team_plays_game (game_id, team_id, bet_count) values(35, 8, 0);
+insert into team_plays_game (game_id, team_id, bet_count) values(35, 9, 0);
+insert into team_plays_game (game_id, team_id, bet_count) values(36, 8, 0);
+insert into team_plays_game (game_id, team_id, bet_count) values(36, 9, 0);
+insert into team_plays_game (game_id, team_id, bet_count) values(37, 8, 0);
+insert into team_plays_game (game_id, team_id, bet_count) values(37, 9, 0);
+insert into team_plays_game (game_id, team_id, bet_count) values(38, 8, 0);
+insert into team_plays_game (game_id, team_id, bet_count) values(38, 9, 0);
+insert into team_plays_game (game_id, team_id, bet_count) values(39, 8, 0);
+insert into team_plays_game (game_id, team_id, bet_count) values(39, 9, 0);
+insert into team_plays_game (game_id, team_id, bet_count) values(40, 8, 0);
+insert into team_plays_game (game_id, team_id, bet_count) values(40, 9, 0);
+
+insert into team_plays_game (game_id, team_id, bet_count) values(41, 8, 0);
+insert into team_plays_game (game_id, team_id, bet_count) values(41, 9, 0);
+insert into team_plays_game (game_id, team_id, bet_count) values(42, 8, 0);
+insert into team_plays_game (game_id, team_id, bet_count) values(42, 9, 0);
+insert into team_plays_game (game_id, team_id, bet_count) values(43, 8, 0);
+insert into team_plays_game (game_id, team_id, bet_count) values(43, 9, 0);
+insert into team_plays_game (game_id, team_id, bet_count) values(44, 8, 0);
+insert into team_plays_game (game_id, team_id, bet_count) values(44, 9, 0);
+insert into team_plays_game (game_id, team_id, bet_count) values(45, 8, 0);
+insert into team_plays_game (game_id, team_id, bet_count) values(45, 9, 0);
+insert into team_plays_game (game_id, team_id, bet_count) values(46, 8, 0);
+insert into team_plays_game (game_id, team_id, bet_count) values(46, 9, 0);
+insert into team_plays_game (game_id, team_id, bet_count) values(47, 8, 0);
+insert into team_plays_game (game_id, team_id, bet_count) values(47, 9, 0);
+insert into team_plays_game (game_id, team_id, bet_count) values(48, 8, 0);
+insert into team_plays_game (game_id, team_id, bet_count) values(48, 9, 0);
+insert into team_plays_game (game_id, team_id, bet_count) values(49, 8, 0);
+insert into team_plays_game (game_id, team_id, bet_count) values(49, 9, 0);
+insert into team_plays_game (game_id, team_id, bet_count) values(50, 8, 0);
+insert into team_plays_game (game_id, team_id, bet_count) values(50, 9, 0);
+
+insert into team_plays_game (game_id, team_id, bet_count) values(51, 8, 0);
+insert into team_plays_game (game_id, team_id, bet_count) values(51, 9, 0);
+insert into team_plays_game (game_id, team_id, bet_count) values(52, 8, 0);
+insert into team_plays_game (game_id, team_id, bet_count) values(52, 9, 0);
+insert into team_plays_game (game_id, team_id, bet_count) values(53, 8, 0);
+insert into team_plays_game (game_id, team_id, bet_count) values(53, 9, 0);
+insert into team_plays_game (game_id, team_id, bet_count) values(54, 8, 0);
+insert into team_plays_game (game_id, team_id, bet_count) values(54, 9, 0);
+insert into team_plays_game (game_id, team_id, bet_count) values(55, 8, 0);
+insert into team_plays_game (game_id, team_id, bet_count) values(55, 9, 0);
+insert into team_plays_game (game_id, team_id, bet_count) values(56, 8, 0);
+insert into team_plays_game (game_id, team_id, bet_count) values(56, 9, 0);
+insert into team_plays_game (game_id, team_id, bet_count) values(57, 8, 0);
+insert into team_plays_game (game_id, team_id, bet_count) values(57, 9, 0);
+insert into team_plays_game (game_id, team_id, bet_count) values(58, 8, 0);
+insert into team_plays_game (game_id, team_id, bet_count) values(58, 9, 0);
+insert into team_plays_game (game_id, team_id, bet_count) values(59, 8, 0);
+insert into team_plays_game (game_id, team_id, bet_count) values(59, 9, 0);
+insert into team_plays_game (game_id, team_id, bet_count) values(60, 8, 0);
+insert into team_plays_game (game_id, team_id, bet_count) values(60, 9, 0);
+
+insert into team_plays_game (game_id, team_id, bet_count) values(61, 8, 0);
+insert into team_plays_game (game_id, team_id, bet_count) values(61, 9, 0);
+insert into team_plays_game (game_id, team_id, bet_count) values(62, 8, 0);
+insert into team_plays_game (game_id, team_id, bet_count) values(62, 9, 0);
+insert into team_plays_game (game_id, team_id, bet_count) values(63, 8, 0);
+insert into team_plays_game (game_id, team_id, bet_count) values(63, 9, 0);
+insert into team_plays_game (game_id, team_id, bet_count) values(64, 8, 0);
+insert into team_plays_game (game_id, team_id, bet_count) values(64, 9, 0);
+insert into team_plays_game (game_id, team_id, bet_count) values(65, 8, 0);
+insert into team_plays_game (game_id, team_id, bet_count) values(65, 9, 0);
+insert into team_plays_game (game_id, team_id, bet_count) values(66, 8, 0);
+insert into team_plays_game (game_id, team_id, bet_count) values(66, 9, 0);
+insert into team_plays_game (game_id, team_id, bet_count) values(67, 8, 0);
+insert into team_plays_game (game_id, team_id, bet_count) values(67, 9, 0);
+insert into team_plays_game (game_id, team_id, bet_count) values(68, 8, 0);
+insert into team_plays_game (game_id, team_id, bet_count) values(68, 9, 0);
+insert into team_plays_game (game_id, team_id, bet_count) values(69, 8, 0);
+insert into team_plays_game (game_id, team_id, bet_count) values(69, 9, 0);
+insert into team_plays_game (game_id, team_id, bet_count) values(70, 8, 0);
+insert into team_plays_game (game_id, team_id, bet_count) values(70, 9, 0);
+
+
+insert into team_plays_game (game_id, team_id, bet_count) values(71, 8, 0);
+insert into team_plays_game (game_id, team_id, bet_count) values(71, 9, 0);
+insert into team_plays_game (game_id, team_id, bet_count) values(72, 8, 0);
+insert into team_plays_game (game_id, team_id, bet_count) values(72, 9, 0);
+insert into team_plays_game (game_id, team_id, bet_count) values(73, 8, 0);
+insert into team_plays_game (game_id, team_id, bet_count) values(73, 9, 0);
+insert into team_plays_game (game_id, team_id, bet_count) values(74, 8, 0);
+insert into team_plays_game (game_id, team_id, bet_count) values(74, 9, 0);
+insert into team_plays_game (game_id, team_id, bet_count) values(75, 8, 0);
+insert into team_plays_game (game_id, team_id, bet_count) values(75, 9, 0);
+insert into team_plays_game (game_id, team_id, bet_count) values(76, 8, 0);
+insert into team_plays_game (game_id, team_id, bet_count) values(76, 9, 0);
+
+
+insert into game_score (game_id, team_score_id, team_score) values(1, 8, 0);
+insert into game_score (game_id, team_score_id, team_score) values(1, 9, 0);
+insert into game_score (game_id, team_score_id, team_score) values(2, 8, 0);
+insert into game_score (game_id, team_score_id, team_score) values(2, 9, 0);
+insert into game_score (game_id, team_score_id, team_score) values(3, 8, 0);
+insert into game_score (game_id, team_score_id, team_score) values(3, 9, 0);
+insert into game_score (game_id, team_score_id, team_score) values(4, 8, 0);
+insert into game_score (game_id, team_score_id, team_score) values(4, 9, 0);
+insert into game_score (game_id, team_score_id, team_score) values(5, 8, 0);
+insert into game_score (game_id, team_score_id, team_score) values(5, 9, 0);
+insert into game_score (game_id, team_score_id, team_score) values(6, 8, 0);
+insert into game_score (game_id, team_score_id, team_score) values(6, 9, 0);
+insert into game_score (game_id, team_score_id, team_score) values(7, 8, 0);
+insert into game_score (game_id, team_score_id, team_score) values(7, 9, 0);
+insert into game_score (game_id, team_score_id, team_score) values(8, 8, 0);
+insert into game_score (game_id, team_score_id, team_score) values(8, 9, 0);
+insert into game_score (game_id, team_score_id, team_score) values(9, 8, 0);
+insert into game_score (game_id, team_score_id, team_score) values(9, 9, 0);
+insert into game_score (game_id, team_score_id, team_score) values(10, 8, 0);
+insert into game_score (game_id, team_score_id, team_score) values(10, 9, 0);
+
+
+insert into game_score (game_id, team_score_id, team_score) values(11, 8, 0);
+insert into game_score (game_id, team_score_id, team_score) values(11, 9, 0);
+insert into game_score (game_id, team_score_id, team_score) values(12, 8, 0);
+insert into game_score (game_id, team_score_id, team_score) values(12, 9, 0);
+insert into game_score (game_id, team_score_id, team_score) values(13, 8, 0);
+insert into game_score (game_id, team_score_id, team_score) values(13, 9, 0);
+insert into game_score (game_id, team_score_id, team_score) values(14, 8, 0);
+insert into game_score (game_id, team_score_id, team_score) values(14, 9, 0);
+insert into game_score (game_id, team_score_id, team_score) values(15, 8, 0);
+insert into game_score (game_id, team_score_id, team_score) values(15, 9, 0);
+insert into game_score (game_id, team_score_id, team_score) values(16, 8, 0);
+insert into game_score (game_id, team_score_id, team_score) values(16, 9, 0);
+insert into game_score (game_id, team_score_id, team_score) values(17, 8, 0);
+insert into game_score (game_id, team_score_id, team_score) values(17, 9, 0);
+insert into game_score (game_id, team_score_id, team_score) values(18, 8, 0);
+insert into game_score (game_id, team_score_id, team_score) values(18, 9, 0);
+insert into game_score (game_id, team_score_id, team_score) values(19, 8, 0);
+insert into game_score (game_id, team_score_id, team_score) values(19, 9, 0);
+insert into game_score (game_id, team_score_id, team_score) values(20, 8, 0);
+insert into game_score (game_id, team_score_id, team_score) values(20, 9, 0);
+
+
+insert into game_score (game_id, team_score_id, team_score) values(21, 8, 0);
+insert into game_score (game_id, team_score_id, team_score) values(21, 9, 0);
+insert into game_score (game_id, team_score_id, team_score) values(22, 8, 0);
+insert into game_score (game_id, team_score_id, team_score) values(22, 9, 0);
+insert into game_score (game_id, team_score_id, team_score) values(23, 8, 0);
+insert into game_score (game_id, team_score_id, team_score) values(23, 9, 0);
+insert into game_score (game_id, team_score_id, team_score) values(24, 8, 0);
+insert into game_score (game_id, team_score_id, team_score) values(24, 9, 0);
+insert into game_score (game_id, team_score_id, team_score) values(25, 8, 0);
+insert into game_score (game_id, team_score_id, team_score) values(25, 9, 0);
+insert into game_score (game_id, team_score_id, team_score) values(26, 8, 0);
+insert into game_score (game_id, team_score_id, team_score) values(26, 9, 0);
+insert into game_score (game_id, team_score_id, team_score) values(27, 8, 0);
+insert into game_score (game_id, team_score_id, team_score) values(27, 9, 0);
+insert into game_score (game_id, team_score_id, team_score) values(28, 8, 0);
+insert into game_score (game_id, team_score_id, team_score) values(28, 9, 0);
+insert into game_score (game_id, team_score_id, team_score) values(29, 8, 0);
+insert into game_score (game_id, team_score_id, team_score) values(29, 9, 0);
+insert into game_score (game_id, team_score_id, team_score) values(30, 8, 0);
+insert into game_score (game_id, team_score_id, team_score) values(30, 9, 0);
+
+insert into game_score (game_id, team_score_id, team_score) values(31, 8, 0);
+insert into game_score (game_id, team_score_id, team_score) values(31, 9, 0);
+insert into game_score (game_id, team_score_id, team_score) values(32, 8, 0);
+insert into game_score (game_id, team_score_id, team_score) values(32, 9, 0);
+insert into game_score (game_id, team_score_id, team_score) values(33, 8, 0);
+insert into game_score (game_id, team_score_id, team_score) values(33, 9, 0);
+insert into game_score (game_id, team_score_id, team_score) values(34, 8, 0);
+insert into game_score (game_id, team_score_id, team_score) values(34, 9, 0);
+insert into game_score (game_id, team_score_id, team_score) values(35, 8, 0);
+insert into game_score (game_id, team_score_id, team_score) values(35, 9, 0);
+insert into game_score (game_id, team_score_id, team_score) values(36, 8, 0);
+insert into game_score (game_id, team_score_id, team_score) values(36, 9, 0);
+insert into game_score (game_id, team_score_id, team_score) values(37, 8, 0);
+insert into game_score (game_id, team_score_id, team_score) values(37, 9, 0);
+insert into game_score (game_id, team_score_id, team_score) values(38, 8, 0);
+insert into game_score (game_id, team_score_id, team_score) values(38, 9, 0);
+insert into game_score (game_id, team_score_id, team_score) values(39, 8, 0);
+insert into game_score (game_id, team_score_id, team_score) values(39, 9, 0);
+insert into game_score (game_id, team_score_id, team_score) values(40, 8, 0);
+insert into game_score (game_id, team_score_id, team_score) values(40, 9, 0);
+
+insert into game_score (game_id, team_score_id, team_score) values(41, 8, 0);
+insert into game_score (game_id, team_score_id, team_score) values(41, 9, 0);
+insert into game_score (game_id, team_score_id, team_score) values(42, 8, 0);
+insert into game_score (game_id, team_score_id, team_score) values(42, 9, 0);
+insert into game_score (game_id, team_score_id, team_score) values(43, 8, 0);
+insert into game_score (game_id, team_score_id, team_score) values(43, 9, 0);
+insert into game_score (game_id, team_score_id, team_score) values(44, 8, 0);
+insert into game_score (game_id, team_score_id, team_score) values(44, 9, 0);
+insert into game_score (game_id, team_score_id, team_score) values(45, 8, 0);
+insert into game_score (game_id, team_score_id, team_score) values(45, 9, 0);
+insert into game_score (game_id, team_score_id, team_score) values(46, 8, 0);
+insert into game_score (game_id, team_score_id, team_score) values(46, 9, 0);
+insert into game_score (game_id, team_score_id, team_score) values(47, 8, 0);
+insert into game_score (game_id, team_score_id, team_score) values(47, 9, 0);
+insert into game_score (game_id, team_score_id, team_score) values(48, 8, 0);
+insert into game_score (game_id, team_score_id, team_score) values(48, 9, 0);
+insert into game_score (game_id, team_score_id, team_score) values(49, 8, 0);
+insert into game_score (game_id, team_score_id, team_score) values(49, 9, 0);
+insert into game_score (game_id, team_score_id, team_score) values(50, 8, 0);
+insert into game_score (game_id, team_score_id, team_score) values(50, 9, 0);
+
+insert into game_score (game_id, team_score_id, team_score) values(51, 8, 0);
+insert into game_score (game_id, team_score_id, team_score) values(51, 9, 0);
+insert into game_score (game_id, team_score_id, team_score) values(52, 8, 0);
+insert into game_score (game_id, team_score_id, team_score) values(52, 9, 0);
+insert into game_score (game_id, team_score_id, team_score) values(53, 8, 0);
+insert into game_score (game_id, team_score_id, team_score) values(53, 9, 0);
+insert into game_score (game_id, team_score_id, team_score) values(54, 8, 0);
+insert into game_score (game_id, team_score_id, team_score) values(54, 9, 0);
+insert into game_score (game_id, team_score_id, team_score) values(55, 8, 0);
+insert into game_score (game_id, team_score_id, team_score) values(55, 9, 0);
+insert into game_score (game_id, team_score_id, team_score) values(56, 8, 0);
+insert into game_score (game_id, team_score_id, team_score) values(56, 9, 0);
+insert into game_score (game_id, team_score_id, team_score) values(57, 8, 0);
+insert into game_score (game_id, team_score_id, team_score) values(57, 9, 0);
+insert into game_score (game_id, team_score_id, team_score) values(58, 8, 0);
+insert into game_score (game_id, team_score_id, team_score) values(58, 9, 0);
+insert into game_score (game_id, team_score_id, team_score) values(59, 8, 0);
+insert into game_score (game_id, team_score_id, team_score) values(59, 9, 0);
+insert into game_score (game_id, team_score_id, team_score) values(60, 8, 0);
+insert into game_score (game_id, team_score_id, team_score) values(60, 9, 0);
+
+insert into game_score (game_id, team_score_id, team_score) values(61, 8, 0);
+insert into game_score (game_id, team_score_id, team_score) values(61, 9, 0);
+insert into game_score (game_id, team_score_id, team_score) values(62, 8, 0);
+insert into game_score (game_id, team_score_id, team_score) values(62, 9, 0);
+insert into game_score (game_id, team_score_id, team_score) values(63, 8, 0);
+insert into game_score (game_id, team_score_id, team_score) values(63, 9, 0);
+insert into game_score (game_id, team_score_id, team_score) values(64, 8, 0);
+insert into game_score (game_id, team_score_id, team_score) values(64, 9, 0);
+insert into game_score (game_id, team_score_id, team_score) values(65, 8, 0);
+insert into game_score (game_id, team_score_id, team_score) values(65, 9, 0);
+insert into game_score (game_id, team_score_id, team_score) values(66, 8, 0);
+insert into game_score (game_id, team_score_id, team_score) values(66, 9, 0);
+insert into game_score (game_id, team_score_id, team_score) values(67, 8, 0);
+insert into game_score (game_id, team_score_id, team_score) values(67, 9, 0);
+insert into game_score (game_id, team_score_id, team_score) values(68, 8, 0);
+insert into game_score (game_id, team_score_id, team_score) values(68, 9, 0);
+insert into game_score (game_id, team_score_id, team_score) values(69, 8, 0);
+insert into game_score (game_id, team_score_id, team_score) values(69, 9, 0);
+insert into game_score (game_id, team_score_id, team_score) values(70, 8, 0);
+insert into game_score (game_id, team_score_id, team_score) values(70, 9, 0);
+
+
+insert into game_score (game_id, team_score_id, team_score) values(71, 8, 0);
+insert into game_score (game_id, team_score_id, team_score) values(71, 9, 0);
+insert into game_score (game_id, team_score_id, team_score) values(72, 8, 0);
+insert into game_score (game_id, team_score_id, team_score) values(72, 9, 0);
+insert into game_score (game_id, team_score_id, team_score) values(73, 8, 0);
+insert into game_score (game_id, team_score_id, team_score) values(73, 9, 0);
+insert into game_score (game_id, team_score_id, team_score) values(74, 8, 0);
+insert into game_score (game_id, team_score_id, team_score) values(74, 9, 0);
+insert into game_score (game_id, team_score_id, team_score) values(75, 8, 0);
+insert into game_score (game_id, team_score_id, team_score) values(75, 9, 0);
+insert into game_score (game_id, team_score_id, team_score) values(76, 8, 0);
+insert into game_score (game_id, team_score_id, team_score) values(76, 9, 0);
+
+insert into team_players(team_id, user_id, player_status) values(1, 1, "pending");
+insert into team_players(team_id, user_id, player_status) values(1, 2, "pending");
+insert into team_players(team_id, user_id, player_status) values(1, 3, "pending");
+insert into team_players(team_id, user_id, player_status) values(1, 4, "pending");
+
+insert into team_players(team_id, user_id, player_status) values(2, 1, "pending");
+insert into team_players(team_id, user_id, player_status) values(2, 2, "pending");
+insert into team_players(team_id, user_id, player_status) values(2, 3, "pending");
+insert into team_players(team_id, user_id, player_status) values(2, 4, "pending");
+insert into team_players(team_id, user_id, player_status) values(1, 5, "pending");
+
+insert into team_players(team_id, user_id, player_status) values(3, 5, "pending");
+insert into team_players(team_id, user_id, player_status) values(3, 6, "pending");
+insert into team_players(team_id, user_id, player_status) values(3, 7, "pending");
+
+insert into team_players(team_id, user_id, player_status) values(4, 6, "pending");
+insert into team_players(team_id, user_id, player_status) values(4, 7, "pending");
+insert into team_players(team_id, user_id, player_status) values(4, 1, "pending");
+insert into team_players(team_id, user_id, player_status) values(4, 2, "pending");
+insert into team_players(team_id, user_id, player_status) values(4, 3, "pending");
+
+insert into team_players(team_id, user_id, player_status) values(5, 4, "pending");
+insert into team_players(team_id, user_id, player_status) values(5, 5, "pending");
+insert into team_players(team_id, user_id, player_status) values(5, 6, "pending");
+
+insert into team_players(team_id, user_id, player_status) values(6, 7, "pending");
+insert into team_players(team_id, user_id, player_status) values(6, 1, "pending");
+insert into team_players(team_id, user_id, player_status) values(6, 2, "pending");
+insert into team_players(team_id, user_id, player_status) values(6, 3, "pending");
+insert into team_players(team_id, user_id, player_status) values(6, 4, "pending");
+
+insert into team_players(team_id, user_id, player_status) values(7, 5, "pending");
+insert into team_players(team_id, user_id, player_status) values(7, 6, "pending");
+insert into team_players(team_id, user_id, player_status) values(7, 7, "pending");
+
+
+call creatorApprovesPlayer(1, 1, 1);
+call creatorApprovesPlayer(2, 1, 1);
+call creatorApprovesPlayer(3, 1, 1);
+call creatorApprovesPlayer(4, 1, 1);
+
+call creatorApprovesPlayer(1, 2, 2);
+call creatorApprovesPlayer(2, 2, 2);
+call creatorApprovesPlayer(5, 2, 2);
+
+call creatorApprovesPlayer(5, 3, 5);
+call creatorApprovesPlayer(6, 3, 5);
+call creatorApprovesPlayer(7, 3, 5);
+
+call creatorApprovesPlayer(6, 4, 11);
+call creatorApprovesPlayer(2, 4, 11);
+call creatorApprovesPlayer(3, 4, 11);
+
+call creatorApprovesPlayer(4, 5, 14);
+call creatorApprovesPlayer(5, 5, 14);
+call creatorApprovesPlayer(6, 5, 14);
+
+call creatorApprovesPlayer(7, 6, 16);
+call creatorApprovesPlayer(1, 6, 16);
+call creatorApprovesPlayer(2, 6, 16);
+call creatorApprovesPlayer(4, 6, 16);
+
+call creatorApprovesPlayer(5, 7, 17);
+call creatorApprovesPlayer(6, 7, 17);
+call creatorApprovesPlayer(7, 7, 17);
