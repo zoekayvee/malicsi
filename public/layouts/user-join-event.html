@@ -1,2 +1,48 @@
-<div id="main-wrapper">
+
+<div class="ui container" id="main-wrapper" ng-controller="teamController as team">
+    <div class="ui four cards" ng-init="team.viewTeamPerEvent()">
+        <div class="card" ng-repeat="x in team.allTeams">
+            <div class="center aligned content" ng-init="team.getCheckers(x.team_id)">
+                <div class="blurring dimmable image">
+                    <div class="ui dimmer">
+                        <div class="content">
+                            <div class="center">
+                                <div class="ui inverted button"></div>
+                            </div>
+                        </div>
+                    </div>
+                      <i class="massive users icon"></i>
+                </div>
+                <div class="content">
+                    <a class="header" ng-click="team.viewTeam(x.team_id)">{{x.team_name}}</a>
+                </div>
+               <!--  <div class="extra content">
+                    <a>
+                        <i class="users icon"></i> {{team.getPlayerCount(x.team_id)}} Members
+                    </a>
+                </div> -->
+                <br>
+                <div ng-hide="team.alreadyJoined " ng-controller="guestController as loged">
+                <button ng-show="loged.hasUser" class="negative ui animated button" ng-click="team.userJoinTeam(x.team_id)" id="join-group-button">
+                    <div class="visible content" >Join </div>
+                    <div class="hidden content">
+                        <i class="left sign in icon"> </i>
+                    </div>
+                </button>
+            </div>
+            <div ng-show="team.alreadyJoined && team.playerTeamId==x.team_id" >
+                <button class="ui button"> {{team.playerStatus}} </button>
+                <!-- <button class="ui animated button" ng-click="team.deleteTeamPlayer(logged.userId)">
+                    <div clas="con"> {{team.playerStatus}}</div>
+                    <div class="visible content" >{{team.playerStatus}}</div>
+                         <div class="hidden content">
+                        <i class="left sign out icon"> </i>
+                    </div>
+                </button> -->
+            </div>
+            </div>
+            <div class="extra content">
+            </div>
+        </div>
+    </div>
 </div>

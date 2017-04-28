@@ -29,7 +29,7 @@
 			.when('/user/activity-log', {
 				templateUrl: 'layouts/user-activity-log.html'
 			})
-			.when('/users/:username', {
+			.when('/users/:user_id', {
 				//new route for visiting other profile
 				templateUrl: 'layouts/user-visit-profile.html'
 			})
@@ -55,7 +55,7 @@
 				controller:'userGameSchedController',
 				controllerAs:'UGSC'
 			})
-			.when('/events/join', {
+			.when('/user/join_event/:event_id', {
 				templateUrl: 'layouts/user-join-event.html'
 			})
 

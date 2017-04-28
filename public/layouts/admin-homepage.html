@@ -1,4 +1,4 @@
-<link rel="stylesheet" type="text/css" href="css/admin-homepage.css"> </link>
+ <link rel="stylesheet" type="text/css" href="css/admin_homepage.css"> </link>
 
 <div id="main-wrapper" class="ui container" ng-controller="adminController as home">
     <div class="ui" id="main-card">
@@ -55,7 +55,9 @@
                                 Date End: {{x.date_end}}<br>
                             </h3>
                             <i class="huge calendar icon"></i>
-                        </div>
+                            <div class="sub-header"> Event Creator:  {{x.firstname + ' ' + x.lastname}}</div>
+                             </div>
+                        
                         <div class="center aligned extra button-wrapper">
                             <button class ="ui button command-button" id="accept" ng-click="home.approveEvent(x.event_id)">
                                 <i class="snall checkmark icon"></i>
@@ -63,6 +65,7 @@
                             <button class ="ui button command-button" id="decline" ng-click="home.disapproveEvent(x.event_id)">
                                 <i class="small remove icon"></i>
                             </button>
+                        </div>
                         </div>
                     </div>
                 </div>

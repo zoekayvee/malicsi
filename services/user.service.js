@@ -30,7 +30,7 @@ exports.login=(req,res)=>{
 	        }
 	        else if (req.session.usertype === 'pending'){
 	        	console.log(req.session.usertype);
-	        	return res.status(404).send({message: 'User not yet approved'});
+	        	return res.status(404).send({message: 'User not yet approved', redirect: '/#!/'});
 	        }
 	        else{
 	        	var hash = rows[0].password;
@@ -39,11 +39,7 @@ exports.login=(req,res)=>{
 		   			 if (rows[0].user_type === 'pending'){
 			        	console.log(req.session.usertype);
 
-			        	return res.status(404).send({message: 'User not yet approved'});
-			        	res.json({
-			        		redirect: '/#!/',
-			        		message: 'User not yet approved'
-			        	});
+			        	return res.status(404).send({message: 'User not yet approved', redirect: '/#!/'});
 			        }
 			        else{
 			        	req.session.userid = rows[0].user_id

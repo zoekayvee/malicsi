@@ -38,7 +38,6 @@
                         .then(function(response) {
                             vm.user = response.data;
                             vm.userid = vm.user.user_id;
-                            console.log(vm.user);
                         });
 
                     $http
@@ -236,7 +235,6 @@
 
 
 		function openModal(dmodal){
-			console.log("I WAS CLICKED");
 			$('#'+dmodal+'.modal')
 		 	.modal('setting', {
 				 closable: false

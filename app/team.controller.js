@@ -35,18 +35,25 @@
     	//vm.getCurrentUser=getCurrentUser;
     	vm.updateFuckingTeam = updateFuckingTeam;
     	vm.getTeamPlayers=getTeamPlayers;
+    	vm.deleteTeamPlayer=deleteTeamPlayer;
+    	vm.getPlayerCount=getPlayerCount;
     	vm.currentId = null;
         vm.setCurrentId = setCurrentId;
         vm.openModal = openModal;
         vm.closeModal = closeModal;	
         vm.setTeamName = setTeamName;
         vm.playerStatus="";
+        vm.playerTeamId=null;
+         vm.cancelled=null; 
         vm.alreadyJoined=null; //for the user/player
         vm.samp = null;
         vm.getRankingTeam = getRankingTeam;
         vm.ranking = null;
         vm.getOverallRanking = getOverallRanking;
         vm.overallList = null;
+        vm.getCheckers=getCheckers;
+
+        vm.currentUserId=null;
 
         $http
     		.get('/user_loggedin')
@@ -55,6 +62,14 @@
     				vm.userId=response.data;
     			} 			
     		});
+
+    	$http
+            .get('/events/' + $routeParams.event_id)
+            .then(function(response){
+                if(response.data != undefined){
+                    vm.currentUserId = response.data[0].user_id; 
+                }
+            })
 	    /*---------- view team ---------*/
 
 		function addTeam(event_id) {
@@ -88,12 +103,55 @@
 	    			vm.allPlayers.forEach(function(e){
 		    		 	console.log(e);
 		    		 	if(e.user_id===vm.userId){
+		    		 		vm.playerTeamId= $routeParams.team_id;
 			    			vm.playerStatus=e.player_status;
 			    			vm.alreadyJoined=true;
 			    		}
 			    	});
     		 });
 	
+		}
+
+		function getPlayerCount(team_id){
+			var res=null;
+			$http
+	    		.get('/teams/players/'+team_id)
+	    		.then(function(response){
+	    			vm.allPlayers=response.data;
+	    			res= vm.allPlayers.length;
+			    });
+
+			return res;
+		}
+
+		function getCheckers(team_id){
+			$http
+	    		.get('/teams/players/'+team_id)
+	    		.then(function(response){
+	    			vm.allPlayers=response.data;
+	    			console.log(vm.allPlayers);
+	    			vm.allPlayers.forEach(function(e){
+		    		 	console.log(e);
+		    		 	if(e.user_id===vm.userId){
+		    		 		vm.playerTeamId= team_id;
+			    			vm.playerStatus=e.player_status;
+			    			vm.alreadyJoined=true;
+			    		}
+			    	});
+    		 });
+		}
+
+		function deleteTeamPlayer(user_id){
+			$http
+	    		.delete('/teams/player_remove/'+$routeParams.team_id+'/'+ user_id)
+	    		.then(function(response){
+	    			vm.alreadyJoined=null;
+	    			vm.cancelled=true;
+	    			getTeamPlayers();
+	    			window.location.reload();
+    		 	} ,function(response){
+					console.log(response.data);
+				});
 		}
 
 		function userJoinTeam(team_id) {
@@ -107,6 +165,10 @@
 			.then(function(response){
 				console.log(response.data);
 				console.log('Joined team');
+				vm.playerTeamId= team_id;
+				vm.cancelled=false;
+				vm.alreadyJoined=true;
+				vm.playerStatus='pending';
 				getTeamPlayers();
 			},
 			function(response){
@@ -265,7 +327,7 @@
 
 	    }
 
-	    function updateTeam(){
+	     function updateTeam(){
 		    var updateData = {
 		        team_id : $routeParams.team_id,
 		        team_name : vm.teamName
@@ -282,6 +344,7 @@
 		            console.log("error");
 		        });
 		}
+
 
 		function setTeamName(team_name){
 			vm.teamName = team_name;
