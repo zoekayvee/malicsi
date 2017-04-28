@@ -309,15 +309,15 @@ exports.deleteTeamPlayer = (req,res, next) => {
 	var query = ' delete from team_players where team_id=? and user_id=?';
 	const data = [
 		req.params.team_id,
-		req.body.user_id
+		req.params.user_id
 		];
+		console.log(data);
 		var id = connection.query(
 			query,
 			data,
 			(err, row, fields) => {
 				if(!err){
-					console.log(row);
-					return row
+					res.status(200);
 				}
 				else{
 					console.log(err);

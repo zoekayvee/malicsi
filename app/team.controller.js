@@ -36,6 +36,7 @@
     	vm.updateFuckingTeam = updateFuckingTeam;
     	vm.getTeamPlayers=getTeamPlayers;
     	vm.deleteTeamPlayer=deleteTeamPlayer;
+    	vm.getPlayerCount=getPlayerCount;
     	vm.currentId = null;
         vm.setCurrentId = setCurrentId;
         vm.openModal = openModal;
@@ -43,6 +44,7 @@
         vm.setTeamName = setTeamName;
         vm.playerStatus="";
         vm.playerTeamId=null;
+         vm.cancelled=null; 
         vm.alreadyJoined=null; //for the user/player
         vm.samp = null;
         vm.getRankingTeam = getRankingTeam;
@@ -101,16 +103,28 @@
 	
 		}
 
-		function deleteTeamPlayer(user_id){
-			var data = {
-				user_id : user_id
-			}
+		function getPlayerCount(team_id){
+			var res=null;
 			$http
-	    		.delete('/teams/player/'+$routeParams.team_id,data)
+	    		.get('/teams/players/'+team_id)
 	    		.then(function(response){
+	    			vm.allPlayers=response.data;
+	    			res= vm.allPlayers.length;
+			    });
+
+			return res;
+		}
+
+		function deleteTeamPlayer(user_id){
+			$http
+	    		.delete('/teams/player_remove/'+$routeParams.team_id+'/'+ user_id)
+	    		.then(function(response){
+	    			vm.alreadyJoined=null;
+	    			vm.cancelled=true;
+	    			getTeamPlayers();
 	    			window.location.reload();
     		 	} ,function(response){
-					console.log('Error');
+					console.log(response.data);
 				});
 		}
 
@@ -125,6 +139,7 @@
 			.then(function(response){
 				console.log(response.data);
 				console.log('Joined team');
+				vm.cancelled=false;
 				getTeamPlayers();
 			},
 			function(response){

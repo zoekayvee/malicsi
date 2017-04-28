@@ -38,7 +38,7 @@ $('#end-date-pick').calendar();
                     
             </div>
             <div ng-show="loged.hasUser">
-            <button class="fluid positive ui button">JOIN</button>
+            <button class="fluid positive ui button" ng-click="event.userJoin()">JOIN</button>
             </div>
             <!-- MODAL FOR DELETE EVENT -->
             <div class="ui basic modal" id="delete-event-modal">
