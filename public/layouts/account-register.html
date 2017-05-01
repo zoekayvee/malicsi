@@ -1,5 +1,6 @@
 <link rel='stylesheet' href='css/account-login.css' />
 <script type='text/javascript' src='js/register-validation.js'></script>
+<script type='text/javascript' src='js/calendar.js'></script> <!-- added for calendar -->
 
 <div id="main-wrapper">
 
@@ -80,6 +81,15 @@
                             <label>Contact No.</label>
                             <input type="tel" name="contactno" placeholder="09XX-XXX-XXXX" ng-model="signUp.newUser.contactno">
                         </div>
+                        <!-- <div class="field">
+                        <div class="ui calendar" id="datetime">
+                            <div class="ui input left icon">
+                              <i class="calendar icon"></i>
+                              <input type="text" placeholder="Date/Time">
+                            </div>
+                        </div>
+                        </div> -->
+                        <!-- test case for calendar -->
                     </div>
                     <div class="field">
                         <button class="ui fluid submit button" id="submitbutton" ng-click="signUp.registerUser()">SIGN UP</button>
