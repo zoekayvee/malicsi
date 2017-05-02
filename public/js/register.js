@@ -9,6 +9,10 @@ $(document)
                 {
                   type   : 'empty',
                   prompt : 'Please enter your username'
+                },
+                {
+                  type   : 'empty',
+                  prompt : 'Please enter your username'
                 }
               ]
             },

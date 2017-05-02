@@ -41,7 +41,6 @@
         vm.userJoin=userJoin;
 
 
-
         function addEvent(user_id) {
 
             var newEvent = {
@@ -108,10 +107,14 @@
 
         function openModal(dmodal){
             $('#'+dmodal+'.modal')
-            .modal('setting', {
-                 closable: false
+            /*.modal('setting', {
+                closable: false
+            })*/
+            .on('hidden.bs.modal')
+            .modal('show',{
+                observeChanges:true
             })
-            .modal('show');
+            /*.modal({observeChanges:true});*/
         }
         function closeModal(dmodal){
            $('#'+dmodal+'.modal')
@@ -260,7 +263,7 @@
 
          function userJoin (){  
             $location.path('/user/join_event/' + $routeParams.event_id);
-         }   
+         } 
     }   
 
 })();
