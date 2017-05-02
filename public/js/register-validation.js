@@ -1,3 +1,5 @@
+//var pw= $(".ui.form form").form.("get value","password");
+
 $(document).ready(function() {
     $(".ui.form").form({
         fields: {
@@ -28,6 +30,16 @@ $(document).ready(function() {
                     {
                         type: 'maxLength[100]',
                         prompt: 'Password is too long.'
+                    }
+                ]
+            },
+            password2: {
+                identifier  : "password2",
+                rules: [
+                    {
+                        type   : 'isExactly[pw]',
+               /*         value: ('get value','password'),*/
+                        prompt : "Password entered is not equal."
                     }
                 ]
             },
@@ -79,20 +91,46 @@ $(document).ready(function() {
                 identifier  : 'height',
                 rules: [
                     {
-                        type   : 'number',
+                        type   : 'decimal',
                         prompt : 'Please enter your height'
                     }
                 ]
             },
-             weight: {
+            weight: {
                 identifier  : 'weight',
                 rules: [
                     {
-                        type   : 'number',
+                        type   : 'decimal',
                         prompt : 'Please enter your weight'
                     }
                 ]
-            }
+            },
+            age: {
+                identifier  : 'age',
+                rules: [
+                    {
+                        type   : 'integer[1..999]',
+                        prompt : 'Please enter your age.'
+                    }
+                ]
+            },
+            contactno: {
+                identifier  : 'contactno',
+                rules: [
+                    {
+                        type   : 'integer',
+                        prompt : 'Please enter your contact number.'
+                    },
+                    {
+                        type: 'regExp[^09]',
+                        prompt: 'Contact number should start in "09"'
+                    },
+                    {
+                        type: 'maxLength[11]',
+                        prompt: 'Please enter your contact number.'
+                    }
+                ]
+            },
         },
         inline : true,
         on     : "blur"
