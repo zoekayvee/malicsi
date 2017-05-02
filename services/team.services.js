@@ -70,15 +70,18 @@ exports.viewAllTeam = (req, res, next) => {
 }
 
 exports.viewTeamsInGame = (req, res, next) => {
-	var query = 'select * from team where team_id NOT IN (select team_id from team_plays_game where game_id = ?)';
+	var query = 'select * from team,game G where team_id NOT IN (select team_id from team_plays_game where game_id = ?) and G.game_id = ? and G.event_event_id = ?';
 
 	var id = connection.query(
 		query,
-		[req.params.game_id],
+		[req.params.game_id,
+		req.params.game_id,
+		req.body.event_id],
 		(err, row, fields) => {
 			if(!err){
 				console.log("Success viewing available teams");
 				console.log(req.params.game_id);
+				console.log(req.body.event_id);
 				res.status(200).send(row);
 			}
 			else{
