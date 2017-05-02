@@ -113,7 +113,7 @@ $('#end-date-pick').calendar();
                                         Cancel
                                     </button>
                                  <!--Button submit updated profile-->  
-                                    <button class="ui primary button" ntype="submit" ng-click="update.updateUser(update.user,username,password,location,college,age,height,weight,firstname,lastname,email,contactno,gender)">
+                                    <button class="ui primary button" type="submit" ng-click="update.updateUser(update.user,username,password,location,college,age,height,weight,firstname,lastname,email,contactno,gender)">
                                         Update
                                     </button>
                                 </div>
@@ -195,13 +195,13 @@ $('#end-date-pick').calendar();
                     
                         <div class="ui very relaxed list">
                             <div class="item" ng-repeat = "interest in user.userInterests">
+                            	<p>
                                 <div class="content">
                                     <a class="header">{{interest.interests}}
-                                        <div class = "ui right floated content">
-                                        <button class="ui button" id="delete-interest" ng-click="user.deleteInterest(interest.interests)">DELETE</button>
-                                        </div>
+                                        <button class="ui right floated mini button" id="delete-interest" ng-click="user.deleteInterest(interest.interests)">DELETE</button>
                                     </a>
                                 </div>
+                               </p>
                             </div>
                         </div>
                     </div>
