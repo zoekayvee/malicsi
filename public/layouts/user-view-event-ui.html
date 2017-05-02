@@ -16,13 +16,14 @@
 <div id="main-wrapper" ng-controller="eventController as event">
     <div class="ui grid container" ng-controller="loggedUserController as logged">
         <div class="five wide column" ng-init="event.viewClickedEvent()" ng-controller="guestController as loged">
-            <div class="ui center aligned segment" ng-repeat="x in event.allEvents">
+            <div class="ui center aligned segment" ng-controller = "otherUsersController as others">
                 <h2 class="ui centered header" id="header-section">
-                    {{x.event_name}}
+                    {{event.allEventsUser.event_name}}
                     <div class="sub header" id="header-section">
-                        Start Date:{{x.date_start}}<br>
-                        End Date:{{x.date_end}}<br>
-                        Open for registration? : {{x.allow_reg == '1' ? 'Yes' : 'No'}}
+                        Start Date:{{event.allEventsUser.date_start}}<br>
+                        End Date:{{event.allEventsUser.date_end}}<br>
+                       <a ng-click = "others.clicked(event.allEventsUser.user_id)"> Event Creator: {{event.allEventsUser.firstname}} {{event.allEventsUser.lastname}} ( {{event.allEventsUser.username}} )</a><br>
+                        Open for registration? : {{event.allEventsUser.allow_reg == '1' ? 'Yes' : 'No'}}
                     </div>
                 </h2>
                 <!-- <button class="positive ui button">JOIN</button> -->
