@@ -11,11 +11,11 @@ Go to directory where malicsidb.sql is located or enter full path to file then r
 
 -- GRANT ALL PRIVILEGES ON malicsiDB.* TO "projectOneTwoEight"@"localhost" WITH GRANT OPTION;
 
-DROP DATABASE IF EXISTS `malicsiDB`;
+DROP DATABASE IF EXISTS `malicsiDBDummy`;
 
-CREATE DATABASE IF NOT EXISTS `malicsiDB`;
+CREATE DATABASE IF NOT EXISTS `malicsiDBDummy`;
 
-USE `malicsiDB`;
+USE `malicsiDBDummy`;
 
 create table users(
 	user_id 		int unsigned auto_increment,
@@ -799,7 +799,7 @@ insert into users(username, password, user_type, gender, firstname, lastname, co
 insert into users(username, password, user_type, gender, firstname, lastname, college, contactno, email, weight, height) values("Tester1", "$2a$10$lVkrOWmUYhHeK7i80M6NBu9aE0AuO0mzLdV1pBEmsRbCrxON2IIdy", "normal", "F", "Hiker", "Castillo", "CAS", 09166994203, "pb@up.edu.ph", 59, 177); /*pw: test*/
 insert into users(username, password, user_type, gender, firstname, lastname, college, contactno, email, weight, height) values("Tester2", "$2a$10$lVkrOWmUYhHeK7i80M6NBu9aE0AuO0mzLdV1pBEmsRbCrxON2IIdy", "normal", "M", "Loura", "Bree", "CAS", 09166994203, "pc@up.edu.ph", 59, 177); /*pw: test*/
 insert into users(username, password, user_type, gender, firstname, lastname, college, contactno, email, weight, height) values("Tester3", "$2a$10$lVkrOWmUYhHeK7i80M6NBu9aE0AuO0mzLdV1pBEmsRbCrxON2IIdy", "normal", "F", "Rianne", "De Castro", "CEM", 09166994203, "pd@up.edu.ph", 59, 177); /*pw: a*/
-insert into users(username, password, user_type, gender, firstname, lastname, college, contactno, email, weight, height) values("Tester4", "$2a$10$lVkrOWmUYhHeK7i80M6NBu9aE0AuO0mzLdV1pBEmsRbCrxON2IIdy", "normal", "Mariane", "Li", "Emeralda", "CEAT", 09166994203, "pe@up.edu.ph", 59, 177); /*pw: a*/
+insert into users(username, password, user_type, gender, firstname, lastname, college, contactno, email, weight, height) values("Tester4", "$2a$10$lVkrOWmUYhHeK7i80M6NBu9aE0AuO0mzLdV1pBEmsRbCrxON2IIdy", "normal", "M", "Li", "Emeralda", "CEAT", 09166994203, "pe@up.edu.ph", 59, 177); /*pw: a*/
 insert into users(username, password, user_type, gender, firstname, lastname, college, contactno, email, weight, height) values("Tester5", "$2a$10$lVkrOWmUYhHeK7i80M6NBu9aE0AuO0mzLdV1pBEmsRbCrxON2IIdy", "normal", "F", "Mariane", "Sarcedo", "CEM", 09166994203, "pd@up.edu.ph", 59, 177); /*pw: a*/
 insert into users(username, password, user_type, gender, firstname, lastname, college, contactno, email, weight, height) values("Tester6", "$2a$10$lVkrOWmUYhHeK7i80M6NBu9aE0AuO0mzLdV1pBEmsRbCrxON2IIdy", "normal", "M", "Merca", "Mercado", "CEAT", 09166994203, "pe@up.edu.ph", 59, 177); /*pw: a*/
 
