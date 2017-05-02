@@ -1,6 +1,6 @@
 <link rel='stylesheet' href='css/user-game-page.css' />
 
-<div id="main-wrapper" class="ui container">
+<div id="main-wrapper" class="ui container"  ng-controller="eventController as event" ng-init="event.viewClickedEvent()">
     <div ng-controller="gameController as game" ng-init="game.viewGame();game.canBet()">
 
         <h1>{{game.game.sport_name}} Game {{game.game.game_id}}</h1>
@@ -35,8 +35,8 @@
                 </div>
             </div>
 
-            <div ng-controller="guestController as admin">
-                <div ng-show="admin.isAdmin" class="ui animated button add-trigger" style="float:right" ng-click="team.setCurrentId(1,'add-modal')">
+            <div  ng-controller="loggedUserController as logged">
+                <div  ng-show="logged.userId == event.currentUserId || logged.userType=='admin'"  class="ui animated button add-trigger" style="float:right" ng-click="team.setCurrentId(1,'add-modal')">
                     <div class="visible content"><i class="add icon"> </i></div>
                     <div class="hidden content"> Team </div>
                 </div>
@@ -62,8 +62,8 @@
             </div>
         </div>
 
-        <div ng-controller="guestController as admin">
-            <div ng-show="admin.isAdmin" class="ui animated button add-trigger" style="float:right" ng-click="game.setCurrentId(1,'addscore-modal')">
+        <div ng-controller="loggedUserController as logged">
+            <div  ng-show="logged.userId == event.currentUserId || logged.userType=='admin'" class="ui animated button add-trigger" style="float:right" ng-click="game.setCurrentId(1,'addscore-modal')">
                 <div class="visible content"><i class="add icon"> </i></div>
                 <div class="hidden content"> Score </div>
             </div>
@@ -95,8 +95,8 @@
                 </div>
             </div>
 
-            <div ng-controller="guestController as admin">
-                <button ng-show="admin.isAdmin" class="ui button" style="float:right" ng-click="game.setWinner()">FINALIZE GAME</button>
+            <div  ng-controller="loggedUserController as logged">
+                <button ng-show="logged.userId == event.currentUserId || logged.userType=='admin'" class="ui button" style="float:right" ng-click="game.setWinner()">FINALIZE GAME</button>
             </div>
 
             <div class="ui modal" style="margin:-10%;width:20%" id="tie-modal">

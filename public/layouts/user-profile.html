@@ -209,10 +209,13 @@
                         </h3>
                         <div class="ui clearing divider"></div>
 
-                        <div class="ui tiny images" ng-repeat="team in user.userTeams">
+                        <div  class="ui four column grid">
+                            <div class="ui tiny images" ng-repeat="team in user.userTeams">
+                            
                             <a class="ui image" href="" ng-click="teamC.viewTeam(team.team_id)">
                                 <img src="/images/icon_team.svg"> {{team.team_name}}
                             </a>
+                            </div>
                         </div>
                     </div>
                 </div>
