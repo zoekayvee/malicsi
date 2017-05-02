@@ -50,7 +50,7 @@
 			$location.path('/events/' + $routeParams.event_id + '/scoreboard/' + sportid);
 	    }
 		function viewGame(game_id){
-			$location.path('/game/' + game_id)
+			$location.path('/event/' + $routeParams.event_id + '/game/' + game_id)
 		}
 
 	    function viewGamesByEventSport(){
@@ -165,7 +165,7 @@
 		}
 
 		function viewGame(game_id){
-			$location.path('/game/' + game_id)
+			$location.path('/event/' + $routeParams.event_id + '/game/' + game_id)
 		}
 	}
 
