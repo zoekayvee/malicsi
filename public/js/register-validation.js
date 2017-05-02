@@ -37,9 +37,8 @@ $(document).ready(function() {
                 identifier  : "password2",
                 rules: [
                     {
-                        type   : 'isExactly[pw]',
-               /*         value: ('get value','password'),*/
-                        prompt : "Password entered is not equal."
+                        type   : 'match[password]',
+                        prompt : "Password entered does not match."
                     }
                 ]
             },
@@ -57,7 +56,7 @@ $(document).ready(function() {
                 rules: [
                     {
                         type   : 'empty',
-                        prompt : 'Please enter your firstname'
+                        prompt : 'Please enter your first name'
                     },
                     {
                         type: 'regExp[^[A-Za-z]+$]',
@@ -74,13 +73,12 @@ $(document).ready(function() {
                 rules: [
                     {
                         type   : 'empty',
-                        prompt : 'Please enter your lastname'
+                        prompt : 'Please enter your last name'
                     },
                     {
                         type: 'regExp[^[A-Za-z]+$]',
                         prompt: 'Letters Only'
                     },
-                    ,
                     {
                         type: 'maxLength[50]',
                         prompt: 'Last name is too long.'
