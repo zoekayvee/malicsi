@@ -92,7 +92,7 @@ $(document).ready(function() {
                         prompt : 'Please enter your weight'
                     }
                 ]
-            },
+            }
         },
         inline : true,
         on     : "blur"

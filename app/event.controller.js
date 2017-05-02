@@ -264,7 +264,6 @@
          function userJoin (){  
             $location.path('/user/join_event/' + $routeParams.event_id);
          } 
-
     }   
 
 })();
