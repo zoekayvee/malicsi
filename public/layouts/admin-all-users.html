@@ -46,23 +46,74 @@
                             <td> {{x.weight}}</td>
                             <td> {{x.height}}</td>
                             <td colspan="">
-                                <div class="ui animated button edit-trigger" ng-click="admin.initialize(x.user_id);admin.openModal('edit-modal',user_id)">
+                                <div class="ui animated button edit-trigger" ng-click="admin.initialize(x);admin.openModal('edit-modal')">
                                     <div class="visible content">Edit</div>
                                     <div class="hidden content">  <i class="write icon"> </i></div>
                                 </div>
                                 <div class="ui modal" id="edit-modal">
-                                    <form class="ui form">
-                                        <h2 class="ui dividing header">UPDATE PASSWORD</h2>
+                                <div class="header"> EDIT USER</div>
+                                <div class="content">
+                                    <div class="ui form">
                                         <div class="fields">
                                             <div class="field">
-                                                <label>Enter new password:</label>
-                                                <input type="password" id="password" ng-model = "admin.password">
+                                                <label>Username</label>
+                                                <input type="text" ng-model="username">
+                                            </div>
+                                            <div class="field">
+                                                <label>Password</label>
+                                                <input type="password" ng-model="password">
+                                            </div> <!-- added field password -->
+                                            <div class="field">
+                                                <label>College</label>
+                                                <input type="text" ng-model="college">
+                                            </div>
+                                            <div class="field">
+                                                <label>Height</label>
+                                                <input type="text" ng-model="height">
+                                            </div>
+                                            <div class="field">
+                                                <label>Weight</label>
+                                                <input type="text" ng-model="weight">
                                             </div>
                                         </div>
-                                        <div class="ui button" id="cancel" ng-click="admin.closeModal('edit-modal')">Cancel</div>
-                                        <div class="ui button" ng-click="admin.updateUser()">Submit</div>
-                                    </form>
+                                        <div class="equal width fields">
+                                            <div class="field">
+                                                <label>First name</label>
+                                                <input type="text" ng-model="firstname">
+                                            </div>
+                                            <div class="field">
+                                                <label>Last name</label>
+                                                <input type="text" ng-model="lastname">
+                                            </div>
+                                        </div>
+                                        <div class="ui equal width form">
+                                            <div class="fields">
+                                                <div class="field">
+                                                    <label>E-mail</label>
+                                                    <input type="email" ng-model="email">
+                                                </div>
+                                                <div class="field">
+                                                    <label>Contact Number</label>
+                                                    <input type="text" ng-model="contactno">
+                                                </div>
+                                                <div class="field">
+                                                    <label>User Type</label>
+                                                    <select class="ui dropdown" ng-model="user_type">
+                                                        <option value=""></option>
+                                                        <option value="normal">Normal</option>
+                                                        <option value="pending">Pending</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                    </div>
+                                    <br>
+                                    <div class="ui button" id="cancel" ng-click="admin.closeModal('edit-modal')">Cancel</div>
+                                    <div class="ui button" ng-click="admin.updateUser(admin.user,username,password,college,height,weight,firstname,lastname,email,contactno,user_type)">Submit</div>
                                 </div>
+                            </div>
+
 
                             </div>
                         </td>

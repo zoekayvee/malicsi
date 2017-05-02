@@ -80,7 +80,6 @@ exports.viewAllEvent = (req, res, next) => {
 	});
 }
 
-
 exports.updateEvent = (req, res, next) => {
 	var query = 'call updateEvent(?,?,?,?,?)';
 	const data = [
@@ -101,33 +100,6 @@ exports.updateEvent = (req, res, next) => {
 				console.log("Update Event Success");
 				res.status(200).send("Update Event Success");
 				return row
-			}
-			else{
-				console.log(err);
-				res.status(500).send('Server error');
-			}
-	});
-}
-
-
-
-
-exports.getUserOfEvent = (req, res, next) => {
-	var query = 'select user_id from event where event_id = ?';
-	const data = [
-		req.params.event_id
-	];
-	console.log(data);
-	var id = connection.query(
-		query,
-		data,
-		(err, row, fields) => {
-			if(!err){
-				console.log(row);
-
-				console.log("Update Event Success");
-				res.status(200).send(row);
-				
 			}
 			else{
 				console.log(err);
@@ -200,6 +172,46 @@ exports.eventStatusUpdate = (req, res, next) => {
 			}
 	});
 }
+
+exports.getTeamsOfAllEvent = (req, res, next) => {
+	var query = 'select * from (select * from team_joins_event NATURAL JOIN team)a NATURAL JOIN event';
+	var id = connection.query(
+		query,
+		(err, row, fields) => {
+			if(!err){
+				console.log(row);
+				res.status(200).send(row);
+				
+			}
+			else{
+				console.log(err);
+				res.status(500).send('Server error');
+			}
+	});
+}
+
+exports.eventStatusUpdate = (req, res, next) => {
+	var query = 'call eventStatusUpdate(?,?)';
+	const data = [
+		req.body.event_id,
+		req.body.status
+	];
+	console.log(data);
+	var id = connection.query(
+		query,
+		data,
+		(err, row, fields) => {
+			if(!err){
+				console.log("Update Event Status Success");
+				res.status(200).send(row);
+			}
+			else{
+				console.log(err);
+				res.status(500).send('Server error');
+			}
+	});
+}
+
 
 
 

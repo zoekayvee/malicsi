@@ -61,6 +61,8 @@
         vm.decrementInterval = decrementInterval;
         vm.date = null;
         vm.getDate = getDate;
+        vm.allAcceptedGames=[];
+        vm.viewAllAcceptedGames=viewAllAcceptedGames;
         // vm.viewPastGamesUser = viewPastGamesUser;
         // vm.pastGamesUser = [];
 
@@ -203,6 +205,18 @@
 			});
 
 		}
+		function viewAllAcceptedGames(){
+			$http
+				.get('/games/accepted')
+				.then(function(response){
+						console.log('Viewing All Accepted Games Successful');
+						vm.allAcceptedGames = response.data;
+				},
+				function(response){
+					console.log('Error Viewing All Games');
+				});
+		}
+
 		function viewAllGames(){
 			$http
 				.get('/game')

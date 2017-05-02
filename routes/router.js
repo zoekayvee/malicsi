@@ -47,6 +47,7 @@ router.put('/users/passwords/:user_id',     adminController.updateUserPassword);
 router.delete('/users/interests/:user_id/:users', userController.deleteInterests);
 
 router.delete('/users/:user_id',       adminController.removeUser);
+router.get('/user/all_events',				adminController.getUsersOfEvent);
 
 /*-------------------------DASHBOARD------------------------*/
 router.get('/viewTeamPlayGame', 			dashboardController.viewTeamPlayGame);
@@ -93,6 +94,7 @@ router.get 		('/teams/in_game/:game_id' 		,teamController.viewTeamsInGame);
 router.post 	('/teams_from_event',teamController.deleteTeamFromEvent);
 router.put 		('/teams/player_status',	teamController.updateTeamPlayerStatus);
 router.get 		('/teams/players/:team_id',	teamController.getTeamPlayers);
+router.delete   ('/teams/player_remove/:team_id/:user_id', teamController.deleteTeamPlayer);
 
 router.get      ('/sponsors_get_id/:sponsor_name',	sponsorController.getSponsorId)
 router.post     ('/sponsors',      sponsorController.addSponsor);
@@ -113,6 +115,7 @@ router.delete('/competitors/:team_id', adminController.deleteCompetitor);
 router.post('/game', 						gameController.addGame);
 router.get('/game/:game_id',				gameController.viewGame);
 router.get('/game', 						gameController.viewAllGames);
+router.get('/games/accepted',               gameController.viewAllAcceptedGames);
 router.put('/game/:game_id', 				gameController.updateGame);
 router.delete('/game/:game_id', 			gameController.deleteGame);
 router.delete('/game', 						gameController.deleteAllGames);
@@ -145,7 +148,6 @@ router.get('/overallranking/:event_id', 	gameController.getOverallRanking);
 router.post('/overallranking/:event_id', 	gameController.getRankingTeam);
 router.get('/events/:event_id/games', 	    gameController.viewGamesByEvent);
 router.get('/events/:event_id/current_games', 	    gameController.viewCurrentGamesByEvent);
-router.get('/events/:event_id/upcoming_games', 	    gameController.viewCurrentGamesByEvent);
 router.post('/bet/:user_id', 				gameController.bet);
 router.get('/bet/:user_id/:game_id', 		gameController.betStatus);
 router.get('/scores/:game_id/:team_id', 	gameController.getScores);
