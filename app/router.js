@@ -60,7 +60,7 @@
 			})
 
 			//Game Routers
-			.when('/game/:game_id', {
+			.when('/event/:event_id/game/:game_id', {
 				templateUrl: 'layouts/user-game-page.html',
 				controller:'gameController',
 				controllerAs:'game'

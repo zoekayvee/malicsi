@@ -63,6 +63,8 @@
         vm.getDate = getDate;
         vm.allAcceptedGames=[];
         vm.viewAllAcceptedGames=viewAllAcceptedGames;
+        vm.addGameEvent = addGameEvent;
+        vm.viewEvent = viewEvent;
         // vm.viewPastGamesUser = viewPastGamesUser;
         // vm.pastGamesUser = [];
 
@@ -102,6 +104,29 @@
 			});
 
 		}
+
+		function addGameEvent(){
+			var gameToBeAdded = {
+				sport_id: vm.addSportId.sport_id,
+				venue_id: vm.addVenueId.venue_id,
+				event_id: $routeParams.event_id,
+				date_start: vm.addDate,
+				time_start: vm.addTime,
+				duration: vm.addDuration,
+				referee: vm.addReferee
+			}
+			$http
+				.post('/game',gameToBeAdded)
+				.then(function(response){
+					viewAllGames();
+					console.log('Adding Game Successful!');
+			},
+			function(response){
+				console.log('Error');
+			});
+
+		}
+
 		function viewGame(){
 			$http
 				.get('/game/' + $routeParams.game_id)
@@ -173,7 +198,7 @@
 		}
 
 		function viewGameFromScoreboard(game_id){
-			$location.path('/game/' + game_id)
+			$location.path('/event/' + $routeParams.event_id + '/game/' + game_id)
 		}
 
 		function canBet(){
@@ -311,6 +336,12 @@
 				console.log('Error Viewing Score');
 			});
 		}
+
+
+        function viewEvent(id){
+            console.log("VIEW EVENT" + id)
+            $location.path('/events/' + id)
+        }
 
 		function updateScores(team1,team2){
 			var scoreDetails = {

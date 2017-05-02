@@ -2,9 +2,9 @@
 <link rel="stylesheet" type="text/css" href="css/admin-homepage.css"> </link>
 <script type='text/javascript' src='js/admin.js'></script>
 
-<div class="ui container" id="main-wrapper">
+<div class="ui container" id="main-wrapper" ng-controller="eventController as event" ng-init="event.viewAllEvent()">
     <div class="" id="main-card">
-        <div class="content"  ng-controller="eventController as event" ng-init="event.viewAllEvent()" >
+        <div class="content" >
             <div class="ui horizontal center aligned segments" id="segment">
                 <a class="ui segment" href="/#!/admin">Requests</a>
                 <a class="ui segment" href="/#!/admin/users">Users</a>
@@ -148,10 +148,18 @@
 
                     </tbody>
                     <tfoot class="full-width">
-                        <tr>
+                        <!-- <tr>
                             <th colspan="100%">
                                 <div class="ui right floated small primary labeled icon button" ng-click="game.openModal('addGame-modal');game.setEventId(y)">
                                     <i class="add square icon"></i> Add Game
+                                </div>
+                            </th>
+                        </tr> -->
+
+                        <tr>
+                            <th colspan="100%">
+                                <div class="ui right floated small primary labeled icon button" ng-click="game.viewEvent(y.event_id)">
+                                    <i class="add square icon"></i> View Event
                                 </div>
                             </th>
                         </tr>
@@ -163,10 +171,11 @@
                         </div>
                         <div class="ui form">
                             <div class="field">
-                                <div ng-controller="sportController as sport">
+
+                                <div ng-controller="userEventController as UEC" ng-init="UEC.viewSportByEvent2(game.addEventId.event_id)">
                                     <label> Sport </label>
                                     <form class="ui">
-                                        <select ng-model="game.addSportId" ng-options="z.sport_name for z in sport.allSports">
+                                        <select ng-model="game.addSportId" ng-options="z.sport_name for z in UEC.allSports">
                                         </select>
                                     </form>
                                 </div>
