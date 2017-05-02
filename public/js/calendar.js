@@ -1,4 +1,5 @@
 $(document).ready(function() {	
+	
 	$('#datetime').calendar();
 	$('#date_').calendar({
 	  type: 'date'

@@ -1,6 +1,7 @@
 <link rel='stylesheet' href='css/account-login.css' />
 <script type='text/javascript' src='js/register-validation.js'></script>
-<script type='text/javascript' src='js/calendar.js'></script> <!-- added for calendar -->
+<!-- calendar -->
+<!-- <script type='text/javascript' src='js/calendar.js'></script>  -->
 
 <div id="main-wrapper">
 
@@ -17,11 +18,12 @@
             <div class="column ten wide ui card" id="login-panel">
 
                 <h2 class="center aligned header form-head">Create an account here!</h2>
-                <form class="ui medium form" ng-controller="userController as signUp">
+                <form  name= "myForm" class="ui medium form" ng-controller="userController as signUp">
                     <div class="two fields">
                         <div class="field">
                             <label> Username </label>
-                            <input id="username" type="text" placeholder="Username" ng-model="signUp.newUser.username" required>
+                            <input id="username" name="username_field" type="text" placeholder="Username" ng-model="signUp.newUser.username" required>
+                           <!--  <span ng-show="myForm.username_field.$error.required">Username is required!</span> -->
                         </div>
                         <div class="field">
                             <label>Email Address</label>
@@ -36,7 +38,7 @@
                         </div>
                         <div class="field">
                             <label>Re-enter password</label>
-                            <input type="password" id="password2" placeholder="Re-enter password">
+                            <input type="password" id="password2" placeholder="Re-enter password" ng-model="pw">
                         </div>
                     </div>
                     <div class="two fields">
@@ -52,11 +54,11 @@
                     <div class="three fields">
                         <div class="field">
                             <label>Height (ft)</label>
-                            <input type="text" name="height" placeholder="Height (ft)" ng-model="signUp.newUser.height">
+                            <input type="number" name="height" placeholder="Height (ft)" ng-model="signUp.newUser.height">
                         </div>
                         <div class="field">
                             <label>Weight (Kg)</label>
-                            <input type="text" name="weight" placeholder="Weight (Kg)" ng-model="signUp.newUser.weight">
+                            <input type="number" name="weight" placeholder="Weight (Kg)" ng-model="signUp.newUser.weight">
                         </div>
 
                         <div class="field">
@@ -81,14 +83,14 @@
                             <label>Contact No.</label>
                             <input type="tel" name="contactno" placeholder="09XX-XXX-XXXX" ng-model="signUp.newUser.contactno">
                         </div>
-                        <div class="field">
+                        <!-- <div class="field">
                         <div class="ui calendar" id="datetime">
                             <div class="ui input left icon">
                               <i class="calendar icon"></i>
                               <input type="text" placeholder="Date/Time">
                             </div>
                         </div>
-                        </div>
+                        </div> -->
                         <!-- test case for calendar -->
                     </div>
                     <div class="field">

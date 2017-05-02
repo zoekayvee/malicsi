@@ -16,8 +16,7 @@
         vm.firstname = "";
 		vm.lastname = "";
 		vm.newUser = {};
-
-
+		vm.flag=false;
 
 		vm.registerUser=registerUser;
 		vm.logOut = logOut;

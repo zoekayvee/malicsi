@@ -46,7 +46,7 @@
                 EVENT REQUESTS
             </h4>
             <div class="ui four column grid" >
-                <div class="column" ng-repeat="x in home.allEvents | filter: {status: 'pending'}">
+                <div class="column" ng-repeat="x in home.allEvents | filter: {status: 'pending'} |  orderBy:'date_start'">
                     <div class="ui card" id="card">
                         <div class=" center aligned content">
                             <h3 class="ui header">
