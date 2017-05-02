@@ -1,0 +1,43 @@
+body {
+    margin: 0 !important;
+    padding-top: 80px;
+}
+
+#user-interest{
+	min-height: 300px;
+}
+
+#list-of-teams{
+	min-height:300px;
+}
+
+#delete-interest{
+	background-color: #de1b1b;
+	color:white;
+}
+
+#add-interest{
+	background-color: #de1b1b;
+	color:white;
+}
+
+#updateButton{
+	background-color: #de1b1b;
+	color:white;
+}
+
+#create{
+	background-color: #de1b1b; 
+	color:white;
+}
+
+#cancel-create{
+	background-color: #de1b1b; 
+	color:white;	
+}
+
+#cancel-update{
+	background-color: #de1b1b; 
+	color:white;	
+}
+

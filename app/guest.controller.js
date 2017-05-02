@@ -36,10 +36,10 @@
             });
 
 		$http   
-            .get('/viewGames') 
+            .get('/games/accepted') 
             .then(function(response) {
                 if (response.data) {
-                   vm.allGames = response.data;   
+                   vm.allGames = response.data;  
                 }
                 else{
                 	console.log("ERROR!");
