@@ -129,7 +129,7 @@
         </a>
 
         <div ng-controller="gameController as game">
-            <div class="ui right floated small primary labeled icon button" ng-click="game.openModal('addGame-modal')">
+            <div ng-show="logged.userId == event.currentUserId || logged.userType=='admin'" class="ui right floated small primary labeled icon button" ng-click="game.openModal('addGame-modal')">
                 <i class="add square icon"></i> Add Game
             </div>
             <br><br>
@@ -219,11 +219,9 @@
                             </div>
                         </div>
                     </div>
-                    <div ng-show="logged.userId == event.currentUserId || logged.userType=='admin'">
-                        <button class="ui plus icon button" ng-click="UEC.attachSportToEvent()">
+                        <button  ng-show="logged.userId == event.currentUserId || logged.userType=='admin'"  class="ui plus icon button" ng-click="UEC.attachSportToEvent()">
                         <i class="plus icon"></i>
                     </button>
-                    </div>
                     <!-- List of Sports -->
                     <div class="ui middle aligned divided list">
                         <div class="item" ng-repeat="x in UEC.allSports">
@@ -260,7 +258,7 @@
                 <div class="ui form" ng-controller="guestController as loged">
                     <div ng-show="logged.userId == event.currentUserId || logged.userType=='admin'" class="inline fields">
                         <div class="field">
-                            <input type="text" ng-model="team.teamName" name="team_name">
+                            <input type="text" placeholder="Team Name" ng-model="team.teamName" name="team_name">
                         </div>
                         <div class="field">
                             <button class="ui plus icon button" ng-click="team.addTeam(event.eventId)">
@@ -301,11 +299,9 @@
                             </div>
                         </div>
                     </div>
-                    <div ng-show="logged.userId == event.currentUserId || logged.userType=='admin'">
-                        <button class="ui plus icon button" ng-click="sponsor.sponsorEvent()">
+                        <button ng-show="logged.userId == event.currentUserId || logged.userType=='admin'" class="ui plus icon button" ng-click="sponsor.sponsorEvent()">
                         <i class="plus icon"></i>
                     </button>
-                    </div>
                     <!-- List of Sponsors -->
                     <div class="ui middle aligned divided list" ng-init="sponsor.getSponsorByEvent()">
                         <div class="item" ng-repeat="x in sponsor.allEventSponsors">

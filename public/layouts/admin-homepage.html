@@ -22,7 +22,7 @@
                 <input type="text" ng-model="search" placeholder="What are you looking for?">
                 <i class="search icon"></i>
             </div>
-            <div class="ui five column grid" >
+            <div class="ui four column grid" >
                 <div class="column" ng-repeat="x in home.allUsers | filter: {user_type: 'pending', username:search}">
                     <div class="ui card" id="card">
                         <div class=" center aligned content">
