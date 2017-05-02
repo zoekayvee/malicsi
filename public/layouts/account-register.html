@@ -18,7 +18,7 @@
             <div class="column ten wide ui card" id="login-panel">
 
                 <h2 class="center aligned header form-head">Create an account here!</h2>
-                <form  name= "myForm" class="ui medium form" ng-controller="userController as signUp">
+                <form  name= "form" class="ui medium form" ng-controller="userController as signUp">
                     <div class="two fields">
                         <div class="field">
                             <label> Username </label>
@@ -38,7 +38,7 @@
                         </div>
                         <div class="field">
                             <label>Re-enter password</label>
-                            <input type="password" id="password2" placeholder="Re-enter password" ng-model="pw">
+                            <input type="password" id="password2" placeholder="Re-enter password" required>
                         </div>
                     </div>
                     <div class="two fields">
@@ -94,7 +94,7 @@
                         <!-- test case for calendar -->
                     </div>
                     <div class="field">
-                        <button class="ui fluid submit button" id="submitbutton" ng-click="signUp.registerUser()">SIGN UP</button>
+                        <button class="ui fluid submit button" id="submitbutton" ng-click="form.$valid && signUp.registerUser()">SIGN UP</button>
                     </div>
                     <div class="ui error message"></div>
                     <div class="ui message">

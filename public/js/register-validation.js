@@ -38,7 +38,7 @@ $(document).ready(function() {
                 rules: [
                     {
                         type   : 'match[password]',
-                        prompt : "Password entered does not match."
+                        prompt : "Re-entered password does not match."
                     }
                 ]
             },
