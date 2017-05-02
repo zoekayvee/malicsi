@@ -44,7 +44,7 @@
                         .get('/user/events/'+response.data)
                         .then(function(response) {
                             vm.userEvents = response.data;
-
+                            console.log(vm.userEvents);
 
                         });
 

@@ -236,6 +236,7 @@
                         <div class="content">
                             <div class="header"><a ng-click="eventA.viewEvent(event.event_id)">{{event.event_name}}</a></div>
                             <div class="description">{{event.Date}}</div>
+                            <div class="description">Status: {{event.status}}</div>
                         </div>
                     </div>
                 </div>
@@ -306,6 +307,7 @@
                                 </div>
                             </div>
                         </div>
+                        <!-- iddelete ba agad? -->
                         <button class="ui button event" id="cancel-create" ng-click="user.closeModal('event-modal')">
                             Cancel
                         </button>

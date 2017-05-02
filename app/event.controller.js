@@ -15,6 +15,7 @@
         vm.eventId = "";
         vm.allowReg = "";
         vm.allEvents = [];
+        vm.allEventsUser=[];
         vm.event = "";
         vm.addEvent = addEvent;
         vm.viewAllEvent = viewAllEvent;
@@ -39,6 +40,7 @@
         vm.addEventModal = addEventModal;
         vm.viewEventDetails = viewEventDetails;
         vm.userJoin=userJoin;
+        vm.eventWithEventCreator=eventWithEventCreator;
 
 
         function addEvent(user_id) {
@@ -179,7 +181,7 @@
                     else{ 
                         vm.currentUserId = response.data[0].user_id;   
                         console.log(vm.currentUserId);
-
+                        eventWithEventCreator();
                     }
                 })
         }
@@ -264,6 +266,21 @@
          function userJoin (){  
             $location.path('/user/join_event/' + $routeParams.event_id);
          } 
+         function eventWithEventCreator(){
+            $http
+                .get('/user/all_events')
+                .then(function(response) {
+                     response.data.forEach(function(e){
+                        if(e.event_id==$routeParams.event_id){
+                            vm.allEventsUser = e;
+                            console.log("wee");
+                            console.log(vm.allEventsUser);
+                        }
+                     });
+                }, function(response){
+                    console.log('Error');
+                }); 
+         }
     }   
 
 })();
