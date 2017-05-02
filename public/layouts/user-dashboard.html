@@ -22,38 +22,8 @@
                 </p>
             </div>
 
-            <!-- Leaderboard -->
-            <div id="leaderboard" class="ui card">
-                <div class="section-title">
-                    <h3>Leaderboard</h3>
-                </div>
 
-                <table class="ui very basic collapsing celled table">
-                    <thead>
-                        <tr><th>Team</th>
-                            <th>Total Score</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr ng-repeat="x in dashboard.teamGames">
-                            <td>
-                                <h4 class="ui image header">
-                                    <img src="images/tnt.jpg" class="ui mini rounded image">
-                                    <div class="content">
-                                        {{x.team_name}}
-                                        <div class="sub header">Lorem Ipsum</div>
-                                    </div>
-                                </h4>
-                            </td>
-                            <td>
-                                {{x.score}}
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-
-            <div class="ui section">
+            <div class="ui card">
                 <div class="section-title" >
                     <h3>Upcoming Games</h3>
                     <br>
@@ -66,7 +36,7 @@
             </div>
 
             <div ng-hide="dashboard.newUser">
-                <div class="ui section">
+                <div class="ui card">
                     <div class="section-title">
                         <h3>Current Games</h3>
                         <br>
@@ -117,7 +87,7 @@
                     </div>
                 </div>
             </div>
-
+            <br><br><br>
             <div class="ui section">
                 <div class="section-title">
                     <h3>User Interest</h3>
