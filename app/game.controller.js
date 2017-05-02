@@ -54,7 +54,6 @@
         vm.gameThreeScoreboard = [];
         vm.viewGameFromScoreboard = viewGameFromScoreboard;
         vm.viewGamePage = viewGamePage;
-
         vm.currentGamesTeam = null;
         vm.viewCurrentGamesByTeam = viewCurrentGamesByTeam;
         vm.interval = 0;
@@ -62,7 +61,10 @@
         vm.decrementInterval = decrementInterval;
         vm.date = null;
         vm.getDate = getDate;
-
+        vm.allAcceptedGames=[];
+        vm.viewAllAcceptedGames=viewAllAcceptedGames;
+        // vm.viewPastGamesUser = viewPastGamesUser;
+        // vm.pastGamesUser = [];
 
 		viewAllGames();
 
@@ -203,6 +205,18 @@
 			});
 
 		}
+		function viewAllAcceptedGames(){
+			$http
+				.get('/games/accepted')
+				.then(function(response){
+						console.log('Viewing All Accepted Games Successful');
+						vm.allAcceptedGames = response.data;
+				},
+				function(response){
+					console.log('Error Viewing All Games');
+				});
+		}
+
 		function viewAllGames(){
 			$http
 				.get('/game')

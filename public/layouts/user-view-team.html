@@ -1,8 +1,7 @@
 <link rel='stylesheet' href='css/user-team-page.css' />
 
 <div ng-controller="teamController as team" ng-init="team.viewClickedTeam()" id="main-wrapper" class="ui container">
-<div ng-controller="guestController as logged">
-    <div class="ui grid">
+    <div class="ui grid" ng-controller="loggedUserController as logged">
 
         <div class="four wide column">
 
@@ -14,21 +13,26 @@
                         <img id="team-icon" src="images/olympics.gif">
                     </div>
 
-                    <div class="content center aligned">
+                    <div class="content center aligned" ng-controller="guestController as loged">
                         <div class="header">
                             <h1 class="ui centered large header">{{x.team_name}}</h1>
-                            <div ng-hide="team.alreadyJoined">
-                                <button ng-show="logged.hasUser" class="negative ui animated button" ng-click="team.userJoinTeam(x.team_id)" id="join-group-button">
+                            <div ng-hide="team.alreadyJoined ">
+                                <button ng-show="loged.hasUser" class="negative ui animated button" ng-click="team.userJoinTeam(x.team_id)" id="join-group-button">
                                     <div class="visible content" >Join </div>
                                     <div class="hidden content">
                                         <i class="left sign in icon"> </i>
                                     </div>
                                 </button>
                             </div>
-                            <div ng-show="team.alreadyJoined">
-                                <button class="ui button">
-                                    {{team.playerStatus}}
-                                </button>
+                            <div ng-show="team.alreadyJoined" >
+                                <button class="ui button"> {{team.playerStatus}} </button>
+                                <!-- <button class="ui animated button" ng-click="team.deleteTeamPlayer(logged.userId)">
+                                    <div clas="con"> {{team.playerStatus}}</div>
+                                    <div class="visible content" >{{team.playerStatus}}</div>
+                                         <div class="hidden content">
+                                        <i class="left sign out icon"> </i>
+                                    </div>
+                                </button> -->
                             </div>
                         </div>
 
@@ -36,7 +40,7 @@
 
                         <div class="ui ordered middle aligned selection list">
                             <div class="item" ng-repeat="player in team.allPlayers | filter: {player_status: 'accepted'}">
-                                <img class="ui avatar image" src="images/avatar.png">
+                                <img class="ui avatar image" src="images/avatar1.png">
                                 <div class="content" ng-controller="otherUsersController as others">
                                     <a ng-click="others.clicked(player.user_id)">
                                         <div class="header">{{player.username}}</div>
@@ -57,9 +61,7 @@
 
                 <div class="ui right floated buttons">
                     <div ng-controller="teamController as team">
-
-                        <button ng-show="logged.hasUser" class="positive ui right floated button edit-trigger" ng-click="team.openModal('update-modal');team.setTeamName(x.team_name)">Edit</button>
-
+                        <button ng-show="logged.userId==team.currentUserId || logged.userType=='admin'"  class="positive ui right floated button edit-trigger" ng-click="team.openModal('update-modal');team.setTeamName(x.team_name)">Edit</button>
                         <div class="ui modal" id="update-modal">
                             <form class="ui form">
                                 <h2 class="ui dividing header">UPDATE TEAM</h2>
@@ -69,12 +71,11 @@
                                         <input type="text" ng-model="team.teamName" ng-init="x.team_name" id="firstname">
                                     </div>
                                 </div>
-                                <button class="ui button" ng-click="team.updateTeam(); team.closeModal('update-modal'); team.viewTeam(x.team_id)">Submit</button>
+                                <button class="ui button" ng-click="team.updateTeam(); team.closeModal('update-modal'); team.viewClickedTeam()">Submit</button>
                                 <button class="ui button" ng-click="team.closeModal('update-modal')">Cancel</button>
                             </form>
                         </div>
-
-                        <button ng-show="logged.hasUser" class="negative ui button" ng-click="team.openModal('delete-modal')">Delete</button>
+                       <button ng-show="logged.userId==team.currentUserId || logged.userType=='admin'" class="negative ui button" ng-click="team.openModal('delete-modal')">Delete</button>
 
                         <div class="ui basic modal" id="delete-modal">
                             <div class="ui icon header">
@@ -93,16 +94,16 @@
                     </div>
                 </div>
 
-                <div class="description">
-                    <div><h3 id="team-score">17 WINS<h3></div>
-                    <div id="team-standing">Rank 3</div>
+                <div class="description" ng-init="team.getOverallRanking()">
+                    <div><h3 id="team-score" style="color:white">{{team.overallList.wins}} wins<h3></div>
+                    <div id="team-standing">{{team.overallList.rank}}</div>
                 </div>
 
             </div>
 
 
                 <div class="ui row">
-                    <h3>Schedule of Games</h2>
+                    <h3>Schedule of Games</h3>
 
                     <div id="forbut" ng-controller="gameController as game">
 
@@ -113,7 +114,7 @@
                             </div>
                         </button>
 
-                        <button class="negative ui button" ng-click="game.interval=0;game.viewCurrentGamesByTeam()">
+                        <button class="negative ui button" ng-click="game.interval=0;game.viewCurrentGamesByTeam();game.getDate()">
                             Today's Date
                         </button>
 
@@ -123,6 +124,9 @@
                                 <i class="right arrow icon"></i>
                             </div>
                         </button>
+
+                          <!-- Date: -->
+                          <!-- <input type="date" name="date" ng-model="game.date"> -->
 
                         <h3>{{game.date}}</h3>
 
@@ -151,7 +155,5 @@
             </div>
 
         </div>
-
     </div>
-</div>
 </div>

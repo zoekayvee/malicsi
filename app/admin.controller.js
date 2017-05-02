@@ -40,15 +40,13 @@
 						.get('/users')
 						.then(function(response) {
 							vm.allUsers = response.data;
-							console.log(response.data);
 						}, function(response){
 							console.log('Error');
 						}); 
 					$http
-						.get('/events')
+						.get('/user/all_events')
 						.then(function(response) {
 							vm.allEvents = response.data;
-							console.log(response.data);
 						}, function(response){
 							console.log('Error');
 						}); 
@@ -119,20 +117,7 @@
 				});
 		}
 
-
-
 		function updateUser(user,uname,pw,college,height,weight,fname,lname,email,contactno,user_type){
-			// var user = {
-			// 	password : vm.password
-			// }
-			// $http.put('/users/passwords/' + vm.user_id, user)
-			// 	.then(function(response){
-			// 		closeModal('edit-modal');
-			// 		console.log('Updated User');
-			// 	}, function(response){
-			// 		console.log('Cannot update user password');
-			// 	});
-
 			var editUser=vm.user;
 			var flag="false";
 

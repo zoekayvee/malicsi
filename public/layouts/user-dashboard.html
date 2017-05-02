@@ -61,9 +61,7 @@
             <div class="ui section" id="membership-request-panel"  ng-repeat="x in dashboard.playerReq | filter: {player_status: 'pending'}">
                 <div class="ui card member-request">
                     <div class="request-text">
-
                         {{x.firstname}} {{x.lastname}} has requested to join team :  {{x.team_name}}
-
                         <div class="sub-header">Event: {{ x.event_name }}</div>
                      </div>
                     <div class="request-approve two wide column">
@@ -81,6 +79,25 @@
                 <div class="section-title">
                     <h3>Current Games</h3>
                     <br>
+                       <table id="maintable" class="ui selectable celled table">
+                            <thead>
+                                <tr>
+                                    <th> Team1 </th>
+                                    <th> Team2 </th>
+                                    <th> Score </th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+                                <a href ="">
+                                    <tr ng-repeat = "y in dashboard.gamesFromEvent">
+                                        <td id="teamname"> {{y.team_name}}</td>
+                                        <td id="teamname"> {{y.team_name_2}} </td>
+                                        <td id="score" ng-init="dashboard.getScores(y);dashboard.getScores2(y);b=y.game_id"> {{dashboard.allScores[b]}}-{{dashboard.allScores2[b]}} </td>
+                                    </tr>
+                                </a>
+                            </tbody>
+                            </table>
                     <div ng-repeat="game in dashboard.sportsFromEvent" class="ui card-panel">
                         <h5>{{game.sport_name + " Game " + game.game_id }}</h5>
                         <p>{{game.Date}}</p>
@@ -101,6 +118,8 @@
                     </div>
                 </div>
             </div>
+
+            
             <br>
             <div class="ui section">
                 <div class="section-title" >

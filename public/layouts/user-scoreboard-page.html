@@ -1,33 +1,63 @@
+<!-- <link rel="stylesheet" href="../css/scoreboard.css"> -->
 <link rel="stylesheet" type="text/css" href="css/user-scoreboard.css" />
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="../css/scoreboard.css">
 
-<div id="main-wrapper">
-    <div class="ui grid container" id="sport-wrapper">
-    <div class="ui row">
+<div id="main-wrapper" class="ui container">
 
-    <div class="w3-sidebar w3-bar-block w3-card-2" style="width:200px;height:100%;margin-top:5px;background-color: #f7f7f7">
-        <div class="w3-bar-item w3-red" ng-controller="eventController as event" ng-init="event.viewEventDetails()">
-            <h3>{{event.event.event_name | uppercase}}</h3>
+    <div class="ui grid">
+
+        <div id="sport-wrapper" class="four wide column">
+            <div class="ui card" id="sidebar">
+                <div ng-controller="eventController as event" ng-init="event.viewEventDetails()">
+                    <h3>{{ event.event.event_name | uppercase }}</h3>
+                    <br>
+                </div>
+                <div ng-repeat="x in UGSC.allSports track by $index">
+                    <button class="tablink tab-active" ng-click="UGSC.openGame(x.sport_id)" ng-if="UGSC.sport_id_route == x.sport_id">
+                        <h4 style="float:right">{{x.sport_name}}</h4>
+                    </button>
+
+                    <button class="tablink" ng-click="UGSC.openGame(x.sport_id)" ng-if="UGSC.sport_id_route != x.sport_id">
+                        <h4 style="float:right" ng-if="UGSC.sport_id_route != x.sport_id">{{x.sport_name}}</h4>
+                    </button>
+
+                </div>
+            </div>
         </div>
-        <div ng-repeat="x in UGSC.allSports track by $index ">
-            <button class="w3-bar-item w3-button tablink w3-black" ng-click="UGSC.openGame(x.sport_id)" ng-if="UGSC.sport_id_route == x.sport_id">
-                <h1 style="float:right">{{x.sport_name}}</h1>
-            </button>
 
-            <button class="w3-bar-item w3-button tablink" ng-click="UGSC.openGame(x.sport_id)" ng-if="UGSC.sport_id_route != x.sport_id">
-                <h4 style="float:right" ng-if="UGSC.sport_id_route != x.sport_id">{{x.sport_name}}</h4>
-            </button>
-        </div>
-    </div>
+        <div ng-controller="userGameSchedController as UGSC" class="twelve wide column">
+            <div class="center aligned column" ng-init="UGSC.getRanking()">
+                <table class="ui celled table">
+                    <h4> Standings </h4>
+                    <thead>
+                        <tr>
+                            <th>Team</th>
+                            <th>Win</th>
+                            <th>Loss</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="y in UGSC.rankList">
+                            <td>
+                                <h4 class="ui image header">
+                                    <img src="images/cas.jpg" class="ui mini rounded image">
+                                    <div class="content">
+                                        <div class="sub header" id="teamname"> {{y.team_name}} </div>
+                                    </div>
+                                </h4>
+                            </td>
+                            <td id="win">{{y.win}}</td>
+                            <td id="loss">{{y.loss}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
 
-        <div ng-controller="userGameSchedController as UGSC">
-            <div style="margin-left:200px;margin-top:-30px" class="center aligned twelve wide column" ng-init="UGSC.viewGamesByEventSport()">
-                <!-- <h1 class="centered" class="sportsname"> {{x.sport_name}} </h1> -->
-                <!-- &nbsp; -->
-                <div style="width:30%;float:left;padding:2%">
-                    <table id="maintable" class="ui selectable celled table">
-                        <thead>
+            <div class="center aligned column" ng-init="UGSC.viewGamesByEventSport()" id="scoreboardDetails">
+                <h1 class="centered" class="sportsname"> {{x.sport_name}} </h1>
+                <div id="scoreboardDetailsTable">
+                    <table id="maintable" class="ui celled table">
+                        <thead class="full-width">
                             <tr>
                                 <th> Date </th>
                                 <th> Start Time </th>
@@ -56,41 +86,13 @@
                         </tbody>
                     </table>
 
-
                     <div ng-if="UGSC.allSportGames==undefined">
                         THERE ARE CURRENTLY NO GAMES
                     </div>
-                </div>
 
-                 <div class="center aligned four wide column" style="float:right;padding:2%" ng-init="UGSC.getRanking()">
-                    <table class="ui very basic collapsing celled fluid table">
-                        <thead>
-                            <h4 class=""><br>Standings</h4>
-                            <tr>
-                                <th> Team </th>
-                                <th> Win </th>
-                                <th> Loss </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr ng-repeat="y in UGSC.rankList">
-                                <td>
-                                    <h4 class="ui image header">
-                                        <img src="images/cas.jpg" class="ui mini rounded image">
-                                        <div class="content">
-                                            <div class="sub header" id="teamname"> {{y.team_name}} </div>
-                                        </div>
-                                    </h4>
-                                </td>
-                                <td id="win"> {{y.win}} </td>
-                                <td id="loss"> {{y.loss}} </td>
-                            </tr>
-                        </tbody>
-                    </table>
                 </div>
-
             </div>
+
         </div>
     </div>
-    </div>
-    </div>
+</div>

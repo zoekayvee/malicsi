@@ -38,6 +38,8 @@
         vm.deleteEventModal = deleteEventModal;
         vm.addEventModal = addEventModal;
         vm.viewEventDetails = viewEventDetails;
+        vm.userJoin=userJoin;
+
 
 
         function addEvent(user_id) {
@@ -54,6 +56,8 @@
                 .then(function(response){
                     console.log(response.data);
                     console.log('DADA');
+                    $route.reload();
+
                 }, function(response){
                     console.log("Error: Cannot Create Event");
                 });
@@ -115,6 +119,7 @@
             }
 
         function viewEvent(id){
+            console.log("VIEW EVENT" + id)
             $location.path('/events/' + id)
             // $http
             //     .get('/events/' + id)
@@ -183,7 +188,7 @@
                 .then(function(response){
                     console.log('Event deleted')
                     //viewEvent($routeParams.event_id)
-                    $location.path('/events');
+                    $window.history.back();
             }, function(response){
                 console.log("error");
             });
@@ -251,7 +256,11 @@
                 function(response){
                     console.log("Error :(");
                 });
-        }         
+        }   
+
+         function userJoin (){  
+            $location.path('/user/join_event/' + $routeParams.event_id);
+         }   
     }   
 
 })();

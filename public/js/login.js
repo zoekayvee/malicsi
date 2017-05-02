@@ -1,4 +1,5 @@
 $(document).ready(function() {
+
     $(".ui.form").form({
         fields: {
             username: {
@@ -50,24 +51,4 @@ $(document).ready(function() {
         inline : true,
         on     : "blur"
     });
-<<<<<<< HEAD
-=======
-
-
-   /* $("select.dropdown").dropdown();
-    $("#page-navigation").hide();
-    $("#page-footer").hide();*/
-
-    // $("#register-trigger").click(function(){
-    //     $("#login-div").slideUp("fast");
-    //     $("#register-div").slideDown("fast");
-    // });
-    //
-    // $("#login-trigger").click(function(){
-    //     $("#login-div").slideDown("fast");
-    //     $("#register-div").slideUp("fast");
-    // });
-
-
->>>>>>> 6f1608fba3c630aa8dfd789e05eb0ffd9e4ccbcb
 });
