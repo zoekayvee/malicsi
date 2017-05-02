@@ -31,20 +31,53 @@ exports.removeUser=(req,res)=>{
 		});
 }
 exports.updateUserPassword= (req,res) =>{
-	const salt = bcrypt.genSaltSync(saltRounds);
-	const hash = bcrypt.hashSync(req.body.password, salt);
+	// const salt = bcrypt.genSaltSync(saltRounds);
+	// const hash = bcrypt.hashSync(req.body.password, salt);
 
-	const query_string = 'UPDATE users SET password = ? WHERE user_id = ?';
-	const req_data = [hash,
-					  req.params.user_id];
-    connection.query(query_string, req_data, (err,result) => {
-    	if (!err) {
+	// const query_string = 'UPDATE users SET password = ? WHERE user_id = ?';
+	// const req_data = [hash,
+	// 				  req.params.user_id];
+ //    connection.query(query_string, req_data, (err,result) => {
+ //    	if (!err) {
+	// 		res.status(200).send(result);
+	// 		} else {
+	// 			console.log(err);
+	// 			res.status(500).send(err);
+	// 		}
+ //    })
+
+ 	if(req.body.flag === "false"){
+		//password not yet encrypted
+		const salt = bcrypt.genSaltSync(saltRounds);
+		const hash = bcrypt.hashSync(req.body.password, salt);
+		req.body.password=hash;
+	}
+
+	const query_string = 'UPDATE users SET username=?,password=?,college=?,height=?,weight=?,firstname=?,lastname=?,email=?,contactno=?,user_type=? WHERE user_id=?';
+
+	const req_data = [
+		req.body.username,
+		req.body.password,
+		req.body.college,
+		req.body.height,
+		req.body.weight,
+		req.body.firstname,
+		req.body.lastname,
+		req.body.email,
+		req.body.contactno,
+		req.body.user_type,
+		req.params.user_id
+	];    
+
+	connection.query(query_string, req_data, (err,result)=>{
+		if(!err){
 			res.status(200).send(result);
-			} else {
-				console.log(err);
-				res.status(500).send(err);
-			}
-    })
+		}
+		else{
+			console.log(err);
+			res.status(500).send(err);
+		}
+	})
 } 
 
 exports.approveUser = (req,res) =>{
@@ -59,41 +92,6 @@ exports.approveUser = (req,res) =>{
 			}
     })
 } 
-/*// updateUser - updates user information (uses user_id)
-exports.updateUser=(req,res)=>{
-		if(req.body.flag === "false"){
-			//password not yet encrypted
-			const salt = bcrypt.genSaltSync(saltRounds);
-			const hash = bcrypt.hashSync(req.body.password, salt);
-			req.body.password=hash;
-		}
-		const query_string = 'call updateUser(?,?,?,?,?,?,?,?,?,?,?,?,?)';
->>>>>>> 7543b5786efb4d4173894087fbb83cfe41b06f1d
-		const req_data = [
-			req.params.user_id,
-			req.body.username,
-			req.body.password,
-			req.body.firstname,
-			req.body.lastname,
-			req.body.gender,
-			req.body.college,
-			req.body.contactno,
-			req.body.email,
-			req.body.location,
-			req.body.weight,
-			req.body.height,
-			req.body.age
-		];
-
-		connection.query(query_string, req_data,(err,result) => {
-			if (!err) {
-    		res.status(200).send(result);
-			} else {
-				console.log(err);
-				res.status(500).send(err);
-			}
-		});
-}*/
 
 // addCompetitor - adds teams into game (makes use of tables: team, team_plays_game, game)
 exports.addCompetitor = (req,res)=>{
@@ -117,7 +115,6 @@ exports.addCompetitor = (req,res)=>{
 }
 // updateCompetitor - updates a team's score and bet count (specify which game)
 exports.updateCompetitor=(req,res)=>{
-
 	const query_string = 'UPDATE team_plays_game SET score = ?, bet_count = ? WHERE team_id = ? AND game_id = ?';
 	const req_data = [
 		req.body.score,
@@ -205,6 +202,20 @@ exports.addUser=(req,res)=>{
 			res.status(200).send(rows);
 		}
 		else{
+			console.log(err);
+			res.status(500).send(err);
+		}
+	});
+}
+
+exports.getUsersOfEvent = (req, res) =>  {
+	const query_string = 'SELECT * from event NATURAL JOIN users';
+
+	connection.query(query_string,(err,result) =>{
+		if (!err) {
+			console.log(result);
+    		res.status(200).send(result);
+		} else {
 			console.log(err);
 			res.status(500).send(err);
 		}

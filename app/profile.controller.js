@@ -10,6 +10,7 @@
 		vm.interests = "";
 
 		vm.user = {};
+        vm.userid = null;
 		vm.userEvents = {};
 		vm.userInterests = {};
 		vm.sponsoredEvents = {};
@@ -21,6 +22,11 @@
 		vm.updateUser= updateUser;
         vm.updateInterest= updateInterest;
 		vm.deleteInterest= deleteInterest;
+        
+        vm.viewPastGamesUser = viewPastGamesUser;
+        vm.getUserId = getUserId
+        vm.pastGamesUser = [];
+
         vm.updateProfilePic = updateProfilePic;
 
 		$http   
@@ -31,7 +37,7 @@
                         .get('/users/'+response.data)
                         .then(function(response) {
                             vm.user = response.data;
-                            console.log(vm.user);
+                            vm.userid = vm.user.user_id;
                         });
 
                     $http
@@ -61,9 +67,16 @@
                         .then(function(response) {
                             vm.userTeams = response.data;
                         });
+                    $http
+                        .get('/game/user/' + vm.userid)
+                        .then(function(response){
+                            vm.pastGamesUser = response.data;
+                            console.log(vm.userid);
+                            console.log("Viewing Past Games of user Successful!");
+                        });
                 }
                 else{
-                	window.location.href ='/403';
+                	window.location.href ='/#!/login';
                 }
             });
 
@@ -81,6 +94,7 @@
                 $http.put('/users/'+ vm.user.user_id +'/profilepic', fd, options)
                     .then(function(response) {
                         console.log("Profile picture updated");
+                        window.location.reload();
                     })
                     .catch(function(err) {
                         console.log("Error in uploading picture");
@@ -156,6 +170,7 @@
 		}
 
 		function updateInterest(){
+            console.log(vm.interests);
 			var user = {
 				interests: vm.interests
 			}
@@ -189,9 +204,37 @@
                 });    
         }
 
+        function getUserId() {
+            vm.userid = vm.user.user_id;
+        }
+
+        function viewPastGamesUser(){
+            $http   
+            .get('/user_loggedin') 
+            .then(function(response) {
+                if (response.data){
+                    $http
+                    .get('/users/'+response.data)
+                    .then(function(response) {
+                        vm.userid = response.data.user_id;
+                         $http
+                            .get('/game/user/' + vm.userid)
+                            .then(function(response){
+                                vm.pastGamesUser = response.data;
+                                console.log("Viewing Past Games of user Successful!");
+                        },
+                        function(response){
+                            console.log('Error viewing Past Games of User')
+                        });
+                    });}
+                else{
+                    window.location.href ='/403';
+                }
+            });
+        }
+
 
 		function openModal(dmodal){
-			console.log("I WAS CLICKED");
 			$('#'+dmodal+'.modal')
 		 	.modal('setting', {
 				 closable: false
