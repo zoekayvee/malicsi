@@ -7,7 +7,7 @@
                 <a class="active-tab ui segment" href="/#!/admin">Requests</a>
                 <a class="ui segment" href="/#!/admin/users">Users</a>
                 <a class="ui segment" href="/#!/admin/events">Events</a>
-                <a class="ui segment" href="/#!/admin/games">Games</a>
+                <a class="ui segment" href="/#!/admin/event/1/games">Games</a>
                 <a class="ui segment" href="/#!/admin/sports">Sports</a>
                 <a class="ui segment" href="/#!/admin/sponsors">Sponsors</a>
             </div>
@@ -18,8 +18,12 @@
                 <i class="user icon"></i>
                 USER REQUESTS
             </h4>
+            <div class="ui small icon input" style="float:right">
+                <input type="text" ng-model="search" placeholder="What are you looking for?">
+                <i class="search icon"></i>
+            </div>
             <div class="ui five column grid" >
-                <div class="column" ng-repeat="x in home.allUsers | filter: {user_type: 'pending'}">
+                <div class="column" ng-repeat="x in home.allUsers | filter: {user_type: 'pending', username:search}">
                     <div class="ui card" id="card">
                         <div class=" center aligned content">
                             <h3 class="ui header" ng-controller = "otherUsersController as others">
@@ -45,8 +49,12 @@
                 <i class="calendar icon"></i>
                 EVENT REQUESTS
             </h4>
+            <div class="ui small icon input" style="float:right">
+                <input type="text" ng-model="search_event" placeholder="What are you looking for?">
+                <i class="search icon"></i>
+            </div>
             <div class="ui four column grid" >
-                <div class="column" ng-repeat="x in home.allEvents | filter: {status: 'pending'}">
+                <div class="column" ng-repeat="x in home.allEvents | filter: {status: 'pending', event_name: search_event} |  orderBy:'date_start'">
                     <div class="ui card" id="card">
                         <div class=" center aligned content">
                             <h3 class="ui header">

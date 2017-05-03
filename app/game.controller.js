@@ -63,6 +63,12 @@
         vm.getDate = getDate;
         vm.allAcceptedGames=[];
         vm.viewAllAcceptedGames=viewAllAcceptedGames;
+        vm.addGameEvent = addGameEvent;
+        vm.viewEvent = viewEvent;
+        vm.viewGameInGamePage = viewGameInGamePage;
+        vm.eventidroute = $routeParams.event_id;
+        vm.viewAdminGame = viewAdminGame;
+        vm.addAdminGame = addAdminGame;
         // vm.viewPastGamesUser = viewPastGamesUser;
         // vm.pastGamesUser = [];
 
@@ -102,6 +108,51 @@
 			});
 
 		}
+
+		function addAdminGame(){
+			var gameToBeAdded = {
+				sport_id: vm.addSportId.sport_id,
+				venue_id: vm.addVenueId.venue_id,
+				event_id: $routeParams.event_id,
+				date_start: vm.addDate,
+				time_start: vm.addTime,
+				duration: vm.addDuration,
+				referee: vm.addReferee
+			}
+			$http
+				.post('/game',gameToBeAdded)
+				.then(function(response){
+					viewAllGames();
+					console.log('Adding Game Successful!');
+			},
+			function(response){
+				console.log('Error');
+			});
+
+		}
+
+		function addGameEvent(){
+			var gameToBeAdded = {
+				sport_id: vm.addSportId.sport_id,
+				venue_id: vm.addVenueId.venue_id,
+				event_id: $routeParams.event_id,
+				date_start: vm.addDate,
+				time_start: vm.addTime,
+				duration: vm.addDuration,
+				referee: vm.addReferee
+			}
+			$http
+				.post('/game',gameToBeAdded)
+				.then(function(response){
+					viewAllGames();
+					console.log('Adding Game Successful!');
+			},
+			function(response){
+				console.log('Error');
+			});
+
+		}
+
 		function viewGame(){
 			$http
 				.get('/game/' + $routeParams.game_id)
@@ -116,10 +167,29 @@
 				console.log('Error Viewng Game');
 			});
 		}
+
+		function viewGameInGamePage(){
+			$http
+				.get('/game/' + $routeParams.game_id)
+				.then(function(response){
+					vm.game = response.data[0];
+					vm.winnerTeamId = vm.game.winner_team_id;
+					vm.getScores(vm.game);
+					vm.getScores2(vm.game);
+					console.log('Viewing Game Successful');
+			},
+			function(response){
+				console.log('Error Viewng Game');
+			});
+		}
+		
 		function viewGamePage(game_id){
-			$location.path('/game/' + game_id)
+            window.location.href = '#!/event/' + $routeParams.event_id + '/game/' + game_id;
 		}
 
+		function viewAdminGame(eventid) {
+			$location.path('/admin/event/' + eventid + '/games');
+		}
 
 		function viewThreeScoreboard(){
 			$http
@@ -173,7 +243,7 @@
 		}
 
 		function viewGameFromScoreboard(game_id){
-			$location.path('/game/' + game_id)
+			$location.path('/event/' + $routeParams.event_id + '/game/' + game_id)
 		}
 
 		function canBet(){
@@ -311,6 +381,12 @@
 				console.log('Error Viewing Score');
 			});
 		}
+
+
+        function viewEvent(id){
+            console.log("VIEW EVENT" + id)
+            $location.path('/events/' + id)
+        }
 
 		function updateScores(team1,team2){
 			var scoreDetails = {

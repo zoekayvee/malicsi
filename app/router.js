@@ -60,7 +60,7 @@
 			})
 
 			//Game Routers
-			.when('/game/:game_id', {
+			.when('/event/:event_id/game/:game_id', {
 				templateUrl: 'layouts/user-game-page.html',
 				controller:'gameController',
 				controllerAs:'game'
@@ -92,7 +92,7 @@
 			.when('/admin/sponsors', {
 				templateUrl: 'layouts/admin-all-sponsors.html'
 			})
-			.when('/admin/games', {
+			.when('/admin/event/:event_id/games', {
 				templateUrl: 'layouts/admin-all-games.html'
 			})
 			.when('/admin/sports', {

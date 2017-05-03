@@ -11,11 +11,11 @@ Go to directory where malicsidb.sql is located or enter full path to file then r
 
 -- GRANT ALL PRIVILEGES ON malicsiDB.* TO "projectOneTwoEight"@"localhost" WITH GRANT OPTION;
 
-DROP DATABASE IF EXISTS `malicsiDBDummy`;
+DROP DATABASE IF EXISTS `malicsiDB`;
 
-CREATE DATABASE IF NOT EXISTS `malicsiDBDummy`;
+CREATE DATABASE IF NOT EXISTS `malicsiDB`;
 
-USE `malicsiDBDummy`;
+USE `malicsiDB`;
 
 create table users(
 	user_id 		int unsigned auto_increment,
@@ -531,7 +531,7 @@ CREATE TRIGGER sponsorEventInsert AFTER INSERT ON sponsor_events
 %%
 	CREATE PROCEDURE ranking(in sportId int unsigned, in eventId int unsigned)
 		BEGIN
-			SELECT tp.team_id AS team_id,team.team_name as team_name, (SELECT COUNT(*) FROM game WHERE winner_team_id = tp.team_id AND sport_id = sportId AND game.event_event_id = eventId) AS win,(SELECT COUNT(*) FROM game NATURAL JOIN team_plays_game AS tpg WHERE tpg.team_id = tp.team_id AND (winner_team_id!=tp.team_id AND sport_id=sportId AND game.event_event_id = eventId)) AS loss FROM (SELECT DISTINCT team_id FROM game NATURAL JOIN team_plays_game WHERE game.sport_id = sportId AND game.event_event_id = eventId) AS tp,team where team.team_id = tp.team_id and team.team_name != "TBA" and team.team_name != " TBA " ORDER BY (win - loss) DESC LIMIT 3;
+			SELECT tp.team_id AS team_id,team.team_name as team_name, (SELECT COUNT(*) FROM game WHERE winner_team_id = tp.team_id AND sport_id = sportId AND game.event_event_id = eventId) AS win,(SELECT COUNT(*) FROM game NATURAL JOIN team_plays_game AS tpg WHERE tpg.team_id = tp.team_id AND (winner_team_id!=tp.team_id AND sport_id=sportId AND game.event_event_id = eventId)) AS loss FROM (SELECT DISTINCT team_id FROM game NATURAL JOIN team_plays_game WHERE game.sport_id = sportId AND game.event_event_id = eventId) AS tp,team where team.team_id = tp.team_id and team.team_name != "TBA" and team.team_name != " TBA " and team.team_name != "Team 1" and team.team_name != "Team 2" ORDER BY (win - loss) DESC LIMIT 3;
 		END;
 %%
 	CREATE PROCEDURE overallRankings(in eventId int unsigned)
@@ -676,10 +676,10 @@ CREATE TRIGGER sponsorEventInsert AFTER INSERT ON sponsor_events
 %%
 		CREATE PROCEDURE insertTeamPlaysGame(in gameId int unsigned)
 		BEGIN
-			INSERT INTO team_plays_game(game_id, team_id, bet_count) VALUES(gameId, 1, 0);
-			INSERT INTO team_plays_game(game_id, team_id, bet_count) VALUES(gameId, 2, 0);
-			INSERT INTO game_score(game_id, team_score_id, team_score) VALUES(gameId, 1, 0);
-			INSERT INTO game_score(game_id, team_score_id, team_score) VALUES(gameId, 2, 0);
+			INSERT INTO team_plays_game(game_id, team_id, bet_count) VALUES(gameId, 8, 0);
+			INSERT INTO team_plays_game(game_id, team_id, bet_count) VALUES(gameId, 9, 0);
+			INSERT INTO game_score(game_id, team_score_id, team_score) VALUES(gameId, 8, 0);
+			INSERT INTO game_score(game_id, team_score_id, team_score) VALUES(gameId, 9, 0);
 		END;
 %%
 	CREATE PROCEDURE updateTeamPlaysGame(in teamId int unsigned, in gameId int unsigned, in defaultTeamId int unsigned)
@@ -846,8 +846,8 @@ call addTeam("Best 100");
 call addTeam("Holyconcrete");
 call addTeam("BeshieDesu");
 call addTeam("WanTooFaiv");
-call addTeam("Team 1");
-call addTeam("Team 2");
+call addTeam("TBA");				-- NOTE: DO NOT ERASE THESE TEAMS, TEAM ID OF TBAS ARE USED IN THE PROCESS
+call addTeam(" TBA");				-- CHANGING THE ORDER, OR THE TEAM ID WOULD RESULT TO A BUG
 
 
 call addGame(1, 1, 1, "2017-04-14", "08:00:00", 1, "Tylson Reci");

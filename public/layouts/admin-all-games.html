@@ -2,22 +2,21 @@
 <link rel="stylesheet" type="text/css" href="css/admin-homepage.css"> </link>
 <script type='text/javascript' src='js/admin.js'></script>
 
-<div class="ui container" id="main-wrapper">
+<div class="ui container" id="main-wrapper" ng-controller="eventController as event" ng-init="event.viewAllEvent()">
     <div class="" id="main-card">
-        <div class="content"  ng-controller="eventController as event" ng-init="event.viewAllEvent()" >
+        <div class="content" >
             <div class="ui horizontal center aligned segments" id="segment">
                 <a class="ui segment" href="/#!/admin">Requests</a>
                 <a class="ui segment" href="/#!/admin/users">Users</a>
                 <a class="ui segment" href="/#!/admin/events">Events</a>
-                <a class="active-tab ui segment" href="/#!/admin/games">Games</a>
+                <a class="active-tab ui segment" href="/#!/admin/event/1/games">Games</a>
                 <a class="ui segment" href="/#!/admin/sports">Sports</a>
                 <a class="ui segment" href="/#!/admin/sponsors">Sponsors</a>
             </div>
-            </div>
             <div class="ui row" ng-controller="gameController as game">
-                <table class="ui center aligned table" ng-repeat="y in event.allEvents">
+                <table class="ui center aligned table" ng-repeat="y in event.allEvents" ng-if="y.event_id == game.eventidroute">
 
-                     <thead>
+                     <thead >
                         <tr>
                             <th><h1>{{y.event_name}}</h1></th>
                         </tr>
@@ -151,11 +150,19 @@
                     <tfoot class="full-width">
                         <tr>
                             <th colspan="100%">
-                                <div class="ui right floated small primary labeled icon button" ng-click="game.openModal('addGame-modal');game.setEventId(y)">
+                                <div class="ui right floated small primary labeled icon button" ng-click="game.openModal('addGame-modal')">
                                     <i class="add square icon"></i> Add Game
                                 </div>
                             </th>
                         </tr>
+
+                       <!--  <tr>
+                            <th colspan="100%">
+                                <div class="ui right floated small primary labeled icon button" ng-click="game.viewEvent(y.event_id)">
+                                    <i class="add square icon"></i> View Event
+                                </div>
+                            </th>
+                        </tr> -->
 
                     </tfoot>
                     <div class="ui basic modal" id="addGame-modal">
@@ -164,10 +171,11 @@
                         </div>
                         <div class="ui form">
                             <div class="field">
-                                <div ng-controller="sportController as sport">
+
+                                <div ng-controller="userEventController as UEC" ng-init="UEC.viewSportByEvent2(game.addEventId.event_id)">
                                     <label> Sport </label>
                                     <form class="ui">
-                                        <select ng-model="game.addSportId" ng-options="z.sport_name for z in sport.allSports">
+                                        <select ng-model="game.addSportId" ng-options="z.sport_name for z in UEC.allSports">
                                         </select>
                                     </form>
                                 </div>
@@ -211,13 +219,27 @@
                             <div class="ui red basic cancel inverted button" ng-click="game.closeModal('addGame-modal')">
                                 Cancel
                             </div>
-                            <div ng-click="game.addGame();game.closeModal('addGame-modal')" class="ui green ok inverted button">
+                            <div ng-click="game.addAdminGame();game.closeModal('addGame-modal')" class="ui green ok inverted button">
                                 <i class="checkmark icon"></i> Yes
                             </div>
                         </div>
                     </div>
 
                 </table>
+
+                <table class="ui center aligned table" ng-repeat="y in event.allEvents" ng-if="y.event_id != game.eventidroute">
+                     <thead>
+                        <tr>
+                            <th>
+                                <div class="ui" ng-click="game.viewAdminGame(y.event_id)">
+                                    <button class="ui button" style="width:100%"><h1>{{y.event_name}}</h1></button>
+                                </div>
+                            </th>
+                        </tr>
+                    </thead>
+                </table>
+
+
             </div>
         </div>
     </div>

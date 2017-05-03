@@ -214,11 +214,14 @@
 
 	    function viewTeamInGame(){
 	    	console.log($routeParams.game_id);
+	    	var team = {
+	    		event_id: $routeParams.event_id
+	    	}
 	    	$http
-	    		.get('/teams/in_game/' + $routeParams.game_id)
+	    		.post('/teams/in_game/' + $routeParams.game_id,team)
 	    		.then(function(response){
 		    			vm.allTeams = response.data;
-		    			console.log(response.data.team_name);
+		    			console.log(response.data);
 		    			console.log('Viewing All Available Teams')
 		    		}, function(response){
 		    			console.log("Error: Cannot retrieve teams");
