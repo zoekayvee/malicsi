@@ -109,7 +109,7 @@
                         GAME IS TIED!<br><br>
                         <div class="ui button" id="cancel" ng-click="team.closeModal('tie-modal')">OK</div>
                     </center>
-                    <center ng-if="game.score != game.score2">
+                    <center ng-if="game.score != game.score2 && (game.game.team_id!=9 || game.game.team_id_2!=8)">
                         UPDATED GAME WINNER!<br><br>
                         <div class="ui button" id="cancel" ng-click="team.closeModal('tie-modal')">OK</div>
                     </center>

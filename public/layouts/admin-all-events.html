@@ -44,20 +44,13 @@
                                     </div>
                                 </div>
                             </div>
-                            <!-- 
-                                ng-click="event.date_End()"
-                            <div class="field">
-                                <label>End Date</label>
-                                <div class="ui calendar" id="datetime">
-                                    <div class="ui input left icon">
-                                      <i class="calendar icon"></i>
-                                      <input type="text" placeholder="Date/Time" ng-model="event.dateEnd" ng-click="event.date_Start()">
-                                    </div>
-                                </div>
-                            </div> -->
-                            <button class="ui green ok inverted button event" id="submit-create" ng-click="event.addEventModal(logged.userId,'add-modal')">
+                            <button class="ui green ok inverted button event" id="submit-create" ng-click="event.addEventModal(logged.userId,'add-modal');event.closeModal('add-modal')">
                                 Submit
                             </button>
+                            <button class="ui red cancel inverted button event"  ng-click="event.closeModal('add-modal')">
+                                Cancel
+                            </button>
+
                         </div>
                     </form>
                     <div class="actions">
@@ -91,12 +84,12 @@
                             <td>{{x.duration}} days</td>
                             <td>
                                 <div ng-click="event.setEvent(x.event_id,x.event_name,x.date_start,x.date_end,x.allow_reg)">
-                                    <div class="ui animated button" id="edit" ng-click="event.openModal('edit-modal')">
+                                    <div class="ui animated button" id="edit" ng-click="event.openModal('edit-event-modal')">
                                         <div class="visible content"><i class="edit icon"> </i></div>
                                         <div class="hidden content"> Edit </div>
                                     </div>
                                 </div>
-                                <div class="ui modal" id="edit-modal">
+                                <div class="ui modal" id="edit-event-modal">
                                     <div class="header"> UPDATE EVENT</div>
                                     <div class="content">
                                         <div class="ui form">
@@ -134,8 +127,9 @@
                                                 </div>
                                             </div>
                                             <br>
-                                            <div class="ui button" id="cancel" ng-click="event.closeModal('edit-modal')">Cancel</div>
-                                            <div class="ui button" ng-click="event.updateEventModal('edit-modal')">Submit</div>
+                                            <div class="ui button" id="cancel" ng-click="event.closeModal('edit-event-modal')">Cancel</div>
+                                            <div class="ui button" ng-click="event.updateEventModal('edit-event-modal');event.closeModal('edit-event-modal
+                                            ')">Submit</div>
 
 
                                         </div>
