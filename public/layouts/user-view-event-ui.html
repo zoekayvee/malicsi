@@ -1,40 +1,33 @@
-<link rel='stylesheet' href='css/user-view-event.css'/>
-<link rel='stylesheet' href='semantic-ui-calendar/dist/calendar.css'/>
+<link rel='stylesheet' href='css/user-view-event.css' />
+<link rel='stylesheet' href='semantic-ui-calendar/dist/calendar.css' />
 
 <script type='text/javascript' src='js/user-event.js'></script>
 <script src="semantic-ui-calendar/dist/calendar.js"></script>
 <script type="text/javascript" src="jquery.js"></script>
 
 <script type="text/javascript">
-    $(function() {
-        $('.ui.dropdown').dropdown();
-    });
-    $('#start-date-pick').calendar();
-    $('#end-date-pick').calendar();
+$(function() {
+    $('.ui.dropdown').dropdown();
+});
+$('#start-date-pick').calendar();
+$('#end-date-pick').calendar();
 </script>
 
 <div id="main-wrapper" ng-controller="eventController as event">
     <div class="ui grid container" ng-controller="loggedUserController as logged">
         <div class="five wide column" ng-init="event.viewClickedEvent()" ng-controller="guestController as loged">
-            <div class="ui center aligned segment" ng-controller = "otherUsersController as others">
+            <div class="ui center aligned segment" ng-controller="otherUsersController as others">
                 <h2 class="ui centered header" id="header-section">
                     {{event.allEventsUser.event_name}}
                     <div class="sub header" id="header-section">
                         Start Date:{{event.allEventsUser.date_start}}<br>
                         End Date:{{event.allEventsUser.date_end}}<br>
-                       <a ng-click = "others.clicked(event.allEventsUser.user_id)"> Event Creator: {{event.allEventsUser.firstname}} {{event.allEventsUser.lastname}} ( {{event.allEventsUser.username}} )</a><br>
+                        <a ng-click = "others.clicked(event.allEventsUser.user_id)"> Event Creator: {{event.allEventsUser.firstname}} {{event.allEventsUser.lastname}} ( {{event.allEventsUser.username}} )</a><br>
                         Open for registration? : {{event.allEventsUser.allow_reg == '1' ? 'Yes' : 'No'}}
                     </div>
                 </h2>
-                <!-- <button class="positive ui button">JOIN</button> -->
-                <!-- <button class="ui circular edit icon button" ng-click="event.updateEvent()">
-                    <i class="edit icon"></i>
-                </button>
-                <button class="ui red circular trash icon button" id="button-delete" ng-click ="event.openModal('delete-event-modal')">
-                    <i class="trash icon"></i>
-                </button> -->
-
             </div>
+
             <div ng-show="loged.hasUser">
                 <button class="fluid positive ui button" ng-click="event.userJoin()">JOIN</button>
             </div>
@@ -106,6 +99,7 @@
 
         <!-- right side of the page -->
         <div class="eleven wide column" ng-controller="userEventController as UEC">
+
             <div id="panel" ng-controller="gameController as game" ng-init="game.viewThreeScoreboard()">
                 <div class="ui cards">
                     <div class="card card-content2" ng-repeat="x in game.gameThreeScoreboard" ng-show="game.gameThreeScoreboard!=null">
@@ -125,93 +119,78 @@
                     </div>
                 </div>
             </div>
-        <a class="ui button btn-slide" ng-click="UEC.scoreboard()">
-         See Scores
-        </a>
 
-        <div ng-controller="gameController as game">
-            <div class="ui right floated small primary labeled icon button" ng-show="logged.userId == event.currentUserId || logged.userType=='admin'" ng-click="game.openModal('addGame-modal')">
-                <i class="add square icon"></i> Add Game
-            </div>
+            <br>
+            <a class="ui button btn-slide" ng-click="UEC.scoreboard()" id="see-score-button">
+                See Scores
+            </a>
             <br><br>
 
-
-            <div class="ui basic modal" id="addGame-modal">
-                <div class="ui icon header">
-                    Add Game
+            <div ng-controller="gameController as game">
+                <div class="ui right floated small primary labeled icon button" ng-show="logged.userId == event.currentUserId || logged.userType=='admin'" ng-click="game.openModal('addGame-modal')">
+                    <i class="add square icon"></i> Add Game
                 </div>
-                <div class="ui form">
-                    <div class="field">
-                        <div>
-                            <label> Sport </label>
-                            <form class="ui">
-                                <select ng-model="game.addSportId" ng-options="z.sport_name for z in UEC.allSports">
-                                </select>
-                            </form>
+                <br><br>
+
+                <div class="ui basic modal" id="addGame-modal">
+                    <div class="ui icon header">
+                        Add Game
+                    </div>
+                    <div class="ui form">
+                        <div class="field">
+                            <div>
+                                <label> Sport </label>
+                                <form class="ui">
+                                    <select ng-model="game.addSportId" ng-options="z.sport_name for z in UEC.allSports">
+                                    </select>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div ng-controller="venueController as venue">
+                                <label> Venue </label>
+                                <form class="ui">
+                                    <select ng-model="game.addVenueId" ng-options="z.venue_name for z in venue.allVenues">
+                                    </select>
+                                </form>
+                            </div>
                         </div>
 
-
-
-
-                    </div>
-                    <div class="field">
-                        <div ng-controller="venueController as venue">
-                            <label> Venue </label>
-                            <form class="ui">
-                                <select ng-model="game.addVenueId" ng-options="z.venue_name for z in venue.allVenues">
-                                </select>
-                            </form>
+                        <div class="_field">
+                            <label>Date Start</label>
+                            <input type="text" placeholder="Date Start" ng-model="game.addDate">
+                        </div>
+                        <div class="_field">
+                            <label><br>Time Start</label>
+                            <input type="text" placeholder="Time Start" ng-model="game.addTime">
+                        </div>
+                        <div class="_field">
+                            <label><br>Referee</label>
+                            <input type="text" placeholder="Referee" ng-model="game.addReferee">
+                        </div>
+                        <div class="_field">
+                            <label><br>Duration</label>
+                            <input type="text" placeholder="Duration" ng-model="game.addDuration">
                         </div>
                     </div>
-                   <!--  <div class="field">
-                        <div ng-controller="eventController as event" ng-init="event.viewAllEvent()">
-                            <label> Event </label>
-                            <form class="ui">
-                                <select ng-model="game.addEventId" ng-options="z.event_name for z in event.allEvents">
-                                </select>
-                            </form>
+                    <div class="actions">
+                        <div class="ui red basic cancel inverted button" ng-click="game.closeModal('addGame-modal')">
+                            Cancel
                         </div>
-                    </div> -->
-                    <div class="_field">
-                        <label>Date Start</label>
-                        <input type="text" placeholder="Date Start" ng-model="game.addDate">
-                    </div>
-                    <div class="_field">
-                        <label><br>Time Start</label>
-                        <input type="text" placeholder="Time Start" ng-model="game.addTime">
-                    </div>
-                    <div class="_field">
-                        <label><br>Referee</label>
-                        <input type="text" placeholder="Referee" ng-model="game.addReferee">
-                    </div>
-                    <div class="_field">
-                        <label><br>Duration</label>
-                        <input type="text" placeholder="Duration" ng-model="game.addDuration">
-                    </div>
-                </div>
-                <div class="actions">
-                    <div class="ui red basic cancel inverted button" ng-click="game.closeModal('addGame-modal')">
-                        Cancel
-                    </div>
-                    <div ng-click="game.addGameEvent();game.closeModal('addGame-modal')" class="ui green ok inverted button">
-                        <i class="checkmark icon"></i> Yes
+                        <div ng-click="game.addGameEvent();game.closeModal('addGame-modal')" class="ui green ok inverted button">
+                            <i class="checkmark icon"></i> Yes
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-
-
-
-         
             <div ng-controller="guestController as loged">
                 <div class="ui segment" ng-controller="sportController as sport">
                     <h1 class="ui header">
                         SPORTS
                     </h1>
 
-
-                    <div ng-show="logged.userId == event.currentUserId || logged.userType=='admin'" class="ui simple selection dropdown" ng-init="UEC.viewAvailableSports()">
+                    <div ng-show="logged.userId == event.currentUserId || logged.userType=='admin'" class="ui selection dropdown" ng-init="UEC.viewAvailableSports()">
                         <div class="default text">Sports</div>
                         <i class="dropdown icon"></i>
                         <div class="menu">
@@ -220,7 +199,7 @@
                             </div>
                         </div>
                     </div>
-                        <button  ng-show="logged.userId == event.currentUserId || logged.userType=='admin'"  class="ui plus icon button" ng-click="UEC.attachSportToEvent()">
+                    <button ng-show="logged.userId == event.currentUserId || logged.userType=='admin'" class="ui plus icon button" ng-click="UEC.attachSportToEvent()">
                         <i class="plus icon"></i>
                     </button>
                     <!-- List of Sports -->
@@ -249,13 +228,13 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
+
             <div class="ui segment" ng-controller="teamController as team">
                 <h1 class="ui header">
-                        TEAM
-                    </h1>
+                    TEAM
+                </h1>
                 <div class="ui form" ng-controller="guestController as loged">
                     <div ng-show="logged.userId == event.currentUserId || logged.userType=='admin'" class="inline fields">
                         <div class="field">
@@ -264,22 +243,20 @@
                         <div class="field">
                             <button class="ui plus icon button" ng-click="team.addTeam(event.eventId)">
                                 <i class="plus icon"></i>
-                                </button>
+                            </button>
                         </div>
                     </div>
                 </div>
                 <br>
-                <!-- hindi ko gets kung paano gusto iimplement yung team, improvised muna FROM HERE
-                    -->
-                <div ng-controller="guestController as loged" class="ui four cards" ng-init="team.viewTeamPerEvent()">
-                    <div class="card" ng-repeat="x in team.allTeams">
-                        <div class="content">
-                            <a class="header" ng-click="team.viewTeam(x.team_id)">{{x.team_name}}</a>
-                        </div>
-                        <div ng-show="logged.userId == event.currentUserId || logged.userType=='admin'" class="extra content">
+                <div ng-controller="guestController as loged" class="ui middle aligned divided list" ng-init="team.viewTeamPerEvent()">
+                    <div class="item " ng-repeat="x in team.allTeams">
+                        <div ng-show="logged.userId == event.currentUserId || logged.userType=='admin'" class="right floated content">
                             <button class="ui red  right floated  trash icon button" ng-click="team.deleteTeamFromEvent(x.team_id)">
                                 <i class="trash icon"></i>
-                                </button>
+                            </button>
+                        </div>
+                        <div class="content">
+                            <a ng-click="team.viewTeam(x.team_id)"><h4>{{x.team_name}}</h4></a>
                         </div>
                     </div>
                 </div>
@@ -287,10 +264,8 @@
             <!-- UNTIL HERE -->
             <div ng-controller="guestController as loged">
                 <div class="ui segment" ng-controller="sponsorController as sponsor">
-                    <h1 class="ui header">
-                        SPONSORS
-                    </h1>
-                    <div ng-show="logged.userId == event.currentUserId || logged.userType=='admin'" class="ui simple selection dropdown" ng-init="sponsor.viewAllSponsor()">
+                    <h1 class="ui header">SPONSORS</h1>
+                    <div ng-show="logged.userId == event.currentUserId || logged.userType=='admin'" class="ui selection dropdown" ng-init="sponsor.viewAllSponsor()">
                         <input name="Sponsors" type="hidden">
                         <div class="default text">Sponsors</div>
                         <i class="dropdown icon"></i>
@@ -300,9 +275,11 @@
                             </div>
                         </div>
                     </div>
-                        <button ng-show="logged.userId == event.currentUserId || logged.userType=='admin'" class="ui plus icon button" ng-click="sponsor.sponsorEvent()">
+
+                    <button ng-show="logged.userId == event.currentUserId || logged.userType=='admin'" class="ui plus icon button" ng-click="sponsor.sponsorEvent()">
                         <i class="plus icon"></i>
                     </button>
+
                     <!-- List of Sponsors -->
                     <div class="ui middle aligned divided list" ng-init="sponsor.getSponsorByEvent()">
                         <div class="item" ng-repeat="x in sponsor.allEventSponsors">
