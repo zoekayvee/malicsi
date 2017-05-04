@@ -1,4 +1,3 @@
-<link rel="stylesheet" href="css/admin.css"></link>
 <link rel="stylesheet" type="text/css" href="css/admin-homepage.css"> </link>
 <script type='text/javascript' src='js/admin.js'></script>
 
@@ -89,14 +88,14 @@
                     <div class="ui form">
                         <div class="field">
                             <label>Sport Name</label>
-                            <input type="text" ng-model="sport.addSportName">
+                            <input type="text" ng-model="sport.addSportName" id="add-sport-name">
                         </div>
                     </div>
                     <div class="actions">
                         <div class="ui red basic cancel inverted button" ng-click="sport.closeModal('addSport-modal')">
                             Cancel
                         </div>
-                        <div ng-click="sport.addSport();sport.closeModal('addSport-modal')" class="ui green ok inverted button">
+                        <div ng-click="sport.addSport();sport.closeModal('addSport-modal')" class="ui green ok inverted button" id="add-sport-button">
                             <i class="checkmark icon"></i> Yes
                         </div>
                     </div>

@@ -29,6 +29,7 @@ body {
 
 #main-wrapper {
     margin-top: 0;
+    margin-bottom: 0 !important;
 }
 
 #feeds-panel {
@@ -130,4 +131,8 @@ body {
 
 .request-decline button {
     background-color: #F6F6F6;
+}
+
+#membership-request-panel {
+    margin-bottom: 20px;
 }

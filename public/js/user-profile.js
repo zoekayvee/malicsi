@@ -1,33 +1,28 @@
 $(document).ready(function(){
+    $('#start-date-pick').calendar();
+    $('#end-date-pick').calendar();
+
      $('#create').click(function(){
-        $('#event-modal').modal('show');    
+        $('#event-modal').modal('show');
      });
-});
-$(document).ready(function(){
+
      $('#updateButton').click(function(){
-        $('#update-modal').modal('show');    
+        $('#update-modal').modal('show');
      });
-});
 
-$(document).ready(function(){
      $('#cancel-update').click(function(){
-        $('#update-modal').modal('hide');    
+        $('#update-modal').modal('hide');
      });
-});
 
-$(document).ready(function(){
      $('.ui.button.delete').click(function(){
-        $('#delete-modal').modal('show');    
+        $('#delete-modal').modal('show');
      });
-});
 
-$(document).ready(function(){
      $('#submit-create').click(function(){
-        $('#event-modal').modal('hide');    
+        $('#event-modal').modal('hide');
      });
-});
-$(document).ready(function(){
+
      $('#cancel-create').click(function(){
-        $('#event-modal').modal('hide');    
+        $('#event-modal').modal('hide');
      });
 });

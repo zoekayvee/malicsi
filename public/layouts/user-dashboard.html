@@ -87,15 +87,17 @@
                     </div>
                 </div>
             </div>
-            <br><br><br>
+
             <div class="ui section">
                 <div class="section-title">
                     <h3>User Interest</h3>
                     <br>
-                    <div class="ui seven column grid">
-                        <div ng-repeat="ei in dashboard.eventsByInterest" class="ui card-panel column">
-                            <h5>{{ei.event_name}}</h5>
-                            <p>{{ei.date_start}}</p>
+                    <div class="ui five column grid">
+                        <div ng-repeat="ei in dashboard.eventsByInterest" class="column">
+                            <div class="">
+                                <h5>{{ei.event_name}}</h5>
+                                <p>{{ei.date_start}}</p>
+                            </div>
                         </div>
                     </div>
                 </div>

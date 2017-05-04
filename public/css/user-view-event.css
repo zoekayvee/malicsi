@@ -1,70 +1,9 @@
-div {
-    /*border: solid 1px red;*/
-}
-
-.command-btn {
-    background: #e9e581;
-    height: 30px;
-    width: 30px;
-    text-align: center;
-    border: none;
-    border-radius: 100%;
-    float: right;
-}
-
-.event-section {
-    /*border: solid 1px red;*/
-    margin-bottom: 20px;
-}
-
-.score-section {
-    /*border: solid 1px red;*/
-    /*margin-bottom: 20px;*/
-}
-.score-card {
-    height: 150px !important;
-    width: 22% !important;
-    padding: 0 !important;
-    margin-left: 3% !important;
-    transition: all 0.9s linear;
-    align: center;
-    background-color: black !important;
-    color: white;
-
-}
-
-.score-card:hover {
-    /*background-color: #e9e581 !important;*/
-    box-shadow: 5px 5px 10px #b1b1b1;
-}
-
-.card-content {
-    text-align: center;
-    padding: 20px;
-}
-
-.card-content2 {
-    width: 30% !important;
-}
-
-.view-all {
-    margin-top: 8%;
-}
-
-.team1-section {
-    width:30%;
-    text-align: center;
-}
-
-.team2-section {
-    width:30%;
-    text-align: center;
-}
-
-.versus {
-    margin-top: 12%;
-}
-
 #see-score-button {
     width: 100% !important;
+}
+
+#add-game-button {
+    position: absolute;
+    right: 20px;
+    top: 20px;
 }

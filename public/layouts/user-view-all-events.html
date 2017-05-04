@@ -8,7 +8,7 @@
             <div class="ui card event-card
 			{{ x.allow_reg == '1' ? 'active' : 'inactive' }}"
             ng-click="event.viewEvent(x.event_id)">
-                <img src='images/1.jpg' class="event-icon" />
+                <img src='images/events/{{(x.event_id % 5) + 1}}.jpg' class="event-icon" />
 
                 <div class="card-content">
                     <h3>{{x.event_name}}</h3>
