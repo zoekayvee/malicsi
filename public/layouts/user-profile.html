@@ -231,7 +231,7 @@
                 <!--End of Events-->
 
                 <!--LIST OF EVENTS-->
-                <div class="ui four cards" ng-controller="eventController as eventA">
+                <div class="ui two cards" ng-controller="eventController as eventA">
                     <div class="card" ng-repeat="event in user.userEvents">
                         <div class="content">
                             <div class="header"><a ng-click="eventA.viewEvent(event.event_id)">{{event.event_name}}</a></div>
@@ -281,14 +281,15 @@
         </div>
         <!--MODAL OF CREATE EVENT-->
         <div id="event-modal" class="ui modal">
-            <div class="ui segment">
+            <h1 class="ui header">CREATE EVENT</h1>
+
+            <div class="ui content">
                 <form class="ui form" ng-controller="eventController as event">
-                    <h2 class="ui dividing header">CREATE EVENT</h2>
                     <div class="field">
                         <label>Event Name</label>
                         <input type="text" ng-model="event.eventName" name="event_name">
                     </div>
-                    <div class="fields">
+                    <div class="equal width fields">
                         <div class="field">
                             <label>Start Date</label>
                             <div class="ui calendar" id="start-date-pick">
@@ -307,15 +308,16 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- iddelete ba agad? -->
-                        <button class="ui button event" id="cancel-create" ng-click="user.closeModal('event-modal')">
-                            Cancel
-                        </button>
-                        <button class="ui button event" id="submit-create" ng-click="event.addEvent(user.user.user_id);event.closeModal('event-modal')">
-                            Submit
-                        </button>
                     </div>
                     </br>
+                <div class="actions">
+                        <button class="ui primary button" id="submit-create" ng-click="event.addEvent(user.user.user_id);event.closeModal('event-modal')">
+                            <i class="checkmark icon"></i> Create
+                        </button>
+                        <button class="ui cancel button" id="cancel-create" ng-click="user.closeModal('event-modal')">
+                            <i class="remove icon"></i> Cancel
+                        </button>
+                    </div>
                 </form>
             </div>
         </div>
