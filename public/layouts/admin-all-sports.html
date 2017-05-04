@@ -1,4 +1,3 @@
-<link rel="stylesheet" href="css/admin.css"></link>
 <link rel="stylesheet" type="text/css" href="css/admin-homepage.css"> </link>
 <script type='text/javascript' src='js/admin.js'></script>
 
@@ -29,21 +28,7 @@
                             <td> {{x.sport_id}} </td>
                             <td> {{x.sport_name}} </td>
                             <td>
-
-                                <div class="ui animated button edit-trigger" ng-click="sport.setCurrentId(x.sport_id,'edit-modal');sport.setNewSportName(x.sport_name)">
-                                    <div class="visible content"><i class="edit icon"> </i></div>
-                                    <div class="hidden content"> Edit </div>
-                                </div>
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                <div class="ui animated button delete-trigger" ng-click="sport.setCurrentId(x.sport_id,'delete-modal')">
-                                    <div class="visible content"><i class="trash icon"> </i></div>
-                                    <div class="hidden content"> Delete </div>
-                                </div>
-                               
-                            </td>
-
-                        </tr>
-                                  <div class="ui modal" id="edit-modal">
+                                <div class="ui modal" id="edit-modal">
                                     <div class="header"> UPDATE SPORT</div>
                                     <div class="content">
                                         <div class="ui form">
@@ -57,8 +42,16 @@
                                         </div>
                                     </div>
                                 </div>
-
-                     <div class="ui basic modal" id="delete-modal">
+                                <div class="ui animated button edit-trigger" ng-click="sport.setCurrentId(x.sport_id,'edit-modal')">
+                                    <div class="visible content"><i class="edit icon"> </i></div>
+                                    <div class="hidden content"> Edit </div>
+                                </div>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <div class="ui animated button delete-trigger" ng-click="sport.setCurrentId(x.sport_id,'delete-modal')">
+                                    <div class="visible content"><i class="trash icon"> </i></div>
+                                    <div class="hidden content"> Delete </div>
+                                </div>
+                                <div class="ui basic modal" id="delete-modal">
                                     <div class="ui icon header">
                                         <i class="trash icon"></i> DELETE
                                     </div>
@@ -71,6 +64,10 @@
                                         </div>
                                     </div>
                                 </div>
+                            </td>
+
+                        </tr>
+
                     </tbody>
                     <tfoot class="full-width">
                         <tr>
@@ -91,14 +88,14 @@
                     <div class="ui form">
                         <div class="field">
                             <label>Sport Name</label>
-                            <input type="text" ng-model="sport.addSportName">
+                            <input type="text" ng-model="sport.addSportName" id="add-sport-name">
                         </div>
                     </div>
                     <div class="actions">
                         <div class="ui red basic cancel inverted button" ng-click="sport.closeModal('addSport-modal')">
                             Cancel
                         </div>
-                        <div ng-click="sport.addSport();sport.closeModal('addSport-modal')" class="ui green ok inverted button">
+                        <div ng-click="sport.addSport();sport.closeModal('addSport-modal')" class="ui green ok inverted button" id="add-sport-button">
                             <i class="checkmark icon"></i> Yes
                         </div>
                     </div>

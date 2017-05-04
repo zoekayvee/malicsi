@@ -4,118 +4,116 @@
 <link rel='stylesheet' href='semantic-ui-calendar/dist/calendar.css' />
 <script src="semantic-ui-calendar/dist/calendar.js"></script>
 
-<script>
-    $('#start-date-pick').calendar();
-    $('#end-date-pick').calendar();
-</script>
-
-
 <div id="main-wrapper" ng-controller="profileController as user">
     <div class="ui grid container">
         <div class="five wide column">
             <div class="ui center aligned segment">
 
                 <!--User image-->
-                <img class="ui centered small circular image" src="{{user.user.profilepic}}">
+                <img class="ui centered" src="{{user.user.profilepic}}" id="profile-image">
                 <h2 class="ui centered header" id="header-section">
                     {{user.user.firstname + " " + user.user.lastname}}
+                    <a ng-click="user.openModal('update-modal')">
+                        <i class="edit icon"></i>
+                    </a>
                     <div class="sub header" id="header-section">
-                      {{user.user.location}}
+                        {{user.user.location}}
                     </div>
                 </h2>
-
-                <button class="ui basic button" id="updateButton" ng-click="user.openModal('update-modal')">
-                    <i class="edit icon"></i>
-                    Update
-                </button>
 
                 <div>
                     <label for="file" ng-show="!user.files[0]" class="ui icon button">
                         <i class="file icon"></i>
-                        Change Picture</label>
+                        Change Picture
+                    </label>
                     <label for="file" ng-show="user.files[0]" ng-click="user.updateProfilePic()" class="ui icon green button">
                         <i class="file icon"></i>
-                        Save Picture</label>
+                        Save Picture
+                    </label>
                     <input type="file" id="file" file-input="user.files" style="display:none">
+
                 </div>
 
+
                 <!-- update profile -->
-                <div class="ui modal " id="update-modal">
+                <div class="ui modal" id="update-modal">
                     <div class="header">Update Profile</div>
                     <div class="content">
                         <form ng-controller="profileController as update">
                             <div class="ui form">
-                                <div class="fields">
+
+                                <div class="equal width fields">
                                     <div class="field">
                                         <label>Username</label>
-                                        <input type="text" placeholder="{{update.user.username}}" ng-model="username">
+                                        <input type="text" placeholder="{{admin.newUser.username}}" ng-model="username">
                                     </div>
                                     <div class="field">
                                         <label>Password</label>
                                         <input type="password" ng-model="password">
                                     </div>
+                                </div>
+
+                                <div class="equal width fields">
+                                    <div class="field">
+                                        <label>First name</label>
+                                        <input type="text" placeholder="{{admin.newUser.firstname}}" ng-model="firstname">
+                                    </div>
+                                    <div class="field">
+                                        <label>Last name</label>
+                                        <input type="text" placeholder="{{admin.newUser.lastname}}" ng-model="lastname">
+                                    </div>
+                                </div>
+
+                                <div class="equal width fields">
                                     <div class="field">
                                         <label>Location</label>
                                         <input type="text" placeholder="Country/City" ng-model="location">
                                     </div>
                                     <div class="field">
                                         <label>College</label>
-                                        <input type="text" placeholder="{{update.user.college}}" ng-model="college">
+                                        <input type="text" placeholder="{{admin.newUser.college}}" ng-model="college">
                                     </div>
                                     <div class="field">
+                                        <label>E-mail</label>
+                                        <input type="email" placeholder="{{admin.newUser.email}}" ng-model="email">
+                                    </div>
+                                    <div class="field">
+                                        <label>Contact Number</label>
+                                            <input type="text" placeholder="{{admin.newUser.contactno}}" ng-model="contactno">
+                                    </div>
+                                </div>
+
+                                <div class="equal width fields">
+                                    <div class="field">
                                         <label>Age</label>
-                                        <input type="text" placeholder="{{update.user.age}}" ng-model="age">
+                                        <input type="text" placeholder="{{admin.newUser.age}}" ng-model="age">
                                     </div>
                                     <div class="field">
                                         <label>Height</label>
-                                        <input type="text" placeholder="{{update.user.height}}" ng-model="height">
+                                        <input type="text" placeholder="{{admin.newUser.height}}" ng-model="height">
                                     </div>
                                     <div class="field">
                                         <label>Weight</label>
-                                        <input type="text" placeholder="{{update.user.weight}}" ng-model="weight">
-                                    </div>
-                                </div>
-                                <div class="equal width fields">
-                                    <div class="field">
-                                        <label>First name</label>
-                                        <input type="text" placeholder="{{update.user.firstname}}" ng-model="firstname">
+                                        <input type="text" placeholder="{{admin.newUser.weight}}" ng-model="weight">
                                     </div>
                                     <div class="field">
-                                        <label>Last name</label>
-                                        <input type="text" placeholder="{{update.user.lastname}}" ng-model="lastname">
-                                    </div>
-                                </div>
-                                <div class="ui equal width form">
-                                    <div class="fields">
-                                        <div class="field">
-                                            <label>E-mail</label>
-                                            <input type="email" placeholder="{{update.user.email}}" ng-model="email">
-                                        </div>
-                                        <div class="field">
-                                            <label>Contact Number</label>
-                                            <input type="text" placeholder="{{update.user.contactno}}" ng-model="contactno">
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="field">
-                                    <label>Gender</label>
-                                    <select class="ui selection dropdown" ng-model="gender">
-                                                <option value="M">Male</option>
-                                                <option value="F">Female</option>
+                                        <label>Gender</label>
+                                        <select class="ui selection dropdown" ng-model="gender">
+                                            <option value="M">Male</option>
+                                            <option value="F">Female</option>
                                         </select>
+                                    </div>
                                 </div>
-
                             </div>
+
                             </br>
-                            <div class="ui actions">
-                                <!--Button for cancel update profile-->
-                                <button class="ui button event" id="cancel-update" ng-click="update.closeModal('update-modal')">
-                                        Cancel
-                                    </button>
-                                <!--Button submit updated profile-->
+                            <div class="ui actions align right">
                                 <button class="ui primary button" type="submit" ng-click="update.updateUser(update.user,username,password,location,college,age,height,weight,firstname,lastname,email,contactno,gender)">
-                                        Update
-                                    </button>
+                                    Update
+                                </button>
+                                <button class="ui button event" id="cancel-update" ng-click="update.closeModal('update-modal')">
+                                    Cancel
+                                </button>
                             </div>
                         </form>
                     </div>
@@ -165,54 +163,56 @@
                 <div class="eight wide column">
                     <div class="ui segment" id="user-interest">
                         <h3 class="ui right floated header">
-                             <img src="images/interest.png" class="ui mini rounded image">
-                            INTERESTS
-                        </h3>
+                        <img src="images/interest.png" class="ui mini rounded image">
+                        INTERESTS
+                    </h3>
                         <div class="ui clearing divider"></div>
 
                         <form ng-controller="profileController as update">
-                            <select class="ui selection dropdown" ng-model="update.interests">
-                                <option value="Badminton">Badminton</option>
-                                <option value="Baseball">Baseball</option>
-                                <option value="Basketball">Basketball</option>
-                                <option value="Chess">Chess</option>
-                                <option value="Lawn Tennis">Lawn Tennis</option>
-                                <option value="Swimming">Swimming</option>
-                                <option value="Table Tennis">Table Tennis</option>
-                                <option value="Volleyball">Volleyball</option>
-                            </select>
-                            <button class="ui button" type="submit" id="add-interest" ng-click="update.updateInterest()">ADD</button>
+                            <select class="ui search dropdown" ng-model="update.interests" style="width: 85%">
+                            <option value="Badminton">Badminton</option>
+                            <option value="Baseball">Baseball</option>
+                            <option value="Basketball">Basketball</option>
+                            <option value="Chess">Chess</option>
+                            <option value="Lawn Tennis">Lawn Tennis</option>
+                            <option value="Swimming">Swimming</option>
+                            <option value="Table Tennis">Table Tennis</option>
+                            <option value="Volleyball">Volleyball</option>
+                        </select>
+                            <button class="ui icon button" type="submit" id="add-interest" ng-click="update.updateInterest()">
+                            <i class="plus icon"></i>
+                        </button>
                         </form>
                         <div class="ui clearing divider"></div>
 
-                        <div class="ui very relaxed list">
+                        <div class="ui list">
                             <div class="item" ng-repeat="interest in user.userInterests">
-                                <p>
-                                    <div class="content">
-                                        <a class="header">{{interest.interests}}
-                                        <button class="ui right floated mini button" id="delete-interest" ng-click="user.deleteInterest(interest.interests)">DELETE</button>
-                                    </a>
-                                    </div>
-                                </p>
+                                <div class="content">
+                                    <a class="header">{{interest.interests}}
+                                    <button class="ui right floated mini button" id="delete-interest" ng-click="user.deleteInterest(interest.interests)">
+                                        DELETE
+                                    </button>
+                                </a>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <!--End of User Interests-->
 
                 <!--List of Teams-->
                 <div class="eight wide column" ng-controller="teamController as teamC">
                     <div class="ui center aligned segment" id="list-of-teams">
                         <h3 class="ui right floated header">
-                            <img src="/images/team.jpg" class="ui mini rounded image">
+                        <img src="/images/team.jpg" class="ui mini rounded image">
                         TEAMS
-                        </h3>
+                    </h3>
                         <div class="ui clearing divider"></div>
-
-                        <div class="ui tiny images" ng-repeat="team in user.userTeams">
-                            <a class="ui image" href="" ng-click="teamC.viewTeam(team.team_id)">
-                                <img src="/images/icon_team.svg"> {{team.team_name}}
-                            </a>
+                        <div class="ui relaxed divided list">
+                            <div class="right align item team-item" ng-repeat="team in user.userTeams">
+                                <a class="" href="" ng-click="teamC.viewTeam(team.team_id)">
+                                    <img class="ui avatar image" src="/images/icon_team.svg">{{team.team_name}}
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -222,11 +222,11 @@
             <div class="ui segment">
                 <!--Events-->
                 <h3 class="ui right floated header">
-                    EVENTS
-                </h3>
+                EVENTS
+            </h3>
                 <button class="ui button" id="create" ng-click="user.openModal('event-modal')">
-                    Create
-                </button>
+                Create
+            </button>
                 <div class="ui clearing divider"></div>
                 <!--End of Events-->
 
@@ -246,8 +246,8 @@
 
             <div class="ui segment">
                 <h3 class="ui right floated header">
-                    GAMES
-                </h3>
+                GAMES
+            </h3>
                 <div class="ui clearing divider"></div>
 
                 <!--LIST OF EVENTS-->

@@ -1,8 +1,12 @@
+#main-wrapper {
+    margin-bottom: 50px !important;
+}
+
+.button-wrapper {
+    text-align: center !important;
+}
+
 .command-button {
-    display: inline-block;
-    float: left;
-    width: 50px !important;
-    color: white;
 }
 
 #accept {
@@ -32,12 +36,6 @@ a {
     text-align: center;
 }
 
-.button-wrapper {
-    border: soild 1px red;
-    width: 100%;
-    text-align: center;
-}
-
 .segment {
     color: #999999;
 }
@@ -51,4 +49,27 @@ a {
     border-top: solid 3px #de1b1b !important;
     font-weight: bold;
     color: black;
+}
+
+.search-bar {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+#user-table {
+    width: 100% !important;
+}
+
+.ui.table {
+    width: 100%;
+}
+
+td,
+th {
+    border: 1px solid #dddddd;
+    padding: 8px;
+}
+.ui.animated.button,#edit {
+	background-color: #de1b1b;
+	color: white;
 }
