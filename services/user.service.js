@@ -75,6 +75,8 @@ exports.login=(req,res)=>{
 
 exports.logout=(req,res)=>{
 	if(req.session){
+		req.session.userid=null;
+		req.session.usertype=null;
 		req.session.destroy(function(err){
 			res.json({
 				redirect: '/#!/'

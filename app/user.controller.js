@@ -4,7 +4,7 @@
 		.module('malicsi')
 		.controller('userController', userController);
 
-	function userController($http){
+	function userController($http, $window){
 		var vm = this;
 		vm.username="";
 		vm.password="";
@@ -125,7 +125,9 @@
 	     			.then(function(response) {
 	     				var redirect = response.data.redirect;
 	     				toastr.success('Logged out.');
-	     				window.location.href=redirect;
+	     				//$route.reload();
+	     				//window.location.href=redirect;
+	     				$window.location.reload(true)
 	     				vm.hasUser=false;
 	     				 vm.user = {};
 	     			});
