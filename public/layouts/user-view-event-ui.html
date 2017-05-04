@@ -1,17 +1,8 @@
 <link rel='stylesheet' href='css/user-view-event.css' />
 <link rel='stylesheet' href='semantic-ui-calendar/dist/calendar.css' />
 
-<script type='text/javascript' src='js/user-event.js'></script>
+<script type='text/javascript' src='js/user-view-event.js'></script>
 <script src="semantic-ui-calendar/dist/calendar.js"></script>
-<script type="text/javascript" src="jquery.js"></script>
-
-<script type="text/javascript">
-$(function() {
-    $('.ui.dropdown').dropdown();
-});
-$('#start-date-pick').calendar();
-$('#end-date-pick').calendar();
-</script>
 
 <div id="main-wrapper" ng-controller="eventController as event">
     <div class="ui grid container" ng-controller="loggedUserController as logged">

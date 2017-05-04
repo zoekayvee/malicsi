@@ -131,3 +131,7 @@ body {
 .request-decline button {
     background-color: #F6F6F6;
 }
+
+#membership-request-panel {
+    margin-bottom: 20px;
+}
