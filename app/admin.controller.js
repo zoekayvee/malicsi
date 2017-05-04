@@ -121,6 +121,7 @@
 			var editUser=vm.user;
 			var flag="false";
 
+			console.log(vm.user);
 			if(uname == "" || typeof(uname)== 'undefined'){
                 uname= user.username
             }
@@ -164,14 +165,14 @@
             editUser.contactno=contactno;
             editUser.user_type=user_type
             editUser.flag=flag;
-
+            console.log(editUser.user_id);
             $http
             	.put('/users/passwords/' + editUser.user_id, editUser)
             	.then(function(response){
             		delete editUser.flag;
             		
             	});
-
+           	
            	window.location.reload();
 		}
 
@@ -192,6 +193,7 @@
 		//added, the user_id should not be passed when there's modal
 		function initialize(user){
 			vm.user=user;
+			console.log(user);
 		}
 	}
 })();
