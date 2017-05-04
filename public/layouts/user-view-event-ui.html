@@ -130,7 +130,7 @@
         </a>
 
         <div ng-controller="gameController as game">
-            <div ng-show="logged.userId == event.currentUserId || logged.userType=='admin'" class="ui right floated small primary labeled icon button" ng-click="game.openModal('addGame-modal')">
+            <div class="ui right floated small primary labeled icon button" ng-show="logged.userId == event.currentUserId || logged.userType=='admin'" ng-click="game.openModal('addGame-modal')">
                 <i class="add square icon"></i> Add Game
             </div>
             <br><br>
