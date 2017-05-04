@@ -52,7 +52,7 @@
         vm.getOverallRanking = getOverallRanking;
         vm.overallList = null;
         vm.getCheckers=getCheckers;
-
+        vm.thisTeamName;
         vm.currentUserId=null;
 
         $http
@@ -214,11 +214,14 @@
 
 	    function viewTeamInGame(){
 	    	console.log($routeParams.game_id);
+	    	var team = {
+	    		event_id: $routeParams.event_id
+	    	}
 	    	$http
-	    		.get('/teams/in_game/' + $routeParams.game_id)
+	    		.post('/teams/in_game/' + $routeParams.game_id,team)
 	    		.then(function(response){
 		    			vm.allTeams = response.data;
-		    			console.log(response.data.team_name);
+		    			console.log(response.data);
 		    			console.log('Viewing All Available Teams')
 		    		}, function(response){
 		    			console.log("Error: Cannot retrieve teams");
@@ -246,6 +249,8 @@
 	    			console.log(response);
 	    			vm.allTeams = [];
 	    			vm.allTeams = response.data;
+	    			vm.teamName = response.data[0].team_name;
+	    			console.log("CURRENT TEAM"+vm.thisTeamName);
 	    			getTeamPlayers();
 	    		},
 	    		function(response){
@@ -346,9 +351,10 @@
 		}
 
 
-		function setTeamName(team_name){
-			vm.teamName = team_name;
-			console.log("SET TEAM NAME" + vm.teamName);
+		function setTeamName(){
+			
+			console.log("SET TEAM NAME" + vm.thisTeamName);
+
 		}
 
 		function getTeamId(team_name,event_id){

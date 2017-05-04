@@ -59,8 +59,11 @@ exports.viewGamesBySport = (req,res) =>{
 
 // VIEWING INDIVIDUAL GAME THROUGH 'game_id' (JOINED WITH TABLES (VENUE, SPORTS, TEAM, TEAM_PLAYS_GAME`))
 exports.viewGame = (req,res) =>{
-	var query = 'call viewGame(?)';
+	var query = 'SELECT distinct G.event_event_id,S.sport_name, G.game_id, A.team_name, A.team_id, T1.bet_count, T1.team_id, B.team_name as team_name_2, B.team_id as team_id_2, T2.bet_count as bet_count_2, T2.team_id as team_id_2,winner_team_id FROM team A, team B, game G, venue V, sport S,team_plays_game T1,team_plays_game T2,game_score GS, game_score GS2 WHERE A.team_id IN (SELECT team_id FROM team_plays_game WHERE game_id = ?) AND B.team_id IN (SELECT team_id FROM team_plays_game WHERE game_id = ?) AND A.team_id != B.team_id AND S.sport_id = G.sport_id AND T1.team_id = A.team_id AND T2.team_id = B.team_id AND T1.game_id = T2.game_id AND T1.game_id = ? AND G.game_id = ? LIMIT 1';
 	const data = [
+		req.params.game_id,
+		req.params.game_id,
+		req.params.game_id,
 		req.params.game_id
 	];
 	var id = connection.query(
@@ -69,7 +72,7 @@ exports.viewGame = (req,res) =>{
 		(err, rows) => {
 			if(!err){
 				console.log("Viewing Game Success");
-				res.send(rows[0][0]);
+				res.send(rows);
 			}
 			else{
 				console.log(err);

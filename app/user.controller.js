@@ -16,7 +16,7 @@
         vm.firstname = "";
 		vm.lastname = "";
 		vm.newUser = {};
-
+		vm.flag=false;
 
 
 		vm.registerUser=registerUser;
@@ -107,9 +107,12 @@
 					vm.password= vm.newUser.password;
 					vm.newUser={};
 					toastr.success('Successfully sent account approval to admin!');
+					setTimeout(function(){
+						redirectLocation('no');
+					}, 1000);
 				},
 				function(response){
-					//toastr.error('Error in input!');
+					toastr.error('Error in input!');
 					console.log('Error');
 					setTimeout(function(){
 						redirectLocation('no');
