@@ -158,15 +158,15 @@
                             <div class="ui modal" id="add-modal">
                                 <div class="header"> ADD USER</div>
                                 <div class="content">
-                                    <div class="ui form">
+                                    <form name="myForm" class="ui medium form">
                                         <div class="fields">
                                             <div class="field">
                                                 <label>Username</label>
-                                                <input type="text" ng-model="admin.newUser.username">
+                                                <input type="text" ng-model="admin.newUser.username" required>
                                             </div>
                                             <div class="field">
                                                 <label>Password</label>
-                                                <input type="password" ng-model="admin.newUser.password">
+                                                <input type="password" ng-model="admin.newUser.password" required>
                                             </div> <!-- added field password -->
                                             <div class="field">
                                                 <label>College</label>
@@ -184,11 +184,11 @@
                                         <div class="equal width fields">
                                             <div class="field">
                                                 <label>First name</label>
-                                                <input type="text" ng-model="admin.newUser.firstname">
+                                                <input type="text" ng-model="admin.newUser.firstname" required>
                                             </div>
                                             <div class="field">
                                                 <label>Last name</label>
-                                                <input type="text" ng-model="admin.newUser.lastname">
+                                                <input type="text" ng-model="admin.newUser.lastname" required>
                                             </div>
                                         </div>
                                         <div class="ui equal width form">
@@ -203,10 +203,10 @@
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </form>
                                     <br>
                                     <div class="ui button" id="cancel" ng-click="admin.closeModal('add-modal')">Cancel</div>
-                                    <div class="ui button" ng-click="admin.addUser()">Submit</div>
+                                    <button ng-disabled="myForm.$invalid" class="ui button" ng-click="admin.addUser()">Submit</button>
                                 </div>
                             </div>
                         </th>
