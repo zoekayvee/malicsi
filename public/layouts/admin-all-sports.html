@@ -1,20 +1,19 @@
 <link rel="stylesheet" href="css/admin.css"></link>
-<link rel="stylesheet" type="text/css" href="css/admin_homepage.css"> </link>
+<link rel="stylesheet" type="text/css" href="css/admin-homepage.css"> </link>
 <script type='text/javascript' src='js/admin.js'></script>
 
 <div class="ui container" id="main-wrapper">
-    <div class="ui card" id="main_card">
+    <div class="" id="main-card">
         <div class="content">
-            <div class="ui row">
-                <div class="ui horizontal center aligned segments" id="segment">
-                    <a class="ui segment" href="/#!/admin/all-users"> Users </a>
-                    <a class="ui segment" href="/#!/admin/all-events"> Events </a>
-                    <a class="ui segment" href="/#!/admin/all-games"> Games </a>
-                    <a class="ui segment" href="/#!/admin/all-sports"> Sports </a>
-                    <a class="ui segment" href="/#!/admin/all-sponsors"> Sponsors </a>
-                </div>
+            <div class="ui horizontal center aligned segments" id="segment">
+                <a class="ui segment" href="/#!/admin">Requests</a>
+                <a class="ui segment" href="/#!/admin/users">Users</a>
+                <a class="ui segment" href="/#!/admin/events">Events</a>
+                <a class="ui segment" href="/#!/admin/event/1/games">Games</a>
+                <a class="active-tab ui segment" href="/#!/admin/sports">Sports</a>
+                <a class="ui segment" href="/#!/admin/sponsors">Sponsors</a>
             </div>
-
+        </div>
 
             <div class="ui row" ng-controller="sportController as sport">
                 <table class="ui center aligned table">
@@ -74,7 +73,7 @@
                     <tfoot class="full-width">
                         <tr>
                             <th colspan="100%">
-                                <div class="ui right floated small primary labeled icon button" ng-click="sport.openModal('add-modal')">
+                                <div class="ui right floated small primary labeled icon button" ng-click="sport.openModal('addSport-modal')">
                                     <i class="add square icon"></i> Add Sports
                                 </div>
                             </th>
@@ -83,7 +82,7 @@
                     </tfoot>
                 </table>
 
-                <div class="ui basic modal" id="add-modal">
+                <div class="ui basic modal" id="addSport-modal">
                     <div class="ui icon header">
                         Add Sport
                     </div>
@@ -94,10 +93,10 @@
                         </div>
                     </div>
                     <div class="actions">
-                        <div class="ui red basic cancel inverted button" ng-click="sport.closeModal('add-modal')">
+                        <div class="ui red basic cancel inverted button" ng-click="sport.closeModal('addSport-modal')">
                             Cancel
                         </div>
-                        <div ng-click="sport.addSport()" class="ui green ok inverted button">
+                        <div ng-click="sport.addSport();sport.closeModal('addSport-modal')" class="ui green ok inverted button">
                             <i class="checkmark icon"></i> Yes
                         </div>
                     </div>

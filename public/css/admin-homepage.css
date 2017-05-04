@@ -1,0 +1,54 @@
+.command-button {
+    display: inline-block;
+    float: left;
+    width: 50px !important;
+    color: white;
+}
+
+#accept {
+    background-color: #32CD32;
+}
+
+#decline {
+    background-color: #333;
+}
+
+#accept:hover, #decline:hover {
+    background-color: #de1b1b;
+    transform: scale(1.1);
+}
+
+a {
+    color: black;
+}
+
+#main-card {
+}
+
+#segment {
+}
+
+#card {
+    text-align: center;
+}
+
+.button-wrapper {
+    border: soild 1px red;
+    width: 100%;
+    text-align: center;
+}
+
+.segment {
+    color: #999999;
+}
+
+.segment:hover {
+    color: black;
+}
+
+.active-tab {
+    /*transform: scale(1.1) !important;*/
+    border-top: solid 3px #de1b1b !important;
+    font-weight: bold;
+    color: black;
+}

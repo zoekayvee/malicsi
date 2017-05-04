@@ -42,3 +42,87 @@ exports.viewTeamPlayGame = (req,res) => {
 		}
 	})
 }
+
+exports.viewLatestEvent = (req,res) => {
+	const query_string = "SELECT event_name,event.event_id,date_start,user_event.user_id User_From_Event from event JOIN user_event ON event.event_id = user_event.event_id where user_event.user_id = ? ORDER BY date_start";
+	const data = [req.params.user_id];
+
+	connection.query(query_string,data,(err,rows) =>{
+		if(!err){
+			res.status(200).send(rows[0]);
+		}
+		else{
+			res.status(500).send(err);
+		}
+	})
+}
+
+exports.getPlayerRequests = (req, res, next) => {
+	var query = 'select * from (select * from (select * from (select * from ( select event_id,event_name,date_start,date_end from users NATURAL JOIN event where event.status="accepted" and users.user_id=?)a natural join team_joins_event)b NATURAL JOIN team)c NATURAL JOIN team_players)d NATURAL JOIN users';
+	const data = [
+		req.params.user_id
+	];
+	var id = connection.query(
+		query,
+		data,
+		(err, row, fields) => {
+			if(!err){
+				console.log(row);
+				res.status(200).send(row);
+				
+			}
+			else{
+				console.log(err);
+				res.status(500).send('Server error');
+			}
+	});
+}
+
+exports.approveTeamPlayer = (req,res) =>{
+	const query_string = 'call creatorApprovesPlayer(?,?,?)';
+	const req_data = [
+		req.body.user_id,
+		req.body.team_id,
+		req.body.event_id
+	];
+    connection.query(query_string, req_data, (err,result) => {
+    	if (!err) {
+			res.status(200).send(result);
+			} else {
+				console.log(err);
+				res.status(500).send(err);
+			}
+    })
+} 
+
+exports.disapproveTeamPlayer = (req,res) =>{
+	const query_string = 'call creatorDisapprovesPlayer(?,?)';
+	const req_data = [
+		req.body.user_id,
+		req.body.team_id
+	];
+    connection.query(query_string, req_data, (err,result) => {
+    	if (!err) {
+			res.status(200).send(result);
+			} else {
+				console.log(err);
+				res.status(500).send(err);
+			}
+    })
+} 
+
+exports.viewEventUsingInterest = (req,res) => {
+	const query_string = "SELECT user_id,D.event_id,event_name,date_start,sport_name from user_event JOIN (SELECT event_id,event_name,date_start,sport_name from event JOIN (select * from event_has_sport JOIN (select * from user_interests JOIN sport on user_interests.interests = sport_name) B ON h_sport_id = B.sport_id) C ON event.event_id = h_event_id) D ON user_event.event_id != D.event_id WHERE user_id = ?";
+	const data = [req.params.user_id];
+
+	connection.query(query_string,data,(err,rows) =>{
+		if(!err){
+			res.status(200).send(rows);
+		}
+		else{
+			console.log(err)
+			res.status(500).send(err);
+		}
+	})
+}
+ 

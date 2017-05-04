@@ -4,12 +4,12 @@
 	.module('malicsi')
 	.controller('gameController',gameController);
 
-	function gameController($http,$routeParams){
+	function gameController($http,$location,$routeParams){
 		var vm = this;
 		
 		vm.game = null;
 		vm.allGames = null;
-		vm.game_id;
+		vm.game_id = "";
 		vm.user_id = 1;
 		vm.score = 0;
 		vm.score2 = 0;
@@ -29,6 +29,7 @@
 		vm.addSportId = null;
 		vm.addVenueId = null;
 		vm.addEventId = null;
+		vm.currentId = null;
 		vm.addDate = null;
 		vm.addTime = null;
 		vm.addDuration = null;
@@ -49,13 +50,33 @@
         vm.setWinner = setWinner;
         vm.winnerTeamId = null;
         vm.updateScores = updateScores;
+        vm.viewThreeScoreboard = viewThreeScoreboard;
+        vm.gameThreeScoreboard = [];
+        vm.viewGameFromScoreboard = viewGameFromScoreboard;
+        vm.viewGamePage = viewGamePage;
+        vm.currentGamesTeam = null;
+        vm.viewCurrentGamesByTeam = viewCurrentGamesByTeam;
+        vm.interval = 0;
+        vm.incrementInterval = incrementInterval;
+        vm.decrementInterval = decrementInterval;
+        vm.date = null;
+        vm.getDate = getDate;
+        vm.allAcceptedGames=[];
+        vm.viewAllAcceptedGames=viewAllAcceptedGames;
+        vm.addGameEvent = addGameEvent;
+        vm.viewEvent = viewEvent;
+        vm.viewGameInGamePage = viewGameInGamePage;
+        vm.eventidroute = $routeParams.event_id;
+        vm.viewAdminGame = viewAdminGame;
+        vm.addAdminGame = addAdminGame;
+        // vm.viewPastGamesUser = viewPastGamesUser;
+        // vm.pastGamesUser = [];
 
 		viewAllGames();
 
 		function setCurrentId(id,dmodal){
-            console.log(id);
             openModal(dmodal)
-            vm.currentId = id;
+            vm.game_id = id;
         }
 
         function setVenueId(id){
@@ -87,6 +108,51 @@
 			});
 
 		}
+
+		function addAdminGame(){
+			var gameToBeAdded = {
+				sport_id: vm.addSportId.sport_id,
+				venue_id: vm.addVenueId.venue_id,
+				event_id: $routeParams.event_id,
+				date_start: vm.addDate,
+				time_start: vm.addTime,
+				duration: vm.addDuration,
+				referee: vm.addReferee
+			}
+			$http
+				.post('/game',gameToBeAdded)
+				.then(function(response){
+					viewAllGames();
+					console.log('Adding Game Successful!');
+			},
+			function(response){
+				console.log('Error');
+			});
+
+		}
+
+		function addGameEvent(){
+			var gameToBeAdded = {
+				sport_id: vm.addSportId.sport_id,
+				venue_id: vm.addVenueId.venue_id,
+				event_id: $routeParams.event_id,
+				date_start: vm.addDate,
+				time_start: vm.addTime,
+				duration: vm.addDuration,
+				referee: vm.addReferee
+			}
+			$http
+				.post('/game',gameToBeAdded)
+				.then(function(response){
+					viewAllGames();
+					console.log('Adding Game Successful!');
+			},
+			function(response){
+				console.log('Error');
+			});
+
+		}
+
 		function viewGame(){
 			$http
 				.get('/game/' + $routeParams.game_id)
@@ -100,6 +166,84 @@
 			function(response){
 				console.log('Error Viewng Game');
 			});
+		}
+
+		function viewGameInGamePage(){
+			$http
+				.get('/game/' + $routeParams.game_id)
+				.then(function(response){
+					vm.game = response.data[0];
+					vm.winnerTeamId = vm.game.winner_team_id;
+					vm.getScores(vm.game);
+					vm.getScores2(vm.game);
+					console.log('Viewing Game Successful');
+			},
+			function(response){
+				console.log('Error Viewng Game');
+			});
+		}
+		
+		function viewGamePage(game_id){
+            window.location.href = '#!/event/' + $routeParams.event_id + '/game/' + game_id;
+		}
+
+		function viewAdminGame(eventid) {
+			$location.path('/admin/event/' + eventid + '/games');
+		}
+
+		function viewThreeScoreboard(){
+			$http
+				.get('/game/score/' + $routeParams.event_id)
+				.then(function(response){
+					vm.gameThreeScoreboard = response.data;
+					console.log('Viewing Scoreboard in Event Page Successful');
+			},
+			function(response){
+				console.log('Error Viewing Scoreboard');
+			});
+		}
+
+		function viewCurrentGamesByTeam(){
+			var data ={
+				interval: vm.interval
+			}
+			$http
+				.post('/game/team/' + $routeParams.team_id,data)
+				.then(function(response){
+					vm.currentGamesTeam = response.data;
+					// vm.date = response.data[0].date_start;
+					console.log('Viewing Current Games per Team Successful');
+			},
+			function(response){
+				console.log('Error Viewing Scoreboard');
+			});
+		}
+
+		function getDate(){
+			$http
+				.get('/game/date/' + vm.interval)
+				.then(function(response){
+					vm.date = response.data[0].date;
+			},
+			function(response){
+				console.log('Error Viewing Date');
+			});
+		}
+
+		function incrementInterval(){
+			vm.interval = vm.interval + 1;
+			vm.date = vm.date + 1;
+			viewCurrentGamesByTeam();
+		}
+
+		function decrementInterval(){
+			vm.interval = vm.interval - 1;
+			vm.date = vm.date - 1;
+			viewCurrentGamesByTeam();
+		}
+
+		function viewGameFromScoreboard(game_id){
+			$location.path('/event/' + $routeParams.event_id + '/game/' + game_id)
 		}
 
 		function canBet(){
@@ -131,6 +275,18 @@
 			});
 
 		}
+		function viewAllAcceptedGames(){
+			$http
+				.get('/games/accepted')
+				.then(function(response){
+						console.log('Viewing All Accepted Games Successful');
+						vm.allAcceptedGames = response.data;
+				},
+				function(response){
+					console.log('Error Viewing All Games');
+				});
+		}
+
 		function viewAllGames(){
 			$http
 				.get('/game')
@@ -166,8 +322,10 @@
 				duration: vm.updateDuration,
 				referee: vm.updateReferee
 			}
+			console.log(vm.game_id);
+			console.log(id);
 			$http
-				.put('/game/' + id, updatedGames)
+				.put('/game/' + vm.game_id, updatedGames)
 				.then(function(response){
 					viewAllGames();
 					console.log('Updating Game Successful!');
@@ -180,7 +338,7 @@
 		function deleteGame(id){
 
 			$http
-				.delete('/game/' + id)
+				.delete('/game/' + vm.game_id)
 				.then(function(response){
 					viewAllGames();
 					console.log('Deleting Game Successful!');
@@ -224,6 +382,12 @@
 			});
 		}
 
+
+        function viewEvent(id){
+            console.log("VIEW EVENT" + id)
+            $location.path('/events/' + id)
+        }
+
 		function updateScores(team1,team2){
 			var scoreDetails = {
 				score1: vm.updateScore,
@@ -243,10 +407,6 @@
 		}
 
 		function setWinner(){
-			console.log(vm.game.team_id);
-			console.log(vm.game.team_id_2);
-			console.log(vm.score);
-			console.log(vm.score2);
 			if(vm.score > vm.score2) vm.winnerTeamId = vm.game.team_id;
 			else vm.winnerTeamId = vm.game.team_id_2;
 			
@@ -254,6 +414,13 @@
 				winner_team_id: vm.winnerTeamId,
 				game_id: $routeParams.game_id
 			}
+
+			if(vm.score == vm.score2){
+				winnerToBeAdded.winner_team_id = 0;
+				vm.winnerTeamId = 0;
+			}
+			openModal("tie-modal");
+
 			$http
 				.post('/winner',winnerToBeAdded)
 				.then(function(response){

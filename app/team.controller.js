@@ -4,7 +4,7 @@
 		.module('malicsi')
 		.controller('teamController', teamController);
 
-	function teamController($http,$location,$routeParams){
+	function teamController($http,$location,$routeParams,$window,$route){
 		var vm = this;
 
 		vm.userId = "";
@@ -17,7 +17,9 @@
     	vm.eventId = "";
 	    vm.addTeam = addTeam;
 	    vm.allTeams = [];
+	    vm.allPlayers=[];
 	    vm.viewAllTeam = viewAllTeam;
+	    vm.viewTeamInGame = viewTeamInGame;
 	    vm.deleteTeam = deleteTeam;
     	vm.viewTeam = viewTeam;
     	vm.teamJointEvent = teamJoinEvent;
@@ -30,12 +32,44 @@
     	vm.viewTeamPerEvent = viewTeamPerEvent;
     	vm.deleteTeamFromEvent = deleteTeamFromEvent;
     	vm.viewAvailableTeams = viewAvailableTeams;
+    	//vm.getCurrentUser=getCurrentUser;
+    	vm.updateFuckingTeam = updateFuckingTeam;
+    	vm.getTeamPlayers=getTeamPlayers;
+    	vm.deleteTeamPlayer=deleteTeamPlayer;
+    	vm.getPlayerCount=getPlayerCount;
     	vm.currentId = null;
         vm.setCurrentId = setCurrentId;
         vm.openModal = openModal;
         vm.closeModal = closeModal;	
-
+        vm.setTeamName = setTeamName;
+        vm.playerStatus="";
+        vm.playerTeamId=null;
+         vm.cancelled=null; 
+        vm.alreadyJoined=null; //for the user/player
         vm.samp = null;
+        vm.getRankingTeam = getRankingTeam;
+        vm.ranking = null;
+        vm.getOverallRanking = getOverallRanking;
+        vm.overallList = null;
+        vm.getCheckers=getCheckers;
+
+        vm.currentUserId=null;
+
+        $http
+    		.get('/user_loggedin')
+    		.then(function(response){
+    			if(response.data){
+    				vm.userId=response.data;
+    			} 			
+    		});
+
+    	$http
+            .get('/events/' + $routeParams.event_id)
+            .then(function(response){
+                if(response.data != undefined){
+                    vm.currentUserId = response.data[0].user_id; 
+                }
+            })
 	    /*---------- view team ---------*/
 
 		function addTeam(event_id) {
@@ -58,26 +92,94 @@
 			});
 		}
 
-		function userJoinTeam(user_id) {
-			var joinTeam = {
-				user_id : user_id,
-				team_id : vm.teamId
-			}
 
+		function getTeamPlayers(){
+			console.log(vm.userId);
+			$http
+	    		.get('/teams/players/'+$routeParams.team_id)
+	    		.then(function(response){
+	    			vm.allPlayers=response.data;
+	    			console.log(vm.allPlayers);
+	    			vm.allPlayers.forEach(function(e){
+		    		 	console.log(e);
+		    		 	if(e.user_id===vm.userId){
+		    		 		vm.playerTeamId= $routeParams.team_id;
+			    			vm.playerStatus=e.player_status;
+			    			vm.alreadyJoined=true;
+			    		}
+			    	});
+    		 });
+	
+		}
+
+		function getPlayerCount(team_id){
+			var res=null;
+			$http
+	    		.get('/teams/players/'+team_id)
+	    		.then(function(response){
+	    			vm.allPlayers=response.data;
+	    			res= vm.allPlayers.length;
+			    });
+
+			return res;
+		}
+
+		function getCheckers(team_id){
+			$http
+	    		.get('/teams/players/'+team_id)
+	    		.then(function(response){
+	    			vm.allPlayers=response.data;
+	    			console.log(vm.allPlayers);
+	    			vm.allPlayers.forEach(function(e){
+		    		 	console.log(e);
+		    		 	if(e.user_id===vm.userId){
+		    		 		vm.playerTeamId= team_id;
+			    			vm.playerStatus=e.player_status;
+			    			vm.alreadyJoined=true;
+			    		}
+			    	});
+    		 });
+		}
+
+		function deleteTeamPlayer(user_id){
+			$http
+	    		.delete('/teams/player_remove/'+$routeParams.team_id+'/'+ user_id)
+	    		.then(function(response){
+	    			vm.alreadyJoined=null;
+	    			vm.cancelled=true;
+	    			getTeamPlayers();
+	    			window.location.reload();
+    		 	} ,function(response){
+					console.log(response.data);
+				});
+		}
+
+		function userJoinTeam(team_id) {
+			var joinTeam = {
+				user_id : vm.userId,
+				team_id : team_id
+			}
+			console.log(joinTeam);
 			$http
 			.post('/teams/join',joinTeam)
 			.then(function(response){
 				console.log(response.data);
-				console.log('Joined team')
+				console.log('Joined team');
+				vm.playerTeamId= team_id;
+				vm.cancelled=false;
+				vm.alreadyJoined=true;
+				vm.playerStatus='pending';
+				getTeamPlayers();
 			},
 			function(response){
+				console.log(response.data);
 				console.log("Error");
 			})
 		}
 
 
 	    function viewTeam(id){
-	    	$location.path('/teams/'+id)
+	    	$location.path('/events/' + $routeParams.event_id + '/team/'+id)
 	    	$http
 	    		.get('/teams/'+id)
 	    		.then(function(response){
@@ -110,9 +212,26 @@
 	    		});
 	    }
 
+	    function viewTeamInGame(){
+	    	console.log($routeParams.game_id);
+	    	var team = {
+	    		event_id: $routeParams.event_id
+	    	}
+	    	$http
+	    		.post('/teams/in_game/' + $routeParams.game_id,team)
+	    		.then(function(response){
+		    			vm.allTeams = response.data;
+		    			console.log(response.data);
+		    			console.log('Viewing All Available Teams')
+		    		}, function(response){
+		    			console.log("Error: Cannot retrieve teams");
+	    		});
+
+	    }
+
 	    function viewAvailableTeams(){
 	    	$http
-	    		.get('/teams/game/' + $routeParams.game_id)
+	    		.get('/teams/game/' + $routeParams.game_id)	
 	    		.then(function(response){
 	    			vm.allTeams = response.data;
 	    			console.log(response.data);
@@ -123,13 +242,14 @@
 	    }
 
 	    function viewClickedTeam(){
-	    	console.log("view clicked team" + $routeParams.team_id);
+	    	console.log("VIEW CLICKED TEAM " + $routeParams.team_id);
 	    	$http
 	    		.get('/teams/' + $routeParams.team_id)
 	    		.then(function(response){
 	    			console.log(response);
 	    			vm.allTeams = [];
 	    			vm.allTeams = response.data;
+	    			getTeamPlayers();
 	    		},
 	    		function(response){
 	    			console.log('Team does not exist');
@@ -153,7 +273,7 @@
 
 
 		function deleteTeamFromEvent(team_id){
-
+			console.log("DELETING TEAM FROM EVENT" + team_id);
 			var deleteFromEvent = {
 				team_id: team_id,
 				event_id: $routeParams.event_id
@@ -178,10 +298,11 @@
 	    /*-------- delete event ------------*/
 	    function deleteTeam(id){
 	    	$http
-	    		.delete('/teams/'+id)
+	    		.delete('/teams_delete/'+$routeParams.team_id)
 	    		.then(function(response){
 	    			console.log('Team deleted')
-	    			//$location.path('/user/team');
+	    			/*$location.path('/events');*/
+	    			 $window.history.back(); 
 	    			viewTeamPerEvent();
 	    		}, function(response){
 	    			console.log("error");
@@ -209,21 +330,28 @@
 
 	    }
 
-	    function updateTeam(){
+	     function updateTeam(){
 		    var updateData = {
 		        team_id : $routeParams.team_id,
 		        team_name : vm.teamName
 	    	}
-
+	    	console.log(updateData);
+	    	console.log("UPDATING " + $routeParams.team_id);
 		    $http
 		        .put('/teams',updateData)
 		        .then(function(response){
-		            console.log('event updated')
-		            viewClickedTeam();
+		            console.log('event updated');
+		            $route.reload();
 		        },
 		        function(response){
 		            console.log("error");
 		        });
+		}
+
+
+		function setTeamName(team_name){
+			vm.teamName = team_name;
+			console.log("SET TEAM NAME" + vm.teamName);
 		}
 
 		function getTeamId(team_name,event_id){
@@ -259,10 +387,31 @@
 	    		.post('/teams/join/game',gameToPlay)
 	    		.then(function(response){
 	    			console.log('Team Joined Event')
+	    			viewTeamInGame();
 	    		}, function(response){
 	    			console.log("error");
 	    		});
 	    }
+
+
+	    function updateFuckingTeam(){
+		    var updateData = {
+		        team_id : $routeParams.team_id,
+		        team_name : vm.teamName
+	    	}
+	    	console.log(updateData);
+	    	console.log("UPDATING " + $routeParams.team_id);
+		    $http
+		        .put('/teams',updateData)
+		        .then(function(response){
+		            console.log('event updated');
+		            $route.reload();
+
+		        },
+		        function(response){
+		            console.log("error");
+		        });
+		}
 
 
 	    function team2PlayGame(gameid,currentTeamId){
@@ -285,6 +434,36 @@
 	    	closeModal('add-modal');
 	    }
 
+	    function getRankingTeam(){
+	        var data = {
+	        	team_id : $routeParams.team_id,
+	        }
+			$http
+				.post('/overallranking/' + $routeParams.event_id, data)
+				.then(function(response){
+					vm.ranking = response.data[0];
+					console.log(response.data);
+					console.log('Viewing Rank Successful');
+			},
+			function(response){
+				console.log('Error Viewing Rank');
+			});
+
+		}
+
+		function getOverallRanking(){
+			$http
+				.get('/overallranking/' + $routeParams.event_id)
+				.then(function(response){
+					vm.overallList = response.data[0];
+					console.log('Viewing Overall Rank Successful');
+			},
+			function(response){
+				console.log('Error Viewing Rank');
+			});
+
+		}
+
 
         function setCurrentId(id,dmodal){
             console.log(id);
@@ -302,6 +481,7 @@
         function closeModal(dmodal){
            $('#'+dmodal+'.modal')
             .modal('hide'); 
+
         }
 
 	}

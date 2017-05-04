@@ -1,20 +1,21 @@
 <link rel="stylesheet" href="css/admin.css"></link>
-<link rel="stylesheet" type="text/css" href="css/admin_homepage.css"> </link>
+<link rel="stylesheet" type="text/css" href="css/admin-homepage.css"> </link>
 <script type='text/javascript' src='js/admin.js'></script>
+<!-- calendar -->
+<script type='text/javascript' src='js/calendar.js'></script> 
 
 <div class="ui container" id="main-wrapper">
-    <div class="ui card" id="main_card">
+    <div class="" id="main-card">
         <div class="content">
-            <div class="ui row">
-                <div class="ui horizontal center aligned segments" id="segment">
-                    <a class="ui segment" href="/#!/admin/all-users"> Users </a>
-                    <a class="ui segment" href="/#!/admin/all-events"> Events </a>
-                    <a class="ui segment" href="/#!/admin/all-games"> Games </a>
-                    <a class="ui segment" href="/#!/admin/all-sports"> Sports </a>
-                    <a class="ui segment" href="/#!/admin/all-sponsors"> Sponsors </a>
-                </div>
+            <div class="ui horizontal center aligned segments" id="segment">
+                <a class="ui segment" href="/#!/admin">Requests</a>
+                <a class="ui segment" href="/#!/admin/users">Users</a>
+                <a class="active-tab ui segment" href="/#!/admin/events">Events</a>
+                <a class="ui segment" href="/#!/admin/event/1/games">Games</a>
+                <a class="ui segment" href="/#!/admin/sports">Sports</a>
+                <a class="ui segment" href="/#!/admin/sponsors">Sponsors</a>
             </div>
-            <br>
+
             <div class="ui row" ng-controller="eventController as event">
 
                 <div class="ui modal" id="add-modal">
@@ -27,26 +28,29 @@
                         <div class="fields">
                             <div class="field">
                                 <label>Start Date</label>
-                                <div class="ui calendar" id="start-date-pick">
+                                <div class="ui calendar" id="datetime">
                                     <div class="ui input left icon">
-                                        <i class="calendar icon"></i>
-                                        <input type="text" placeholder="Date" name="start_date" ng-model="event.dateStart">
+                                      <i class="calendar icon"></i>
+                                      <input type="text" placeholder="Date/Time" ng-model="event.dateStart" ng-click="event.date_Start()">
                                     </div>
                                 </div>
                             </div>
                             <div class="field">
                                 <label>End Date</label>
-                                <div class="ui calendar" id="end-date-pick">
+                                <div class="ui calendar" id="datetime">
                                     <div class="ui input left icon">
-                                        <i class="calendar icon"></i>
-                                        <input type="text" placeholder="Date" name="end_date" ng-model="event.dateEnd">
+                                      <i class="calendar icon"></i>
+                                      <input type="text" placeholder="Date/Time" ng-model="event.dateEnd" ng-click="event.date_End()" >
                                     </div>
                                 </div>
                             </div>
+                            <button class="ui green ok inverted button event" id="submit-create" ng-click="event.addEventModal(logged.userId,'add-modal');event.closeModal('add-modal')">
+                                Submit
+                            </button>
+                            <button class="ui red cancel inverted button event"  ng-click="event.closeModal('add-modal')">
+                                Cancel
+                            </button>
 
-                            <button class="ui green ok inverted button event" id="submit-create" ng-click="event.addEventModal(logged.userId,'add-modal')">
-                            Submit
-                        </button>
                         </div>
                     </form>
                     <div class="actions">
@@ -80,12 +84,12 @@
                             <td>{{x.duration}} days</td>
                             <td>
                                 <div ng-click="event.setEvent(x.event_id,x.event_name,x.date_start,x.date_end,x.allow_reg)">
-                                    <div class="ui animated button" id="edit" ng-click="event.openModal('edit-modal')">
+                                    <div class="ui animated button" id="edit" ng-click="event.openModal('edit-event-modal')">
                                         <div class="visible content"><i class="edit icon"> </i></div>
                                         <div class="hidden content"> Edit </div>
                                     </div>
                                 </div>
-                                <div class="ui modal" id="edit-modal">
+                                <div class="ui modal" id="edit-event-modal">
                                     <div class="header"> UPDATE EVENT</div>
                                     <div class="content">
                                         <div class="ui form">
@@ -123,8 +127,9 @@
                                                 </div>
                                             </div>
                                             <br>
-                                            <div class="ui button" id="cancel" ng-click="event.closeModal('edit-modal')">Cancel</div>
-                                            <div class="ui button" ng-click="event.updateEventModal('edit-modal')">Submit</div>
+                                            <div class="ui button" id="cancel" ng-click="event.closeModal('edit-event-modal')">Cancel</div>
+                                            <div class="ui button" ng-click="event.updateEventModal('edit-event-modal');event.closeModal('edit-event-modal
+                                            ')">Submit</div>
 
 
                                         </div>

@@ -1,0 +1,77 @@
+#box {
+	border-style: solid;
+}
+#forbut {
+	margin-left: 2%;
+}
+#forbut1 {
+	margin-left: 55%;
+}
+#card1 {
+	width: 25%;
+}
+#seg {
+	width: 24%;
+	margin-left: 2%;
+}
+#seg1, #seg2, #seg3{
+	width: 24%;
+	margin-left: 0%;
+}
+#im {
+	width: 80%;
+	height: 80%;
+	margin-left: 6%;
+}
+#card1 {
+	margin-top: 0px;
+	margin-left: -4%;
+}
+#card2 {
+	width: 65%;
+	margin-right: 0%;
+	margin-top: 0px;
+	padding: 15px;
+
+
+}
+p {
+	font-size: 36px;
+}
+.ui.grid {
+	margin-left: 10%;
+
+}
+
+.ui.cards {
+	margin-bottom: -10%;
+	height: 100%;
+	margin-left: 5%;
+}
+
+.action.input{
+	width: 100%;
+}
+#mgtop {
+	margin-top: 40px;
+}
+
+th {
+	background-color: #6a8e9e;
+	color: white;
+}
+tr:hover {
+	background-color: #cdcdcd;
+}
+#padcard {
+	padding: 10px;
+}
+#divtable1 {
+	margin-top: 10px;
+}
+.description {
+	text-align: justify;
+}
+.table {
+	table-layout: fixed;
+}

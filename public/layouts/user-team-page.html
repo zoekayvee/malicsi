@@ -1,65 +1,101 @@
 <link rel='stylesheet' href='css/team-page.css' />
-<div class="ui grid">
-    <div class="row">
+<div class="ui grid" ng-controller="teamController as team" ng-init="team.viewClickedTeam()" id = "main-wrapper">
+    <div class="row"  ng-repeat="x in team.allTeams">
         <div class="ui cards">
             <div class="ui card center aligned">
+
                 <div class="center aligned image">
                     <img id="im" src="images/team_icon.png">
                 </div>
                 <div class="content">
+
                     <div class="center aligned header">
-                        Karasuno High School
+                        <div> {{x.team_name}}</div>
+                        <div ng-hide="team.alreadyJoined">
+                         <button class="negative ui animated button" ng-click="team.userJoinTeam(x.team_id)">
+                                <div class="visible content" >Join </div>
+                                <div class="hidden content">
+                                    <i class="left sign in icon"> </i>
+                                </div>
+                            </button>
+                            </div>
+                        <div ng-show="team.alreadyJoined">
+                         <button class = "ui button">
+                               {{team.playerStatus}}
+                            </button>
+                            </div>
                     </div>
-                    <div class="description">
-                        As a former powerhouse of Miyagi, Karasuno has represented the prefecture at Spring High nationals nine times. One of those occasions was under the guidance of Coach Ukai and the "Small Giant", and was famous throughout Miyagi. However, after the initial
-                        success, Karasuno failed to pass its prefecture's preliminaries in future tournaments and therefore received the derogatory nicknames "The Fallen Champions" and "The Flightless Crows." It wasn't until five years later did the team
-                        finally return to nationals.
+                     
+                    <div class="ui centered large header"> Team Players</div>
+                
+                    <div class="ui ordered middle aligned selection list">
+                  <div class="item"  ng-repeat="player in team.allPlayers | filter: {player_status: 'accepted'}">
+                    <img class="ui avatar image" src="images/avatar1.png">
+                    <div class="content" ng-controller = "otherUsersController as others"> 
+                            <a ng-click = "others.clicked(player.user_id)">
+                      <div class="header">{{player.username}}</div></a>
                     </div>
+                  </div>
+            </div>
+            
 
                 </div>
             </div>
-
-            <div class="ui card" id="padcard">
-                <div class="ui centered large header"> Team Players</div>
-                <div class="ui horizontal list">
-                    <div class="item">
-                        <a class="ui tiny image" data-title="Hinata Sho">
-                            <img id="image1" src="images/avatar.png">
-                        </a>
-                    </div>
-                    <div class="item">
-                        <a class="ui tiny image">
-                            <img src="images/avatar1.png">
-                        </a>
-                    </div>
-                    <div class="item">
-                        <a class="ui tiny image">
-                            <img src="images/avatar.png">
-                        </a>
-                    </div>
-                    <div class="item">
-                        <a class="ui tiny image">
-                            <img src="images/avatar.png">
-                        </a>
-                    </div>
-                    <div class="item">
-                        <a class="ui tiny image">
-                            <img src="images/avatar1.png">
-                        </a>
-                    </div>
-
-                </div>
-
-            </div>
-
 
             <div class="ui card" id="card2">
                 <div class="content">
-                    <div class="header"> Stats and Standing</div>
+                    <div class="massive header"> 
+                    <div class="ui right floated buttons">
+                    <div ng-controller = "teamController as team">
+                        <button class="positive ui right floated button edit-trigger" ng-click = "team.openModal('update-modal');team.setTeamName(x.team_name)">
+                          Edit
+                        </button >
+                        <div class="ui modal" id="update-modal">
+                            <form class="ui form">
+                            <h2 class="ui dividing header">UPDATE TEAM</h2>
+                            <div class="fields">
+                                <div class="field">
+                                    <label>Team Name</label>
+                                    <input type="text" ng-model = "team.teamName" ng-init = "x.team_name" id="firstname">
+                                </div>
+                            </div>
+                                <button class="ui button" ng-click = "team.updateTeam(); team.closeModal('update-modal'); team.viewClickedTeam()">Submit</button>
+                                <button class="ui button" ng-click = "team.closeModal('update-modal')">Cancel</button>
+                            </form>
+                    </div>
 
+                    <button class="negative ui button" ng-click = "team.openModal('delete-modal')">
+                        Delete
+                    </button>
+
+
+                           <div class="ui basic modal" id="delete-modal">
+                                    <div class="ui icon header">
+                                        <i class="trash icon"></i> DELETE
+                                    </div>
+                                    <div class="actions">
+                                        <div class="ui red basic cancel inverted button" ng-click="team.closeModal('delete-modal')">
+                                            <i class="remove icon"></i> No
+                                        </div>
+                                        <div class="ui green ok inverted button" ng-click="team.deleteTeam(x.team_id);team.closeModal('delete-modal')">
+                                            <i class="checkmark icon"></i> Yes
+                                        </div>
+                                    </div>
+                                </div>
+
+
+            </div>
+
+
+                    </div>
+                   <p> Stats and Standings </p>
+                    
+
+                    </div>
+                    
                     <div class="description">
-                        <h3> 2W | 0L </h3>
-                        <h3> Streak: Won 2</h3>
+                        <h2> 2W | 0L </h2>
+                        <h2> Streak: Won 2</h2>
                     </div>
 
                     <hr>
@@ -72,25 +108,27 @@
                     </div>
                     <div class="ui row">
 
-                        <div id="forbut" class="ui row">
-                            <button class="ui animated button" tabindex="0">
+                        <div id="forbut" class="ui row" ng-controller="gameController as game">
+                            <button class="negative ui animated button" tabindex="0" ng-click="game.decrementInterval();game.getDate()">
                                 <div class="visible content">Prev </div>
                                 <div class="hidden content">
                                     <i class="left arrow icon"> </i>
                                 </div>
                             </button>
 
-                            <button class="ui button">
+                            <button class="negative ui button" ng-click="game.interval=0;game.viewCurrentGamesByTeam()">
                                 Today's Date
                             </button>
 
 
-                            <button class="ui animated button" tabindex="0">
-                                <div class="visible content">Next </div>
+                            <button class="negative ui animated button" tabindex="0" ng-click="game.incrementInterval();game.getDate()">
+                                <div class="visible content" >Next </div>
                                 <div class="hidden content">
                                     <i class="right arrow icon"> </i>
                                 </div>
                             </button>
+
+                           <h3>{{game.date}}</h3>
 
 
                             <div class="ui row" id="divtable1" style="border-color: #466675">
@@ -103,15 +141,16 @@
                                             <th>Location</th>
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td>Show the matchup team here</td>
-                                            <td>Show the time here</td>
-                                            <td>Show the location here</td>
+                                    <tbody ng-init="game.viewCurrentGamesByTeam();game.getDate()">
+                                        <tr ng-repeat="x in game.currentGamesTeam" ng-click="game.viewGamePage(x.game_id)">
+                                            <td><b>{{x.team}}   -   {{x.team2}} </td>
+                                            <td>{{x.time_start}}</td>
+                                            <td>{{x.venue_name}}</td>
 
                                         </tr>
                                     </tbody>
                                 </table>
+
                             </div>
 
 
@@ -122,5 +161,6 @@
             </div>
 
         </div>
+
     </div>
 </div>

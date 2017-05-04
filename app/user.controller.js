@@ -8,7 +8,7 @@
 		var vm = this;
 		vm.username="";
 		vm.password="";
-
+		vm.hasUser=null;
 		vm.user_type="";
 		vm.loginUser=loginUser;
         vm.user = {};
@@ -16,6 +16,7 @@
         vm.firstname = "";
 		vm.lastname = "";
 		vm.newUser = {};
+		vm.flag=false;
 
 
 		vm.registerUser=registerUser;
@@ -24,14 +25,31 @@
 		vm.openModal = openModal;
 		vm.closeModal= closeModal;
 
+
         vm.currentUser = {};
-        
+        vm.userDash="";
 
 		//FOR DASHBOARD
 		vm.teamGames = [];
 		vm.currentGames = [];
 		vm.upcomingGames = [];
-		
+
+
+		$http
+            .get('/user_loggedin')
+            .then(function(response) {
+            	if (response.data){
+            		vm.hasUser=true;
+            		$http
+                        .get('/users/'+response.data)
+                        .then(function(response) {
+                            vm.user = response.data;
+                        });
+            	}
+            	else{
+            		vm.hasUser=false;
+            	}
+            });
 
 
         function setToastr(){
@@ -45,67 +63,35 @@
     	}
 
     	function redirectLocation(redirect){
-			if(redirect === '/#!/user/home')
-				window.location.href=redirect;
-			else
+    		//changed
+			if(redirect === 'no')
 				window.location.reload();
+			else
+				window.location.href = redirect;
 		}
-		
-        // $http   
-        //     .get('/viewTeamPlayGame') 
-        //     .then(function(response) {
-        //         if (response.data) {
-        //            vm.teamGames = response.data;   
-        //         }
-        //         else{
-        //         	console.log("ERROR!");
-        //         }
-        //     })
-
-        //  $http   
-        //     .get('/viewCurrentGames') 
-        //     .then(function(response) {
-        //         if (response.data) {
-        //            vm.currentGames = response.data;   
-        //         }
-        //         else{
-        //         	console.log("ERROR!");
-        //         }
-        //     })
-
-        //  $http   
-        //     .get('/viewUpcomingGame') 
-        //     .then(function(response) {
-        //         if (response.data) {
-        //            vm.upcomingGames = response.data;   
-        //         }
-        //         else{
-        //         	console.log("ERROR!");
-        //         }
-        //     })
-
 
 		function loginUser(){
 			var credentials={
 				username: vm.username,
 				password: vm.password
 			}
+			var redirect_url;
 			$http.post('/login', credentials)
 				.then(function (response){
+					redirect_url = response.data.redirect;
 					var redirect = response.data.redirect;
 					console.log(redirect);
 					vm.user = response.data
-					if (redirect === '/#!/user/home'){
-						toastr.success(response.data.message);
-						setTimeout(function(){
-							redirectLocation(redirect);
-						}, 500);
-					}
-				}, function (response){	
-					toastr.error(response.data.message);
-					console.log('Error');
+					toastr.success(response.data.message); //added
+					vm.userDash=redirect;
 					setTimeout(function(){
-						redirectLocation('no');
+						location.reload();
+						redirectLocation(redirect);
+					}, 500);
+				}, function (response){
+					toastr.error(response.data.message);
+					setTimeout(function(){
+						redirectLocation(response.data.redirect);
 					}, 500);
 				});
 		}
@@ -118,9 +104,12 @@
 					console.log(response.data);
 					console.log('User added!');
 					vm.username= vm.newUser.username;
-					vm.password= vm.newUser.password; 
+					vm.password= vm.newUser.password;
 					vm.newUser={};
 					toastr.success('Successfully sent account approval to admin!');
+					setTimeout(function(){
+						redirectLocation('no');
+					}, 1000);
 				},
 				function(response){
 					toastr.error('Error in input!');
@@ -137,7 +126,10 @@
 	     				var redirect = response.data.redirect;
 	     				toastr.success('Logged out.');
 	     				window.location.href=redirect;
+	     				vm.hasUser=false;
+	     				 vm.user = {};
 	     			});
+
 	     }
 
 		function dropDown(){
@@ -151,11 +143,11 @@
 				 closable: false
 			})
 			.modal('show');
-		
+
 		}
 		function closeModal(dmodal){
 			$('#'+dmodal+'.modal')
-			 	.modal('hide');	
+			 	.modal('hide');
 		}
 		}
 

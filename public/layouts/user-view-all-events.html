@@ -1,19 +1,20 @@
-<link rel='stylesheet' href='css/user-view-all-events.css' />
+<link rel='stylesheet' href='css/user-view-all-events.css'/>
+<script src="js/user-view-all-events.js"></script>
 
 <div id="main-wrapper" ng-controller="eventController as event">
     <div class="ui container four column grid" ng-init="event.viewAllEvent()">
 
-        <div ng-repeat="x in event.allEvents" class="column">
-
+        <div ng-repeat="x in event.allEvents | filter: {status: 'accepted'}" class="column" >
             <div class="ui card event-card
-			{{ x.allow_reg == '1' ? 'active' : 'inactive' }}">
+			{{ x.allow_reg == '1' ? 'active' : 'inactive' }}"
+            ng-click="event.viewEvent(x.event_id)">
                 <img src='images/1.jpg' class="event-icon" />
 
                 <div class="card-content">
-                    <h3>{{x.event_name}}</h3> Date Start: {{x.date_start}}<br> Date End: {{x.date_end}}<br>
-                    <button class="ui button" ng-click="event.viewEvent(x.event_id)">
-					{{x.allow_reg == '1' ? 'Active' : 'Inactive'}}
-					</button><br>
+                    <h3>{{x.event_name}}</h3>
+                    Date Start: {{x.date_start}}<br>
+                    Date End: {{x.date_end}}<br>
+					{{x.allow_reg == '1' ? 'Active' : 'Inactive'}}<br>
                 </div>
             </div>
         </div>

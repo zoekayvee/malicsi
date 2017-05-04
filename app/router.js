@@ -32,6 +32,10 @@
 			.when('/user/activity-log', {
 				templateUrl: 'layouts/user-activity-log.html'
 			})
+			.when('/users/:user_id', {
+				//new route for visiting other profile
+				templateUrl: 'layouts/user-visit-profile.html'
+			})
 
 			//Events Routers
 			.when('/events', {
@@ -40,7 +44,7 @@
 				controllerAs: 'event'
 			})
 			.when('/events/:event_id',{
-				templateUrl:'layouts/user-view-event.html',
+				templateUrl:'layouts/user-view-event-ui.html',
 				controller: 'eventController',
 				controllerAs: 'event'
 			})
@@ -49,24 +53,27 @@
 				controller:'userGameSchedController',
 				controllerAs:'UGSC'
 			})
-			.when('/events/game-schedule', {
-				templateUrl: 'layouts/user-game-sched.html',
+			.when('/events/:event_id/scoreboard/:sport_id', {
+				templateUrl: 'layouts/user-scoreboard-page.html',
 				controller:'userGameSchedController',
 				controllerAs:'UGSC'
 			})
+			.when('/user/join_event/:event_id', {
+				templateUrl: 'layouts/user-join-event.html'
+			})
 
 			//Game Routers
-			.when('/game/:game_id', {
+			.when('/event/:event_id/game/:game_id', {
 				templateUrl: 'layouts/user-game-page.html',
 				controller:'gameController',
 				controllerAs:'game'
 			})
 
 			//Teams Routers
-			.when('team', {
+			.when('/team', {
 				templateUrl: 'layouts/user-view-all-teams.html'
 			})
-			.when('/team/:team_id',{
+			.when('/events/:event_id/team/:team_id',{
 				templateUrl: 'layouts/user-view-team.html'
 			})
 
@@ -88,14 +95,14 @@
 			.when('/admin/sponsors', {
 				templateUrl: 'layouts/admin-all-sponsors.html'
 			})
-			.when('/admin/games', {
+			.when('/admin/event/:event_id/games', {
 				templateUrl: 'layouts/admin-all-games.html'
 			})
 			.when('/admin/sports', {
 				templateUrl: 'layouts/admin-all-sports.html'
 			})
 
-			//Catch Case
+			// catch case
 			.otherwise({
 				templateUrl: 'layouts/error-404.html'
 			})

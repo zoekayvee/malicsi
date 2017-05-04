@@ -17,6 +17,7 @@ div {
     margin-bottom: 20px;
 }
 
+<<<<<<< HEAD
 /*.ui.segment{
     background-color:rgba(0, 0, 0, 0.5);
 }
@@ -51,4 +52,56 @@ div {
 }
 .active {
 	background-position: right 12px;
+=======
+.score-section {
+    /*border: solid 1px red;*/
+    /*margin-bottom: 20px;*/
+}
+.score-card {
+    height: 150px !important;
+    width: 22% !important;
+    padding: 0 !important;
+    margin-left: 3% !important;
+    transition: all 0.9s linear;
+    align: center;
+    background-color: black !important;
+    color: white;
+
+}
+
+.score-card:hover {
+    /*background-color: #e9e581 !important;*/
+    box-shadow: 5px 5px 10px #b1b1b1;
+}
+
+.card-content {
+    text-align: center;
+    padding: 20px;
+}
+
+.card-content2 {
+    width: 30% !important;
+}
+
+.view-all {
+    margin-top: 8%;
+}
+
+.team1-section {
+    width:30%;
+    text-align: center;
+}
+
+.team2-section {
+    width:30%;
+    text-align: center;
+}
+
+.versus {
+    margin-top: 12%;
+}
+
+#see-score {
+    width: 100% !important;
+>>>>>>> b2a07979a63e8eb01aa8240e5f4c79fff1d5f7bd
 }

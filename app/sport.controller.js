@@ -25,6 +25,10 @@
             vm.currentId = null;
             vm.setCurrentId = setCurrentId;
             vm.setSportId = setSportId;
+            vm.viewSportByEvent = viewSportByEvent;
+            vm.allSports = null;
+            vm.eventId = null;
+            vm.setEventId = setEventId;
 
             viewAllSports();
 
@@ -34,7 +38,13 @@
         }
 
         function setSportId(id){
+            console.log("Set sport id " + id);
             vm.addSportId = id;
+        }
+
+        function setEventId(id){
+            vm.eventId = id;
+            console.log("EVENT" + vm.eventId);
         }
 
         function addSport(){
@@ -90,6 +100,18 @@
                 console.log('Error Viewing All Sports');
             });
 
+        }
+        function viewSportByEvent(){
+            console.log("here" + vm.eventId);
+            $http
+                .get('/sport/event/' + vm.eventId)
+                .then(function(response){
+                    vm.allSports = response.data;
+                    console.log("here" + vm.allSports);
+                },
+                function(response){
+                    console.log("Error retrieving data!");
+                });
         }
         function updateSport(id){
             var updatedSports = {

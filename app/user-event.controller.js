@@ -8,6 +8,7 @@
 		var vm = this;
 
 		vm.allSports = [];
+		vm.defaultSportId = null;
 		vm.allSportGames;
 		vm.allGames = [];
         vm.addSportName = null
@@ -15,6 +16,7 @@
 		vm.viewGame = viewGame;
 		vm.viewGamesByEvent = viewGamesByEvent;
 		vm.viewSportByEvent = viewSportByEvent;
+		vm.viewSportByEvent2 = viewSportByEvent2;
 		vm.viewAvailableSports = viewAvailableSports;
 		vm.attachSportToEvent = attachSportToEvent;
 		vm.deleteSportFromEvent = deleteSportFromEvent;
@@ -27,6 +29,7 @@
 		vm.openModal = openModal;
 		vm.closeModal = closeModal;
 		vm.setCurrentId =setCurrentId;
+		vm.openGame = openGame;
 
 		viewSportByEvent();
 
@@ -35,6 +38,21 @@
 				.get('/sport/event/' + $routeParams.event_id)
 				.then(function(response){
 					vm.allSports = response.data;
+					vm.defaultSportId = response.data[0].sport_id;
+				},
+				function(response){
+					console.log("Error retrieving data!");
+				});
+		}
+
+		function viewSportByEvent2(eventid){
+			console.log("hererererer" + eventid);
+
+			$http
+				.get('/sport/event/' + eventid)
+				.then(function(response){
+					vm.allSports = response.data;
+					vm.defaultSportId = response.data[0].sport_id;
 				},
 				function(response){
 					console.log("Error retrieving data!");
@@ -80,7 +98,7 @@
 
 		function attachSportToEvent(){
             var sportToBeAdded = {
-                sport_id: vm.sportId.sport_id,
+                sport_id: vm.sportId,
             }
             $http
                 .post('/sport/' + $routeParams.event_id, sportToBeAdded)
@@ -115,6 +133,10 @@
             vm.sportId = sport_id;
             //console.log(vm.deleteSponsorId);
         }
+
+		function openGame(sportid) {
+			$location.path('/events/' + $routeParams.event_id + '/scoreboard/' + sportid);
+	    }
 		
 		function addSport(){
             var sportToBeAdded = {
@@ -131,11 +153,11 @@
         }
 
 		function viewGame(game_id){
-			$location.path('/user/game/' + game_id)
+			$location.path('/event/' + $routeParams.event_id + '/game/' + game_id)
 		}
 
 		function scoreboard(){
-			$location.path('/user/event/' + $routeParams.event_id + '/scoreboard')
+			$location.path('/events/' + $routeParams.event_id + '/scoreboard/' + vm.defaultSportId )
 		}
 
         function setCurrentId(id,dmodal){

@@ -69,6 +69,27 @@ exports.viewAllTeam = (req, res, next) => {
 	});
 }
 
+exports.viewTeamsInGame = (req, res, next) => {
+	var query = 'select * from team where team_id NOT IN (select team_id from team_plays_game where game_id = ?) and team_id IN (select team_id from team_joins_event where event_id = ?)';
+
+	var id = connection.query(
+		query,
+		[req.params.game_id,
+		req.body.event_id],
+		(err, row, fields) => {
+			if(!err){
+				console.log("Success viewing available teams");
+				console.log(req.params.game_id);
+				console.log(req.body.event_id);
+				res.status(200).send(row);
+			}
+			else{
+				console.log(err);
+				res.status(500).send('Server error');
+			}
+	});
+}
+
 exports.viewAvailableTeams = (req, res, next) => {
 	var query = 'select * from team where team_id != 1 and team_id != 2 and team_id != ?';
 
@@ -217,8 +238,33 @@ exports.teamPlayGame = (req, res, next) => {
 
 
 exports.userJoinTeam = (req,res, next) => {
-	var query = 'insert into team_players(team_id,user_id) values (?,?)';
+	var query = 'insert into team_players(team_id,user_id,player_status) values (?,?,?)';
 	const data = [
+		req.body.team_id,
+		req.body.user_id,
+		'pending'
+		];
+
+		var id = connection.query(
+			query,
+			data,
+			(err,row,fields) => {
+				if(!err){
+					console.log(row);
+					res.status(200).send(row);
+					return row
+				}
+				else{
+					console.log(err);
+					res.status(500).send('server error');
+				}
+			})
+}
+
+exports.updateTeamPlayerStatus = (req,res, next) => {
+	var query = 'UPDATE team_players SET player_status=? where team_id=? and user_id=?';
+	const data = [
+		req.body.status,
 		req.body.team_id,
 		req.body.user_id
 		];
@@ -237,6 +283,49 @@ exports.userJoinTeam = (req,res, next) => {
 					res.status(500).send('server error');
 				}
 			})
+}
+
+exports.getTeamPlayers = (req,res, next) => {
+	var query = 'select * from (select * from team_players natural join team)a natural join users where a.team_id=?';
+	const data = [
+		req.params.team_id
+		];
+
+		var id = connection.query(
+			query,
+			data,
+			(err,row,fields) => {
+				if(!err){
+					console.log(row);
+					res.status(200).send(row);
+					return row
+				}
+				else{
+					console.log(err);
+					res.status(500).send('server error');
+				}
+			})
+}
+
+exports.deleteTeamPlayer = (req,res, next) => {
+	var query = ' delete from team_players where team_id=? and user_id=?';
+	const data = [
+		req.params.team_id,
+		req.params.user_id
+		];
+		console.log(data);
+		var id = connection.query(
+			query,
+			data,
+			(err, row, fields) => {
+				if(!err){
+					res.status(200);
+				}
+				else{
+					console.log(err);
+					res.status(500).send('Server error');
+				}
+		});
 }
 
 
@@ -283,7 +372,4 @@ exports.viewTeamPerEvent = (req,res,next) => {
 				res.status(500).send('Server error');
 			}
 	});
-
-
-
 }
