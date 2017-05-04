@@ -201,7 +201,7 @@
                 <!--End of User Interests-->
 
                 <!--List of Teams-->
-                <div class="eight wide column" ng-controller="teamController as teamC">
+                <div class="eight wide column">
                     <div class="ui center aligned segment" id="list-of-teams">
                         <h3 class="ui right floated header">
                             <img src="/images/team.jpg" class="ui mini rounded image">
@@ -212,7 +212,7 @@
                         <div  class="ui four column grid">
                             <div class="ui tiny images" ng-repeat="team in user.userTeams">
                             
-                            <a class="ui image" href="" ng-click="teamC.viewTeam(team.team_id)">
+                            <a class="ui image" href="" ng-click="user.viewTeam(team.team_id,team.event_id)">
                                 <img src="/images/icon_team.svg"> {{team.team_name}}
                             </a>
                             </div>

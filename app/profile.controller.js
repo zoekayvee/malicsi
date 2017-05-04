@@ -4,7 +4,7 @@
 		.module('malicsi')
 		.controller('profileController', profileController);
 
-	function profileController($http){
+	function profileController($http, $location){
 		var vm = this;
 		
 		vm.interests = "";
@@ -28,6 +28,7 @@
         vm.pastGamesUser = [];
 
         vm.updateProfilePic = updateProfilePic;
+        vm.viewTeam= viewTeam;
 
 		$http   
             .get('/user_loggedin') 
@@ -66,6 +67,7 @@
                         .get('/user/teams/'+response.data)
                         .then(function(response) {
                             vm.userTeams = response.data;
+                            console.log(vm.userTeams);
                         });
                     $http
                         .get('/game/user/' + vm.userid)
@@ -208,6 +210,9 @@
             vm.userid = vm.user.user_id;
         }
 
+        function viewTeam(team_id,event_id){
+            $location.path('/events/' + event_id + '/team/'+ team_id)
+        }
         function viewPastGamesUser(){
             $http   
             .get('/user_loggedin') 
