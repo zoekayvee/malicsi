@@ -69,6 +69,7 @@
         vm.eventidroute = $routeParams.event_id;
         vm.viewAdminGame = viewAdminGame;
         vm.addAdminGame = addAdminGame;
+        vm.reload = reload;
         // vm.viewPastGamesUser = viewPastGamesUser;
         // vm.pastGamesUser = [];
 
@@ -244,6 +245,10 @@
 
 		function viewGameFromScoreboard(game_id){
 			$location.path('/event/' + $routeParams.event_id + '/game/' + game_id)
+		}
+
+		function reload(){
+			window.location.reload();
 		}
 
 		function canBet(){

@@ -28,7 +28,66 @@
         <div ng-controller="userGameSchedController as UGSC" class="twelve wide column">
             <div class="center aligned column" ng-init="UGSC.getRanking()">
                 <table class="ui celled table">
-                    <h4> Standings </h4>
+                    <h4 style="float:left"> Standings </h4>
+                    <div style="float:right" ng-controller="gameController as game">
+                        <div class="ui right floated small primary labeled icon button" ng-show="logged.userId == event.currentUserId || logged.userType=='admin'" ng-click="game.openModal('addGame-modal')">
+                            <i class="add square icon"></i> Add Game
+                        </div>
+                        <br><br>
+
+                        <div class="ui basic modal" id="addGame-modal">
+                            <div class="ui icon header">
+                                Add Game
+                            </div>
+                            <div class="ui form">
+                                <div class="field" ng-controller="userEventController as UEC">
+                                    <div>
+                                        <label> Sport </label>
+                                        <form class="ui">
+                                            <select ng-model="game.addSportId" ng-options="z.sport_name for z in UEC.allSports">
+                                            </select>
+                                        </form>
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <div ng-controller="venueController as venue">
+                                        <label> Venue </label>
+                                        <form class="ui">
+                                            <select ng-model="game.addVenueId" ng-options="z.venue_name for z in venue.allVenues">
+                                            </select>
+                                        </form>
+                                    </div>
+                                </div>
+
+                                <div class="_field">
+                                    <label>Date Start</label>
+                                    <input type="text" placeholder="Date Start" ng-model="game.addDate">
+                                </div>
+                                <div class="_field">
+                                    <label><br>Time Start</label>
+                                    <input type="text" placeholder="Time Start" ng-model="game.addTime">
+                                </div>
+                                <div class="_field">
+                                    <label><br>Referee</label>
+                                    <input type="text" placeholder="Referee" ng-model="game.addReferee">
+                                </div>
+                                <div class="_field">
+                                    <label><br>Duration</label>
+                                    <input type="text" placeholder="Duration" ng-model="game.addDuration">
+                                </div>
+                            </div>
+                            <div class="actions">
+                                <div class="ui red basic cancel inverted button" ng-click="game.closeModal('addGame-modal')">
+                                    Cancel
+                                </div>
+                                <div ng-click="game.addGameEvent();game.closeModal('addGame-modal');game.reload()" class="ui green ok inverted button">
+                                    <i class="checkmark icon"></i> Yes
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
                     <thead>
                         <tr>
                             <th>Team</th>
