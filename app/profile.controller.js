@@ -45,7 +45,6 @@
                         .get('/user/events/'+response.data)
                         .then(function(response) {
                             vm.userEvents = response.data;
-                            console.log(vm.userEvents);
 
                         });
 
@@ -67,7 +66,6 @@
                         .get('/user/teams/'+response.data)
                         .then(function(response) {
                             vm.userTeams = response.data;
-                            console.log(vm.userTeams);
                         });
                     $http
                         .get('/game/user/' + vm.userid)

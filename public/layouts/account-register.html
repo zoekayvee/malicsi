@@ -18,7 +18,7 @@
             <div class="column ten wide ui card" id="login-panel">
 
                 <h2 class="center aligned header form-head">Create an account here!</h2>
-                <form  name= "myForm" class="ui medium form" ng-controller="userController as signUp">
+                <form  name= "myForm" ng-controller="userController as signUp"  novalidate ng-submit="myForm.$valid && myForm.submit()" class="ui medium form" >
                     <div class="two fields">
                         <div class="field">
                             <label> Username </label>
@@ -94,7 +94,7 @@
                         <!-- test case for calendar -->
                     </div>
                     <div class="field">
-                        <button ng-disabled="myForm.$invalid" class="ui fluid submit button" id="submitbutton" ng-click="myForm.$invalid && signUp.registerUser()">SIGN UP</button>
+                        <button ng-disabled="myForm.$invalid" class="ui fluid submit button" id="submitbutton" ng-click="(( !myForm.username.$pristine && !myForm.password.$pristine && !myForm.password2.$pristine &&  !myForm.firstname.$pristine &&  !myForm.lastname.$pristine && myForm.email.$pristine && myForm.college.$pristine && myForm.weight.$pristine && myForm.height.$pristine && myForm.age.$pristine && myForm.contactno.$pristine ) || myForm.$valid) && signUp.registerUser()">SIGN UP</button>
                     </div>
                     <div class="ui error message"></div>
                     <div class="ui message">
