@@ -4,7 +4,7 @@
 	.module('malicsi')
 	.controller('gameController',gameController);
 
-	function gameController($http,$location,$routeParams){
+	function gameController($http,$location,$routeParams,$route){
 		var vm = this;
 		
 		vm.game = null;
@@ -65,11 +65,46 @@
         vm.viewAllAcceptedGames=viewAllAcceptedGames;
         vm.addGameEvent = addGameEvent;
         vm.viewEvent = viewEvent;
+        vm.dateDiff = dateDiff;
         // vm.viewPastGamesUser = viewPastGamesUser;
         // vm.pastGamesUser = [];
 
 		viewAllGames();
 
+		function dateDiff(datepart, event_date_start, date_start, event_date_end) {  
+            datepart = datepart.toLowerCase(); 
+            var eventDateStart = new Date(event_date_start);   
+            var dateStart = new Date(date_start); 
+            var dateEnd = new Date(event_date_end);
+
+            var diff = dateStart - eventDateStart; 
+            var divideBy = { w:604800000, 
+                               d:86400000, 
+                               h:3600000, 
+                               n:60000, 
+                               s:1000 };    
+              
+            var result = Math.floor(diff/divideBy[datepart]);
+
+            var diff2 = dateEnd - dateStart;
+            var dateSomething = Math.floor( dateEnd/divideBy[datepart]);
+            var result2 = Math.floor(diff2/divideBy[datepart]);
+            console.log(diff);
+            console.log(diff2);
+            console.log("DATEDIFF"+result.toString());
+            if(result > -1 && result2 < dateSomething){
+                console.log("Date valid");
+                addGameEvent();
+            }
+            else
+            {
+                alert("Input date is invalid!");
+                $route.reload();
+            }
+
+        }
+
+        
 		function setCurrentId(id,dmodal){
             openModal(dmodal)
             vm.game_id = id;

@@ -13,7 +13,7 @@
     $('#end-date-pick').calendar();
 </script>
 
-<div id="main-wrapper" ng-controller="eventController as event">
+<div id="main-wrapper" ng-controller="eventController as event" ng-init="event.setEventData()">
     <div class="ui grid container" ng-controller="loggedUserController as logged">
         <div class="five wide column" ng-init="event.viewClickedEvent()" ng-controller="guestController as loged">
             <div class="ui center aligned segment" ng-repeat="x in event.allEvents">
@@ -192,7 +192,7 @@
                     <div class="ui red basic cancel inverted button" ng-click="game.closeModal('addGame-modal')">
                         Cancel
                     </div>
-                    <div ng-click="game.addGameEvent();game.closeModal('addGame-modal')" class="ui green ok inverted button">
+                    <div ng-click="game.dateDiff('d',event.thisEventDateStart,game.addDate, event.thisEventDateEnd)" class="ui green ok inverted button">
                         <i class="checkmark icon"></i> Yes
                     </div>
                 </div>
