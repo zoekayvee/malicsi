@@ -2,10 +2,11 @@
     margin-bottom: 50px !important;
 }
 
+.button-wrapper {
+    text-align: center !important;
+}
+
 .command-button {
-    display: inline-block;
-    width: 50px !important;
-    color: white;
 }
 
 #accept {
@@ -53,4 +54,22 @@ a {
 .search-bar {
     width: 100%;
     margin-bottom: 20px;
+}
+
+#user-table {
+    width: 100% !important;
+}
+
+.ui.table {
+    width: 100%;
+}
+
+td,
+th {
+    border: 1px solid #dddddd;
+    padding: 8px;
+}
+.ui.animated.button,#edit {
+	background-color: #de1b1b;
+	color: white;
 }

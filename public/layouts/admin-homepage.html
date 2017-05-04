@@ -22,20 +22,20 @@
                 <input type="text" ng-model="search" placeholder="What are you looking for?">
                 <i class="search icon"></i>
             </div>
-            <div class="ui four column grid" >
+            <div class="ui five column grid" >
                 <div class="column" ng-repeat="x in home.allUsers | filter: {user_type: 'pending', username:search}">
                     <div class="ui card" id="card">
-                        <div class=" center aligned content">
+                        <div class="center aligned content">
                             <h3 class="ui header" ng-controller = "otherUsersController as others">
                                 <a ng-click = "others.clicked(x.user_id)"> {{x.username}}</a>
                             </h3>
                             <i class="huge user icon"></i>
                         </div>
-                        <div class="center aligned extra button-wrapper">
-                            <button class ="ui button command-button" id="accept" ng-click="home.approveUser(x.user_id)">
+                        <div class="center aligned button-wrapper">
+                            <button class ="ui icon button command-button" id="accept" ng-click="home.approveUser(x.user_id)">
                                 <i class="snall checkmark icon"></i>
                             </button>
-                            <button class ="ui button command-button" id="decline" ng-click="home.deleteUser(x.user_id)">
+                            <button class ="ui icon button command-button" id="decline" ng-click="home.deleteUser(x.user_id)">
                                 <i class="small remove icon"></i>
                             </button>
                         </div>
@@ -69,11 +69,11 @@
                                 Creator:  {{x.firstname + ' ' + x.lastname}}
                             </div>
                         </div>
-                        <div class="right aligned extra">
-                            <button class ="ui button command-button" id="accept" ng-click="home.approveEvent(x.event_id)">
+                        <div class="center aligned extra">
+                            <button class ="ui icon button command-button" id="accept" ng-click="home.approveEvent(x.event_id)">
                                 <i class="snall checkmark icon"></i>
                             </button>
-                            <button class ="ui button command-button" id="decline" ng-click="home.disapproveEvent(x.event_id)">
+                            <button class ="ui icon button command-button" id="decline" ng-click="home.disapproveEvent(x.event_id)">
                                 <i class="small remove icon"></i>
                             </button>
                         </div>
