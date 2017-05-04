@@ -11,6 +11,7 @@
 		vm.allGames = [];
 		vm.hasUser=null;
 		vm.isAdmin=null;
+        vm.eventid = null;
 
 		$http   
             .get('/user_loggedin') 
@@ -36,10 +37,10 @@
             });
 
 		$http   
-            .get('/viewGames') 
+            .get('/games/accepted') 
             .then(function(response) {
                 if (response.data) {
-                   vm.allGames = response.data;   
+                   vm.allGames = response.data;  
                 }
                 else{
                 	console.log("ERROR!");
@@ -47,7 +48,18 @@
             })
 
         function clicked(id){
-        	window.location.href = '#!/game/' + id;
+            $http
+                .get('/game/' + id)
+                .then(function(response){
+                    vm.game = response.data;
+                    vm.eventid = response.data[0].event_event_id;
+                    window.location.href = '#!/event/' + vm.eventid + '/game/' + id;
+            },
+            function(response){
+                console.log('Error Viewng Game');
+            });
+
+        	
         }
 	}
 

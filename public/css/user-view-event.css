@@ -44,7 +44,7 @@ div {
 }
 
 .card-content2 {
-    width: 30% !important; 
+    width: 30% !important;
 }
 
 .view-all {
@@ -63,4 +63,8 @@ div {
 
 .versus {
     margin-top: 12%;
+}
+
+#see-score-button {
+    width: 100% !important;
 }

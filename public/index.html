@@ -8,12 +8,13 @@
     <link rel='stylesheet prefetch' href='css/semantic.min.css'/>
     <link rel='stylesheet prefetch' href='css/defaults.css'/>
     <link rel='stylesheet prefetch' href='css/toastr.css'/>
+    <link rel="stylesheet" href="semantic-ui-calendar/dist/calendar.min.css" />
 
     <script type='text/javascript' src='js/jquery-3.1.1.js'></script>
     <script type='text/javascript' src='js/semantic.min.js'></script>
     <script type='text/javascript' src='js/toastr.js'></script>
     <script type='text/javascript' src='js/defaults.js'></script>
-
+    <script type="text/javascript" src="semantic-ui-calendar/dist/calendar.min.js"></script>
     <!-- angular imports -->
     <script type='text/javascript' src='angular/angular.js'></script>
     <script type='text/javascript' src='angular-route/angular-route.js'></script>
@@ -33,8 +34,9 @@
                 <img class='logo' src='images/malicsi.png'>&nbsp;&nbsp;MALICSI
             </a>
 
-            <a href='/#!/user/home' class='item'>Home</a>
-            <a href='/#!/events' class='item'>Events</a>
+            <a href='/#!/user/home' class='item' id="home-anchor">Home</a>
+            <a href='/#!/admin' class='item' id="admin-anchor">Admin Panel</a>
+            <a href='/#!/events' class='item' id="events-anchor">Events</a>
 
             <div id="identity-wrapper" class='alight right ui simple dropdown item' ng-controller='userController as user'>
                 {{user.user.firstname + ' ' + user.user.lastname}} <i class='dropdown icon'></i>

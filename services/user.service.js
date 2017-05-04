@@ -30,7 +30,7 @@ exports.login=(req,res)=>{
 	        }
 	        else if (req.session.usertype === 'pending'){
 	        	console.log(req.session.usertype);
-	        	return res.status(404).send({message: 'User not yet approved'});
+	        	return res.status(404).send({message: 'User not yet approved', redirect: '/#!/'});
 	        }
 	        else{
 	        	var hash = rows[0].password;
@@ -39,11 +39,7 @@ exports.login=(req,res)=>{
 		   			 if (rows[0].user_type === 'pending'){
 			        	console.log(req.session.usertype);
 
-			        	return res.status(404).send({message: 'User not yet approved'});
-			        	res.json({
-			        		redirect: '/#!/',
-			        		message: 'User not yet approved'
-			        	});
+			        	return res.status(404).send({message: 'User not yet approved', redirect: '/#!/'});
 			        }
 			        else{
 			        	req.session.userid = rows[0].user_id
@@ -186,7 +182,7 @@ exports.viewUserInterests = (req,res) => {
 }
 
 exports.viewUserEvents = (req,res) => {
-	const query_string = "SELECT username,event_name,DATE_FORMAT(date_start,'%M %e %Y') Date FROM users NATURAL JOIN event WHERE user_id = ?";
+	const query_string = "SELECT username,event_name,event_id,DATE_FORMAT(date_start,'%M %e %Y') Date,status FROM users NATURAL JOIN event WHERE user_id = ?";
 	const req_data = [req.params.user_id]
 
 	connection.query(query_string, req_data, (err,result)=>{

@@ -70,15 +70,17 @@ exports.viewAllTeam = (req, res, next) => {
 }
 
 exports.viewTeamsInGame = (req, res, next) => {
-	var query = 'select * from team where team_id NOT IN (select team_id from team_plays_game where game_id = ?)';
+	var query = 'select * from team where team_id NOT IN (select team_id from team_plays_game where game_id = ?) and team_id IN (select team_id from team_joins_event where event_id = ?)';
 
 	var id = connection.query(
 		query,
-		[req.params.game_id],
+		[req.params.game_id,
+		req.body.event_id],
 		(err, row, fields) => {
 			if(!err){
 				console.log("Success viewing available teams");
 				console.log(req.params.game_id);
+				console.log(req.body.event_id);
 				res.status(200).send(row);
 			}
 			else{
@@ -303,6 +305,27 @@ exports.getTeamPlayers = (req,res, next) => {
 					res.status(500).send('server error');
 				}
 			})
+}
+
+exports.deleteTeamPlayer = (req,res, next) => {
+	var query = ' delete from team_players where team_id=? and user_id=?';
+	const data = [
+		req.params.team_id,
+		req.params.user_id
+		];
+		console.log(data);
+		var id = connection.query(
+			query,
+			data,
+			(err, row, fields) => {
+				if(!err){
+					res.status(200);
+				}
+				else{
+					console.log(err);
+					res.status(500).send('Server error');
+				}
+		});
 }
 
 

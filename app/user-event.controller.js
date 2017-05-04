@@ -16,6 +16,7 @@
 		vm.viewGame = viewGame;
 		vm.viewGamesByEvent = viewGamesByEvent;
 		vm.viewSportByEvent = viewSportByEvent;
+		vm.viewSportByEvent2 = viewSportByEvent2;
 		vm.viewAvailableSports = viewAvailableSports;
 		vm.attachSportToEvent = attachSportToEvent;
 		vm.deleteSportFromEvent = deleteSportFromEvent;
@@ -35,6 +36,20 @@
 		function viewSportByEvent(){
 			$http
 				.get('/sport/event/' + $routeParams.event_id)
+				.then(function(response){
+					vm.allSports = response.data;
+					vm.defaultSportId = response.data[0].sport_id;
+				},
+				function(response){
+					console.log("Error retrieving data!");
+				});
+		}
+
+		function viewSportByEvent2(eventid){
+			console.log("hererererer" + eventid);
+
+			$http
+				.get('/sport/event/' + eventid)
 				.then(function(response){
 					vm.allSports = response.data;
 					vm.defaultSportId = response.data[0].sport_id;
@@ -138,7 +153,7 @@
         }
 
 		function viewGame(game_id){
-			$location.path('/game/' + game_id)
+			$location.path('/event/' + $routeParams.event_id + '/game/' + game_id)
 		}
 
 		function scoreboard(){

@@ -55,7 +55,7 @@
 </div>
 
 <div id="main-wrapper" ng-controller="guestController as game">
-    <div id="preview-panel" class="ui container grid" >
+    <div id="preview-panel" class="ui container grid">
         <div class="game-preview ui column" ng-repeat="x in game.allGames">
             <div ng-click="game.clicked(x.game_id)" class="guest-games">
                 <h3>{{ x.sport_name }}</h3>
@@ -63,11 +63,11 @@
                 <p>{{ x.date_start + "  " + x.time_start }}</p>
             </div>
         </div>
-        <a href="/#!/events">
-        <div id="event-redirect" class="game-preview ui column">
-            <i class="calendar icon"></i><br>
-            Events
-        </div>
-        </a>
     </div>
+    <a href="/#!/events">
+    <div id="event-redirect" class="ui column">
+        <i class="calendar icon"></i><br>
+        Events
+    </div>
+    </a>
 </div>

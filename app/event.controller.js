@@ -15,6 +15,7 @@
         vm.eventId = "";
         vm.allowReg = "";
         vm.allEvents = [];
+        vm.allEventsUser=[];
         vm.event = "";
         vm.addEvent = addEvent;
         vm.viewAllEvent = viewAllEvent;
@@ -38,6 +39,8 @@
         vm.deleteEventModal = deleteEventModal;
         vm.addEventModal = addEventModal;
         vm.viewEventDetails = viewEventDetails;
+        vm.userJoin=userJoin;
+        vm.eventWithEventCreator=eventWithEventCreator;
 
 
         function addEvent(user_id) {
@@ -106,10 +109,14 @@
 
         function openModal(dmodal){
             $('#'+dmodal+'.modal')
-            .modal('setting', {
-                 closable: false
+            /*.modal('setting', {
+                closable: false
+            })*/
+            .on('hidden.bs.modal')
+            .modal('show',{
+                observeChanges:true
             })
-            .modal('show');
+            /*.modal({observeChanges:true});*/
         }
         function closeModal(dmodal){
            $('#'+dmodal+'.modal')
@@ -117,6 +124,7 @@
             }
 
         function viewEvent(id){
+            console.log("VIEW EVENT" + id)
             $location.path('/events/' + id)
             // $http
             //     .get('/events/' + id)
@@ -173,7 +181,7 @@
                     else{ 
                         vm.currentUserId = response.data[0].user_id;   
                         console.log(vm.currentUserId);
-
+                        eventWithEventCreator();
                     }
                 })
         }
@@ -185,7 +193,7 @@
                 .then(function(response){
                     console.log('Event deleted')
                     //viewEvent($routeParams.event_id)
-                    $location.path('/events');
+                    $window.history.back();
             }, function(response){
                 console.log("error");
             });
@@ -253,7 +261,26 @@
                 function(response){
                     console.log("Error :(");
                 });
-        }         
+        }   
+
+         function userJoin (){  
+            $location.path('/user/join_event/' + $routeParams.event_id);
+         } 
+         function eventWithEventCreator(){
+            $http
+                .get('/user/all_events')
+                .then(function(response) {
+                     response.data.forEach(function(e){
+                        if(e.event_id==$routeParams.event_id){
+                            vm.allEventsUser = e;
+                            console.log("wee");
+                            console.log(vm.allEventsUser);
+                        }
+                     });
+                }, function(response){
+                    console.log('Error');
+                }); 
+         }
     }   
 
 })();

@@ -125,5 +125,4 @@ exports.viewEventUsingInterest = (req,res) => {
 		}
 	})
 }
-
  

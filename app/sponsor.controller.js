@@ -164,6 +164,7 @@
                 .then(function(response){
                 console.log(response.data);
                 console.log('Success! Sponsor Updated!')
+                viewAllSponsor();
             },
             function(response){
                 console.log("Error :()");

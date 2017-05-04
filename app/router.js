@@ -29,7 +29,7 @@
 			.when('/user/activity-log', {
 				templateUrl: 'layouts/user-activity-log.html'
 			})
-			.when('/users/:username', {
+			.when('/users/:user_id', {
 				//new route for visiting other profile
 				templateUrl: 'layouts/user-visit-profile.html'
 			})
@@ -55,12 +55,12 @@
 				controller:'userGameSchedController',
 				controllerAs:'UGSC'
 			})
-			.when('/events/join', {
+			.when('/user/join_event/:event_id', {
 				templateUrl: 'layouts/user-join-event.html'
 			})
 
 			//Game Routers
-			.when('/game/:game_id', {
+			.when('/event/:event_id/game/:game_id', {
 				templateUrl: 'layouts/user-game-page.html',
 				controller:'gameController',
 				controllerAs:'game'
@@ -70,7 +70,7 @@
 			.when('/team', {
 				templateUrl: 'layouts/user-view-all-teams.html'
 			})
-			.when('/teams/:team_id',{
+			.when('/events/:event_id/team/:team_id',{
 				templateUrl: 'layouts/user-view-team.html'
 			})
 
@@ -92,7 +92,7 @@
 			.when('/admin/sponsors', {
 				templateUrl: 'layouts/admin-all-sponsors.html'
 			})
-			.when('/admin/games', {
+			.when('/admin/event/:event_id/games', {
 				templateUrl: 'layouts/admin-all-games.html'
 			})
 			.when('/admin/sports', {

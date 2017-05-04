@@ -16,9 +16,14 @@
     vm.playerReq=[];
     vm.teamGames = [];
     vm.sportsFromEvent = [];
+    vm.gamesFromEvent = [];
     vm.upcomingGames = [];
     vm.approveTeamPlayer=approveTeamPlayer;
     vm.disapproveTeamPlayer=disapproveTeamPlayer;
+    vm.getScores = getScores;
+    vm.getScores2 = getScores2;
+    vm.allScores = [];
+    vm.allScores2 = [];
 
         $http   
              .get('/user_loggedin') 
@@ -40,6 +45,17 @@
                                           .then(function(response) {
                                               vm.sportsFromEvent = response.data;
                                               console.log(response.data);
+
+                                              vm.sportsFromEvent.forEach(function(e){
+                                                $http   
+                                                  .get('/game/' + e.game_id) 
+                                                  .then(function(response) {
+                                                      console.log(response.data);
+                                                      vm.gamesFromEvent.push(response.data);
+                                                  }); 
+                                              });
+
+                                              
                                           }); 
 
                                         $http   
@@ -47,7 +63,7 @@
                                           .then(function(response) {
                                               vm.upcomingGames = response.data;
                                               console.log(response.data);
-                                          }); 
+                                          });
 
                                         $http   
                                           .get('/eventsByInterest/' + vm.user.user_id) 
@@ -56,7 +72,8 @@
                                               console.log(response.data);
                                           }); 
                                     });
-                              //uncomment this if the change in db is confirmed (user_event table)
+                            
+
                               $http
                                    .get('/users/player_requests/'+vm.user.user_id)
                                    .then(function(response) {
@@ -94,6 +111,35 @@
               console.log('Error');
             });
         }
+
+        function getScores(game){
+          $http
+            .get('/scores/' + game.game_id + '/' + game.team_id)
+            .then(function(response){
+              while(vm.allScores.length!=game.game_id) vm.allScores.push(null);
+              if(response.data.length==0) vm.allScores.push(0);
+              else vm.allScores.push(response.data[0].team_score);
+              console.log('Viewing Score Successful');
+          },
+          function(response){
+            console.log('Error Viewing Score');
+          });
+      }
+
+      function getScores2(game){
+        $http
+          .get('/scores/' + game.game_id + '/' + game.team_id_2)
+          .then(function(response){
+            while(vm.allScores2.length!=game.game_id) vm.allScores2.push(null);
+            if(response.data.length==0) vm.allScores2.push(0);
+            else vm.allScores2.push(response.data[0].team_score);
+            console.log('Viewing Score Successful');
+        },
+        function(response){
+          console.log('Error Viewing Score');
+        });
+    }
+
 
         function disapproveTeamPlayer(team_id,user_id){
           var data = {
