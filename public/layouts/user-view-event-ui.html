@@ -88,8 +88,21 @@ $('#end-date-pick').calendar();
                     <div ng-show="logged.userId == event.currentUserId || logged.userType=='admin'" class="ui button" ng-click="event.updateEvent()" id="update-button">
                         UPDATE
                     </div>
-                    <div ng-show="logged.userId == event.currentUserId || logged.userType=='admin'" class="ui red button" ng-click="event.deleteEvent(x.event_id)" id="update-button">
+                    <div ng-show="logged.userId == event.currentUserId || logged.userType=='admin'" class="ui red button" ng-click="event.openModal('delete-event-modal')" id="update-button">
                         DELETE
+                    </div>
+                    <div class="ui basic modal" id="delete-event-modal">
+                            <div class="ui icon header">
+                                <i class="trash icon"></i> DELETE
+                            </div>
+                            <div class="actions">
+                            <div class="ui red basic cancel inverted button" ng-click="event.closeModal('delete-event-modal')">
+                                <i class="remove icon"></i> No
+                            </div>
+                            <div class="ui green ok inverted button" ng-click="event.deleteEvent(x.event_id);event.closeModal('delete-event-modal')">
+                                <i class="checkmark icon"></i> Yes
+                            </div>
+                        </div>
                     </div>
 
                 </div>

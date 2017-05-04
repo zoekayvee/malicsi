@@ -89,6 +89,28 @@
                                         <div class="hidden content"> Edit </div>
                                     </div>
                                 </div>
+
+                            </td>
+                            <td>
+
+
+
+
+
+
+
+                                <div ng-click="event.setDeleteEventId(x.event_id)">
+                                    <div class="ui animated button" id="delete" ng-click="event.openModal('delete-modal')">
+                                        <div class="visible content"><i class="trash icon"> </i></div>
+                                        <div class="hidden content"> Delete </div>
+                                    </div>
+                                </div>
+
+
+                            </td>
+
+                        </tr>
+
                                 <div class="ui modal" id="edit-event-modal">
                                     <div class="header"> UPDATE EVENT</div>
                                     <div class="content">
@@ -131,18 +153,12 @@
                                             <div class="ui button" ng-click="event.updateEventModal('edit-event-modal');event.closeModal('edit-event-modal
                                             ')">Submit</div>
 
-
+                                            
                                         </div>
                                     </div>
                                 </div>
-                            </td>
-                            <td>
-                                <div ng-click="event.setDeleteEventId(x.event_id)">
-                                    <div class="ui animated button" id="delete" ng-click="event.openModal('delete-modal')">
-                                        <div class="visible content"><i class="trash icon"> </i></div>
-                                        <div class="hidden content"> Delete </div>
-                                    </div>
-                                </div>
+
+
                                 <div class="ui basic modal" id="delete-modal">
                                     <div class="ui icon header">
                                         <i class="trash icon"></i> DELETE
@@ -156,9 +172,6 @@
                                         </div>
                                     </div>
                                 </div>
-                            </td>
-
-                        </tr>
 
                     </tbody>
                     <tfoot class="full-width">

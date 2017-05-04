@@ -43,10 +43,25 @@
                         <tr ng-repeat="spon in sponsor.allSponsors">
                             <td>{{ spon.sponsor_name }}</td>
                             <td>
-                                <div ng-click="sponsor.setSponsor(spon.sponsor_name,spon.sponsor_id,'edit-modal')" class="ui animated button edit-trigger" id="edit">
+                                <div ng-click="sponsor.setSponsor(spon.sponsor_name,spon.sponsor_id);sponsor.openModal('edit-modal')" class="ui animated button edit-trigger" id="edit">
                                     <div class="visible content"> <i class="edit icon"> </i> </div>
                                     <div class="hidden content"> Edit </div>
                                 </div>
+
+                            </td>
+                            <td>
+                                <div class="ui animated button" id="delete" ng-click="sponsor.setSponsor(spon.sponsor_name,spon.sponsor_id);sponsor.openModal('delete-sponsor-modal')">
+                                    <div class="visible content"><i class="trash icon"> </i></div>
+                                    <div class="hidden content"> Delete </div>
+                                </div>
+
+                            </td>
+
+
+
+
+                        </tr>
+
                                 <div class="ui modal" id="edit-modal">
                                     <div class="header"> UPDATE SPONSOR</div>
                                     <div class="content">
@@ -61,13 +76,7 @@
                                         <div class="ui button" ng-click="sponsor.updateSponsor();sponsor.closeModal('edit-modal')">Submit</div>
                                     </div>
                                 </div>
-                            </td>
-                            <td>
-                                <div class="ui animated button" id="delete" ng-click="sponsor.setSponsor(spon.sponsor_name,spon.sponsor_id,'delete-modal')">
-                                    <div class="visible content"><i class="trash icon"> </i></div>
-                                    <div class="hidden content"> Delete </div>
-                                </div>
-                                <div class="ui basic modal" id="delete-modal">
+                                <div class="ui basic modal" id="delete-sponsor-modal">
                                     <div class="ui icon header">
                                         <i class="trash icon"></i> Delete
                                     </div>
@@ -80,9 +89,8 @@
                                         </div>
                                     </div>
                                 </div>
-                            </td>
 
-                        </tr>
+
 
                     </tbody>
                     <tfoot class="full-width">
