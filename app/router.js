@@ -92,7 +92,7 @@
 			.when('/admin/sponsors', {
 				templateUrl: 'layouts/admin-all-sponsors.html'
 			})
-			.when('/admin/games', {
+			.when('/admin/event/:event_id/games', {
 				templateUrl: 'layouts/admin-all-games.html'
 			})
 			.when('/admin/sports', {
