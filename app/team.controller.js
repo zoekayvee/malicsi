@@ -36,7 +36,6 @@
     	vm.updateFuckingTeam = updateFuckingTeam;
     	vm.getTeamPlayers=getTeamPlayers;
     	vm.deleteTeamPlayer=deleteTeamPlayer;
-    	vm.getPlayerCount=getPlayerCount;
     	vm.currentId = null;
         vm.setCurrentId = setCurrentId;
         vm.openModal = openModal;
@@ -94,7 +93,6 @@
 
 
 		function getTeamPlayers(){
-			console.log(vm.userId);
 			$http
 	    		.get('/teams/players/'+$routeParams.team_id)
 	    		.then(function(response){
@@ -112,17 +110,6 @@
 	
 		}
 
-		function getPlayerCount(team_id){
-			var res=null;
-			$http
-	    		.get('/teams/players/'+team_id)
-	    		.then(function(response){
-	    			vm.allPlayers=response.data;
-	    			res= vm.allPlayers.length;
-			    });
-
-			return res;
-		}
 
 		function getCheckers(team_id){
 			$http

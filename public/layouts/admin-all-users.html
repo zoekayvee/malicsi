@@ -88,22 +88,17 @@
                                                 <input type="text" ng-model="college" placeholder ="{{admin.user.college}}">
                                             </div>
                                             <div class="field">
-<<<<<<< HEAD
                                                 <label>Height</label>
                                                 <input type="text" ng-model="height" placeholder ="{{admin.user.height}}">
-=======
-                                                <label>E-mail</label>
-                                                <input type="email" ng-model="email">
->>>>>>> 97fe7a0a197424dadf650b77528b653faa286616
                                             </div>
                                         </div>
 
                                         <div class="equal width fields">
                                             <div class="field">
-<<<<<<< HEAD
                                                 <label>Weight</label>
                                                 <input type="text" ng-model="weight" placeholder ="{{admin.user.weight}}">
-=======
+                                            </div>
+                                            <div class="field">
                                                 <label>Contact Number</label>
                                                 <input type="text" ng-model="contactno">
                                             </div>
@@ -117,13 +112,11 @@
                                             <div class="field">
                                                 <label>Age</label>
                                                 <input type="text" ng-model="contactno">
->>>>>>> 97fe7a0a197424dadf650b77528b653faa286616
                                             </div>
                                         </div>
 
                                         <div class="equal width fields">
                                             <div class="field">
-<<<<<<< HEAD
                                                 <label>First name</label>
                                                 <input type="text" ng-model="firstname" placeholder ="{{admin.user.firstname}}">
                                             </div>
@@ -150,22 +143,6 @@
                                                         <option value="pending">Pending</option>
                                                     </select>
                                                 </div>
-=======
-                                                <label>Height</label>
-                                                <input type="text" ng-model="height">
-                                            </div>
-                                            <div class="field">
-                                                <label>Weight</label>
-                                                <input type="text" ng-model="weight">
-                                            </div>
-                                            <div class="field">
-                                                <label>User Type</label>
-                                                <select class="ui dropdown" ng-model="user_type">
-                                                    <option value=""></option>
-                                                    <option value="normal">Normal</option>
-                                                    <option value="pending">Pending</option>
-                                                </select>
->>>>>>> 97fe7a0a197424dadf650b77528b653faa286616
                                             </div>
                                         </div>
 
@@ -212,28 +189,15 @@
                             <div class="ui modal" id="add-modal">
                                 <div class="header"> ADD USER</div>
                                 <div class="content">
-<<<<<<< HEAD
                                     <form name="myForm" class="ui medium form">
-                                        <div class="fields">
-                                            <div class="field">
-                                                <label>Username</label>
-                                                <input type="text" ng-model="admin.newUser.username" required>
-                                            </div>
-                                            <div class="field">
-                                                <label>Password</label>
-                                                <input type="password" ng-model="admin.newUser.password" required>
-                                            </div> <!-- added field password -->
-=======
-                                    <div class="ui form">
-
                                         <div class="equal width fields">
                                             <div class="field">
                                                 <label>Username</label>
-                                                <input type="text" placeholder="{{admin.newUser.username}}" ng-model="username">
+                                                <input type="text" ng-model="username" required>
                                             </div>
                                             <div class="field">
                                                 <label>Password</label>
-                                                <input type="password" ng-model="password">
+                                                <input type="password" ng-model="password" required>
                                             </div>
                                         </div>
 
@@ -253,7 +217,6 @@
                                                 <label>Location</label>
                                                 <input type="text" placeholder="Country/City" ng-model="location">
                                             </div>
->>>>>>> 97fe7a0a197424dadf650b77528b653faa286616
                                             <div class="field">
                                                 <label>College</label>
                                                 <input type="text" placeholder="{{admin.newUser.college}}" ng-model="college">
@@ -270,25 +233,22 @@
 
                                         <div class="equal width fields">
                                             <div class="field">
-<<<<<<< HEAD
                                                 <label>First name</label>
                                                 <input type="text" ng-model="admin.newUser.firstname" required>
                                             </div>
                                             <div class="field">
                                                 <label>Last name</label>
                                                 <input type="text" ng-model="admin.newUser.lastname" required>
-=======
                                                 <label>Age</label>
-                                                <input type="text" placeholder="{{admin.newUser.age}}" ng-model="age">
+                                                <input type="text" ng-model="age">
                                             </div>
                                             <div class="field">
                                                 <label>Height</label>
-                                                <input type="text" placeholder="{{admin.newUser.height}}" ng-model="height">
->>>>>>> 97fe7a0a197424dadf650b77528b653faa286616
+                                                <input type="text" ng-model="height">
                                             </div>
                                             <div class="field">
                                                 <label>Weight</label>
-                                                <input type="text" placeholder="{{admin.newUser.weight}}" ng-model="weight">
+                                                <input type="text" ng-model="weight">
                                             </div>
                                             <div class="field">
                                                 <label>Gender</label>
@@ -300,13 +260,8 @@
                                         </div>
                                     </form>
                                     <br>
-<<<<<<< HEAD
                                     <div class="ui button" id="cancel" ng-click="admin.closeModal('add-modal')">Cancel</div>
                                     <button ng-disabled="myForm.$invalid" class="ui button" ng-click="admin.addUser()">Submit</button>
-=======
-                                    <div class="ui button" ng-click="admin.addUser()">Submit</div>
-                                    <div class="ui button" id="cancel" ng-click="admin.closeModal('add-modal')">Cancel</div>
->>>>>>> 97fe7a0a197424dadf650b77528b653faa286616
                                 </div>
                             </div>
                         </th>

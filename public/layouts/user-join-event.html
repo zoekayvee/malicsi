@@ -16,11 +16,11 @@
                 <div class="content">
                     <a class="header" ng-click="team.viewTeam(x.team_id)">{{x.team_name}}</a>
                 </div>
-               <!--  <div class="extra content">
+               <div class="extra content">
                     <a>
-                        <i class="users icon"></i> {{team.getPlayerCount(x.team_id)}} Members
+                        <i class="users icon"></i> {{team.allPlayers.length | filter: {player_status: 'accepted'}}} Members
                     </a>
-                </div> -->
+                </div>
                 <br>
                 <div ng-hide="team.alreadyJoined " ng-controller="guestController as loged">
                 <button ng-show="loged.hasUser" class="negative ui animated button" ng-click="team.userJoinTeam(x.team_id)" id="join-group-button">

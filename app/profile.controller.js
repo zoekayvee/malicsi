@@ -66,6 +66,7 @@
                         .get('/user/teams/'+response.data)
                         .then(function(response) {
                             vm.userTeams = response.data;
+                            console.log(vm.userTeams)
                         });
                     $http
                         .get('/game/user/' + vm.userid)

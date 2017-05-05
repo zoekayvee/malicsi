@@ -4,9 +4,9 @@
 <script type='text/javascript' src='js/user-view-event.js'></script>
 <script src="semantic-ui-calendar/dist/calendar.js"></script>
 
-<div id="main-wrapper" ng-controller="eventController as event" ng-init="event.setEventData()">
-    <div class="ui grid container" ng-controller="loggedUserController as logged">
-        <div class="five wide column" ng-init="event.viewClickedEvent()" ng-controller="guestController as loged">
+<div id="main-wrapper" ng-controller="eventController as event" ng-init="event.viewClickedEvent()">
+    <div class="ui grid container" ng-controller="loggedUserController as logged" ng-init="event.setEvent()">
+        <div class="five wide column" ng-controller="guestController as loged">
             <div class="ui center aligned segment" ng-controller="otherUsersController as others">
 
                 <img src='images/events/0.jpg' class="ui large image" />
@@ -252,12 +252,12 @@
                     <h1 class="ui header">
                         TEAMS
                     </h1>
-                    <div class="ui form" ng-controller="guestController as loged">
-                        <div ng-show="logged.userId == event.currentUserId || logged.userType=='admin'" class="inline fields">
+                    <div class="ui form">
+                        <div class="inline fields" ng-show="logged.userId == event.currentUserId || logged.userType=='admin'" class="right floated content">
                             <div class="field">
                                 <input type="text" placeholder="Team Name" ng-model="team.teamName" name="team_name">
                             </div>
-                            <div class="field">
+                            <div class="field" >
                                 <button class="ui plus icon button" ng-click="team.addTeam(event.eventId)">
                                     <i class="plus icon"></i>
                                 </button>
