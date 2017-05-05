@@ -117,7 +117,7 @@
 				});
 		}
 
-		function updateUser(user,uname,pw,college,height,weight,fname,lname,email,contactno,user_type){
+		function updateUser(user,uname,pw,college,height,weight,fname,lname,email,contactno,user_type,age,gender,location){
 			var editUser=vm.user;
 			var flag="false";
 
@@ -153,6 +153,15 @@
             if(user_type =="" || typeof(user_type)=='undefined'){
                 user_type= user.user_type
             }
+            if(age =="" || typeof(age)=='undefined'){
+                age= user.age
+            }
+            if(gender =="" || typeof(gender)=='undefined'){
+                gender= user.gender
+            }
+            if(location =="" || typeof(location)=='undefined'){
+                location= user.location
+            }
 
             editUser.username=uname;
             editUser.password=pw;
@@ -163,7 +172,10 @@
             editUser.lastname=lname;
             editUser.email=email;
             editUser.contactno=contactno;
-            editUser.user_type=user_type
+            editUser.user_type=user_type;
+            editUser.age=age;
+            editUser.gender=gender;
+            editUser.location=location;
             editUser.flag=flag;
             console.log(editUser.user_id);
             $http
