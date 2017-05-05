@@ -12,6 +12,7 @@
 }
 
 #add-interest{
+    width: auto !important;
 	background-color: #de1b1b;
 	color:white;
 }
@@ -34,4 +35,20 @@
 #cancel-update{
 	background-color: #de1b1b;
 	color:white;
+}
+
+.team-item {
+    text-align: left !important;
+}
+
+#profile-image {
+    width: 150px !important;
+    height: 150px !important;
+    border-radius: 100% !important;
+    background-color: black;
+}
+
+.actions {
+    width: 100%;
+    text-align: right;
 }
