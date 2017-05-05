@@ -60,15 +60,15 @@
                 <div id="team-header">
 
                 <div class="ui right floated buttons">
-                    <div ng-controller="teamController as team">
-                        <button ng-show="logged.userId==team.currentUserId || logged.userType=='admin'"  class="positive ui right floated button edit-trigger" ng-click="team.openModal('update-modal');team.setTeamName(x.team_name)">Edit</button>
+                    <div>
+                        <button ng-show="logged.userId==team.currentUserId || logged.userType=='admin'"  class="positive ui right floated button edit-trigger" ng-click="team.openModal('update-modal')">Edit</button>
                         <div class="ui modal" id="update-modal">
                             <form class="ui form">
                                 <h2 class="ui dividing header">UPDATE TEAM</h2>
                                 <div class="fields">
                                     <div class="field">
                                         <label>Team Name</label>
-                                        <input type="text" ng-model="team.teamName" ng-init="x.team_name" id="firstname">
+                                        <input type="text" ng-model="team.teamName" id="firstname">
                                     </div>
                                 </div>
                                 <button class="ui button" ng-click="team.updateTeam(); team.closeModal('update-modal'); team.viewClickedTeam()">Submit</button>
