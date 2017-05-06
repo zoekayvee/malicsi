@@ -1,7 +1,5 @@
 <link rel='stylesheet' href='css/account-login.css' />
 <script type='text/javascript' src='js/register-validation.js'></script>
-<!-- calendar -->
-<!-- <script type='text/javascript' src='js/calendar.js'></script>  -->
 
 <div id="main-wrapper">
 
@@ -43,11 +41,11 @@
                     <div class="two fields">
                         <div class="field">
                             <label>First Name</label>
-                            <input type="text" id="firstname" placeholder="First Name" ng-pattern="/^[A-Za-z]+$/" ng-model="signUp.newUser.firstname" required>
+                            <input type="text" id="firstname" placeholder="First Name" ng-pattern="/^[A-Za-z]+$/" ng-maxlength="50" ng-model="signUp.newUser.firstname" required>
                         </div>
                         <div class="field">
                             <label>Last Name</label>
-                            <input type="text" id="lastname" placeholder="Last Name " ng-pattern="/^[A-Za-z]+$/" ng-model="signUp.newUser.lastname" required>
+                            <input type="text" id="lastname" placeholder="Last Name " ng-pattern="/^[A-Za-z]+$/" ng-maxlength="50" ng-model="signUp.newUser.lastname" required>
                         </div>
                     </div>
                     <div class="three fields">
@@ -62,7 +60,7 @@
 
                         <div class="field">
                             <label>College</label>
-                            <input type="text" placeholder="College" ng-model="signUp.newUser.college">
+                            <input type="text" placeholder="College" id="college" ng-maxlength="50" ng-model="signUp.newUser.college">
                         </div>
                     </div>
                     <div class="three fields">
@@ -82,15 +80,6 @@
                             <label>Contact No.</label>
                             <input type="tel" id="contactno" placeholder="09XX-XXX-XXXX" ng-pattern="/^[ ]+$|^([09][0-9]+)+$/" ng-maxlength="11" ng-model="signUp.newUser.contactno">
                         </div>
-                        <!-- <div class="field">
-                        <div class="ui calendar" id="datetime">
-                            <div class="ui input left icon">
-                              <i class="calendar icon"></i>
-                              <input type="text" placeholder="Date/Time">
-                            </div>
-                        </div>
-                        </div> -->
-                        <!-- test case for calendar -->
                     </div>
                     <div class="field">
                         <button ng-disabled="myForm.$invalid" class="ui primary submit button" id="submitbutton" ng-click="signUp.registerUser(password2)">SIGN UP</button>

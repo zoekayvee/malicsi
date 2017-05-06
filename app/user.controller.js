@@ -17,7 +17,7 @@
 		vm.lastname = "";
 		vm.newUser = {};
 		vm.flag=false;
-
+		vm.usernames=[];
 
 		vm.registerUser=registerUser;
 		vm.logOut = logOut;
@@ -48,6 +48,14 @@
             	}
             	else{
             		vm.hasUser=false;
+            	}
+            });
+
+        $http
+            .get('/user/usernames')
+            .then(function(response) {
+            	if(response.data){
+            		vm.usernames=response.data;
             	}
             });
 
@@ -98,11 +106,19 @@
 
 		function registerUser(password2){
 			setToastr();
+			var checker=false;
+
+			vm.usernames.forEach(function(e){
+				if(e.username===vm.newUser.username){
+					checker=true;
+				}
+			});
+			
 			if(password2!= vm.newUser.password){
 				toastr.error('Password does not match!');
-				/*setTimeout(function(){
-					
-				},600);*/
+			}
+			if(checker){
+				toastr.error('Username entered is not unique!');
 			}
 			else{
 				$http
@@ -121,9 +137,9 @@
 				function(response){
 					toastr.error('Error in input!');
 					console.log('Error');
-					setTimeout(function(){
+					/*setTimeout(function(){
 						redirectLocation('no');
-					}, 500);
+					}, 500);*/
 				});
 			}
 		}

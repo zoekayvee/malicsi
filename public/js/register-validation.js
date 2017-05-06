@@ -1,5 +1,3 @@
-//var pw= $(".ui.form form").form.("get value","password");
-
 $(document).ready(function() {
     $(".ui.form").form({
         fields: {
@@ -97,6 +95,26 @@ $(document).ready(function() {
                     {
                         type   : 'decimal',
                         prompt : 'Please enter your height'
+                    }
+                ]
+            },
+            location: {
+                identifier  : 'location',
+                optional: true,
+                rules: [
+                    {
+                         type: 'maxLength[100]',
+                        prompt: 'Location is too long.'
+                    }
+                ]
+            },
+            college: {
+                identifier  : 'college',
+                optional: true,
+                rules: [
+                    {
+                         type: 'maxLength[50]',
+                        prompt: 'College name is too long.'
                     }
                 ]
             },

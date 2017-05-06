@@ -28,7 +28,6 @@
 		vm.approveUser = approveUser;
 		vm.approveEvent = approveEvent;
 		vm.disapproveEvent = disapproveEvent;
-		vm.playerReq=[];
 		vm.hasEvent = null;
 
 		$http   
@@ -56,6 +55,15 @@
                 }
             });
 		
+        function setToastr(){
+		    toastr.options.positionClass = "toast-bottom-right";
+		    toastr.options.closeButton = true;
+		    toastr.options.showMethod = 'slideDown';
+		    toastr.options.hideMethod = 'slideUp';
+		    toastr.options.positionClass = "toast-bottom-full-width";
+		    toastr.options.timeOut = 2000;
+		    toastr.options.newestOnTop = false;
+    	}
 
 		function deleteUser(user_id){
 			console.log(user_id);
@@ -197,6 +205,7 @@
 			.modal('show');
 		
 		}
+
 		function closeModal(dmodal){
 			$('#'+dmodal+'.modal')
 			 	.modal('hide');	

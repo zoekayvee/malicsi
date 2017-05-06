@@ -351,3 +351,17 @@ exports.updateUser=(req,res)=>{
 		}
 	});
 }
+
+exports.viewUsernames = (req,res) => {
+	const query_string = "SELECT username from users";
+
+	connection.query(query_string, null, (err,result)=>{
+		if(!err){
+			res.status(200).send(result);
+		}
+		else{
+			res.status(500).send(err);
+		}
+	});
+}
+

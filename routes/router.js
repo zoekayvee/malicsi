@@ -29,6 +29,7 @@ router.put 		('/users/:user_id/profilepic', uploadController.upload.single('prof
 router.post     ('/user_team',              userController.userJoinsTeam);
 router.get      ('/logs',                   adminController.viewAllLogs);
 router.get      ('/logs/:user_id',          adminController.viewLogs);
+router.get      ('/user/usernames',          userController.viewUsernames);
 
 router.put      ('/user/:user_id',			userController.updateUser); //added
 router.get 		('/user/teams/:user_id',    userController.viewUserTeams); //added
