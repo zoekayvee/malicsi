@@ -96,9 +96,16 @@
 				});
 		}
 
-		function registerUser(){
+		function registerUser(password2){
 			setToastr();
-			$http
+			if(password2!= vm.newUser.password){
+				toastr.error('Password does not match!');
+				/*setTimeout(function(){
+					
+				},600);*/
+			}
+			else{
+				$http
 				.post('/users', vm.newUser)
 				.then(function(response){
 					console.log(response.data);
@@ -118,6 +125,7 @@
 						redirectLocation('no');
 					}, 500);
 				});
+			}
 		}
 
 	     function logOut() {

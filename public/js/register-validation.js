@@ -37,6 +37,10 @@ $(document).ready(function() {
                 identifier  : "password2",
                 rules: [
                     {
+                        type   : "empty",
+                        prompt : "Please re-enter your password"
+                    },
+                    {
                         type   : 'match[password]',
                         prompt : "Re-entered password does not match."
                     }
@@ -44,6 +48,7 @@ $(document).ready(function() {
             },
             email: {
                 identifier  : "email",
+                optional: true,
                 rules: [
                     {
                         type   : "email",
@@ -87,6 +92,7 @@ $(document).ready(function() {
             },
             height: {
                 identifier  : 'height',
+                optional: true,
                 rules: [
                     {
                         type   : 'decimal',
@@ -96,6 +102,7 @@ $(document).ready(function() {
             },
             weight: {
                 identifier  : 'weight',
+                optional: true,
                 rules: [
                     {
                         type   : 'decimal',
@@ -105,6 +112,7 @@ $(document).ready(function() {
             },
             age: {
                 identifier  : 'age',
+                optional: true,
                 rules: [
                     {
                         type   : 'integer[1..999]',
@@ -114,6 +122,7 @@ $(document).ready(function() {
             },
             contactno: {
                 identifier  : 'contactno',
+                optional: true,
                 rules: [
                     {
                         type   : 'integer',
