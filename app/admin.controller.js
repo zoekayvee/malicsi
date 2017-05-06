@@ -78,13 +78,26 @@
 
 		function addUser(){
 			// console.log(user_id);
+			var checker=false;
+			vm.allUsers.forEach(function(e){
+				if(e.username===vm.newUser.username){
+					checker=true;
+				}
+			});
+
+			if(checker){
+            	toastr.error('Username entered is not unique!');
+            }else{
 			$http.post('/user',vm.newUser)
 				.then(function(response){
-					console.log('Added User');
-					window.location.reload();
+					toastr.success('Successfully added user!');
+					setTimeout(function(){
+						window.location.reload();
+					}, 1000);
 				}, function(response){
-					console.log('Error');
+					toastr.error('Error in input!');
 				});
+			}
 		}
 
 		function approveUser(user_id){
@@ -199,12 +212,14 @@
             	.put('/users/passwords/' + editUser.user_id, editUser)
             	.then(function(response){
             		delete editUser.flag;
-            		
-            	});
-	           	toastr.success('Successfully updated the user!');
+            		toastr.success('Successfully updated the user!');
 					setTimeout(function(){
 						window.location.reload();
 					}, 1000);
+            	},
+            	function(response){
+					toastr.error('Error in input!');
+				});
             }
 		}
 

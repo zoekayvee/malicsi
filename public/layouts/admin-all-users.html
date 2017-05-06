@@ -94,33 +94,33 @@
                                         <div class="equal width fields">
                                             <div class="field">
                                                 <label>Username</label>
-                                                <input type="text" placeholder="Username" ng-model="admin.newUser.username" required>
+                                                <input type="text"  id="username" ng-pattern="/^[A-Za-z0-9_-]+$/" ng-maxlength="50" placeholder="Username" ng-model="admin.newUser.username" required>
                                             </div>
                                             <div class="field">
                                                 <label>Password</label>
-                                                <input type="password" placeholder="Password" ng-model="admin.newUser.password" required>
+                                                <input type="password"  id="password" ng-maxlength="50" placeholder="Password" ng-model="admin.newUser.password" required>
                                             </div>
                                         </div>
 
                                         <div class="equal width fields">
                                             <div class="field">
                                                 <label>First name</label>
-                                                <input type="text" placeholder="First Name" ng-model="admin.newUser.firstname">
+                                                <input type="text"  id="firstname" ng-maxlength="50"  ng-pattern="/^[A-Za-z]+$/"  placeholder="First Name" ng-model="admin.newUser.firstname">
                                             </div>
                                             <div class="field">
                                                 <label>Last name</label>
-                                                <input type="text" placeholder="Last Name" ng-model="admin.newUser.lastname">
+                                                <input type="text"  id="lastname" ng-maxlength="50"  ng-pattern="/^[A-Za-z]+$/"  placeholder="Last Name" ng-model="admin.newUser.lastname">
                                             </div>
                                         </div>
 
                                         <div class="equal width fields">
                                             <div class="field">
                                                 <label>Location</label>
-                                                <input type="text" placeholder="Country/City" ng-model="admin.newUser.location">
+                                                <input type="text" id="location" ng-maxlength="100" placeholder="Country/City" ng-model="admin.newUser.location">
                                             </div>
                                             <div class="field">
                                                 <label>College</label>
-                                                <input type="text" placeholder="College" ng-model="admin.newUser.college">
+                                                <input type="text" id="college" ng-maxlength="50" placeholder="College" ng-model="admin.newUser.college">
                                             </div>
                                             <div class="field">
                                                 <label>E-mail</label>
@@ -135,15 +135,15 @@
                                         <div class="equal width fields">
                                             <div class="field">
                                                 <label>Age</label>
-                                                <input type="text" ng-model="admin.newUser.age" placeholder="Age">
+                                                <input type="text" id="age" ng-pattern="/^[ ]+$|^[0-9]+$/" ng-maxlength="3" ng-model="admin.newUser.age" placeholder="Age">
                                             </div>
                                             <div class="field">
                                                 <label>Height</label>
-                                                <input type="text" ng-model="admin.newUser.height" placeholder="Height">
+                                                <input type="text" id="height" ng-pattern="/^[ ]+$|(^[0-9]+([.][0-9]+)?)+$/" ng-model="admin.newUser.height" placeholder="Height">
                                             </div>
                                             <div class="field">
                                                 <label>Weight</label>
-                                                <input type="text" ng-model="admin.newUser.weight" placeholder="Weight">
+                                                <input type="text" id="weight" ng-pattern="/^[ ]+$|(^[0-9]+([.][0-9]+)?)+$/" ng-model="admin.newUser.weight" placeholder="Weight">
                                             </div>
                                             <div class="field">
                                                 <label>Gender</label>
@@ -153,10 +153,10 @@
                                                 </select>
                                             </div>
                                         </div>
-                                    </form>
                                     <br>
                                     <div class="ui button" id="cancel" ng-click="admin.closeModal('add-modal')">Cancel</div>
                                     <button ng-disabled="myForm.$invalid" class="ui button" ng-click="admin.addUser()">Submit</button>
+                                    </form>
                                 </div>
                             </div>
                         </th>
