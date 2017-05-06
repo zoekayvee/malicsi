@@ -128,8 +128,14 @@
 		function updateUser(user,uname,pw,college,height,weight,fname,lname,email,contactno,user_type,age,gender,location){
 			var editUser=vm.user;
 			var flag="false";
+			var checker=false; //unique username
 
-			console.log(vm.user);
+			vm.allUsers.forEach(function(e){
+				if(e.username===uname){
+					checker=true;
+				}
+			});
+
 			if(uname == "" || typeof(uname)== 'undefined'){
                 uname= user.username
             }
@@ -186,14 +192,20 @@
             editUser.location=location;
             editUser.flag=flag;
             console.log(editUser.user_id);
-            $http
+            if(checker){
+            	toastr.error('Username entered is not unique!');
+            }else{
+            	$http
             	.put('/users/passwords/' + editUser.user_id, editUser)
             	.then(function(response){
             		delete editUser.flag;
             		
             	});
-           	
-           	window.location.reload();
+	           	toastr.success('Successfully updated the user!');
+					setTimeout(function(){
+						window.location.reload();
+					}, 1000);
+            }
 		}
 
 		function openModal(dmodal){
