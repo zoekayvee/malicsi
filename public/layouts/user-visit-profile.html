@@ -10,31 +10,15 @@
             <div class="ui center aligned segment">
 
                 <!--User image-->
-                <img class="ui centered small circular image" src="{{user.user.profilepic}}">
-                <h2 class ="ui centered header" id="header-section">
+                <img class="ui centered small circular image" src="{{user.user.profilepic}}" id="profile-image">
+                <h2 class="ui centered header" id="header-section">
                     {{user.user.firstname + " " + user.user.lastname}}
+                    ({{user.user.username}})
                     <div class="sub header" id="header-section">
-                      {{user.user.location}}
+                        {{user.user.location}}
                     </div>
                 </h2>
 
-
-                <!-- update profile -->
-                <div class="ui modal " id="update-modal">
-                    <div class="header">Update Profile</div>
-                        <div class="content">
-                            
-                        </div>
-<!--
-                                </div> 
-                            <div class="ui actions">
-                                <div class="ui close button" ng-click="update.closeModal('update-modal')">Cancel</div>
-                                <div class="ui button" type="submit" ng-click="update.updateUser(update.user,username,password,location,college,age,height,weight,firstname,lastname,email,contactno,gender,profilepic)">Update</div>
-                            </div>
-                        </form>
-                    </div>
- -->
-                </div>
                 <!--end of modal for updating user profile --> 
                 <!--User Profile-->
                 <table class="ui very basic collapsing celled table">
@@ -73,6 +57,7 @@
                 <!--End of User Profile-->
             </div>
         </div>
+        
         <div class="eleven wide column">
             <div class="ui grid">
                 <!--User Interests-->
