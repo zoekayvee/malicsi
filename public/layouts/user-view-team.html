@@ -1,6 +1,7 @@
 <link rel='stylesheet' href='css/user-team-page.css' />
 
 <div ng-controller="teamController as team" ng-init="team.viewClickedTeam()" id="main-wrapper" class="ui container">
+<div ng-controller="eventValidityController">
     <div class="ui grid" ng-controller="loggedUserController as logged">
 
         <div class="four wide column">
@@ -155,4 +156,5 @@
 
         </div>
     </div>
+</div>
 </div>

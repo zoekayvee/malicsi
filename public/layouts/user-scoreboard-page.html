@@ -3,7 +3,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <div id="main-wrapper" class="ui container">
- 
+ <div ng-controller="eventValidityController">
     <div class="ui grid" ng-controller="eventController as event" ng-init="event.viewEventDetails();event.viewClickedEvent()">
 
         <div id="sport-wrapper" class="four wide column">
@@ -153,5 +153,6 @@
             </div>
 
         </div>
+    </div>
     </div>
 </div>

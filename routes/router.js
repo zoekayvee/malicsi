@@ -190,6 +190,10 @@ router.get('/403', (req,res)=>{
     res.sendFile('public/layouts/error-404.html',{root:__dirname+'/..'});
 });
 
+router.get('/451', (req,res)=>{
+    res.sendFile('public/layouts/error-451.html',{root:__dirname+'/..'});
+});
+
 router.all('*', (req, res) => {
     res.status(404).send({message : 'Unmatched route. =(('});
 });

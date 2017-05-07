@@ -1,6 +1,7 @@
 <link rel='stylesheet' href='css/user-game-page.css' />
 
 <div id="main-wrapper" class="ui container" ng-controller="eventController as event" ng-init="event.viewClickedEvent()">
+<div ng-controller="eventValidityController">
     <div ng-controller="gameController as game" ng-init="game.game=null;game.viewGameInGamePage();game.canBet()">
 
         <h1>{{game.game.sport_name}} Game {{game.game.game_id}}
@@ -205,5 +206,6 @@
             
         </div>
 
+    </div>
     </div>
 </div>

@@ -5,6 +5,7 @@
 <script src="semantic-ui-calendar/dist/calendar.js"></script>
 
 <div id="main-wrapper" ng-controller="eventController as event" ng-init="event.viewClickedEvent()">
+<div ng-controller="eventValidityController">
     <div class="ui grid container" ng-controller="loggedUserController as logged" ng-init="event.setEvent()">
         <div class="five wide column" ng-controller="guestController as loged">
             <div class="ui center aligned segment" ng-controller="otherUsersController as others">
@@ -313,5 +314,6 @@
                 </div>
             </div>
         </div>
+    </div>
     </div>
 </div>

@@ -1,5 +1,6 @@
 
 <div class="ui container" id="main-wrapper" ng-controller="teamController as team">
+<div ng-controller="eventValidityController">
     <div class="ui four cards" ng-init="team.viewTeamPerEvent()" ng-controller="loggedUserController as logged">
         <div class="card" ng-repeat="x in team.allTeams" ng-init="team.getTeamPlayersCount(x)">
             <div class="center aligned content" ng-init="team.getCheckers(x.team_id)">
@@ -43,5 +44,6 @@
             <div class="extra content">
             </div>
         </div>
+    </div>
     </div>
 </div>
