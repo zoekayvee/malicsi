@@ -36,7 +36,7 @@
     	vm.updateFuckingTeam = updateFuckingTeam;
     	vm.getTeamPlayers=getTeamPlayers;
     	vm.deleteTeamPlayer=deleteTeamPlayer;
-    	vm.getPlayerCount=getPlayerCount;
+    	vm.deleteTeamPlayer_2=deleteTeamPlayer_2;
     	vm.currentId = null;
         vm.setCurrentId = setCurrentId;
         vm.openModal = openModal;
@@ -54,6 +54,7 @@
         vm.getCheckers=getCheckers;
         vm.thisTeamName;
         vm.currentUserId=null;
+        vm.getTeamPlayersCount=getTeamPlayersCount;
 
         $http
     		.get('/user_loggedin')
@@ -92,9 +93,25 @@
 			});
 		}
 
+		function getTeamPlayersCount(team){
+			var count=0;
+			$http
+	    		.get('/teams/players/'+team.team_id)
+	    		.then(function(response){
+	    			vm.allPlayers=response.data;
+	    			console.log(vm.allPlayers);
+	    			vm.allPlayers.forEach(function(e){
+		    		 	console.log(e);
+			    		if(e.player_status==='accepted'){
+			    			count+=1;
+			    		}
+			    	});
+			    	team.count=count;
+    		 });
+	
+		}
 
 		function getTeamPlayers(){
-			console.log(vm.userId);
 			$http
 	    		.get('/teams/players/'+$routeParams.team_id)
 	    		.then(function(response){
@@ -112,17 +129,6 @@
 	
 		}
 
-		function getPlayerCount(team_id){
-			var res=null;
-			$http
-	    		.get('/teams/players/'+team_id)
-	    		.then(function(response){
-	    			vm.allPlayers=response.data;
-	    			res= vm.allPlayers.length;
-			    });
-
-			return res;
-		}
 
 		function getCheckers(team_id){
 			$http
@@ -141,9 +147,21 @@
     		 });
 		}
 
-		function deleteTeamPlayer(user_id){
+		function deleteTeamPlayer(user_id,team_id){
+			console.log("huyyy");
 			$http
-	    		.delete('/teams/player_remove/'+$routeParams.team_id+'/'+ user_id)
+	    		.delete('/teams/player_remove/'+$routeParams.event_id+'/'+team_id+'/'+ user_id)
+	    		.then(function(response){
+	    			vm.alreadyJoined=null;
+	    			vm.cancelled=true;
+    		 	} ,function(response){
+					console.log(response.data);
+				});
+		}
+
+		function deleteTeamPlayer_2(user_id){
+			$http
+	    		.delete('/teams/player_remove/'+$routeParams.event_id+'/'+$routeParams.team_id+'/'+ user_id)
 	    		.then(function(response){
 	    			vm.alreadyJoined=null;
 	    			vm.cancelled=true;

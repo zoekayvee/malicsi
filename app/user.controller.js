@@ -4,7 +4,7 @@
 		.module('malicsi')
 		.controller('userController', userController);
 
-	function userController($http){
+	function userController($http, $window){
 		var vm = this;
 		vm.username="";
 		vm.password="";
@@ -17,7 +17,7 @@
 		vm.lastname = "";
 		vm.newUser = {};
 		vm.flag=false;
-
+		vm.usernames=[];
 
 		vm.registerUser=registerUser;
 		vm.logOut = logOut;
@@ -48,6 +48,14 @@
             	}
             	else{
             		vm.hasUser=false;
+            	}
+            });
+
+        $http
+            .get('/user/usernames')
+            .then(function(response) {
+            	if(response.data){
+            		vm.usernames=response.data;
             	}
             });
 
@@ -96,9 +104,24 @@
 				});
 		}
 
-		function registerUser(){
+		function registerUser(password2){
 			setToastr();
-			$http
+			var checker=false;
+
+			vm.usernames.forEach(function(e){
+				if(e.username===vm.newUser.username){
+					checker=true;
+				}
+			});
+			
+			if(password2!= vm.newUser.password || checker){
+				if(checker)
+					toastr.error('Username entered is not unique!');
+				if(password2!= vm.newUser.password )
+					toastr.error('Password does not match!');
+			}
+			else{
+				$http
 				.post('/users', vm.newUser)
 				.then(function(response){
 					console.log(response.data);
@@ -114,10 +137,11 @@
 				function(response){
 					toastr.error('Error in input!');
 					console.log('Error');
-					setTimeout(function(){
+					/*setTimeout(function(){
 						redirectLocation('no');
-					}, 500);
+					}, 500);*/
 				});
+			}
 		}
 
 	     function logOut() {
@@ -125,7 +149,9 @@
 	     			.then(function(response) {
 	     				var redirect = response.data.redirect;
 	     				toastr.success('Logged out.');
-	     				window.location.href=redirect;
+	     				//$route.reload();
+	     				//window.location.href=redirect;
+	     				$window.location.reload(true)
 	     				vm.hasUser=false;
 	     				 vm.user = {};
 	     			});

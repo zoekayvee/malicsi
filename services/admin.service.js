@@ -53,7 +53,7 @@ exports.updateUserPassword= (req,res) =>{
 		req.body.password=hash;
 	}
 
-	const query_string = 'UPDATE users SET username=?,password=?,college=?,height=?,weight=?,firstname=?,lastname=?,email=?,contactno=?,user_type=? WHERE user_id=?';
+	const query_string = 'UPDATE users SET username=?,password=?,college=?,height=?,weight=?,firstname=?,lastname=?,email=?,contactno=?,user_type=?,age=?,gender=?,location=? WHERE user_id=?';
 
 	const req_data = [
 		req.body.username,
@@ -66,6 +66,9 @@ exports.updateUserPassword= (req,res) =>{
 		req.body.email,
 		req.body.contactno,
 		req.body.user_type,
+		req.body.age,
+		req.body.gender,
+		req.body.location,
 		req.params.user_id
 	];    
 
@@ -183,7 +186,7 @@ exports.addUser=(req,res)=>{
 	const hash = bcrypt.hashSync(req.body.password, salt);
 
 	//automatic normal user
-	const query_string = 'INSERT INTO users (username, password, user_type, firstname, lastname, email,height,weight,college,contactno) VALUES (?,?,?,?,?,?,?,?,?,?)';
+	const query_string = 'INSERT INTO users (username, password, user_type, firstname, lastname, email,height,weight,college,contactno,age,gender,location) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)';
 	const req_data = [
 		req.body.username,
 		hash,
@@ -194,7 +197,10 @@ exports.addUser=(req,res)=>{
 		req.body.height,
 		req.body.weight,
 		req.body.college,
-		req.body.contactno
+		req.body.contactno,
+		req.body.age,
+		req.body.gender,
+		req.body.location
 	];
 	
 	connection.query(query_string, req_data, (err,rows)=>{

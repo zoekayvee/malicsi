@@ -1,5 +1,6 @@
 <link rel="stylesheet" type="text/css" href="css/admin-homepage.css"> </link>
 <link rel="stylesheets" type='text/javascript' src='js/admin.js'></link>
+<script type='text/javascript' src='js/form-validate.js'></script>
 
 <div class="ui container" id="main-wrapper" ng-controller="adminController as admin">
     <div id="main-card">
@@ -36,7 +37,8 @@
                     <tr ng-repeat="x in admin.allUsers">
                         <td> {{x.user_id}}</td>
                         <td ng-controller="otherUsersController as others">
-                            <a ng-click="others.clicked(x.user_id)">{{x.username}}</a> {{x.user_type}}
+                            <a ng-click="others.clicked(x.user_id)">{{x.username}}</a> 
+                            <div> Type: {{x.user_type}}</div>
                         </td>
                         <td> {{x.firstname}}</td>
                         <td> {{x.lastname}}</td>
@@ -51,91 +53,7 @@
                             <div class="ui icon button edit-trigger" ng-click="admin.initialize(x);admin.openModal('edit-modal')">
                                 <i class="write icon"> </i>
                             </div>
-                            <div class="ui modal" id="edit-modal">
-                                <div class="header"> EDIT USER</div>
-                                <div class="content">
-                                    <div class="ui form">
-
-                                        <div class="equal width fields">
-                                            <div class="field">
-                                                <label>Username</label>
-                                                <input type="text" ng-model="username">
-                                            </div>
-                                            <div class="field">
-                                                <label>Password</label>
-                                                <input type="password" ng-model="password">
-                                            </div>
-                                        </div>
-
-                                        <div class="equal width fields">
-                                            <div class="field">
-                                                <label>First name</label>
-                                                <input type="text" ng-model="firstname">
-                                            </div>
-                                            <div class="field">
-                                                <label>Last name</label>
-                                                <input type="text" ng-model="lastname">
-                                            </div>
-                                        </div>
-
-                                        <div class="equal width fields">
-                                            <div class="field">
-                                                <label>Location</label>
-                                                <input type="text" ng-model="location">
-                                            </div>
-                                            <div class="field">
-                                                <label>College</label>
-                                                <input type="text" ng-model="college">
-                                            </div>
-                                            <div class="field">
-                                                <label>E-mail</label>
-                                                <input type="email" ng-model="email">
-                                            </div>
-                                        </div>
-
-                                        <div class="equal width fields">
-                                            <div class="field">
-                                                <label>Contact Number</label>
-                                                <input type="text" ng-model="contactno">
-                                            </div>
-                                            <div class="field">
-                                                <label>Gender</label>
-                                                <select class="ui selection dropdown" ng-model="gender">
-                                                    <option value="M">Male</option>
-                                                    <option value="F">Female</option>
-                                                </select>
-                                            </div>
-                                            <div class="field">
-                                                <label>Age</label>
-                                                <input type="text" ng-model="contactno">
-                                            </div>
-                                        </div>
-
-                                        <div class="equal width fields">
-                                            <div class="field">
-                                                <label>Height</label>
-                                                <input type="text" ng-model="height">
-                                            </div>
-                                            <div class="field">
-                                                <label>Weight</label>
-                                                <input type="text" ng-model="weight">
-                                            </div>
-                                            <div class="field">
-                                                <label>User Type</label>
-                                                <select class="ui dropdown" ng-model="user_type">
-                                                    <option value=""></option>
-                                                    <option value="normal">Normal</option>
-                                                    <option value="pending">Pending</option>
-                                                </select>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                    <br>
-                                    <div class="ui button" ng-click="admin.updateUser(admin.user,username,password,college,height,weight,firstname,lastname,email,contactno,user_type)">Submit</div>
-                                    <div class="ui button" id="cancel" ng-click="admin.closeModal('edit-modal')">Cancel</div>
-                                </div>
-                            </div>
+                            
 
                         </td>
                         <td>
@@ -173,74 +91,73 @@
                             <div class="ui modal" id="add-modal">
                                 <div class="header"> ADD USER</div>
                                 <div class="content">
-                                    <div class="ui form">
-
+                                    <form name="myForm" class="ui medium form">
                                         <div class="equal width fields">
                                             <div class="field">
                                                 <label>Username</label>
-                                                <input type="text" placeholder="{{admin.newUser.username}}" ng-model="username">
+                                                <input type="text"  id="username" ng-pattern="/^[A-Za-z0-9_-]+$/" ng-maxlength="50" placeholder="Username" ng-model="admin.newUser.username" required>
                                             </div>
                                             <div class="field">
                                                 <label>Password</label>
-                                                <input type="password" ng-model="password">
+                                                <input type="password"  id="password" ng-maxlength="50" placeholder="Password" ng-model="admin.newUser.password" required>
                                             </div>
                                         </div>
 
                                         <div class="equal width fields">
                                             <div class="field">
                                                 <label>First name</label>
-                                                <input type="text" placeholder="{{admin.newUser.firstname}}" ng-model="firstname">
+                                                <input type="text"  id="firstname" ng-maxlength="50"  ng-pattern="/^[A-Za-z]+$/"  placeholder="First Name" ng-model="admin.newUser.firstname" required>
                                             </div>
                                             <div class="field">
                                                 <label>Last name</label>
-                                                <input type="text" placeholder="{{admin.newUser.lastname}}" ng-model="lastname">
+                                                <input type="text"  id="lastname" ng-maxlength="50"  ng-pattern="/^[A-Za-z]+$/"  placeholder="Last Name" ng-model="admin.newUser.lastname" required>
                                             </div>
                                         </div>
 
                                         <div class="equal width fields">
                                             <div class="field">
                                                 <label>Location</label>
-                                                <input type="text" placeholder="Country/City" ng-model="location">
+                                                <input type="text" id="location" ng-maxlength="100" placeholder="Country/City" ng-model="admin.newUser.location">
                                             </div>
                                             <div class="field">
                                                 <label>College</label>
-                                                <input type="text" placeholder="{{admin.newUser.college}}" ng-model="college">
+                                                <input type="text" id="college" ng-maxlength="50" placeholder="College" ng-model="admin.newUser.college">
                                             </div>
                                             <div class="field">
                                                 <label>E-mail</label>
-                                                <input type="email" placeholder="{{admin.newUser.email}}" ng-model="email">
+                                                <input type="email" placeholder="E-mail" ng-model="admin.newUser.email">
                                             </div>
                                             <div class="field">
                                                 <label>Contact Number</label>
-                                                    <input type="text" placeholder="{{admin.newUser.contactno}}" ng-model="contactno">
+                                                    <input type="text" placeholder="Contact Number" ng-model="admin.newUser.contactno">
                                             </div>
                                         </div>
 
                                         <div class="equal width fields">
                                             <div class="field">
                                                 <label>Age</label>
-                                                <input type="text" placeholder="{{admin.newUser.age}}" ng-model="age">
+                                                <input type="text" id="age" ng-pattern="/^[ ]+$|^[0-9]+$/" ng-maxlength="3" ng-model="admin.newUser.age" placeholder="Age">
                                             </div>
                                             <div class="field">
                                                 <label>Height</label>
-                                                <input type="text" placeholder="{{admin.newUser.height}}" ng-model="height">
+                                                <input type="text" id="height" ng-pattern="/^[ ]+$|(^[0-9]+([.][0-9]+)?)+$/" ng-model="admin.newUser.height" placeholder="Height">
                                             </div>
                                             <div class="field">
                                                 <label>Weight</label>
-                                                <input type="text" placeholder="{{admin.newUser.weight}}" ng-model="weight">
+                                                <input type="text" id="weight" ng-pattern="/^[ ]+$|(^[0-9]+([.][0-9]+)?)+$/" ng-model="admin.newUser.weight" placeholder="Weight">
                                             </div>
                                             <div class="field">
                                                 <label>Gender</label>
-                                                <select class="ui selection dropdown" ng-model="gender">
+                                                <select class="ui selection dropdown" ng-model="admin.newUser.gender">
                                                     <option value="M">Male</option>
                                                     <option value="F">Female</option>
                                                 </select>
                                             </div>
                                         </div>
-                                    </div>
                                     <br>
-                                    <div class="ui button" ng-click="admin.addUser()">Submit</div>
                                     <div class="ui button" id="cancel" ng-click="admin.closeModal('add-modal')">Cancel</div>
+                                    <button ng-disabled="myForm.$invalid" class="ui button" ng-click="admin.addUser()">Submit</button>
+                                    </form>
                                 </div>
                             </div>
                         </th>
@@ -249,4 +166,93 @@
             </table>
         </div>
     </div>
+<div class="ui modal" id="edit-modal">
+    <div class="header"> EDIT USER</div>
+     <div  class="content">
+    <form name="myForm" class="ui medium form"  >
+            <div class="equal width fields">
+                    <div class="field">
+                        <label>Username</label>
+                        <input type="text" id="username" ng-model="username" ng-pattern="/^[A-Za-z0-9_-]+$/" ng-maxlength="50"  placeholder ="{{admin.user.username}}">
+                    </div>
+                    <div class="field">
+                        <label>Password</label>
+                        <input type="password" id="password" ng-maxlength="50" ng-model="password">
+                    </div>
+            </div>
+
+            <div class="equal width fields">
+                
+                    <div class="field">
+                        <label>First name</label>
+                        <input type="text" id="firstname" ng-maxlength="50"  ng-pattern="/^[A-Za-z]+$/" ng-model="firstname" placeholder="{{admin.user.firstname}}">
+                    </div>
+                    <div class="field">
+                        <label>Last name</label>
+                        <input type="text" id="lastname"  ng-pattern="/^[A-Za-z]+$/" ng-maxlength="50" ng-model="lastname" placeholder="{{admin.user.lastname}}">
+                    </div>
+            </div>
+
+            <div class="equal width fields">
+               
+                    <div class="field">
+                        <label>Location</label>
+                        <input type="text" id="location" ng-maxlength="100" ng-model="location" placeholder="{{admin.user.location}}">
+                    </div>
+                    <div class="field">
+                        <label>College</label>
+                        <input type="text" ng-model="college" ng-maxlength="50" placeholder ="{{admin.user.college}}">
+                    </div>
+                    <div class="field">
+                        <label>Height</label>
+                        <input type="text" id="height" ng-model="height" ng-pattern="/^[ ]+$|(^[0-9]+([.][0-9]+)?)+$/" placeholder ="{{admin.user.height}}">
+                    </div>
+               
+            </div>
+
+            <div class="equal width fields">
+                
+                    <div class="field">
+                        <label>Weight</label>
+                        <input type="text" id="weight" ng-model="weight" ng-pattern="/^[ ]+$|(^[0-9]+([.][0-9]+)?)+$/" placeholder ="{{admin.user.weight}}">
+                    </div>
+                    <div class="field">
+                        <label>Gender</label>
+                        <select class="ui selection dropdown" ng-model="gender">
+                            <option value="M">Male</option>
+                            <option value="F">Female</option>
+                        </select>
+                    </div>
+                    <div class="field">
+                        <label>Age</label>
+                        <input type="text" id="age" ng-pattern="/^[ ]+$|^[0-9]+$/" ng-maxlength="3" ng-model="age" placeholder="{{admin.user.age}}">
+                    </div>
+                
+            </div>
+            <div class="ui equal width form">
+                
+                    <div class="field">
+                        <label>E-mail</label>
+                        <input type="email" id="email" ng-model="email" placeholder ="{{admin.user.email}}">
+                    </div>
+                    <div class="field">
+                        <label>Contact Number</label>
+                        <input type="text" id="contactno" ng-pattern="/^[ ]+$|^([09][0-9]+)+$/" ng-maxlength="11"  ng-model="contactno" placeholder ="{{admin.user.contactno}}">
+                    </div>
+                    <div class="field">
+                        <label>User Type</label>
+                        <select class="ui dropdown" ng-model="user_type">
+                            <option value=""></option>
+                            <option value="normal">Normal</option>
+                            <option value="pending">Pending</option>
+                        </select>
+                    </div>
+               
+            </div>
+        <br>
+        <div class="ui button" id="cancel" ng-click="admin.closeModal('edit-modal')">Cancel</div>
+        <button class="ui button" ng-disabled="myForm.$invalid" ng-click="admin.updateUser(admin.user,username,password,college,height,weight,firstname,lastname,email,contactno,user_type,age,gender,location)">Submit</button>
+    </form>
+    </div>
+</div>
 </div>

@@ -1,6 +1,7 @@
 <link rel='stylesheet' href='css/user-team-page.css' />
 
 <div ng-controller="teamController as team" ng-init="team.viewClickedTeam()" id="main-wrapper" class="ui container">
+<div ng-controller="eventValidityController">
     <div class="ui grid" ng-controller="loggedUserController as logged">
 
         <div class="four wide column">
@@ -25,14 +26,13 @@
                                 </button>
                             </div>
                             <div ng-show="team.alreadyJoined" >
-                                <button class="ui button"> {{team.playerStatus}} </button>
-                                <!-- <button class="ui animated button" ng-click="team.deleteTeamPlayer(logged.userId)">
-                                    <div clas="con"> {{team.playerStatus}}</div>
+                                 <button class="ui animated button" ng-click="team.deleteTeamPlayer_2(logged.userId,x.team_id)">
                                     <div class="visible content" >{{team.playerStatus}}</div>
                                          <div class="hidden content">
+                                         LEAVE
                                         <i class="left sign out icon"> </i>
                                     </div>
-                                </button> -->
+                                </button>
                             </div>
                         </div>
 
@@ -156,4 +156,5 @@
 
         </div>
     </div>
+</div>
 </div>
