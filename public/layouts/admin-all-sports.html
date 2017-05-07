@@ -23,12 +23,27 @@
                             <th colspan="4"> Commands </th>
                         </tr>
                     </thead>
-                    <tbody ng-repeat="x in sport.allSports" ng-init="a = x.sport_id">
-                        <tr>
+                    <tbody ng-init="a = x.sport_id">
+                        <tr ng-repeat="x in sport.allSports" >
                             <td> {{x.sport_id}} </td>
                             <td> {{x.sport_name}} </td>
                             <td>
-                                <div class="ui modal" id="edit-modal">
+
+                                <div class="ui animated button edit-trigger" ng-click="sport.setCurrentId(x.sport_id,'edit-modal');sport.setNewSportName(x.sport_name)">
+                                    <div class="visible content"><i class="edit icon"> </i></div>
+                                    <div class="hidden content"> Edit </div>
+                                </div>
+                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                <div class="ui animated button delete-trigger" ng-click="sport.setCurrentId(x.sport_id,'delete-modal')">
+                                    <div class="visible content"><i class="trash icon"> </i></div>
+                                    <div class="hidden content"> Delete </div>
+                                </div>
+                                
+                            </td>
+
+                        </tr>
+
+                            <div class="ui modal" id="edit-modal">
                                     <div class="header"> UPDATE SPORT</div>
                                     <div class="content">
                                         <div class="ui form">
@@ -41,17 +56,9 @@
                                             <div class="ui button" ng-click="sport.updateSport(sport.currentId)">Submit</div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="ui animated button edit-trigger" ng-click="sport.setCurrentId(x.sport_id,'edit-modal')">
-                                    <div class="visible content"><i class="edit icon"> </i></div>
-                                    <div class="hidden content"> Edit </div>
-                                </div>
-                                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                <div class="ui animated button delete-trigger" ng-click="sport.setCurrentId(x.sport_id,'delete-modal')">
-                                    <div class="visible content"><i class="trash icon"> </i></div>
-                                    <div class="hidden content"> Delete </div>
-                                </div>
-                                <div class="ui basic modal" id="delete-modal">
+                            </div>
+
+                        <div class="ui basic modal" id="delete-modal">
                                     <div class="ui icon header">
                                         <i class="trash icon"></i> DELETE
                                     </div>
@@ -64,9 +71,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </td>
 
-                        </tr>
 
                     </tbody>
                     <tfoot class="full-width">
