@@ -637,6 +637,12 @@ CREATE TRIGGER sponsorEventInsert AFTER INSERT ON sponsor_events
 			INSERT INTO user_event(user_id,event_id) VALUES (userId,eventid);
 		END;
 %%
+	CREATE PROCEDURE deleteTeamPlayer(in eventid int unsigned, in teamid int unsigned, in userid int unsigned)
+		BEGIN
+			DELETE from team_players where team_id=teamid and user_id=userid;
+			DELETE from user_event where user_id=userid and event_id=eventid;
+		END;
+%%
 	CREATE PROCEDURE creatorDisapprovesPlayer(in userid int unsigned, in teamid int unsigned)
 		/*procedure for when the creator disapproved the player; no user_event insertion*/
 		BEGIN

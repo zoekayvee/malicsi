@@ -308,8 +308,9 @@ exports.getTeamPlayers = (req,res, next) => {
 }
 
 exports.deleteTeamPlayer = (req,res, next) => {
-	var query = ' delete from team_players where team_id=? and user_id=?';
+	var query = ' call deleteTeamPlayer(?,?,?)';
 	const data = [
+		req.params.event_id,
 		req.params.team_id,
 		req.params.user_id
 		];
@@ -319,7 +320,7 @@ exports.deleteTeamPlayer = (req,res, next) => {
 			data,
 			(err, row, fields) => {
 				if(!err){
-					res.status(200);
+					res.status(200).send({message: 'Player removed'});
 				}
 				else{
 					console.log(err);

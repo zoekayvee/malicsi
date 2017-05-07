@@ -1,7 +1,7 @@
 
 <div class="ui container" id="main-wrapper" ng-controller="teamController as team">
-    <div class="ui four cards" ng-init="team.viewTeamPerEvent()">
-        <div class="card" ng-repeat="x in team.allTeams">
+    <div class="ui four cards" ng-init="team.viewTeamPerEvent()" ng-controller="loggedUserController as logged">
+        <div class="card" ng-repeat="x in team.allTeams" ng-init="team.getTeamPlayersCount(x)">
             <div class="center aligned content" ng-init="team.getCheckers(x.team_id)">
                 <div class="blurring dimmable image">
                     <div class="ui dimmer">
@@ -18,7 +18,7 @@
                 </div>
                <div class="extra content">
                     <a>
-                        <i class="users icon"></i> {{team.allPlayers.length | filter: {player_status: 'accepted'}}} Members
+                        <i class="users icon"></i> {{x.count}} Members
                     </a>
                 </div>
                 <br>
@@ -31,14 +31,13 @@
                 </button>
             </div>
             <div ng-show="team.alreadyJoined && team.playerTeamId==x.team_id" >
-                <button class="ui button"> {{team.playerStatus}} </button>
-                <!-- <button class="ui animated button" ng-click="team.deleteTeamPlayer(logged.userId)">
-                    <div clas="con"> {{team.playerStatus}}</div>
+                <button class="ui animated button" ng-click="team.deleteTeamPlayer(logged.userId,x.team_id)">
                     <div class="visible content" >{{team.playerStatus}}</div>
                          <div class="hidden content">
+                         LEAVE
                         <i class="left sign out icon"> </i>
                     </div>
-                </button> -->
+                </button>
             </div>
             </div>
             <div class="extra content">

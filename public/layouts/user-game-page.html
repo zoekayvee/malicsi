@@ -1,10 +1,10 @@
 <link rel='stylesheet' href='css/user-game-page.css' />
 
-<div id="main-wrapper" class="ui container">
+<div id="main-wrapper" class="ui container" ng-controller="eventController as event" ng-init="event.viewClickedEvent()">
     <div ng-controller="gameController as game" ng-init="game.game=null;game.viewGameInGamePage();game.canBet()">
 
         <h1>{{game.game.sport_name}} Game {{game.game.game_id}}
-        <div ng-controller="guestController as admin" class="ui button red" style="float:right" ng-show="admin.isAdmin" ng-click="game.setCurrentId(game.game.game_id,'delete-modal')" id="delete">
+        <div ng-controller="loggedUserController as logged" class="ui button red" style="float:right"  ng-show="logged.userId == event.currentUserId || logged.userType=='admin'" ng-click="game.setCurrentId(game.game.game_id,'delete-modal')" id="delete">
             <div class="">Delete</div>
         </div>
         <div class="ui basic modal" id="delete-modal">

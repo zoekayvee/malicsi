@@ -3,12 +3,12 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <div id="main-wrapper" class="ui container">
-
-    <div class="ui grid">
+ 
+    <div class="ui grid" ng-controller="eventController as event" ng-init="event.viewEventDetails();event.viewClickedEvent()">
 
         <div id="sport-wrapper" class="four wide column">
             <div class="ui card" id="sidebar">
-                <div ng-controller="eventController as event" ng-init="event.viewEventDetails()">
+                <div >
                     <h3>{{ event.event.event_name | uppercase }}</h3>
                     <br>
                 </div>
@@ -26,7 +26,7 @@
         </div>
 
         <div ng-controller="userGameSchedController as UGSC" class="twelve wide column">
-            <div class="center aligned column" ng-init="UGSC.getRanking()">
+            <div class="center aligned column" ng-init="UGSC.getRanking()" ng-controller="loggedUserController as logged">
                 <table class="ui celled table">
                     <h4 style="float:left"> Standings </h4>
                     <div style="float:right" ng-controller="gameController as game">
