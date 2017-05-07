@@ -37,7 +37,8 @@
                     <tr ng-repeat="x in admin.allUsers">
                         <td> {{x.user_id}}</td>
                         <td ng-controller="otherUsersController as others">
-                            <a ng-click="others.clicked(x.user_id)">{{x.username}}</a> {{x.user_type}}
+                            <a ng-click="others.clicked(x.user_id)">{{x.username}}</a> 
+                            <div> Type: {{x.user_type}}</div>
                         </td>
                         <td> {{x.firstname}}</td>
                         <td> {{x.lastname}}</td>
@@ -105,11 +106,11 @@
                                         <div class="equal width fields">
                                             <div class="field">
                                                 <label>First name</label>
-                                                <input type="text"  id="firstname" ng-maxlength="50"  ng-pattern="/^[A-Za-z]+$/"  placeholder="First Name" ng-model="admin.newUser.firstname">
+                                                <input type="text"  id="firstname" ng-maxlength="50"  ng-pattern="/^[A-Za-z]+$/"  placeholder="First Name" ng-model="admin.newUser.firstname" required>
                                             </div>
                                             <div class="field">
                                                 <label>Last name</label>
-                                                <input type="text"  id="lastname" ng-maxlength="50"  ng-pattern="/^[A-Za-z]+$/"  placeholder="Last Name" ng-model="admin.newUser.lastname">
+                                                <input type="text"  id="lastname" ng-maxlength="50"  ng-pattern="/^[A-Za-z]+$/"  placeholder="Last Name" ng-model="admin.newUser.lastname" required>
                                             </div>
                                         </div>
 

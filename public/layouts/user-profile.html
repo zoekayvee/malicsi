@@ -1,4 +1,5 @@
 <script type='text/javascript' src='js/user-profile.js'></script>
+<script type='text/javascript' src='js/form-validate.js'></script>
 <link rel='stylesheet' href='css/user-profile.css' />
 
 <link rel='stylesheet' href='semantic-ui-calendar/dist/calendar.css' />
@@ -17,11 +18,12 @@
                     <div class="sub header" id="header-section">
                         {{user.user.location}}
                     </div>
-                    <a ng-click="user.openModal('update-modal')">
-                        <i class="edit icon"></i>
-                    </a>
                 </h2>
-
+                <div >
+                    <button class="ui icon button" ng-click="user.openModal('update-modal')">
+                        <i class="edit icon"></i> UPDATE PROFILE
+                    </button>
+                </div><br>
                 <div>
                     <label for="file" ng-show="!user.files[0]" class="ui icon button">
                         <i class="file icon"></i>
@@ -46,56 +48,56 @@
                                 <div class="equal width fields">
                                     <div class="field">
                                         <label>Username</label>
-                                        <input type="text" placeholder="{{update.user.username}}" ng-model="username">
+                                        <input type="text"  placeholder="{{update.user.username}}" id="username" ng-pattern="/^[A-Za-z0-9_-]+$/" ng-model="username">
                                     </div>
                                     <div class="field">
                                         <label>Password</label>
-                                        <input type="password" ng-model="password">
+                                        <input type="password" id="password" ng-maxlength="50" ng-model="password">
                                     </div>
                                 </div>
 
                                 <div class="equal width fields">
                                     <div class="field">
                                         <label>First name</label>
-                                        <input type="text" placeholder="{{update.user.firstname}}" ng-model="firstname">
+                                        <input type="text" placeholder="{{update.user.firstname}}" ng-pattern="/^[A-Za-z]+$/" ng-maxlength="50" id="firstname" ng-model="firstname">
                                     </div>
                                     <div class="field">
                                         <label>Last name</label>
-                                        <input type="text" placeholder="{{update.user.lastname}}" ng-model="lastname">
+                                        <input type="text" placeholder="{{update.user.lastname}}" ng-pattern="/^[A-Za-z]+$/" ng-maxlength="50" id="lastname" ng-model="lastname">
                                     </div>
                                 </div>
 
                                 <div class="equal width fields">
                                     <div class="field">
                                         <label>Location</label>
-                                        <input type="text" placeholder="{{update.user.location}}" ng-model="location">
+                                        <input type="text" placeholder="{{update.user.location}}"  ng-maxlength="100" id="location" ng-model="location">
                                     </div>
                                     <div class="field">
                                         <label>College</label>
-                                        <input type="text" placeholder="{{update.user.college}}" ng-model="college">
+                                        <input type="text" placeholder="{{update.user.college}}" ng-maxlength="50" id="college" ng-model="college">
                                     </div>
                                     <div class="field">
                                         <label>E-mail</label>
-                                        <input type="email" placeholder="{{update.user.email}}" ng-model="email">
+                                        <input type="email" placeholder="{{update.user.email}}" id="email" ng-model="email">
                                     </div>
                                     <div class="field">
                                         <label>Contact Number</label>
-                                            <input type="text" placeholder="{{update.user.contactno}}" ng-model="contactno">
+                                            <input type="text" placeholder="{{update.user.contactno}}" ng-pattern="/^[ ]+$|^([09][0-9]+)+$/" ng-maxlength="11" id="contactno" ng-model="contactno">
                                     </div>
                                 </div>
 
                                 <div class="equal width fields">
                                     <div class="field">
                                         <label>Age</label>
-                                        <input type="text" placeholder="{{update.user.age}}" ng-model="age">
+                                        <input type="text" placeholder="{{update.user.age}}"  id="age" ng-pattern="/^[ ]+$|^[0-9]+$/" ng-maxlength="3" ng-model="age">
                                     </div>
                                     <div class="field">
                                         <label>Height</label>
-                                        <input type="text" placeholder="{{update.user.height}}" ng-model="height">
+                                        <input type="text" placeholder="{{update.user.height}}" id="height" ng-pattern="/^[ ]+$|(^[0-9]+([.][0-9]+)?)+$/" ng-model="height">
                                     </div>
                                     <div class="field">
                                         <label>Weight</label>
-                                        <input type="text" placeholder="{{update.user.weight}}" ng-model="weight">
+                                        <input type="text" placeholder="{{update.user.weight}}" id="weight" ng-pattern="/^[ ]+$|(^[0-9]+([.][0-9]+)?)+$/"  ng-model="weight">
                                     </div>
                                     <div class="field">
                                         <label>Gender</label>

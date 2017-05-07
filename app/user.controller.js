@@ -114,11 +114,11 @@
 				}
 			});
 			
-			if(password2!= vm.newUser.password){
-				toastr.error('Password does not match!');
-			}
-			if(checker){
-				toastr.error('Username entered is not unique!');
+			if(password2!= vm.newUser.password || checker){
+				if(checker)
+					toastr.error('Username entered is not unique!');
+				if(password2!= vm.newUser.password )
+					toastr.error('Password does not match!');
 			}
 			else{
 				$http
