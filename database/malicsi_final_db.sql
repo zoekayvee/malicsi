@@ -424,6 +424,18 @@ CREATE TRIGGER sponsorEventInsert AFTER INSERT ON sponsor_events
 				INSERT INTO logs(message) VALUES(concat("Deleted new game with ID : ", OLD.game_id));
 			END;
 %%
+	CREATE TRIGGER teamPlayersUpdate AFTER UPDATE ON team_players
+		FOR EACH ROW
+			BEGIN
+				DECLARE name varchar(50);
+				DECLARE tname varchar(50);
+				SET name = (SELECT username from users where user_id=NEW.user_id LIMIT 1);
+				SET tname = (SELECT team_name from team where team_id=NEW.team_id LIMIT 1);
+				IF NEW.player_status LIKE "accepted" THEN
+					INSERT INTO logs(message) VALUES(concat(tname, " Approved user: ", name, " to join team"));
+				END IF;
+			END;
+%%
 	/* END OF TRIGGERS */
 	CREATE PROCEDURE addSport(in sportname varchar(100))
 		BEGIN
