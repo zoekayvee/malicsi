@@ -28,7 +28,6 @@
 		vm.approveUser = approveUser;
 		vm.approveEvent = approveEvent;
 		vm.disapproveEvent = disapproveEvent;
-		vm.playerReq=[];
 		vm.hasEvent = null;
 
 		$http   
@@ -56,6 +55,15 @@
                 }
             });
 		
+        function setToastr(){
+		    toastr.options.positionClass = "toast-bottom-right";
+		    toastr.options.closeButton = true;
+		    toastr.options.showMethod = 'slideDown';
+		    toastr.options.hideMethod = 'slideUp';
+		    toastr.options.positionClass = "toast-bottom-full-width";
+		    toastr.options.timeOut = 2000;
+		    toastr.options.newestOnTop = false;
+    	}
 
 		function deleteUser(user_id){
 			console.log(user_id);
@@ -70,13 +78,26 @@
 
 		function addUser(){
 			// console.log(user_id);
+			var checker=false;
+			vm.allUsers.forEach(function(e){
+				if(e.username===vm.newUser.username){
+					checker=true;
+				}
+			});
+
+			if(checker){
+            	toastr.error('Username entered is not unique!');
+            }else{
 			$http.post('/user',vm.newUser)
 				.then(function(response){
-					console.log('Added User');
-					window.location.reload();
+					toastr.success('Successfully added user!');
+					setTimeout(function(){
+						window.location.reload();
+					}, 1000);
 				}, function(response){
-					console.log('Error');
+					toastr.error('Error in input!');
 				});
+			}
 		}
 
 		function approveUser(user_id){
@@ -117,9 +138,16 @@
 				});
 		}
 
-		function updateUser(user,uname,pw,college,height,weight,fname,lname,email,contactno,user_type){
+		function updateUser(user,uname,pw,college,height,weight,fname,lname,email,contactno,user_type,age,gender,location){
 			var editUser=vm.user;
 			var flag="false";
+			var checker=false; //unique username
+
+			vm.allUsers.forEach(function(e){
+				if(e.username===uname){
+					checker=true;
+				}
+			});
 
 			if(uname == "" || typeof(uname)== 'undefined'){
                 uname= user.username
@@ -152,6 +180,15 @@
             if(user_type =="" || typeof(user_type)=='undefined'){
                 user_type= user.user_type
             }
+            if(age =="" || typeof(age)=='undefined'){
+                age= user.age
+            }
+            if(gender =="" || typeof(gender)=='undefined'){
+                gender= user.gender
+            }
+            if(location =="" || typeof(location)=='undefined'){
+                location= user.location
+            }
 
             editUser.username=uname;
             editUser.password=pw;
@@ -162,17 +199,28 @@
             editUser.lastname=lname;
             editUser.email=email;
             editUser.contactno=contactno;
-            editUser.user_type=user_type
+            editUser.user_type=user_type;
+            editUser.age=age;
+            editUser.gender=gender;
+            editUser.location=location;
             editUser.flag=flag;
-
-            $http
+            console.log(editUser.user_id);
+            if(checker){
+            	toastr.error('Username entered is not unique!');
+            }else{
+            	$http
             	.put('/users/passwords/' + editUser.user_id, editUser)
             	.then(function(response){
             		delete editUser.flag;
-            		
-            	});
-
-           	window.location.reload();
+            		toastr.success('Successfully updated the user!');
+					setTimeout(function(){
+						window.location.reload();
+					}, 1000);
+            	},
+            	function(response){
+					toastr.error('Error in input!');
+				});
+            }
 		}
 
 		function openModal(dmodal){
@@ -184,6 +232,7 @@
 			.modal('show');
 		
 		}
+
 		function closeModal(dmodal){
 			$('#'+dmodal+'.modal')
 			 	.modal('hide');	
@@ -192,6 +241,7 @@
 		//added, the user_id should not be passed when there's modal
 		function initialize(user){
 			vm.user=user;
+			console.log(user);
 		}
 	}
 })();

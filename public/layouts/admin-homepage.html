@@ -1,4 +1,4 @@
- <link rel="stylesheet" type="text/css" href="css/admin_homepage.css"> </link>
+<link rel="stylesheet" type="text/css" href="css/admin-homepage.css"> </link>
 
 <div id="main-wrapper" class="ui container" ng-controller="adminController as home">
     <div class="ui" id="main-card">
@@ -18,24 +18,24 @@
                 <i class="user icon"></i>
                 USER REQUESTS
             </h4>
-            <div class="ui small icon input" style="float:right">
+            <div class="ui small icon input search-bar">
                 <input type="text" ng-model="search" placeholder="What are you looking for?">
                 <i class="search icon"></i>
             </div>
-            <div class="ui four column grid" >
+            <div class="ui five column grid" >
                 <div class="column" ng-repeat="x in home.allUsers | filter: {user_type: 'pending', username:search}">
                     <div class="ui card" id="card">
-                        <div class=" center aligned content">
+                        <div class="center aligned content">
                             <h3 class="ui header" ng-controller = "otherUsersController as others">
                                 <a ng-click = "others.clicked(x.user_id)"> {{x.username}}</a>
                             </h3>
                             <i class="huge user icon"></i>
                         </div>
-                        <div class="center aligned extra button-wrapper">
-                            <button class ="ui button command-button" id="accept" ng-click="home.approveUser(x.user_id)">
+                        <div class="center aligned button-wrapper">
+                            <button class ="ui icon button command-button" id="accept" ng-click="home.approveUser(x.user_id)">
                                 <i class="snall checkmark icon"></i>
                             </button>
-                            <button class ="ui button command-button" id="decline" ng-click="home.deleteUser(x.user_id)">
+                            <button class ="ui icon button command-button" id="decline" ng-click="home.deleteUser(x.user_id)">
                                 <i class="small remove icon"></i>
                             </button>
                         </div>
@@ -49,38 +49,38 @@
                 <i class="calendar icon"></i>
                 EVENT REQUESTS
             </h4>
-            <div class="ui small icon input" style="float:right">
+
+            <div class="ui small icon input search-bar">
                 <input type="text" ng-model="search_event" placeholder="What are you looking for?">
                 <i class="search icon"></i>
             </div>
+
             <div class="ui four column grid" >
                 <div class="column" ng-repeat="x in home.allEvents | filter: {status: 'pending', event_name: search_event} |  orderBy:'date_start'">
                     <div class="ui card" id="card">
                         <div class=" center aligned content">
                             <h3 class="ui header">
                                 {{x.event_name}}<br>
-                                Date Start: {{x.date_start}}<br>
-                                Date End: {{x.date_end}}<br>
                             </h3>
                             <i class="huge calendar icon"></i>
-                            <div class="sub-header"> Event Creator:  {{x.firstname + ' ' + x.lastname}}</div>
-                             </div>
-                        
-                        <div class="center aligned extra button-wrapper">
-                            <button class ="ui button command-button" id="accept" ng-click="home.approveEvent(x.event_id)">
+                            <div class="sub-header">
+                                Start: {{x.date_start}}<br>
+                                End: {{x.date_end}}<br>
+                                Creator:  {{x.firstname + ' ' + x.lastname}}
+                            </div>
+                        </div>
+                        <div class="center aligned extra">
+                            <button class ="ui icon button command-button" id="accept" ng-click="home.approveEvent(x.event_id)">
                                 <i class="snall checkmark icon"></i>
                             </button>
-                            <button class ="ui button command-button" id="decline" ng-click="home.disapproveEvent(x.event_id)">
+                            <button class ="ui icon button command-button" id="decline" ng-click="home.disapproveEvent(x.event_id)">
                                 <i class="small remove icon"></i>
                             </button>
-                        </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
     </div>
-</div>
 
 </div>

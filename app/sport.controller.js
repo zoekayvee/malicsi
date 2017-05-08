@@ -29,12 +29,17 @@
             vm.allSports = null;
             vm.eventId = null;
             vm.setEventId = setEventId;
-
+            vm.setNewSportName = setNewSportName;
             viewAllSports();
 
         function setCurrentId(id,dmodal){
             openModal(dmodal)
             vm.currentId = id;
+        }
+
+        function setNewSportName(sport_name){
+            console.log(sport_name + "EREREGREGREGRE");
+            vm.updateSportName = sport_name;
         }
 
         function setSportId(id){
@@ -122,7 +127,7 @@
                 .put('/sport', updatedSports)
                 .then(function(response){
                     viewAllSports();
-                    closeModal('edit-modal');
+                    closeModal('edit-sport-modal');
                     console.log('Updating Sport Successful!');
             },
             function(response){

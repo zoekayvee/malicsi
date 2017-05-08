@@ -119,7 +119,7 @@
             console.log(vm.deleteSponsorId);
             console.log('Sponsor deleted')
             console.log(response.data);
-            closeModal('delete-modal');
+            closeModal('delete-sponsor-modal');
             viewAllSponsor();
         },
         function(response){
@@ -144,8 +144,7 @@
                 console.log("error");
             })
     }
-    function setSponsor(sponsor_name,sponsor_id,dmodal){
-        openModal(dmodal);
+    function setSponsor(sponsor_name,sponsor_id){
         console.log(sponsor_name);
         vm.updateSponsorName = sponsor_name;
         vm.updateSponsorId = sponsor_id;

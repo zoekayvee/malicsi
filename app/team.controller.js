@@ -32,11 +32,12 @@
     	vm.viewTeamPerEvent = viewTeamPerEvent;
     	vm.deleteTeamFromEvent = deleteTeamFromEvent;
     	vm.viewAvailableTeams = viewAvailableTeams;
+    	vm.files = [];
     	//vm.getCurrentUser=getCurrentUser;
     	vm.updateFuckingTeam = updateFuckingTeam;
     	vm.getTeamPlayers=getTeamPlayers;
     	vm.deleteTeamPlayer=deleteTeamPlayer;
-    	vm.getPlayerCount=getPlayerCount;
+    	vm.deleteTeamPlayer_2=deleteTeamPlayer_2;
     	vm.currentId = null;
         vm.setCurrentId = setCurrentId;
         vm.openModal = openModal;
@@ -54,6 +55,8 @@
         vm.getCheckers=getCheckers;
         vm.thisTeamName;
         vm.currentUserId=null;
+        vm.getTeamPlayersCount=getTeamPlayersCount;
+        vm.updateTeamProfilePic = updateTeamProfilePic;
 
         $http
     		.get('/user_loggedin')
@@ -92,9 +95,49 @@
 			});
 		}
 
+		function getTeamPlayersCount(team){
+			var count=0;
+			$http
+	    		.get('/teams/players/'+team.team_id)
+	    		.then(function(response){
+	    			vm.allPlayers=response.data;
+	    			console.log(vm.allPlayers);
+	    			vm.allPlayers.forEach(function(e){
+		    		 	console.log(e);
+			    		if(e.player_status==='accepted'){
+			    			count+=1;
+			    		}
+			    	});
+			    	team.count=count;
+    		 });
+	
+		}
+
+		function updateTeamProfilePic() {
+            if (vm.files[0]) {
+                let options = {
+                    transformRequest: angular.identity,
+                    headers: {
+                        'Content-Type': undefined
+                    }
+                };
+
+                let fd = new FormData();
+                fd.append("profilepic", vm.files[0]);
+                $http.put('/teams/'+ vm.allTeams[0].team_id +'/profilepic', fd, options)
+                    .then(function(response) {
+                        console.log("Profile picture updated where teamID is" + vm.allTeams[0].team_id);
+                        window.location.reload();
+                    })
+                    .catch(function(err) {
+                        console.log("Error in uploading picture of Team" + vm.allTeams[0].team_id);
+                    });
+            } else {
+                console.log("No file found");
+            }
+        }
 
 		function getTeamPlayers(){
-			console.log(vm.userId);
 			$http
 	    		.get('/teams/players/'+$routeParams.team_id)
 	    		.then(function(response){
@@ -104,24 +147,11 @@
 		    		 	console.log(e);
 		    		 	if(e.user_id===vm.userId){
 		    		 		vm.playerTeamId= $routeParams.team_id;
-			    			vm.playerStatus=e.player_status;
+			    			vm.playerStatus=e.player_status;f
 			    			vm.alreadyJoined=true;
 			    		}
 			    	});
-    		 });
-	
-		}
-
-		function getPlayerCount(team_id){
-			var res=null;
-			$http
-	    		.get('/teams/players/'+team_id)
-	    		.then(function(response){
-	    			vm.allPlayers=response.data;
-	    			res= vm.allPlayers.length;
-			    });
-
-			return res;
+    		 });	
 		}
 
 		function getCheckers(team_id){
@@ -141,9 +171,21 @@
     		 });
 		}
 
-		function deleteTeamPlayer(user_id){
+		function deleteTeamPlayer(user_id,team_id){
+			console.log("huyyy");
 			$http
-	    		.delete('/teams/player_remove/'+$routeParams.team_id+'/'+ user_id)
+	    		.delete('/teams/player_remove/'+$routeParams.event_id+'/'+team_id+'/'+ user_id)
+	    		.then(function(response){
+	    			vm.alreadyJoined=null;
+	    			vm.cancelled=true;
+    		 	} ,function(response){
+					console.log(response.data);
+				});
+		}
+
+		function deleteTeamPlayer_2(user_id){
+			$http
+	    		.delete('/teams/player_remove/'+$routeParams.event_id+'/'+$routeParams.team_id+'/'+ user_id)
 	    		.then(function(response){
 	    			vm.alreadyJoined=null;
 	    			vm.cancelled=true;

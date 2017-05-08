@@ -75,6 +75,8 @@ exports.login=(req,res)=>{
 
 exports.logout=(req,res)=>{
 	if(req.session){
+		req.session.userid=null;
+		req.session.usertype=null;
 		req.session.destroy(function(err){
 			res.json({
 				redirect: '/#!/'
@@ -282,13 +284,12 @@ exports.viewCompetitor=(req, res)=>{
 }
 
 exports.viewUserTeams = (req,res) => {
-	const query_string =  "SELECT DISTINCT * from team natural join (select team_id from team_players where user_id= ? and player_status='accepted')a";
+	const query_string =   "SELECT DISTINCT * from team natural join (select * from team_joins_event natural join (select team_id from team_players where user_id= ? and player_status='accepted')a)b";
 	const req_data = [req.params.user_id]
 
 	connection.query(query_string, req_data, (err,result)=>{
 		if(!err){
 			res.status(200).send(result);
-			//console.log(result[0]);
 		}
 		else{
 			console.log(err);
@@ -350,3 +351,17 @@ exports.updateUser=(req,res)=>{
 		}
 	});
 }
+
+exports.viewUsernames = (req,res) => {
+	const query_string = "SELECT username from users";
+
+	connection.query(query_string, null, (err,result)=>{
+		if(!err){
+			res.status(200).send(result);
+		}
+		else{
+			res.status(500).send(err);
+		}
+	});
+}
+

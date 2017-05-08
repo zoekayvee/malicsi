@@ -112,7 +112,7 @@ exports.disapproveTeamPlayer = (req,res) =>{
 } 
 
 exports.viewEventUsingInterest = (req,res) => {
-	const query_string = "SELECT user_id,D.event_id,event_name,date_start,sport_name from user_event JOIN (SELECT event_id,event_name,date_start,sport_name from event JOIN (select * from event_has_sport JOIN (select * from user_interests JOIN sport on user_interests.interests = sport_name) B ON h_sport_id = B.sport_id) C ON event.event_id = h_event_id) D ON user_event.event_id != D.event_id WHERE user_id = ?";
+	const query_string = "SELECT DISTINCT user_id,D.event_id,event_name,date_start,sport_name from user_event JOIN (SELECT event_id,event_name,date_start,sport_name from event JOIN (select * from event_has_sport JOIN (select * from user_interests JOIN sport on user_interests.interests = sport_name) B ON h_sport_id = B.sport_id) C ON event.event_id = h_event_id) D ON user_event.event_id != D.event_id WHERE user_id = ? LIMIT 5";
 	const data = [req.params.user_id];
 
 	connection.query(query_string,data,(err,rows) =>{
@@ -125,4 +125,3 @@ exports.viewEventUsingInterest = (req,res) => {
 		}
 	})
 }
- 

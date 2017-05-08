@@ -80,6 +80,7 @@ create table user_event(
 create table team(
 	team_id 		int unsigned auto_increment,
 	team_name 		varchar(100) not null,
+	teamprofilepic 		text,
 
 	UNIQUE			(team_name),
 	constraint 		team_id_pk primary key(team_id)
@@ -637,6 +638,12 @@ CREATE TRIGGER sponsorEventInsert AFTER INSERT ON sponsor_events
 			INSERT INTO user_event(user_id,event_id) VALUES (userId,eventid);
 		END;
 %%
+	CREATE PROCEDURE deleteTeamPlayer(in eventid int unsigned, in teamid int unsigned, in userid int unsigned)
+		BEGIN
+			DELETE from team_players where team_id=teamid and user_id=userid;
+			DELETE from user_event where user_id=userid and event_id=eventid;
+		END;
+%%
 	CREATE PROCEDURE creatorDisapprovesPlayer(in userid int unsigned, in teamid int unsigned)
 		/*procedure for when the creator disapproved the player; no user_event insertion*/
 		BEGIN
@@ -658,6 +665,14 @@ CREATE TRIGGER sponsorEventInsert AFTER INSERT ON sponsor_events
 			UPDATE team SET team_name = teamName where team_id = teamId;
 		END;
 %%
+
+	CREATE PROCEDURE updateTeamProfilePicture(in tid int(10), in pp text)
+		BEGIN
+			UPDATE team SET teamprofilepic = pp WHERE team_id = tid;
+		END;
+
+%%
+
 	CREATE PROCEDURE deleteTeam(in teamId int unsigned)
 		BEGIN
 			DELETE FROM team where team_id = teamId;
@@ -711,7 +726,7 @@ CREATE TRIGGER sponsorEventInsert AFTER INSERT ON sponsor_events
 %%
 	CREATE PROCEDURE viewSponsorByEvent(in eventId int unsigned)
 		BEGIN
-			SELECT A.event_name, B.sponsor_name, B.sponsor_id from event as A JOIN sponsor as B JOIN sponsor_events as C on (A.event_id = eventId) and (A.event_id = C.event_id) and (B.sponsor_id = C.sponsor_id);
+			SELECT distinct A.event_name, B.sponsor_name, B.sponsor_id from event as A JOIN sponsor as B JOIN sponsor_events as C on (A.event_id = eventId) and (A.event_id = C.event_id) and (B.sponsor_id = C.sponsor_id);
 		END;
 %%
 	CREATE PROCEDURE viewSponsor(in sponsorId int unsigned)

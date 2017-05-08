@@ -1,9 +1,9 @@
 <link rel="stylesheet" href="css/admin.css"></link>
 <link rel="stylesheet" type="text/css" href="css/admin-homepage.css"> </link>
 <script type='text/javascript' src='js/admin.js'></script>
-<!-- calendar -->
-<script type='text/javascript' src='js/calendar.js'></script> 
 
+
+<div ng-controller="adminController">
 <div class="ui container" id="main-wrapper">
     <div class="" id="main-card">
         <div class="content">
@@ -25,13 +25,13 @@
                             <label>Event Name</label>
                             <input type="text" ng-model="event.eventName" name="event_name">
                         </div>
-                        <div class="fields">
+                        <div class="fields" ng-controller="loggedUserController as logged">
                             <div class="field">
                                 <label>Start Date</label>
                                 <div class="ui calendar" id="datetime">
                                     <div class="ui input left icon">
                                       <i class="calendar icon"></i>
-                                      <input type="text" placeholder="Date/Time" ng-model="event.dateStart" ng-click="event.date_Start()">
+                                      <input type="text" placeholder="Date/Time" ng-model="event.dateStart">
                                     </div>
                                 </div>
                             </div>
@@ -40,7 +40,7 @@
                                 <div class="ui calendar" id="datetime">
                                     <div class="ui input left icon">
                                       <i class="calendar icon"></i>
-                                      <input type="text" placeholder="Date/Time" ng-model="event.dateEnd" ng-click="event.date_End()" >
+                                      <input type="text" placeholder="Date/Time" ng-model="event.dateEnd">
                                     </div>
                                 </div>
                             </div>
@@ -89,6 +89,28 @@
                                         <div class="hidden content"> Edit </div>
                                     </div>
                                 </div>
+
+                            </td>
+                            <td>
+
+
+
+
+
+
+
+                                <div ng-click="event.setDeleteEventId(x.event_id)">
+                                    <div class="ui animated button" id="delete" ng-click="event.openModal('delete-modal')">
+                                        <div class="visible content"><i class="trash icon"> </i></div>
+                                        <div class="hidden content"> Delete </div>
+                                    </div>
+                                </div>
+
+
+                            </td>
+
+                        </tr>
+
                                 <div class="ui modal" id="edit-event-modal">
                                     <div class="header"> UPDATE EVENT</div>
                                     <div class="content">
@@ -131,18 +153,12 @@
                                             <div class="ui button" ng-click="event.updateEventModal('edit-event-modal');event.closeModal('edit-event-modal
                                             ')">Submit</div>
 
-
+                                            
                                         </div>
                                     </div>
                                 </div>
-                            </td>
-                            <td>
-                                <div ng-click="event.setDeleteEventId(x.event_id)">
-                                    <div class="ui animated button" id="delete" ng-click="event.openModal('delete-modal')">
-                                        <div class="visible content"><i class="trash icon"> </i></div>
-                                        <div class="hidden content"> Delete </div>
-                                    </div>
-                                </div>
+
+
                                 <div class="ui basic modal" id="delete-modal">
                                     <div class="ui icon header">
                                         <i class="trash icon"></i> DELETE
@@ -156,9 +172,6 @@
                                         </div>
                                     </div>
                                 </div>
-                            </td>
-
-                        </tr>
 
                     </tbody>
                     <tfoot class="full-width">
@@ -176,4 +189,5 @@
             </div>
         </div>
     </div>
+</div>
 </div>
