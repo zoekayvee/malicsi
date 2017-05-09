@@ -3,8 +3,11 @@
 <div id="main-wrapper" class="ui container" ng-controller="eventController as event" ng-init="event.viewClickedEvent()">
 <div ng-controller="eventValidityController">
     <div ng-controller="gameController as game" ng-init="game.game=null;game.viewGameInGamePage();game.canBet()">
+        <div class="ui inverted segment"> 
+        <h1 class = "ui grey inverted header"><center>{{event.allEventsUser.event_name}}</center></h1>
+        </div>
 
-        <h1>{{game.game.sport_name}} Game {{game.game.game_id}}
+        <h2>{{game.game.sport_name}} Game {{game.game.game_id}}
         <div ng-controller="loggedUserController as logged" class="ui button red" style="float:right"  ng-show="logged.userId == event.currentUserId || logged.userType=='admin'" ng-click="game.setCurrentId(game.game.game_id,'delete-modal')" id="delete">
             <div class="">Delete</div>
         </div>
@@ -20,15 +23,11 @@
                     <i class="checkmark icon"></i> Yes
                 </div>
             </div>
-        </div></h1>
-        <p>
-            At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia
-            animi, id est laborum et dolorum fuga.
-        </p>
-
+        </div></h2>
+     
         <div ng-controller="teamController as team">
             <div class="ui modal" id="add-modal">
-                <div class="header"> ADD TEAMS</div>
+                <div class="header">ADD TEAMS</div>
                 <div class="content">
                     <div class="ui form">
                         <div class="field">
@@ -138,7 +137,7 @@
                 <div class="column game-panel">
                     <div class="ui card {{ (game.winnerTeamId == game.game.team_id)? card-win : card-lost }}">
                         <div class="image">
-                            <img class="ui large rounded image" src="images/star.jpg">
+                            <img class="ui large rounded image" src="{{team.teamprofilepic || '/images/icon_team.svg'}}">
                         </div>
                         <div class="content">
                             <br>
@@ -171,7 +170,7 @@
                 <div class="column game-panel" ng-controller="guestController as logged">
                     <div class="ui card {{ (game.winnerTeamId == game.game.team_id)? card-win : card-lost }}">
                         <div class="image">
-                            <img class="ui large rounded image" src="images/star.jpg">
+                            <img class="ui large rounded image" src="{{team.teamprofilepic || '/images/icon_team.svg'}}">
                         </div>
                         <div class="content" ng-controller="teamController as team">
                             <br>

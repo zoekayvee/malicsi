@@ -8,6 +8,7 @@
 		var vm = this;
 		
 		vm.game = null;
+		vm.event = null;
 		vm.allGames = null;
 		vm.game_id = "";
 		vm.user_id = 1;
@@ -198,10 +199,10 @@
 					vm.getScores(vm.game);
 					vm.getScores2(vm.game);
 					console.log('Viewing Game Successful');
-			},
-			function(response){
-				console.log('Error Viewng Game');
-			});
+				},
+				function(response){
+					console.log('Error Viewing Game');
+				});
 		}
 
 		function viewGameInGamePage(){
@@ -215,12 +216,27 @@
 					console.log('Viewing Game Successful');
 			},
 			function(response){
-				console.log('Error Viewng Game');
+				console.log('Error Viewing Game');
 			});
+
+			
+			
 		}
 		
 		function viewGamePage(game_id){
             window.location.href = '#!/event/' + $routeParams.event_id + '/game/' + game_id;
+
+            $http
+				.get('/events/' + game.event_event_id)
+				.then(function(response){
+					vm.event = response.data;
+					vm.event = vm.event.event_name;
+					console.log('Retrieved event');
+					console.log("HOY GAGO");
+				},
+				function(response){
+					console.log('Error Getting Event');
+				});	
 		}
 
 		function viewAdminGame(eventid) {
@@ -337,8 +353,8 @@
 			function(response){
 				console.log('Error Viewing All Games');
 			});
-
 		}
+
 		function viewAllVenues(){
 			$http
 				.get('/game')

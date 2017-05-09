@@ -32,6 +32,7 @@
     	vm.viewTeamPerEvent = viewTeamPerEvent;
     	vm.deleteTeamFromEvent = deleteTeamFromEvent;
     	vm.viewAvailableTeams = viewAvailableTeams;
+    	vm.files = [];
     	//vm.getCurrentUser=getCurrentUser;
     	vm.updateFuckingTeam = updateFuckingTeam;
     	vm.getTeamPlayers=getTeamPlayers;
@@ -55,6 +56,7 @@
         vm.thisTeamName;
         vm.currentUserId=null;
         vm.getTeamPlayersCount=getTeamPlayersCount;
+        vm.updateTeamProfilePic = updateTeamProfilePic;
 
         $http
     		.get('/user_loggedin')
@@ -111,6 +113,30 @@
 	
 		}
 
+		function updateTeamProfilePic() {
+            if (vm.files[0]) {
+                let options = {
+                    transformRequest: angular.identity,
+                    headers: {
+                        'Content-Type': undefined
+                    }
+                };
+
+                let fd = new FormData();
+                fd.append("profilepic", vm.files[0]);
+                $http.put('/teams/'+ vm.allTeams[0].team_id +'/profilepic', fd, options)
+                    .then(function(response) {
+                        console.log("Profile picture updated where teamID is" + vm.allTeams[0].team_id);
+                        window.location.reload();
+                    })
+                    .catch(function(err) {
+                        console.log("Error in uploading picture of Team" + vm.allTeams[0].team_id);
+                    });
+            } else {
+                console.log("No file found");
+            }
+        }
+
 		function getTeamPlayers(){
 			$http
 	    		.get('/teams/players/'+$routeParams.team_id)
@@ -121,14 +147,12 @@
 		    		 	console.log(e);
 		    		 	if(e.user_id===vm.userId){
 		    		 		vm.playerTeamId= $routeParams.team_id;
-			    			vm.playerStatus=e.player_status;
+			    			vm.playerStatus=e.player_status;f
 			    			vm.alreadyJoined=true;
 			    		}
 			    	});
-    		 });
-	
+    		 });	
 		}
-
 
 		function getCheckers(team_id){
 			$http

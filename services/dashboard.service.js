@@ -112,8 +112,8 @@ exports.disapproveTeamPlayer = (req,res) =>{
 } 
 
 exports.viewEventUsingInterest = (req,res) => {
-	const query_string = "SELECT DISTINCT user_id,D.event_id,event_name,date_start,sport_name from user_event JOIN (SELECT event_id,event_name,date_start,sport_name from event JOIN (select * from event_has_sport JOIN (select * from user_interests JOIN sport on user_interests.interests = sport_name) B ON h_sport_id = B.sport_id) C ON event.event_id = h_event_id) D ON user_event.event_id != D.event_id WHERE user_id = ? LIMIT 5";
-	const data = [req.params.user_id];
+	const query_string = "SELECT DISTINCT event_id,event_name,sport_name FROM event JOIN (SELECT * from event_has_sport JOIN (select * from user_interests JOIN sport on user_interests.interests = sport_name where user_id=?) B ON B.sport_id = event_has_sport.h_sport_id) C ON event.event_id =h_event_id WHERE event_id NOT IN (SELECT event_id from user_event WHERE user_id = ?) and status='accepted'";
+	const data = [req.params.user_id,req.params.user_id];
 
 	connection.query(query_string,data,(err,rows) =>{
 		if(!err){

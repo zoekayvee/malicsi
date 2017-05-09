@@ -25,15 +25,15 @@
                     </button>
                 </div><br>
                 <div>
+                    <input type="file" id="file" file-input="user.files" style="display:none">
                     <label for="file" ng-show="!user.files[0]" class="ui icon button">
                         <i class="file icon"></i>
                         Change Picture
                     </label>
-                    <label for="file" ng-show="user.files[0]" ng-click="user.updateProfilePic()" class="ui icon green button">
+                    <label ng-show="user.files[0]" ng-click="user.updateProfilePic()" class="ui icon green button">
                         <i class="file icon"></i>
                         Save Picture
                     </label>
-                    <input type="file" id="file" file-input="user.files" style="display:none">
 
                 </div>
 
@@ -214,7 +214,7 @@
                             <div class="ui tiny images" ng-repeat="team in user.userTeams">
                             
                             <a class="ui image" href="" ng-click="user.viewTeam(team.team_id,team.event_id)">
-                                <img src="/images/icon_team.svg"> {{team.team_name}}
+                                <img src="{{team.teamprofilepic || '/images/icon_team.svg'}}"> {{team.team_name}}
                             </a>
                             </div>
                         </div>
