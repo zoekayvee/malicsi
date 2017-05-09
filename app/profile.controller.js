@@ -212,17 +212,18 @@
 			var user = {
 				interests: vm.interests
 			}
-
-			$http
-				.get('user_loggedin')
-				.then(function(response){
-					 $http
+            if(vm.interests!="" || typeof(uname)!= 'undefined'){
+                $http
+                .get('user_loggedin')
+                .then(function(response){
+                     $http
                         .put('/users/interests/'+response.data, user)
                         .then(function(response) {
-                        	console.log("Added interest");
+                            console.log("Added interest");
                             window.location.reload();  //added
                         });
-				});	
+                }); 
+            }
 		}
 
         function deleteInterest(interest){
