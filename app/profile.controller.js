@@ -29,6 +29,7 @@
 
         vm.updateProfilePic = updateProfilePic;
         vm.viewTeam= viewTeam;
+        vm.openEventModal=openEventModal;
         vm.usernames=[];
 
 		$http   
@@ -284,6 +285,25 @@
 			.modal('show');
 		
 		}
+
+        function openEventModal(dmodal){
+            $('#'+dmodal+'.modal')
+            .modal({
+                onShow: function(){
+                    $('#start-date-pick').calendar({
+                        startCalendar: $('#rangestart')
+                    });
+                    $('#end-date-pick').calendar({
+                        endCalendar: $('#rangeend')
+                    });
+                }
+            })
+            .modal('setting', {
+                 closable: false
+            })
+            .modal('show');
+        
+        }
 
 		function closeModal(dmodal){
 			$('#'+dmodal+'.modal')
