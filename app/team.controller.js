@@ -147,7 +147,7 @@
 		    		 	console.log(e);
 		    		 	if(e.user_id===vm.userId){
 		    		 		vm.playerTeamId= $routeParams.team_id;
-			    			vm.playerStatus=e.player_status;f
+			    			vm.playerStatus=e.player_status;
 			    			vm.alreadyJoined=true;
 			    		}
 			    	});

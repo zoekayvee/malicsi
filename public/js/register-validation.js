@@ -62,7 +62,7 @@ $(document).ready(function() {
                         prompt : 'Please enter your first name'
                     },
                     {
-                        type: 'regExp[^[A-Za-z]+$]',
+                        type: 'regExp[^[A-Za-z ]+$]',
                         prompt: 'Letters Only'
                     },
                     {
@@ -79,7 +79,7 @@ $(document).ready(function() {
                         prompt : 'Please enter your last name'
                     },
                     {
-                        type: 'regExp[^[A-Za-z]+$]',
+                        type: 'regExp[^[A-Za-z ]+$]',
                         prompt: 'Letters Only'
                     },
                     {

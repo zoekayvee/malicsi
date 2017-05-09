@@ -29,6 +29,7 @@
 
         vm.updateProfilePic = updateProfilePic;
         vm.viewTeam= viewTeam;
+        vm.openEventModal=openEventModal;
         vm.usernames=[];
 
 		$http   
@@ -212,17 +213,18 @@
 			var user = {
 				interests: vm.interests
 			}
-
-			$http
-				.get('user_loggedin')
-				.then(function(response){
-					 $http
+            if(vm.interests!="" || typeof(uname)!= 'undefined'){
+                $http
+                .get('user_loggedin')
+                .then(function(response){
+                     $http
                         .put('/users/interests/'+response.data, user)
                         .then(function(response) {
-                        	console.log("Added interest");
+                            console.log("Added interest");
                             window.location.reload();  //added
                         });
-				});	
+                }); 
+            }
 		}
 
         function deleteInterest(interest){
@@ -283,6 +285,25 @@
 			.modal('show');
 		
 		}
+
+        function openEventModal(dmodal){
+            $('#'+dmodal+'.modal')
+            .modal({
+                onShow: function(){
+                    $('#start-date-pick').calendar({
+                        startCalendar: $('#rangestart')
+                    });
+                    $('#end-date-pick').calendar({
+                        endCalendar: $('#rangeend')
+                    });
+                }
+            })
+            .modal('setting', {
+                 closable: false
+            })
+            .modal('show');
+        
+        }
 
 		function closeModal(dmodal){
 			$('#'+dmodal+'.modal')
