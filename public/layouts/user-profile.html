@@ -42,7 +42,7 @@
                 <div class="ui modal" id="update-modal">
                     <div class="header">Update Profile</div>
                     <div class="content">
-                        <form ng-controller="profileController as update">
+                        <form name="form" ng-controller="profileController as update">
                             <div class="ui form">
 
                                 <div class="equal width fields">
@@ -59,11 +59,11 @@
                                 <div class="equal width fields">
                                     <div class="field">
                                         <label>First name</label>
-                                        <input type="text" placeholder="{{update.user.firstname}}" ng-pattern="/^[A-Za-z]+$/" ng-maxlength="50" id="firstname" ng-model="firstname">
+                                        <input type="text" placeholder="{{update.user.firstname}}" ng-pattern="/^[A-Za-z ]+$/" ng-maxlength="50" id="firstname" ng-model="firstname">
                                     </div>
                                     <div class="field">
                                         <label>Last name</label>
-                                        <input type="text" placeholder="{{update.user.lastname}}" ng-pattern="/^[A-Za-z]+$/" ng-maxlength="50" id="lastname" ng-model="lastname">
+                                        <input type="text" placeholder="{{update.user.lastname}}" ng-pattern="/^[A-Za-z ]+$/" ng-maxlength="50" id="lastname" ng-model="lastname">
                                     </div>
                                 </div>
 
@@ -111,7 +111,7 @@
 
                             </br>
                             <div class="ui actions align right">
-                                <button class="ui primary button" type="submit" ng-click="update.updateUser(update.user,username,password,location,college,age,height,weight,firstname,lastname,email,contactno,gender)">
+                                <button class="ui primary button" type="submit" ng-disabled="form.$invalid" ng-click="update.updateUser(update.user,username,password,location,college,age,height,weight,firstname,lastname,email,contactno,gender)">
                                     Update
                                 </button>
                                 <button class="ui button event" id="cancel-update" ng-click="update.closeModal('update-modal')">
