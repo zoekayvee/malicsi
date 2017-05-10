@@ -80,6 +80,7 @@ create table user_event(
 create table team(
 	team_id 		int unsigned auto_increment,
 	team_name 		varchar(100) not null,
+	teampic			text,
 
 	UNIQUE			(team_name),
 	constraint 		team_id_pk primary key(team_id)
@@ -773,6 +774,11 @@ CREATE TRIGGER sponsorEventInsert AFTER INSERT ON sponsor_events
 	CREATE PROCEDURE updateProfilePicture(in uid int(10), in pp text)
 		BEGIN
 			UPDATE users SET profilepic = pp WHERE user_id = uid;
+		END;
+%%
+	CREATE PROCEDURE updateTeamPicture(in tid int(10), in pp text)
+		BEGIN
+			UPDATE team SET teampic = pp WHERE team_id = tid;
 		END;
 %%
 	CREATE PROCEDURE deleteUser(in uid int(10))

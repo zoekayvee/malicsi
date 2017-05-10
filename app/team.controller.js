@@ -54,6 +54,9 @@
         vm.getCheckers=getCheckers;
         vm.thisTeamName;
         vm.currentUserId=null;
+        vm.updateTeamPicture = updateTeamPicture;
+        vm.curTeam = null;
+        vm.files = [];
 
         $http
     		.get('/user_loggedin')
@@ -91,6 +94,31 @@
 		   console.log("Error: Team cannot be added");
 			});
 		}
+
+
+        function updateTeamPicture() {
+            if (vm.files[0]) {
+                let options = {
+                    transformRequest: angular.identity,
+                    headers: {
+                        'Content-Type': undefined
+                    }
+                };
+
+                let fd = new FormData();
+                fd.append("teampic", vm.files[0]);
+                $http.put('/teams/'+ vm.curTeam.team_id +'/teampic', fd, options)
+                    .then(function(response) {
+                        console.log("Team picture updated");
+                        window.location.reload();
+                    })
+                    .catch(function(err) {
+                        console.log("Error in uploading picture");
+                    });
+            } else {
+                console.log("No file found");
+            }
+        }    
 
 
 		function getTeamPlayers(){
@@ -250,6 +278,7 @@
 	    			vm.allTeams = [];
 	    			vm.allTeams = response.data;
 	    			vm.teamName = response.data[0].team_name;
+	    			vm.curTeam = response.data[0];
 	    			console.log("CURRENT TEAM"+vm.thisTeamName);
 	    			getTeamPlayers();
 	    		},

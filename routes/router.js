@@ -95,6 +95,7 @@ router.post 	('/teams_from_event',teamController.deleteTeamFromEvent);
 router.put 		('/teams/player_status',	teamController.updateTeamPlayerStatus);
 router.get 		('/teams/players/:team_id',	teamController.getTeamPlayers);
 router.delete   ('/teams/player_remove/:team_id/:user_id', teamController.deleteTeamPlayer);
+router.put      ('/teams/:team_id/teampic', uploadController.upload.single('teampic') ,teamController.updateTeamPicture);
 
 router.get      ('/sponsors_get_id/:sponsor_name',	sponsorController.getSponsorId)
 router.post     ('/sponsors',      sponsorController.addSponsor);

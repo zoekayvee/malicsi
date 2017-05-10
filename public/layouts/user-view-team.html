@@ -9,9 +9,25 @@
 
                 <div class="ui card center aligned">
 
-                    <div class="center aligned image">
+                    <div class="center aligned image" ng-if="team.curTeam.teampic == null">
                         <img id="team-icon" src="images/olympics.gif">
                     </div>
+                    <div class="center aligned image" ng-if="team.curTeam.teampic != null">
+                        <img id="team-icon" src="{{team.curTeam.teampic}}">
+                    </div>
+
+                    <div class="center aligned">
+                        <label for="file" ng-show="!team.files[0]" class="ui icon button">
+                            <i class="file icon"></i>
+                            Change Picture
+                        </label>
+                        <label for="file2" ng-show="team.files[0]" ng-click="team.updateTeamPicture()" class="ui icon green button">
+                            <i class="file icon"></i>
+                            Save Picture
+                        </label>
+                        <input type="file" id="file" file-input="team.files" style="display:none">
+                    </div>
+
 
                     <div class="content center aligned" ng-controller="guestController as loged">
                         <div class="header">

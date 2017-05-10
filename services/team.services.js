@@ -109,6 +109,27 @@ exports.viewAvailableTeams = (req, res, next) => {
 	});
 }
 
+
+exports.updateTeamPicture = (req,res) => {
+	const query_string = 'call updateTeamPicture(?,?)';
+	
+	const req_data = [
+		req.params.team_id,
+		req.file? req.file.path.substring(req.file.path.indexOf('public/')).replace('public',''):""
+	];
+	console.log(req_data);
+
+	connection.query(query_string, req_data, (err, result) => {
+		if(!err) {
+			res.status(200).send(result);
+		} else {
+			console.log("Error in Updating Profile Picture");
+			console.log(err);
+			res.status(500).send(err);
+		}
+	})		
+}
+
 exports.updateTeam = (req, res, next) => {
 	var query = 'call updateTeam(?,?)';
 	const data = [
