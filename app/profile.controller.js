@@ -4,7 +4,7 @@
 		.module('malicsi')
 		.controller('profileController', profileController);
 
-	function profileController($http){
+	function profileController($http, $location){
 		var vm = this;
 		
 		vm.interests = "";
@@ -28,6 +28,9 @@
         vm.pastGamesUser = [];
 
         vm.updateProfilePic = updateProfilePic;
+        vm.viewTeam= viewTeam;
+        vm.openEventModal=openEventModal;
+        vm.usernames=[];
 
 		$http   
             .get('/user_loggedin') 
@@ -44,7 +47,6 @@
                         .get('/user/events/'+response.data)
                         .then(function(response) {
                             vm.userEvents = response.data;
-                            console.log(vm.userEvents);
 
                         });
 
@@ -66,6 +68,7 @@
                         .get('/user/teams/'+response.data)
                         .then(function(response) {
                             vm.userTeams = response.data;
+                            console.log(vm.userTeams)
                         });
                     $http
                         .get('/game/user/' + vm.userid)
@@ -74,11 +77,28 @@
                             console.log(vm.userid);
                             console.log("Viewing Past Games of user Successful!");
                         });
+                    $http
+                        .get('/user/usernames')
+                        .then(function(response) {
+                            if(response.data){
+                                vm.usernames=response.data;
+                            }
+                        });
                 }
                 else{
                 	window.location.href ='/#!/login';
                 }
             });
+
+         function setToastr(){
+            toastr.options.positionClass = "toast-bottom-right";
+            toastr.options.closeButton = true;
+            toastr.options.showMethod = 'slideDown';
+            toastr.options.hideMethod = 'slideUp';
+            toastr.options.positionClass = "toast-bottom-full-width";
+            toastr.options.timeOut = 2000;
+            toastr.options.newestOnTop = false;
+        }
 
         function updateProfilePic() {
             if (vm.files[0]) {
@@ -93,7 +113,7 @@
                 fd.append("profilepic", vm.files[0]);
                 $http.put('/users/'+ vm.user.user_id +'/profilepic', fd, options)
                     .then(function(response) {
-                        console.log("Profile picture updated");
+                        console.log("Profile picture updated where userID is" + vm.user.user_id);
                         window.location.reload();
                     })
                     .catch(function(err) {
@@ -107,7 +127,16 @@
 		function updateUser(user,uname,pw,loc,college,age,height,weight,fname,lname,email,contactno,gender){
 			var editUser=vm.user;
 			var flag = "false";
-			if(uname == "" || typeof(uname)== 'undefined'){
+			
+            var checker=false;
+
+            vm.usernames.forEach(function(e){
+                if(e.username===uname){
+                    checker=true;
+                }
+            });
+
+            if(uname == "" || typeof(uname)== 'undefined'){
                 uname= user.username
             }
             if(pw =="" || typeof(pw)=='undefined'){
@@ -159,32 +188,43 @@
             editUser.gender=gender;
             editUser.flag=flag;
           	
-            $http
-                .put('/user/'+editUser.user_id, editUser)
-                .then(function(response) {
-                	delete editUser.flag;
-                	vm.user=editUser;
-                    console.log(response.data);
+            if(checker){
+                toastr.error('Username entered is not unique!');
+            }else{
+                $http
+                    .put('/user/'+editUser.user_id, editUser)
+                    .then(function(response) {
+                    	delete editUser.flag;
+                        toastr.success('Successfully updated profile!');
+                    	vm.user=editUser;
+                        console.log(response.data);
+                        setTimeout(function(){
+                        window.location.reload();
+                    }, 1000);
+                },
+                function(response){
+                    toastr.error('Error in input!');
                 });
-			window.location.reload();
-		}
+		  }
+        }
 
 		function updateInterest(){
             console.log(vm.interests);
 			var user = {
 				interests: vm.interests
 			}
-
-			$http
-				.get('user_loggedin')
-				.then(function(response){
-					 $http
+            if(vm.interests!="" || typeof(uname)!= 'undefined'){
+                $http
+                .get('user_loggedin')
+                .then(function(response){
+                     $http
                         .put('/users/interests/'+response.data, user)
                         .then(function(response) {
-                        	console.log("Added interest");
+                            console.log("Added interest");
                             window.location.reload();  //added
                         });
-				});	
+                }); 
+            }
 		}
 
         function deleteInterest(interest){
@@ -208,6 +248,9 @@
             vm.userid = vm.user.user_id;
         }
 
+        function viewTeam(team_id,event_id){
+            $location.path('/events/' + event_id + '/team/'+ team_id)
+        }
         function viewPastGamesUser(){
             $http   
             .get('/user_loggedin') 
@@ -242,6 +285,25 @@
 			.modal('show');
 		
 		}
+
+        function openEventModal(dmodal){
+            $('#'+dmodal+'.modal')
+            .modal({
+                onShow: function(){
+                    $('#start-date-pick').calendar({
+                        startCalendar: $('#rangestart')
+                    });
+                    $('#end-date-pick').calendar({
+                        endCalendar: $('#rangeend')
+                    });
+                }
+            })
+            .modal('setting', {
+                 closable: false
+            })
+            .modal('show');
+        
+        }
 
 		function closeModal(dmodal){
 			$('#'+dmodal+'.modal')

@@ -231,6 +231,18 @@ DELIMITER %%
 			END;
 
 %%
+	CREATE TRIGGER teamPlayersUpdate AFTER UPDATE ON team_players
+		FOR EACH ROW
+			BEGIN
+				DECLARE name varchar(50);
+				DECLARE tname varchar(50);
+				SET name = (SELECT username from users where user_id=NEW.user_id LIMIT 1);
+				SET tname = (SELECT team_name from team where team_id=NEW.team_id LIMIT 1);
+				IF NEW.player_status LIKE "accepted" THEN
+					INSERT INTO logs(message) VALUES(concat(tname, " Approved user: ", name, " to join team"));
+				END IF;
+			END;
+%%
 	CREATE TRIGGER sponsorInsert AFTER INSERT ON sponsor
 		FOR EACH ROW
 			BEGIN
@@ -350,7 +362,7 @@ CREATE TRIGGER sponsorEventInsert AFTER INSERT ON sponsor_events
 				DECLARE name,tname varchar(100);
 				SET name = (SELECT username from users where user_id=NEW.user_id LIMIT 1);
 				SET tname = (SELECT team_name from team where team_id=NEW.team_id LIMIT 1);
-				INSERT INTO logs(user_id,message) VALUES(NEW.user_id ,concat(tname,"'s added team player: ", name));
+				INSERT INTO logs(user_id,message) VALUES(NEW.user_id ,concat(name,"requested membership in ", tname , " team"));
 			END;
 %%
 	CREATE TRIGGER teamPlayerDelete AFTER DELETE ON team_players
@@ -638,6 +650,12 @@ CREATE TRIGGER sponsorEventInsert AFTER INSERT ON sponsor_events
 			INSERT INTO user_event(user_id,event_id) VALUES (userId,eventid);
 		END;
 %%
+	CREATE PROCEDURE deleteTeamPlayer(in eventid int unsigned, in teamid int unsigned, in userid int unsigned)
+		BEGIN
+			DELETE from team_players where team_id=teamid and user_id=userid;
+			DELETE from user_event where user_id=userid and event_id=eventid;
+		END;
+%%
 	CREATE PROCEDURE creatorDisapprovesPlayer(in userid int unsigned, in teamid int unsigned)
 		/*procedure for when the creator disapproved the player; no user_event insertion*/
 		BEGIN
@@ -659,6 +677,14 @@ CREATE TRIGGER sponsorEventInsert AFTER INSERT ON sponsor_events
 			UPDATE team SET team_name = teamName where team_id = teamId;
 		END;
 %%
+
+	CREATE PROCEDURE updateTeamProfilePicture(in tid int(10), in pp text)
+		BEGIN
+			UPDATE team SET teamprofilepic = pp WHERE team_id = tid;
+		END;
+
+%%
+
 	CREATE PROCEDURE deleteTeam(in teamId int unsigned)
 		BEGIN
 			DELETE FROM team where team_id = teamId;

@@ -41,6 +41,7 @@
         vm.viewEventDetails = viewEventDetails;
         vm.userJoin=userJoin;
         vm.eventWithEventCreator=eventWithEventCreator;
+        vm.openEventModal=openEventModal;
 
 
         function addEvent(user_id) {
@@ -281,6 +282,27 @@
                     console.log('Error');
                 }); 
          }
+
+         function openEventModal(dmodal){
+            console.log("ji");
+            $('#'+dmodal+'.modal')
+            .modal({
+                onShow: function(){
+                    $('#start-date-pick').calendar({
+                        startCalendar: $('#rangestart')
+                    });
+                    $('#end-date-pick').calendar({
+                        endCalendar: $('#rangeend')
+                    });
+                }
+            })
+            .modal('setting', {
+                 closable: false
+            })
+            .modal('show');
+        
+        }
+
     }   
 
 })();

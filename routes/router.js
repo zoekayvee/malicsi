@@ -29,6 +29,7 @@ router.put 		('/users/:user_id/profilepic', uploadController.upload.single('prof
 router.post     ('/user_team',              userController.userJoinsTeam);
 router.get      ('/logs',                   adminController.viewAllLogs);
 router.get      ('/logs/:user_id',          adminController.viewLogs);
+router.get      ('/user/usernames',          userController.viewUsernames);
 
 router.put      ('/user/:user_id',			userController.updateUser); //added
 router.get 		('/user/teams/:user_id',    userController.viewUserTeams); //added
@@ -96,6 +97,7 @@ router.put 		('/teams/player_status',	teamController.updateTeamPlayerStatus);
 router.get 		('/teams/players/:team_id',	teamController.getTeamPlayers);
 router.delete   ('/teams/player_remove/:team_id/:user_id', teamController.deleteTeamPlayer);
 router.put      ('/teams/:team_id/teampic', uploadController.upload.single('teampic') ,teamController.updateTeamPicture);
+router.delete   ('/teams/player_remove/:event_id/:team_id/:user_id', teamController.deleteTeamPlayer);
 
 router.get      ('/sponsors_get_id/:sponsor_name',	sponsorController.getSponsorId)
 router.post     ('/sponsors',      sponsorController.addSponsor);
@@ -188,6 +190,10 @@ router.get('/', (req,res)=>{
 
 router.get('/403', (req,res)=>{
     res.sendFile('public/layouts/error-404.html',{root:__dirname+'/..'});
+});
+
+router.get('/451', (req,res)=>{
+    res.sendFile('public/layouts/error-451.html',{root:__dirname+'/..'});
 });
 
 router.all('*', (req, res) => {

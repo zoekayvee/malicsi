@@ -127,7 +127,7 @@
                 .put('/sport', updatedSports)
                 .then(function(response){
                     viewAllSports();
-                    closeModal('edit-modal');
+                    closeModal('edit-sport-modal');
                     console.log('Updating Sport Successful!');
             },
             function(response){

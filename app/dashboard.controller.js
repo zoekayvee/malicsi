@@ -4,7 +4,7 @@
     .module('malicsi')
     .controller('dashboardController', dashboardController);
 
-  function dashboardController($http){
+  function dashboardController($http,$location){
     //FOR DASHBOARD
     var vm = this;
     vm.user = null;
@@ -22,6 +22,7 @@
     vm.disapproveTeamPlayer=disapproveTeamPlayer;
     vm.getScores = getScores;
     vm.getScores2 = getScores2;
+    vm.viewEvent=viewEvent;
     vm.allScores = [];
     vm.allScores2 = [];
 
@@ -138,8 +139,11 @@
         function(response){
           console.log('Error Viewing Score');
         });
-    }
+      }
 
+      function viewEvent(id){
+        $location.path('/events/' + id)
+      }
 
         function disapproveTeamPlayer(team_id,user_id){
           var data = {

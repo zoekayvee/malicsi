@@ -31,8 +31,22 @@ $(document).ready(function() {
                     }
                 ]
             },
+            password2: {
+                identifier  : "password2",
+                rules: [
+                    {
+                        type   : "empty",
+                        prompt : "Please re-enter your password"
+                    },
+                    {
+                        type   : 'match[password]',
+                        prompt : "Re-entered password does not match."
+                    }
+                ]
+            },
             email: {
                 identifier  : "email",
+                optional: true,
                 rules: [
                     {
                         type   : "email",
@@ -45,10 +59,10 @@ $(document).ready(function() {
                 rules: [
                     {
                         type   : 'empty',
-                        prompt : 'Please enter your firstname'
+                        prompt : 'Please enter your first name'
                     },
                     {
-                        type: 'regExp[^[A-Za-z]+$]',
+                        type: 'regExp[^[A-Za-z ]+$]',
                         prompt: 'Letters Only'
                     },
                     {
@@ -62,13 +76,12 @@ $(document).ready(function() {
                 rules: [
                     {
                         type   : 'empty',
-                        prompt : 'Please enter your lastname'
+                        prompt : 'Please enter your last name'
                     },
                     {
-                        type: 'regExp[^[A-Za-z]+$]',
+                        type: 'regExp[^[A-Za-z ]+$]',
                         prompt: 'Letters Only'
                     },
-                    ,
                     {
                         type: 'maxLength[50]',
                         prompt: 'Last name is too long.'
@@ -77,22 +90,72 @@ $(document).ready(function() {
             },
             height: {
                 identifier  : 'height',
+                optional: true,
                 rules: [
                     {
-                        type   : 'number',
+                        type   : 'decimal',
                         prompt : 'Please enter your height'
                     }
                 ]
             },
-             weight: {
-                identifier  : 'weight',
+            location: {
+                identifier  : 'location',
+                optional: true,
                 rules: [
                     {
-                        type   : 'number',
+                         type: 'maxLength[100]',
+                        prompt: 'Location is too long.'
+                    }
+                ]
+            },
+            college: {
+                identifier  : 'college',
+                optional: true,
+                rules: [
+                    {
+                         type: 'maxLength[50]',
+                        prompt: 'College name is too long.'
+                    }
+                ]
+            },
+            weight: {
+                identifier  : 'weight',
+                optional: true,
+                rules: [
+                    {
+                        type   : 'decimal',
                         prompt : 'Please enter your weight'
                     }
                 ]
-            }
+            },
+            age: {
+                identifier  : 'age',
+                optional: true,
+                rules: [
+                    {
+                        type   : 'integer[1..999]',
+                        prompt : 'Please enter your age.'
+                    }
+                ]
+            },
+            contactno: {
+                identifier  : 'contactno',
+                optional: true,
+                rules: [
+                    {
+                        type   : 'integer',
+                        prompt : 'Please enter your contact number.'
+                    },
+                    {
+                        type: 'regExp[^09]',
+                        prompt: 'Contact number should start in "09"'
+                    },
+                    {
+                        type: 'maxLength[11]',
+                        prompt: 'Please enter your contact number.'
+                    }
+                ]
+            },
         },
         inline : true,
         on     : "blur"

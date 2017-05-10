@@ -1,7 +1,5 @@
 <link rel='stylesheet' href='css/account-login.css' />
 <script type='text/javascript' src='js/register-validation.js'></script>
-<!-- calendar -->
-<!-- <script type='text/javascript' src='js/calendar.js'></script>  -->
 
 <div id="main-wrapper">
 
@@ -18,58 +16,57 @@
             <div class="column ten wide ui card" id="login-panel">
 
                 <h2 class="center aligned header form-head">Create an account here!</h2>
-                <form  name= "myForm" class="ui medium form" ng-controller="userController as signUp">
+                <form  name= "myForm" ng-controller="userController as signUp"  class="ui medium form" >
                     <div class="two fields">
                         <div class="field">
                             <label> Username </label>
-                            <input id="username" name="username_field" type="text" placeholder="Username" ng-model="signUp.newUser.username" required>
+                            <input id="username" type="text" placeholder="Username" ng-pattern="/^[A-Za-z0-9_-]+$/" ng-maxlength="50" ng-model="signUp.newUser.username" required>
                            <!--  <span ng-show="myForm.username_field.$error.required">Username is required!</span> -->
                         </div>
                         <div class="field">
                             <label>Email Address</label>
                             <input type="email" id="email" placeholder="Email Address" ng-model="signUp.newUser.email">
                         </div>
-
                     </div>
                     <div class="two fields">
                         <div class="field">
                             <label>Password</label>
-                            <input type="password" id="password" placeholder="Password" ng-model="signUp.newUser.password" required>
+                            <input type="password" id="password" placeholder="Password" ng-maxlength="50" ng-model="signUp.newUser.password" required>
                         </div>
                         <div class="field">
                             <label>Re-enter password</label>
-                            <input type="password" id="password2" placeholder="Re-enter password" ng-model="pw">
+                            <input type="password" id="password2" placeholder="Re-enter password" ng-model="password2"required>
                         </div>
                     </div>
                     <div class="two fields">
                         <div class="field">
                             <label>First Name</label>
-                            <input type="text" id="firstname" placeholder="First Name" ng-model="signUp.newUser.firstname" required>
+                            <input type="text" id="firstname" placeholder="First Name" ng-pattern="/^[A-Za-z ]+$/" ng-maxlength="50" ng-model="signUp.newUser.firstname" required>
                         </div>
                         <div class="field">
                             <label>Last Name</label>
-                            <input type="text" id="lastname" placeholder="Last Name " ng-model="signUp.newUser.lastname" required>
+                            <input type="text" id="lastname" placeholder="Last Name " ng-pattern="/^[A-Za-z ]+$/" ng-maxlength="50" ng-model="signUp.newUser.lastname" required>
                         </div>
                     </div>
                     <div class="three fields">
                         <div class="field">
                             <label>Height (ft)</label>
-                            <input type="number" name="height" placeholder="Height (ft)" ng-model="signUp.newUser.height">
+                            <input placeholder="Height (ft)" id="height" ng-pattern="/^[ ]+$|(^[0-9]+([.][0-9]+)?)+$/" ng-model="signUp.newUser.height">
                         </div>
                         <div class="field">
                             <label>Weight (Kg)</label>
-                            <input type="number" name="weight" placeholder="Weight (Kg)" ng-model="signUp.newUser.weight">
+                            <input placeholder="Weight (Kg)" id="weight" ng-pattern="/^[ ]+$|(^[0-9]+([.][0-9]+)?)+$/" ng-model="signUp.newUser.weight">
                         </div>
 
                         <div class="field">
                             <label>College</label>
-                            <input type="text" name="college" placeholder="College" ng-model="signUp.newUser.college">
+                            <input type="text" placeholder="College" id="college" ng-maxlength="50" ng-model="signUp.newUser.college">
                         </div>
                     </div>
                     <div class="three fields">
                         <div class="field">
                             <label>Gender</label>
-                            <select class="ui dropdown" name="gender" ng-model="signUp.newUser.gender">
+                            <select class="ui dropdown" ng-model="signUp.newUser.gender">
                                 <option value="" id="lastname" >Gender</option>
                                 <option value="M">Male</option>
                                 <option value="F">Female</option>
@@ -77,24 +74,15 @@
                         </div>
                         <div class="field">
                             <label>Age</label>
-                            <input type="number" name="age" placeholder="Age" min=10 ng-model="signUp.newUser.age">
+                            <input placeholder="Age" id="age" min=10 ng-pattern="/^[ ]+$|^[0-9]+$/" ng-maxlength="3" ng-model="signUp.newUser.age">
                         </div>
                         <div class="field">
                             <label>Contact No.</label>
-                            <input type="tel" name="contactno" placeholder="09XX-XXX-XXXX" ng-model="signUp.newUser.contactno">
+                            <input type="tel" id="contactno" placeholder="09XX-XXX-XXXX" ng-pattern="/^[ ]+$|^([09][0-9]+)+$/" ng-maxlength="11" ng-model="signUp.newUser.contactno">
                         </div>
-                        <!-- <div class="field">
-                        <div class="ui calendar" id="datetime">
-                            <div class="ui input left icon">
-                              <i class="calendar icon"></i>
-                              <input type="text" placeholder="Date/Time">
-                            </div>
-                        </div>
-                        </div> -->
-                        <!-- test case for calendar -->
                     </div>
                     <div class="field">
-                        <button class="ui fluid submit button" id="submitbutton" ng-click="signUp.registerUser()">SIGN UP</button>
+                        <button ng-disabled="myForm.$invalid" class="ui primary submit button" id="submitbutton" ng-click="signUp.registerUser(password2)">SIGN UP</button>
                     </div>
                     <div class="ui error message"></div>
                     <div class="ui message">
