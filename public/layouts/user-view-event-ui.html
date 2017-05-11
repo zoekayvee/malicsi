@@ -254,14 +254,16 @@
                     </h1>
                     <div class="ui form" ng-controller="guestController as loged">
                         <div ng-show="logged.userId == event.currentUserId || logged.userType=='admin'" class="inline fields">
-                            <div class="field">
-                                <input type="text" placeholder="Team Name" ng-model="team.teamName" name="team_name">
-                            </div>
-                            <div class="field">
-                                <button class="ui plus icon button" ng-click="team.addTeam(event.eventId)">
-                                    <i class="plus icon"></i>
-                                </button>
-                            </div>
+                            <form>
+                                <div class="field">
+                                    <input id="teamname" type="text" placeholder="Team Name" ng-model="team.teamName" name="team_name" required>
+                                </div>
+                                <div class="field">
+                                    <button class="ui plus icon button" ng-click="team.addTeam(event.eventId)">
+                                        <i class="plus icon"></i>
+                                    </button>
+                                </div>
+                            </form>
                         </div>
                     </div>
                     <br>
