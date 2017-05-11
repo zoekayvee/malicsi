@@ -90,14 +90,14 @@
 
             <div class="ui section">
                 <div class="section-title">
-                    <h3>User Interest</h3>
+                    <h3>Event Suggestions Based on Interest</h3>
                     <br>
-                    <div class="ui five column grid">
-                        <div ng-repeat="ei in dashboard.eventsByInterest" class="column">
-                            <div class="">
-                                <h5>{{ei.event_name}}</h5>
-                                <p>{{ei.date_start}}</p>
-                            </div>
+                    <div class="ui seven column grid">
+                        <div ng-repeat="ei in dashboard.eventsByInterest">
+                        <div class="ui card"  ng-click="dashboard.viewEvent(ei.event_id)">
+                            <h5>{{ei.event_name}}</h5>
+                            <p>{{ei.date_start}}</p>
+                        </div>
                         </div>
                     </div>
                 </div>

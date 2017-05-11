@@ -6,6 +6,12 @@ body {
     background-image: url('../images/patterns/3.png ');
 }
 
+.text-wrapper {
+    word-wrap: break-word;
+    flex: inherit;
+    width: 100%;
+}
+
 .ui .card {
     padding: 20px;
 }

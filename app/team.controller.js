@@ -32,11 +32,12 @@
     	vm.viewTeamPerEvent = viewTeamPerEvent;
     	vm.deleteTeamFromEvent = deleteTeamFromEvent;
     	vm.viewAvailableTeams = viewAvailableTeams;
+    	vm.files = [];
     	//vm.getCurrentUser=getCurrentUser;
     	vm.updateFuckingTeam = updateFuckingTeam;
     	vm.getTeamPlayers=getTeamPlayers;
     	vm.deleteTeamPlayer=deleteTeamPlayer;
-    	vm.getPlayerCount=getPlayerCount;
+    	vm.deleteTeamPlayer_2=deleteTeamPlayer_2;
     	vm.currentId = null;
         vm.setCurrentId = setCurrentId;
         vm.openModal = openModal;
@@ -54,6 +55,10 @@
         vm.getCheckers=getCheckers;
         vm.thisTeamName;
         vm.currentUserId=null;
+        vm.updateTeamPicture = updateTeamPicture;
+        vm.curTeam = null;
+        vm.files = [];
+        vm.getTeamPlayersCount=getTeamPlayersCount;
 
         $http
     		.get('/user_loggedin')
@@ -92,9 +97,49 @@
 			});
 		}
 
+        function updateTeamPicture() {
+            if (vm.files[0]) {
+                let options = {
+                    transformRequest: angular.identity,
+                    headers: {
+                        'Content-Type': undefined
+                    }
+                };
+
+                let fd = new FormData();
+                fd.append("teampic", vm.files[0]);
+                $http.put('/teams/'+ vm.curTeam.team_id +'/teampic', fd, options)
+                    .then(function(response) {
+                        console.log("Team picture updated");
+                        window.location.reload();
+                    })
+                    .catch(function(err) {
+                        console.log("Error in uploading picture");
+                    });
+            } else {
+                console.log("No file found");
+            }
+        }    
+
+		function getTeamPlayersCount(team){
+			var count=0;
+			$http
+	    		.get('/teams/players/'+team.team_id)
+	    		.then(function(response){
+	    			vm.allPlayers=response.data;
+	    			console.log(vm.allPlayers);
+	    			vm.allPlayers.forEach(function(e){
+		    		 	console.log(e);
+			    		if(e.player_status==='accepted'){
+			    			count+=1;
+			    		}
+			    	});
+			    	team.count=count;
+    		 });
+	
+		}
 
 		function getTeamPlayers(){
-			console.log(vm.userId);
 			$http
 	    		.get('/teams/players/'+$routeParams.team_id)
 	    		.then(function(response){
@@ -108,20 +153,7 @@
 			    			vm.alreadyJoined=true;
 			    		}
 			    	});
-    		 });
-	
-		}
-
-		function getPlayerCount(team_id){
-			var res=null;
-			$http
-	    		.get('/teams/players/'+team_id)
-	    		.then(function(response){
-	    			vm.allPlayers=response.data;
-	    			res= vm.allPlayers.length;
-			    });
-
-			return res;
+    		 });	
 		}
 
 		function getCheckers(team_id){
@@ -141,9 +173,21 @@
     		 });
 		}
 
-		function deleteTeamPlayer(user_id){
+		function deleteTeamPlayer(user_id,team_id){
+			console.log("huyyy");
 			$http
-	    		.delete('/teams/player_remove/'+$routeParams.team_id+'/'+ user_id)
+	    		.delete('/teams/player_remove/'+$routeParams.event_id+'/'+team_id+'/'+ user_id)
+	    		.then(function(response){
+	    			vm.alreadyJoined=null;
+	    			vm.cancelled=true;
+    		 	} ,function(response){
+					console.log(response.data);
+				});
+		}
+
+		function deleteTeamPlayer_2(user_id){
+			$http
+	    		.delete('/teams/player_remove/'+$routeParams.event_id+'/'+$routeParams.team_id+'/'+ user_id)
 	    		.then(function(response){
 	    			vm.alreadyJoined=null;
 	    			vm.cancelled=true;
@@ -250,6 +294,7 @@
 	    			vm.allTeams = [];
 	    			vm.allTeams = response.data;
 	    			vm.teamName = response.data[0].team_name;
+	    			vm.curTeam = response.data[0];
 	    			console.log("CURRENT TEAM"+vm.thisTeamName);
 	    			getTeamPlayers();
 	    		},
@@ -445,7 +490,7 @@
 				.post('/overallranking/' + $routeParams.event_id, data)
 				.then(function(response){
 					vm.ranking = response.data[0];
-					console.log(response.data);
+					console.log(response.data[0]);
 					console.log('Viewing Rank Successful');
 			},
 			function(response){
@@ -459,6 +504,7 @@
 				.get('/overallranking/' + $routeParams.event_id)
 				.then(function(response){
 					vm.overallList = response.data[0];
+					console.log(response.data);
 					console.log('Viewing Overall Rank Successful');
 			},
 			function(response){

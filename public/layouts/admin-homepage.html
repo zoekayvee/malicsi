@@ -26,7 +26,7 @@
                 <div class="column" ng-repeat="x in home.allUsers | filter: {user_type: 'pending', username:search}">
                     <div class="ui card" id="card">
                         <div class="center aligned content">
-                            <h3 class="ui header" ng-controller = "otherUsersController as others">
+                            <h3 class="ui header text-wrapper" ng-controller = "otherUsersController as others">
                                 <a ng-click = "others.clicked(x.user_id)"> {{x.username}}</a>
                             </h3>
                             <i class="huge user icon"></i>
@@ -58,8 +58,8 @@
             <div class="ui four column grid" >
                 <div class="column" ng-repeat="x in home.allEvents | filter: {status: 'pending', event_name: search_event} |  orderBy:'date_start'">
                     <div class="ui card" id="card">
-                        <div class=" center aligned content">
-                            <h3 class="ui header">
+                        <div class="center aligned content">
+                            <h3 class="ui header text-wrapper">
                                 {{x.event_name}}<br>
                             </h3>
                             <i class="huge calendar icon"></i>

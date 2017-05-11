@@ -1,4 +1,5 @@
 <script type='text/javascript' src='js/user-profile.js'></script>
+<script type='text/javascript' src='js/form-validate.js'></script>
 <link rel='stylesheet' href='css/user-profile.css' />
 
 <link rel='stylesheet' href='semantic-ui-calendar/dist/calendar.css' />
@@ -13,24 +14,26 @@
                 <img class="ui centered" src="{{user.user.profilepic}}" id="profile-image">
                 <h2 class="ui centered header" id="header-section">
                     {{user.user.firstname + " " + user.user.lastname}}
-                    <a ng-click="user.openModal('update-modal')">
-                        <i class="edit icon"></i>
-                    </a>
+                    ({{user.user.username}})
                     <div class="sub header" id="header-section">
                         {{user.user.location}}
                     </div>
                 </h2>
-
+                <div >
+                    <button class="ui icon button" ng-click="user.openModal('update-modal')">
+                        <i class="edit icon"></i> UPDATE PROFILE
+                    </button>
+                </div><br>
                 <div>
+                    <input type="file" id="file" file-input="user.files" style="display:none">
                     <label for="file" ng-show="!user.files[0]" class="ui icon button">
                         <i class="file icon"></i>
                         Change Picture
                     </label>
-                    <label for="file" ng-show="user.files[0]" ng-click="user.updateProfilePic()" class="ui icon green button">
+                    <label ng-show="user.files[0]" ng-click="user.updateProfilePic()" class="ui icon green button">
                         <i class="file icon"></i>
                         Save Picture
                     </label>
-                    <input type="file" id="file" file-input="user.files" style="display:none">
 
                 </div>
 
@@ -39,62 +42,62 @@
                 <div class="ui modal" id="update-modal">
                     <div class="header">Update Profile</div>
                     <div class="content">
-                        <form ng-controller="profileController as update">
+                        <form name="form" ng-controller="profileController as update">
                             <div class="ui form">
 
                                 <div class="equal width fields">
                                     <div class="field">
                                         <label>Username</label>
-                                        <input type="text" placeholder="{{admin.newUser.username}}" ng-model="username">
+                                        <input type="text"  placeholder="{{update.user.username}}" id="username" ng-pattern="/^[A-Za-z0-9_-]+$/" ng-model="username">
                                     </div>
                                     <div class="field">
                                         <label>Password</label>
-                                        <input type="password" ng-model="password">
+                                        <input type="password" id="password" ng-maxlength="50" ng-model="password">
                                     </div>
                                 </div>
 
                                 <div class="equal width fields">
                                     <div class="field">
                                         <label>First name</label>
-                                        <input type="text" placeholder="{{admin.newUser.firstname}}" ng-model="firstname">
+                                        <input type="text" placeholder="{{update.user.firstname}}" ng-pattern="/^[A-Za-z ]+$/" ng-maxlength="50" id="firstname" ng-model="firstname">
                                     </div>
                                     <div class="field">
                                         <label>Last name</label>
-                                        <input type="text" placeholder="{{admin.newUser.lastname}}" ng-model="lastname">
+                                        <input type="text" placeholder="{{update.user.lastname}}" ng-pattern="/^[A-Za-z ]+$/" ng-maxlength="50" id="lastname" ng-model="lastname">
                                     </div>
                                 </div>
 
                                 <div class="equal width fields">
                                     <div class="field">
                                         <label>Location</label>
-                                        <input type="text" placeholder="Country/City" ng-model="location">
+                                        <input type="text" placeholder="{{update.user.location}}"  ng-maxlength="100" id="location" ng-model="location">
                                     </div>
                                     <div class="field">
                                         <label>College</label>
-                                        <input type="text" placeholder="{{admin.newUser.college}}" ng-model="college">
+                                        <input type="text" placeholder="{{update.user.college}}" ng-maxlength="50" id="college" ng-model="college">
                                     </div>
                                     <div class="field">
                                         <label>E-mail</label>
-                                        <input type="email" placeholder="{{admin.newUser.email}}" ng-model="email">
+                                        <input type="email" placeholder="{{update.user.email}}" id="email" ng-model="email">
                                     </div>
                                     <div class="field">
                                         <label>Contact Number</label>
-                                            <input type="text" placeholder="{{admin.newUser.contactno}}" ng-model="contactno">
+                                            <input type="text" placeholder="{{update.user.contactno}}" ng-pattern="/^[ ]+$|^([09][0-9]+)+$/" ng-maxlength="11" id="contactno" ng-model="contactno">
                                     </div>
                                 </div>
 
                                 <div class="equal width fields">
                                     <div class="field">
                                         <label>Age</label>
-                                        <input type="text" placeholder="{{admin.newUser.age}}" ng-model="age">
+                                        <input type="text" placeholder="{{update.user.age}}"  id="age" ng-pattern="/^[ ]+$|^[0-9]+$/" ng-maxlength="3" ng-model="age">
                                     </div>
                                     <div class="field">
                                         <label>Height</label>
-                                        <input type="text" placeholder="{{admin.newUser.height}}" ng-model="height">
+                                        <input type="text" placeholder="{{update.user.height}}" id="height" ng-pattern="/^[ ]+$|(^[0-9]+([.][0-9]+)?)+$/" ng-model="height">
                                     </div>
                                     <div class="field">
                                         <label>Weight</label>
-                                        <input type="text" placeholder="{{admin.newUser.weight}}" ng-model="weight">
+                                        <input type="text" placeholder="{{update.user.weight}}" id="weight" ng-pattern="/^[ ]+$|(^[0-9]+([.][0-9]+)?)+$/"  ng-model="weight">
                                     </div>
                                     <div class="field">
                                         <label>Gender</label>
@@ -108,7 +111,7 @@
 
                             </br>
                             <div class="ui actions align right">
-                                <button class="ui primary button" type="submit" ng-click="update.updateUser(update.user,username,password,location,college,age,height,weight,firstname,lastname,email,contactno,gender)">
+                                <button class="ui primary button" type="submit" ng-disabled="form.$invalid" ng-click="update.updateUser(update.user,username,password,location,college,age,height,weight,firstname,lastname,email,contactno,gender)">
                                     Update
                                 </button>
                                 <button class="ui button event" id="cancel-update" ng-click="update.closeModal('update-modal')">
@@ -200,18 +203,19 @@
                 </div>
 
                 <!--List of Teams-->
-                <div class="eight wide column" ng-controller="teamController as teamC">
+                <div class="eight wide column">
                     <div class="ui center aligned segment" id="list-of-teams">
                         <h3 class="ui right floated header">
                         <img src="/images/team.jpg" class="ui mini rounded image">
                         TEAMS
                     </h3>
                         <div class="ui clearing divider"></div>
-                        <div class="ui relaxed divided list">
-                            <div class="right align item team-item" ng-repeat="team in user.userTeams">
-                                <a class="" href="" ng-click="teamC.viewTeam(team.team_id)">
-                                    <img class="ui avatar image" src="/images/icon_team.svg">{{team.team_name}}
-                                </a>
+                        <div  class="ui four column grid">
+                            <div class="ui tiny images" ng-repeat="team in user.userTeams">
+                            
+                            <a class="ui image" href="" ng-click="user.viewTeam(team.team_id,team.event_id)">
+                                <img src="{{team.teamprofilepic || '/images/icon_team.svg'}}"> {{team.team_name}}
+                            </a>
                             </div>
                         </div>
                     </div>
@@ -224,14 +228,14 @@
                 <h3 class="ui right floated header">
                 EVENTS
             </h3>
-                <button class="ui button" id="create" ng-click="user.openModal('event-modal')">
+                <button class="ui button" id="create" ng-click="user.openEventModal('event-modal')">
                 Create
             </button>
                 <div class="ui clearing divider"></div>
                 <!--End of Events-->
 
                 <!--LIST OF EVENTS-->
-                <div class="ui four cards" ng-controller="eventController as eventA">
+                <div class="ui two cards" ng-controller="eventController as eventA">
                     <div class="card" ng-repeat="event in user.userEvents">
                         <div class="content">
                             <div class="header"><a ng-click="eventA.viewEvent(event.event_id)">{{event.event_name}}</a></div>
@@ -281,20 +285,21 @@
         </div>
         <!--MODAL OF CREATE EVENT-->
         <div id="event-modal" class="ui modal">
-            <div class="ui segment">
+            <h1 class="ui header">CREATE EVENT</h1>
+
+            <div class="ui content">
                 <form class="ui form" ng-controller="eventController as event">
-                    <h2 class="ui dividing header">CREATE EVENT</h2>
                     <div class="field">
                         <label>Event Name</label>
                         <input type="text" ng-model="event.eventName" name="event_name">
                     </div>
-                    <div class="fields">
+                    <div class="equal width fields">
                         <div class="field">
                             <label>Start Date</label>
                             <div class="ui calendar" id="start-date-pick">
                                 <div class="ui input left icon">
                                     <i class="calendar icon"></i>
-                                    <input type="text" placeholder="Date" name="start_date" ng-model="event.dateStart">
+                                    <input type="text" placeholder="Date" name="start_date" id="datestart" ng-model="event.dateStart">
                                 </div>
                             </div>
                         </div>
@@ -303,19 +308,20 @@
                             <div class="ui calendar" id="end-date-pick">
                                 <div class="ui input left icon">
                                     <i class="calendar icon"></i>
-                                    <input type="text" placeholder="Date" name="end_date" ng-model="event.dateEnd">
+                                    <input type="text" placeholder="Date" name="end_date" id="dateend" ng-model="event.dateEnd">
                                 </div>
                             </div>
                         </div>
-                        <!-- iddelete ba agad? -->
-                        <button class="ui button event" id="cancel-create" ng-click="user.closeModal('event-modal')">
-                            Cancel
-                        </button>
-                        <button class="ui button event" id="submit-create" ng-click="event.addEvent(user.user.user_id);event.closeModal('event-modal')">
-                            Submit
-                        </button>
                     </div>
                     </br>
+                <div class="actions">
+                        <button class="ui primary button" id="submit-create" ng-click="event.addEvent(user.user.user_id);event.closeModal('event-modal')">
+                            <i class="checkmark icon"></i> Create
+                        </button>
+                        <button class="ui cancel button" id="cancel-create" ng-click="user.closeModal('event-modal')">
+                            <i class="remove icon"></i> Cancel
+                        </button>
+                    </div>
                 </form>
             </div>
         </div>

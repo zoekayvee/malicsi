@@ -4,9 +4,10 @@
 <script type='text/javascript' src='js/user-view-event.js'></script>
 <script src="semantic-ui-calendar/dist/calendar.js"></script>
 
-<div id="main-wrapper" ng-controller="eventController as event" ng-init="event.setEventData()">
-    <div class="ui grid container" ng-controller="loggedUserController as logged">
-        <div class="five wide column" ng-init="event.viewClickedEvent()" ng-controller="guestController as loged">
+<div id="main-wrapper" ng-controller="eventController as event" ng-init="event.viewClickedEvent()">
+<div ng-controller="eventValidityController">
+    <div class="ui grid container" ng-controller="loggedUserController as logged" ng-init="event.setEvent()">
+        <div class="five wide column" ng-controller="guestController as loged">
             <div class="ui center aligned segment" ng-controller="otherUsersController as others">
 
                 <img src='images/events/0.jpg' class="ui large image" />
@@ -113,7 +114,7 @@
                     <div class="column" ng-repeat="x in game.gameThreeScoreboard" ng-show="game.gameThreeScoreboard!=null">
                         <div class="ui card">
                             <div class="content" ng-click="game.viewGameFromScoreboard(x.game_id)">
-                                <div class="header">{{x.sport_name}}</div>
+                                <div class="header text-wrapper">{{x.sport_name}}</div>
                                 <table class="ui celled padded table">
                                     <tbody>
                                         <tr>
@@ -199,7 +200,7 @@
                             </div>
                             </div>
                             <div class="actions">
-                                <div  class="ui ok button" ng-click="game.dateDiff('d',event.thisEventDateStart,game.addDate, event.thisEventDateEnd)">
+                                <div class="ui ok button" ng-click="game.dateDiff('d',event.thisEventDateStart,game.addDate, event.thisEventDateEnd)">
                                     <i class="checkmark icon"></i> Add
                                 </div>
                                 <div class="ui cancel button" ng-click="game.closeModal('addGame-modal')">
@@ -250,20 +251,18 @@
 
                 <div class="ui segment" ng-controller="teamController as team">
                     <h1 class="ui header">
-                        TEAM
+                        TEAMS
                     </h1>
-                    <div class="ui form" ng-controller="guestController as loged">
-                        <div ng-show="logged.userId == event.currentUserId || logged.userType=='admin'" class="inline fields">
-                            <form>
-                                <div class="field">
-                                    <input id="teamname" type="text" placeholder="Team Name" ng-model="team.teamName" name="team_name" required>
-                                </div>
-                                <div class="field">
-                                    <button class="ui plus icon button" ng-click="team.addTeam(event.eventId)">
-                                        <i class="plus icon"></i>
-                                    </button>
-                                </div>
-                            </form>
+                    <div class="ui form">
+                        <div class="inline fields" ng-show="logged.userId == event.currentUserId || logged.userType=='admin'" class="right floated content">
+                            <div class="field">
+                                <input type="text" placeholder="Team Name" ng-model="team.teamName" name="team_name">
+                            </div>
+                            <div class="field" >
+                                <button class="ui plus icon button" ng-click="team.addTeam(event.eventId)">
+                                    <i class="plus icon"></i>
+                                </button>
+                            </div>
                         </div>
                     </div>
                     <br>
@@ -315,5 +314,6 @@
                 </div>
             </div>
         </div>
+    </div>
     </div>
 </div>

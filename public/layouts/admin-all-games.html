@@ -45,11 +45,41 @@
                             <td> {{x.winner_team_id}} </td>
                             <td> {{x.duration}} </td>
                             <td>
-                                <div class="ui animated button edit-trigger" ng-click="game.setCurrentId(x.game_id,'edit-modal')" id="edit">
+                                <div class="ui animated button edit-trigger" ng-click="game.setCurrentId(x.game_id,'edit-game-modal')" id="edit">
                                     <div class="visible content"><i class="edit icon"> </i></div>
                                     <div class="hidden content"> Edit </div>
                                 </div>
-                                <div class="ui modal" id="edit-modal">
+
+                            </td>
+                            <td>
+                                <div class="ui animated button edit-trigger" ng-click="game.setCurrentId(x.game_id,'delete-game-modal')" id="delete">
+                                    <div class="visible content"><i class="trash icon"> </i></div>
+                                    <div class="hidden content"> Delete </div>
+                                </div>
+
+                            </td>
+                            <td>
+                                <div class="ui button" ng-click="game.viewGamePage(x.game_id)">
+                                    <div class="visible content">VIEW</div>
+                                    <!-- <div class="hidden content"> Delete </div> -->
+                                </div>
+                            </td>
+
+                        </tr>
+                                                        <div class="ui basic modal" id="delete-game-modal">
+                                    <div class="ui icon header">
+                                        <i class="trash icon"></i> DELETE
+                                    </div>
+                                    <div class="actions">
+                                        <div class="ui red basic cancel inverted button" ng-click="game.closeModal('delete-game-modal')">
+                                            <i class="remove icon"></i> No
+                                        </div>
+                                        <div class="ui green ok inverted button" ng-click="game.deleteGame(x.game_id);game.closeModal('delete-game-modal')">
+                                            <i class="checkmark icon"></i> Yes
+                                        </div>
+                                    </div>
+                                </div>
+                        <div class="ui modal" id="edit-game-modal">
                                     <div class="header"> UPDATE GAME</div>
                                     <div class="content">
                                         <div class="ui form">
@@ -112,39 +142,11 @@
                                                 <input type="text" placeholder="{{x.referee}}" ng-model="game.updateReferee" ng-init="game.updateReferee = x.referee">
                                             </div>
                                             <br>
-                                            <div class="ui button" id="cancel" ng-click="game.closeModal('edit-modal')">Cancel</div>
-                                            <div class="ui button" ng-click="game.updateGame(x.game_id);game.closeModal('edit-modal');game.viewAllGames()">Submit</div>
+                                            <div class="ui button" id="cancel" ng-click="game.closeModal('edit-game-modal')">Cancel</div>
+                                            <div class="ui button" ng-click="game.updateGame(x.game_id);game.closeModal('edit-game-modal');game.viewAllGames()">Submit</div>
                                         </div>
                                     </div>
-                            </td>
-                            <td>
-                                <div class="ui animated button edit-trigger" ng-click="game.setCurrentId(x.game_id,'delete-modal')" id="delete">
-                                    <div class="visible content"><i class="trash icon"> </i></div>
-                                    <div class="hidden content"> Delete </div>
-                                </div>
-                                <div class="ui basic modal" id="delete-modal">
-                                    <div class="ui icon header">
-                                        <i class="trash icon"></i> DELETE
                                     </div>
-                                    <div class="actions">
-                                        <div class="ui red basic cancel inverted button" ng-click="game.closeModal('delete-modal')">
-                                            <i class="remove icon"></i> No
-                                        </div>
-                                        <div class="ui green ok inverted button" ng-click="game.deleteGame(x.game_id);game.closeModal('delete-modal')">
-                                            <i class="checkmark icon"></i> Yes
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
-                            <td>
-                                <div class="ui button" ng-click="game.viewGamePage(x.game_id)">
-                                    <div class="visible content">VIEW</div>
-                                    <!-- <div class="hidden content"> Delete </div> -->
-                                </div>
-                            </td>
-
-                        </tr>
-
                     </tbody>
                     <tfoot class="full-width">
                         <tr>

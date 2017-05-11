@@ -7,6 +7,7 @@
         <a href="#" class="header item">
             <img id="logo" src="images/malicsi-text.png">
         </a>
+        <a href='/#!/events' class='item' id="events-anchor">Events</a>
 
         <div class="right menu" ng-controller="userController as login">
             <form class="ui mini form">
@@ -54,20 +55,13 @@
     </div>
 </div>
 
-<div id="main-wrapper" ng-controller="guestController as game">
-    <div id="preview-panel" class="ui container grid">
-        <div class="game-preview ui column" ng-repeat="x in game.allGames">
+<div id="main-wrapper" class="ui container" ng-controller="guestController as game">
+    <div id="preview-panel" class="ui five column grid">
+        <div class="game-preview column" ng-repeat="x in game.allGames">
             <div ng-click="game.clicked(x.game_id)" class="guest-games">
-                <h3>{{ x.sport_name }}</h3>
-                <h5>{{ x.event_name }}<h5>
-                <p>{{ x.date_start + "  " + x.time_start }}</p>
+                <h4 class="text-wrapper">{{ x.sport_name }}</h4>
+                <p class="text-wrapper">{{ x.date_start + "  " + x.time_start }}</p>
             </div>
         </div>
     </div>
-    <a href="/#!/events">
-    <div id="event-redirect" class="ui column">
-        <i class="calendar icon"></i><br>
-        Events
-    </div>
-    </a>
 </div>

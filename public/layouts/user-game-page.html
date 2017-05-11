@@ -1,17 +1,33 @@
 <link rel='stylesheet' href='css/user-game-page.css' />
 
-<div id="main-wrapper" class="ui container">
-    <div ng-controller="gameController as game" ng-init="game.viewGameInGamePage();game.canBet()">
+<div id="main-wrapper" class="ui container" ng-controller="eventController as event" ng-init="event.viewClickedEvent()">
+<div ng-controller="eventValidityController">
+    <div ng-controller="gameController as game" ng-init="game.game=null;game.viewGameInGamePage();game.canBet()">
+        <div class="ui inverted segment"> 
+        <h1 class = "ui grey inverted header"><center>{{event.allEventsUser.event_name}}</center></h1>
+        </div>
 
-        <h1>{{game.game.sport_name}} Game {{game.game.game_id}}</h1>
-        <p>
-            At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia
-            animi, id est laborum et dolorum fuga.
-        </p>
-
+        <h2>{{game.game.sport_name}} Game {{game.game.game_id}}
+        <div ng-controller="loggedUserController as logged" class="ui button red" style="float:right"  ng-show="logged.userId == event.currentUserId || logged.userType=='admin'" ng-click="game.setCurrentId(game.game.game_id,'delete-modal')" id="delete">
+            <div class="">Delete</div>
+        </div>
+        <div class="ui basic modal" id="delete-modal">
+            <div class="ui icon header">
+                <i class="trash icon"></i> ARE YOU SURE YOU WANT TO DELETE THIS GAME?
+            </div>
+            <div class="actions">
+                <div class="ui red basic cancel inverted button" ng-click="game.closeModal('delete-modal')">
+                    <i class="remove icon"></i> No
+                </div>
+                <div ng-controller="userEventController as UEC" class="ui green ok inverted button" ng-click="game.deleteGame(game.game.game_id);game.closeModal('delete-modal');UEC.scoreboard()">
+                    <i class="checkmark icon"></i> Yes
+                </div>
+            </div>
+        </div></h2>
+     
         <div ng-controller="teamController as team">
             <div class="ui modal" id="add-modal">
-                <div class="header"> ADD TEAMS</div>
+                <div class="header">ADD TEAMS</div>
                 <div class="content">
                     <div class="ui form">
                         <div class="field">
@@ -35,8 +51,8 @@
                 </div>
             </div>
 
-            <div ng-controller="guestController as admin">
-                <div ng-show="admin.isAdmin" class="ui animated button add-trigger" style="float:right" ng-click="team.setCurrentId(1,'add-modal')">
+            <div  ng-controller="loggedUserController as logged">
+                <div  ng-show="logged.userId == event.currentUserId || logged.userType=='admin'"  class="ui animated button add-trigger" style="float:right" ng-click="team.setCurrentId(1,'add-modal')">
                     <div class="visible content"><i class="add icon"> </i></div>
                     <div class="hidden content"> Team </div>
                 </div>
@@ -62,8 +78,8 @@
             </div>
         </div>
 
-        <div ng-controller="guestController as admin">
-            <div ng-show="admin.isAdmin" class="ui animated button add-trigger" style="float:right" ng-click="game.setCurrentId(1,'addscore-modal')">
+        <div ng-controller="loggedUserController as logged">
+            <div  ng-show="logged.userId == event.currentUserId || logged.userType=='admin'" class="ui animated button add-trigger" style="float:right" ng-click="game.setCurrentId(1,'addscore-modal')">
                 <div class="visible content"><i class="add icon"> </i></div>
                 <div class="hidden content"> Score </div>
             </div>
@@ -95,8 +111,8 @@
                 </div>
             </div>
 
-            <div ng-controller="guestController as admin">
-                <button ng-show="admin.isAdmin" class="ui button" style="float:right" ng-click="game.setWinner()">FINALIZE GAME</button>
+            <div  ng-controller="loggedUserController as logged">
+                <button ng-show="logged.userId == event.currentUserId || logged.userType=='admin'" class="ui button" style="float:right" ng-click="game.setWinner()">FINALIZE GAME</button>
             </div>
 
             <div class="ui modal" style="margin:-10%;width:20%" id="tie-modal">
@@ -121,7 +137,7 @@
                 <div class="column game-panel">
                     <div class="ui card {{ (game.winnerTeamId == game.game.team_id)? card-win : card-lost }}">
                         <div class="image">
-                            <img class="ui large rounded image" src="images/star.jpg">
+                            <img class="ui large rounded image" src="{{team.teamprofilepic || '/images/icon_team.svg'}}">
                         </div>
                         <div class="content">
                             <br>
@@ -154,7 +170,7 @@
                 <div class="column game-panel" ng-controller="guestController as logged">
                     <div class="ui card {{ (game.winnerTeamId == game.game.team_id)? card-win : card-lost }}">
                         <div class="image">
-                            <img class="ui large rounded image" src="images/star.jpg">
+                            <img class="ui large rounded image" src="{{team.teamprofilepic || '/images/icon_team.svg'}}">
                         </div>
                         <div class="content" ng-controller="teamController as team">
                             <br>
@@ -189,5 +205,6 @@
             
         </div>
 
+    </div>
     </div>
 </div>

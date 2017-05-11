@@ -109,6 +109,27 @@ exports.viewAvailableTeams = (req, res, next) => {
 	});
 }
 
+
+exports.updateTeamPicture = (req,res) => {
+	const query_string = 'call updateTeamPicture(?,?)';
+	
+	const req_data = [
+		req.params.team_id,
+		req.file? req.file.path.substring(req.file.path.indexOf('public/')).replace('public',''):""
+	];
+	console.log(req_data);
+
+	connection.query(query_string, req_data, (err, result) => {
+		if(!err) {
+			res.status(200).send(result);
+		} else {
+			console.log("Error in Updating Profile Picture");
+			console.log(err);
+			res.status(500).send(err);
+		}
+	})		
+}
+
 exports.updateTeam = (req, res, next) => {
 	var query = 'call updateTeam(?,?)';
 	const data = [
@@ -213,6 +234,27 @@ exports.teamJoinEvent = (req, res, next) => {
 	});
 }
 
+exports.updateTeamProfilePicture = (req,res) => {
+	const query_string = 'call updateTeamProfilePicture(?,?)';
+	
+	const req_data = [
+		req.params.team_id,
+		req.file? req.file.path.substring(req.file.path.indexOf('public/')).replace('public',''):""
+	];
+
+	console.log("HALU");
+
+	connection.query(query_string, req_data, (err, result) => {
+		if(!err) {
+			res.status(200).send(result);
+		} else {
+			console.log("Error in Updating Team Profile Picture");
+			console.log(err);
+			res.status(500).send(err);
+		}
+	})		
+}
+
 exports.teamPlayGame = (req, res, next) => {
 	var query = 'call updateTeamPlaysGame(?,?,?)';
 	const data = [
@@ -308,8 +350,9 @@ exports.getTeamPlayers = (req,res, next) => {
 }
 
 exports.deleteTeamPlayer = (req,res, next) => {
-	var query = ' delete from team_players where team_id=? and user_id=?';
+	var query = ' call deleteTeamPlayer(?,?,?)';
 	const data = [
+		req.params.event_id,
 		req.params.team_id,
 		req.params.user_id
 		];
@@ -319,7 +362,7 @@ exports.deleteTeamPlayer = (req,res, next) => {
 			data,
 			(err, row, fields) => {
 				if(!err){
-					res.status(200);
+					res.status(200).send({message: 'Player removed'});
 				}
 				else{
 					console.log(err);
