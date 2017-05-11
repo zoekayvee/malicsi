@@ -2,7 +2,7 @@
 <link rel='stylesheet' href='semantic-ui-calendar/dist/calendar.css' />
 
 <script type='text/javascript' src='js/user-view-event.js'></script>
-<script src="semantic-ui-calendar/dist/calendar.js"></script>
+<!-- <script src="semantic-ui-calendar/dist/calendar.js"></script> -->
 
 <div id="main-wrapper" ng-controller="eventController as event" ng-init="event.viewClickedEvent()">
 <div ng-controller="eventValidityController">
@@ -211,7 +211,7 @@
                         <div ng-show="logged.userId == event.currentUserId || logged.userType=='admin'" class="ui search selection dropdown" ng-init="UEC.viewAvailableSports()">
                             <div class="default text">Sports</div>
                             <i class="dropdown icon"></i>
-                            <div class="menu">
+                            <div class="ui menu">
                                 <div class="item" ng-repeat="x in UEC.allAvailableSports" ng-click="UEC.setSportId(x.sport_id)" value="x.sport_id" ng-model="UEC.sportId">
                                     {{x.sport_name}}
                                 </div>
