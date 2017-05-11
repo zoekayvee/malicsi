@@ -15,8 +15,8 @@
             </div>
         </div>
         <!-- <div class="ui header">Users</div> -->
-        <div class="ui row">
-            <table class="ui collapsing center align table" id="user-table">
+        <div class="ui row table-wrapper">
+            <table class="ui stackable table" id="user-table">
                 <thead>
                     <tr>
                         <th>User ID</th>
@@ -33,14 +33,14 @@
                         <th colspan="3">Commands</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody class="text-wrapper">
                     <tr ng-repeat="x in admin.allUsers">
                         <td> {{x.user_id}}</td>
                         <td ng-controller="otherUsersController as others">
-                            <a ng-click="others.clicked(x.user_id)">{{x.username}}</a> 
+                            <a ng-click="others.clicked(x.user_id)">{{x.username}}</a>
                             <div> Type: {{x.user_type}}</div>
                         </td>
-                        <td> {{x.firstname}}</td>
+                        <td class="text-wrapper"> {{x.firstname}}</td>
                         <td> {{x.lastname}}</td>
                         <td> {{x.college}}</td>
                         <td> {{x.contactno}}</td>
@@ -53,7 +53,7 @@
                             <div class="ui icon button edit-trigger" ng-click="admin.initialize(x);admin.openModal('edit-modal')">
                                 <i class="write icon"> </i>
                             </div>
-                            
+
 
                         </td>
                         <td>
@@ -182,7 +182,7 @@
             </div>
 
             <div class="equal width fields">
-                
+
                     <div class="field">
                         <label>First name</label>
                         <input type="text" id="firstname" ng-maxlength="50"  ng-pattern="/^[A-Za-z ]+$/" ng-model="firstname" placeholder="{{admin.user.firstname}}">
@@ -194,7 +194,7 @@
             </div>
 
             <div class="equal width fields">
-               
+
                     <div class="field">
                         <label>Location</label>
                         <input type="text" id="location" ng-maxlength="100" ng-model="location" placeholder="{{admin.user.location}}">
@@ -207,11 +207,11 @@
                         <label>Height</label>
                         <input type="text" id="height" ng-model="height" ng-pattern="/^[ ]+$|(^[0-9]+([.][0-9]+)?)+$/" placeholder ="{{admin.user.height}}">
                     </div>
-               
+
             </div>
 
             <div class="equal width fields">
-                
+
                     <div class="field">
                         <label>Weight</label>
                         <input type="text" id="weight" ng-model="weight" ng-pattern="/^[ ]+$|(^[0-9]+([.][0-9]+)?)+$/" placeholder ="{{admin.user.weight}}">
@@ -227,10 +227,10 @@
                         <label>Age</label>
                         <input type="text" id="age" ng-pattern="/^[ ]+$|^[0-9]+$/" ng-maxlength="3" ng-model="age" placeholder="{{admin.user.age}}">
                     </div>
-                
+
             </div>
             <div class="ui equal width form">
-                
+
                     <div class="field">
                         <label>E-mail</label>
                         <input type="email" id="email" ng-model="email" placeholder ="{{admin.user.email}}">
@@ -247,7 +247,7 @@
                             <option value="pending">Pending</option>
                         </select>
                     </div>
-               
+
             </div>
         <br>
         <div class="ui button" id="cancel" ng-click="admin.closeModal('edit-modal')">Cancel</div>

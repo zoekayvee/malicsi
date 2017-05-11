@@ -33,31 +33,41 @@ body {
 }
 
 #preview-panel {
-    width: 100vw;
-    height: 120px;
     /*background: rgba(0,0,0,0.5);*/
+    width: 90% !important;
+    height: 120px;
     position: absolute;
     bottom: 0;
-    padding-left: 5%;
-    padding-right: 5%;
 }
 
 .game-preview {
-    width: 18% !important;
-    height: 90px;
-    background: rgba(0,0,0,0.8);
+    height: auto;
     display: inline-block;
-    padding: 5px;
-    padding-left: 10px;
-    transition: all 0.1s linear;
-    border-left: solid 1px rgba(255, 0, 0, 0.5);
-    margin-right: 15px;
-    margin-bottom: 20px !important;
+    padding: 10px !important;
 }
 
-.game-preview:hover {
+.guest-games:hover {
     background-color: rgba(255,0,0,0.3);
     transform: scale(1.1);
+    transform: translate(0, -15px);
+    color: white !important;
+}
+
+.guest-games {
+    height: auto;
+    min-height: 120px;
+    background: rgba(0,0,0,0.8);
+    transition: all 0.1s linear;
+    border-left: solid 2px rgba(255, 0, 0, 0.5);
+    padding: 10px;
+}
+
+.guest-games h4 {
+    color: #DE1B1B;
+}
+
+.guest-games p {
+    color: #999;
 }
 
 input, .button {
@@ -65,34 +75,16 @@ input, .button {
 }
 
 #event-redirect {
-    height: 90px;
-    width: 200px !important;
+    width: 10% !important;
     position: fixed;
     right: 20px;
     bottom: 20px;
-    background-color: rgba(255,0,0,0.1);
-    color: white;
     text-align: center;
+}
+
+#events-wrapper {
+    width: 100px;
+    height: 100px !important;
     font-size: 15pt;
-    padding-top: 22px;
-    line-height: 15px;
-    border-top: solid 1px rgba(255, 0, 0, 0.5);
-}
-
-.guest-games {
-    line-height: 10px;
-}
-
-.guest-games h3 {
-    margin-bottom: -20px;
-    color: #DE1B1B;
-}
-
-.guest-games h5 {
-    margin-bottom: -20px;
-    color: #DEDEDE;
-}
-
-.guest-games p {
-    color: #999;
+    padding: 20px;
 }

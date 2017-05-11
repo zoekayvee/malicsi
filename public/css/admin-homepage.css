@@ -56,12 +56,8 @@ a {
     margin-bottom: 20px;
 }
 
-#user-table {
-    width: 100% !important;
-}
-
 .ui.table {
-    width: 100%;
+    width: 100% !important;
 }
 
 td,
@@ -69,7 +65,16 @@ th {
     border: 1px solid #dddddd;
     padding: 8px;
 }
+
 .ui.animated.button,#edit {
 	background-color: #de1b1b;
 	color: white;
+}
+
+div {
+    /*border: solid 1px red;*/
+}
+
+.table-wrapper {
+    overflow-x: scroll;
 }
