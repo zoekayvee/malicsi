@@ -265,6 +265,10 @@
                             </div>
                         </div>
                     </div>
+
+                    <div ng-show="{{team.allTeamsIsEmpty}}">
+                        LOL
+                    </div>
                     <br>
                     <div ng-controller="guestController as loged" class="ui middle aligned divided list" ng-init="team.viewTeamPerEvent()">
                         <div class="item " ng-repeat="x in team.allTeams">

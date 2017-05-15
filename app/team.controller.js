@@ -60,6 +60,8 @@
         vm.files = [];
         vm.getTeamPlayersCount=getTeamPlayersCount;
 
+        vm.allTeamsIsEmpty = false;
+
         $http
     		.get('/user_loggedin')
     		.then(function(response){
@@ -310,11 +312,17 @@
 				.get('/teams_per/'+$routeParams.event_id)
 				.then(function(response){
 					vm.allTeams = response.data;
+					vm.allTeamsIsEmpty = checkIfAllTeamsIsEmpty();
 					console.log(vm.allTeams);
 				},
 				function(response){
 					console.log("error");
 				})
+		}
+
+		function checkIfAllTeamsIsEmpty(){
+			if(vm.allTeams.size == 0) return true;
+			else return false;
 		}
 
 

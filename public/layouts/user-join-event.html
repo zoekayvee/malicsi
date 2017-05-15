@@ -14,6 +14,7 @@
                     </div>
                       <i class="massive users icon"></i>
                 </div>
+
                 <div class="content">
                     <a class="header" ng-click="team.viewTeam(x.team_id)">{{x.team_name}}</a>
                 </div>
@@ -42,6 +43,9 @@
             </div>
             </div>
             <div class="extra content">
+            </div>
+            <div ng-show="{{team.allTeamsIsEmpty}}">
+                POTA
             </div>
         </div>
     </div>
