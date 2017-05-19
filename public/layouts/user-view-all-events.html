@@ -2,9 +2,15 @@
 <script src="js/user-view-all-events.js"></script>
 
 <div id="main-wrapper" ng-controller="eventController as event">
+    <div class="ui container">
+        <div class="ui icon input">
+             <i class="search icon"></i>
+            <input placeholder="Event Name" type="text" ng-model="eventSearch"/>
+        </div>
+    </div>
+    <br>
     <div class="ui container four column grid" ng-init="event.viewAllEvent()">
-
-        <div ng-repeat="x in event.allEvents | filter: {status: 'accepted'}" class="column" >
+        <div ng-repeat="x in event.allEvents | filter: eventSearch | filter: {status: 'accepted'}" class="column" >
             <div class="ui card event-card
 			{{ x.allow_reg == '1' ? 'active' : 'inactive' }}"
             ng-click="event.viewEvent(x.event_id)">
